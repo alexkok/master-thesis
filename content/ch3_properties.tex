@@ -30,8 +30,7 @@ research question:
 \end{description}
 To answer this question, we first describe a way how we can determine the
 properties. Followed by the property defintions that will be used troughout this
-thesis, with a motivation why these properties are expected to hold. Next, we
-will provide a discussion about the properties that we defined.
+thesis, with a motivation why these properties are expected to hold.
 
 %\todo[inline]{Percentage? Not yet, defining those requires properties again. And running the test suit again, evaluate again, etc.\\
 %Describe what exactly is Percentage if we define it in a specification, which rules does it inherit?\\
@@ -113,7 +112,7 @@ We say that the amount of a \textit{Money} value in \textit{Rebel} should hold t
 The properties that we define are based on the known axioms in algebra. Although, not every property can be used. For example, it isn't possible to multiply two \textit{Money} types with each other to support the multiplicative property for example. Instead we can only multiply \textit{Money} with other types, such as \textit{Integer} and \textit{Percentage}, resulting in multiple property definitions when using different types. In the following sections we motivate the properties that we use during the project.
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
-\subsection{Reflexivity}
+\subsection*{Reflexivity}
 % Table
 \begin{table}[h!]
 \centering
@@ -133,7 +132,7 @@ The reflexive property means a relation of a type with itself \cite{raftery2011p
 
 % % % % % % % % % % % % %
 % Subsection: Symmetry
-\subsection{Symmetry}
+\subsection*{Symmetry}
 % Table
 \begin{table}[h!]
 \centering
@@ -152,7 +151,7 @@ Reflexivity already described equality on \textit{Money} when used on the same v
 
 % % % % % % % % % % % % %
 % Subsection: Antisymmetry
-\subsection{Antisymmetry}
+\subsection*{Antisymmetry}
 % Table
 \begin{table}[h!]
 \centering
@@ -172,7 +171,7 @@ The antisymmetric relation describes that whenever there is a relation from x to
 
 % % % % % % % % % % % % %
 % Subsection: Transitivity
-\subsection{Transitivity}
+\subsection*{Transitivity}
 % Table
 \begin{table}[h!]
 \centering
@@ -203,7 +202,7 @@ Operations can be done on the \textit{Money} types. The transitive properties \c
 
 % % % % % % % % % % % % %
 % Subsection: Commutativity
-\subsection{Commutativity}
+\subsection*{Commutativity}
 \label{ssct:4_commutativity}
 % Table
 \begin{table}[h!]
@@ -230,7 +229,7 @@ These properties are based on the commutative law \cite{baumgart1961axioms}. The
 
 % % % % % % % % % % % % %
 % Subsection: Anticommutativity
-\subsection{Anticommutativity}
+\subsection*{Anticommutativity}
 % Table
 \begin{table}[h!]
 \centering
@@ -248,7 +247,7 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 
 % % % % % % % % % % % % %
 % Subsection: Associativity
-\subsection{Associativity}
+\subsection*{Associativity}
 \label{ssct:4_associativity}
 % Table
 \begin{table}[h!]
@@ -280,7 +279,7 @@ The law of associativity is known on addition and multiplication \cite{baumgart1
 
 % % % % % % % % % % % % %
 % Subsection: Non-associativity
-\subsection{Non-associativity}
+\subsection*{Non-associativity}
 % Table
 \begin{table}[h!]
 \centering
@@ -299,7 +298,7 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 
 % % % % % % % % % % % % %
 % Subsection: Distributivity
-\subsection{Distributivity}
+\subsection*{Distributivity}
 % Table
 \begin{table}[h!]
 \centering
@@ -327,7 +326,7 @@ The law of distributivity is another well-known law \cite{baumgart1961axioms}. U
 
 % % % % % % % % % % % % %
 % Subsection: Identity
-\subsection{Identity}
+\subsection*{Identity}
 % Table
 \begin{table}[h!]
 \centering
@@ -347,7 +346,7 @@ The identity relation describes a function that returns the same value as the va
 
 % % % % % % % % % % % % %
 % Subsection: Inverse
-\subsection{Inverse}
+\subsection*{Inverse}
 % Table
 \begin{table}[h!]
 \centering
@@ -365,7 +364,7 @@ The inverse relation describes for additivity that using addition with the input
 
 % % % % % % % % % % % % %
 % Subsection: Additivity
-\subsection{Additivity}
+\subsection*{Additivity}
 % Table
 \begin{table}[h!]
 \centering
@@ -388,7 +387,7 @@ Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativ
 
 % % % % % % % % % % % % %
 % Subsection: Property of Zero
-\subsection{Property of Zero}
+\subsection*{Property of Zero}
 % Table
 \begin{table}[h!]
 \centering
@@ -406,7 +405,7 @@ The property of zero on multiplication states that if something is multiplied by
 
 % % % % % % % % % % % % %
 % Subsection: Division
-\subsection{Division}
+\subsection*{Division}
 % Table
 \begin{table}[h!]
 \centering
@@ -428,7 +427,7 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 
 % % % % % % % % % % % % %
 % Subsection: Trichotomy
-\subsection{Trichotomy}
+\subsection*{Trichotomy}
 % Table
 \begin{table}[h!]
 \centering
