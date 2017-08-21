@@ -71,8 +71,11 @@ Next, we generate tests for each of these properties automatically and run these
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Related work
 \section{Related work}
+% // Doesn't this have to be at the end?
+% - Testing of (extended) finite state machines
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Random testing
+% Subsection: Random testing
 \subsection{Random testing}
 \pinfo{Describe random testing (FDRT)}
 Random testing is a technique in which random values are being used as input for the test cases. \textit{QuickCheck} \cite{claessen2011quickcheck} and \textit{Randoop} \cite{pacheco2007randoop} are examples of random testing techniques. These differ in how they automatically test systems and what actually is being tested. QuickCheck is based on property-based testing, which we also apply in this project. \textit{Randoop} on the other hand is based on feedback-directed random testing.\\
@@ -81,12 +84,12 @@ Random testing is a technique in which random values are being used as input for
 With feedback-directed random testing, random tests are generated which will immediately be run. The result of earlier test attempts can affect the next test that is being generated, which can be seen as feedback for the next generated test. This allows each test case to 'learn' from earlier attempts and to create unique tests.\\
 \\
 \pinfo{About Randoop, shortly how it works}
-\textit{Randoop} is build for Java projects and checks some built-in specifications of Java that can't be checked by the compiler. The test cases are simple unit tests, consisting of a unique sequence of methods due to the feedback of earlier attempts. The method sequences are unique because it also checks whether the same case has already been checked. Since there can be unlimited sequences of methods to test, the test suite will be terminated after a defined timeout. Next, the result is determined and failing cases are being reported, although when using this approach it cannot determine whether the whole system is correct according to the Java specifications. Instead, it just wasn't able to find a case for which it fails. This is a useful approach to generate unique tests, but its goal is to check systems built in Java and thus is not compatible with the semantics of Rebel. It works with calling the Java objects and using methods on those, while the generated system consists of mainly states and events. When using an approach like \textit{Randoop} with random input values, it cannot be known whether the result of a specific transition was expected to succeed or fail.
+\textit{Randoop} is build for Java projects and checks some built-in specifications of Java that can't be checked by the compiler. The test cases are simple unit tests, consisting of a unique sequence of methods due to the feedback of earlier attempts. The method sequences are unique because it also checks whether the same case has already been checked. Since there can be unlimited sequences of methods to test, the test suite will be terminated after a defined timeout. Next, the result is determined and failing cases are being reported, although when using this approach it cannot determine whether the whole system is correct according to the Java specifications. Instead, it just wasn't able to find a case for which it fails. This is a useful approach to generate unique tests, but its goal is to check systems built in Java and thus is not compatible with the semantics of Rebel. It works with calling the Java objects and using methods on those, while the generated system consists of mainly states and events. When using an approach like \textit{Randoop} with random input values, it cannot be known whether the result of a specific transition was expected to succeed or fail.\\
 % Can add DART here, if needed
-
-
-% // Doesn't this have to be at the end?
-% Testing of (extended) finite state machines
+\\
+\pinfo{Our case, why existing approaches can't be used}
+%  Background contains info about quickcheck and randoop. Repeat limitations and describe how we do it
+Approaches like \textit{QuickCheck} \cite{claessen2011quickcheck} and \textit{Randoop} \cite{pacheco2007randoop} enforce the system under test to be written in a specific language (\textit{Haskell} for \textit{QuickCheck}, \textit{Java} for \textit{Randoop}). For \textit{QuickCheck} there are alternative solutions for other languages. In our case, we need to use \textit{Rebel} when generating test cases, such that we test the generator when generating the tests. Another reason why we can't use a method like \textit{Randoop} is that \textit{Randoop} strictly checks for \textit{Java} properties, which are not in line with the \textit{Rebel} language.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Outline
