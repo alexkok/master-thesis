@@ -7,16 +7,15 @@
 % Section: Smarter values generation
 %\section{Smarter values generation}
 %\label{sec:ch4_smarter_values_generation}
-\pinfo{Small context - result of experiment 1}
-Some bugs were found by using random input values in the first experiment. However the properties that use implication were not effectively checked in terms of the chance that the if-clause of the implicative properties were triggered when using random input values.\\
-\\
-\pinfo{2 categories separation}
-We can separate the properties that we have in 2 different categories: those using implication ($\implies$) and those that do not. For each category we generate a test file, containing the tests belonging to that category. For the properties that use implication, another way of generating the random values would be more useful. We could optimize the random input values such that the if-clause of these properties are satisfied. When this is done, some these tests might end up failing too because the input values are now optimized for these cases. For the other category the earlier approach (random values as input) can still be used, we do not need to change this functionality for these cases.
+\pinfo{Context - result of experiment 1, what aim is now}
+Some bugs were found by using random input values in the first experiment. However the properties that use implication were not effectively checked in terms of the chance that the if-clause of the implicative properties were triggered when using random input values. This is what we aim to improve in this experiment, expecting to detect more bugs by triggering the implicative properties as expected.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Generating semi-random values
-\section{Generating semi-random values}
-%\todo{Reasoning. Why exactly doing this? What other possibilities are there. Why not taken those? Small fallback to last section to get the context again}
+% Section: Setup
+\section{Setup}
+\pinfo{2 categories separation}
+We can separate the properties that we have in 2 different categories: those using implication ($\implies$) and those that do not. For each category we generate a test file, containing the tests belonging to that category. For the properties that use implication, another way of generating the random values would be more useful. We could optimize the random input values such that the if-clause of these properties are satisfied. When this is done, some these tests might end up failing too because the input values are now optimized for these cases. For the other category the earlier approach (random values as input) can still be used, we do not need to change this functionality for these cases.\\
+\\
 For the implication events the if-clause will be added to the preconditions, such that we can use those in order to generate the values matching this clause. When generating our test suit the events are being traversed, in case an event with some preconditions was found, it generates a test that is different than the earlier generated tests.\\
 \\
 The first difference is that it now uses our custom generator to determine the input values, instead of the build-in Java random generator. A list of tuples, containing values which satisfies the if-clause of the implication, are being generated. Our custom generator is a simple proof of concept in order to check if this will actually result in more failing tests. This custom generator basically consists of multiple methods which are being called based on the event name. In \autoref{lst:ch4_second_generating_values} this behavior is shown for the \textit{Symmetric} and \textit{Division1} event. The String parameter of these methods is a way how we can pattern match on the event name in Rascal. In case the event couldn't be handled, we throw an exception.
@@ -49,10 +48,10 @@ However, these values are fixed when we translate them directly to a test, which
 \begin{sourcecode}[h!]
 \begin{lstlisting}[language=Scala]
 "work with Antisymmetry" in {
-      Seq((USD(1593.62), USD(1593.62)), (USD(2869.78), USD(2869.78)), 
-          (EUR(4676.80), EUR(4676.80)), (USD(1850.29), USD(1850.29)), 
+      Seq((USD(1593.62), USD(1593.62)), (USD(2869.78), USD(2869.78)),
+          (EUR(4676.80), EUR(4676.80)), (USD(1850.29), USD(1850.29)),
           // ... // More values in the list
-          (USD(9501.16), USD(9501.16)), (- EUR(149.67), - EUR(149.67)),  
+          (USD(9501.16), USD(9501.16)), (- EUR(149.67), - EUR(149.67)),
           (- EUR(159.67), - EUR(159.67)), (EUR(8015.77), EUR(8015.77)))
       .foreach {
         data:  (Money, Money) => {
@@ -74,8 +73,8 @@ However, these values are fixed when we translate them directly to a test, which
 Now that the input values for the implication events satisfy the if-clause, we can also update the specification such that the else-clause of the expression always returns \textit{False}. This results in a failing case again in case the precondition was not met. When this happens, it could indicate that there's a problem with our custom generator, or that the translation from the specification to the generated system was done incorrect.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Running the test suit
-\section{Running the test suit}
+% Section: Results
+\section{Results}
 \pinfo{Failing tests: Division}
 Running the test suit with these changes resulted in an extra of 2 tests that were failing compared to the first experiment (\autoref{cpt:5_experiment1}). These were \textit{Division1} and \textit{Division2}, which reported that the precondition failed on the input values that were used, as shown in \autoref{lst:ch6_division_preconditionfailed}.
 \\
@@ -111,12 +110,12 @@ For \textit{Division1} it states that the condition \code{x*y == z} failed. The 
 The first experiment already described the precision problem and how it could be fixed. We run these tests again against a new generated system (using the same generator) in which the precision errors that we identified earlier, are fixed. Running the test suit again on this system still results in the same amount of failing tests. As shown in Listing X, one case still fails on the precondition check, while the other case returns \textit{false}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Evaluation
-\section{Evaluation}
+% Section: Analysis
+\section{Analysis}
 In this experiment we generated the input values such that the condition of the properties using implication are satisfied. When looking at the coverage report concerning a specific property, it can be seen that the else-clause of the implication is not being triggered any more. In \autoref{fig:ch6_eval_e2_highlighting_transitive-equality} the coverage of \textit{TransitiveEquality} is shown, note that only the else condition (which was translated to \textit{false}) is not triggered by the test suite. This was also the intention of the modification used in this experiment, as the if-clause is actually what we intended the property to check.
 \\
 \begin{figure}[h!]
-\frame{ 
+\frame{
 	\includegraphics[width=\linewidth]{figures/eval_e2_transitive-equality}
 }
 \caption{Test coverage for \textit{TransitiveEquality} in second experiment}
@@ -132,7 +131,7 @@ Although this did not lead to many additional bugs compared to the earlier exper
 The expectation was that the test suite could be improved, such that the test coverage on the SUT would become higher. In the first experiment we found that the properties using implication were not tested thoroughly. In this experiment these properties are triggering the if-clause of the properties using implication, thus we expect the test coverage to be higher when looking on the coverage of the properties. This is also follows from the results, as we can see in \autoref{fig:ch6_eval_experiment2}, the test coverage when looking at the logic file of the implicative properties is 74\%.
 \\
 \begin{figure}[h!]
-\frame{ 
+\frame{
 	\includegraphics[width=\linewidth]{figures/eval_experiment2}
 }
 \caption{Test coverage report of the first experiment}
@@ -146,31 +145,7 @@ The total test coverage on the SUT is reported to be 85\%. As we have discussed 
 \pinfo{\# of bugs, 1 more}
 The other criteria we use was the amount of bugs that we have found. Using this approach 2 more tests were failing compared to the first experiment in \autoref{cpt:5_experiment1}. The bug found was when using division with the \textit{Money} type, which is expected to be rounded off at the Xth decimal \todo{Define X}. However, as we have seen in this experiment, the generated system does not take this into account. We can categorize this bug into one category, rounding errors. These are different from precision errors as the precision errors are caused by having an incorrectly calculated value, where rounding errors are basically not working with the rounding method that is defined.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Threats to validity
+\section{Threats to validity}
+...
