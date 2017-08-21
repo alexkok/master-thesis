@@ -1,0 +1,101 @@
+\documentclass{uvamscse}
+\usepackage{placeins}
+
+\input{program-listings}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% New commands
+\newcommand{\cmd}[1]{\texttt{$\backslash$#1}}
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+%\newcommand{\code}[1]{\texttt{\leavevmode\unskip $`$#1$`$}}
+%\PackageWarning{TODO:}{Remove todos on final!!!}
+%\newcommand\todo[1]{{\marginpar{\textcolor{red}{$-$ TODO:\\#1}}}}
+%\renewcommand\todo[1]{} % Turns off all TODO's
+\newcommand\pinfo[1]{{\marginpar{\begin{flushleft}\textcolor{blue}{|\\#1}\end{flushleft}}}} %  Left align in \pinfo's with "flushleft"
+%\renewcommand\pinfo[1]{} % Turns off all \pinfo's
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Customization
+\def\chapterautorefname{Chapter} % "Chapter X" instead of "SS X" when referring to chapters
+\renewcommand{\arraystretch}{1.3} % Vertical spacing in tables
+\usepackage[labelfont=bf]{caption} % Make figure and table tags bold too
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Front matters
+
+\title{ATUR: Automated Testing Using Rebel}
+% \coverpic[100pt]{figures/terminal.png}
+%\subtitle{Automatically testing a generated system using its input language}
+\subtitle{Testing a generator using its input language and output system}
+% \date{Spring 2014}
+
+\author{Alex Kok}
+\authemail{alex.kok@student.uva.nl}
+\supervisor{Jurgen J. Vinju}
+\hostsupervisor{Jorryt-Jan Dijkstra}
+\host{ING, \url{http://www.ing.nl}}
+
+\begin{document}
+\maketitle
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Content
+% Research questions
+
+% RQ Main \ How can we automatically test the implementation of the generated program?
+
+  %\item Which of the existing approaches best fits our situation to determine the test cases? \info{(Which properties of Rebel should be tested and how are these defined?)}
+ % RQ 1 \item How can we automatically generate the tests, such that it can test a part of the generated system?
+  % - Properties
+  % - Define in Rebel > Translate to Scala with generator > Scala tests > Run
+ % RQ 2 \item What kind of errors can we find using this approach?
+  % - Implementation of operations, such as equality, addition, multiplication, etc.
+  % - Precision errors? (is basically the above?)
+  % RQ 3 \item How can we extend our test suit to find more implementation errors?
+  % - Add sync block
+  % - Even more properties, but should be useful ones
+
+% Old one
+%\def \rqMain{ How can we automatically test the implementation of a component in the generated system against the Rebel specification, to check whether the implementation works as expected? }
+% New
+\def \rqMain{
+	How can we automatically test the generator, and thus the generated system, to check whether the implementation works as expected?
+}
+% Old one: Too vague, PBT wasn't mentioned, so 'automatically' was also unclear
+% \def \rqOne{ How can we automatically generate the tests, such that it can test a component the generated system? }
+% New
+\def \rqOne{
+	Which properties are expected to hold on the generator?
+}
+% Old one: zoom in, # of bugs and which type?
+%\def \rqTwo{ What kind of errors can we find using this approach? }
+% New
+\def \rqTwo{
+	How can we automatically test each property to find as much as possible bugs?
+}
+% Old one: future work question...
+%\def \rqThree{ How can we extend the test suite to find more implementation errors in the generated system? }
+\def \rqThree{
+	What kind of bugs can be found using this approach and how many?
+}
+
+\input{content/ch0_front.tex}
+\input{content/ch1_intro.tex}
+\input{content/ch2_background.tex}
+\input{content/ch3_properties.tex}
+\input{content/ch4_testmechanics.tex}
+\input{content/ch5_experiment1.tex}
+\input{content/ch6_experiment2.tex}
+\input{content/ch7_discussion.tex}
+\input{content/ch8_conclusion.tex}
+\input{content/ch9_end.tex}
+
+\end{document}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Possible further improvements (TODO's):
+% - Background: Rebel Keller source for labeled transition system
+% - Test mechanics: Also define efficiency? Not yet, requires many changes and rerunning is all again.
+% - Properties: Also describe percentage? Not yet, requires defining, reasoning, and running it all again. And possibly updating evaluations too

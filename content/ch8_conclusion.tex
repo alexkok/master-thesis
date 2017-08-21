@@ -1,0 +1,63 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Chapter: Conclusion
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\chapter{Conclusion}
+\label{chp:conclusion}
+% Summary
+Throughout this project, we have shown a way how a component of the generated system can be automatically checked by using a \textit{Rebel} specification. This is done by generating tests based on the specification and making use of the generator to generate the tests. The \textit{Rebel} specification contains a set of defined properties that are defined on the custom types of \textit{Rebel}. However, these definitions were not defined earlier, thus we provide a definition for some of these types and  define properties that hold when operating with it. We have proven that the test framework was improved throughout the project by taking the coverage and amount of bugs found metrics into account. Furthermore, we have found some bugs in the generated system that were unknown before, showing that this approach already helped to identify some problems in the generator and the generated system. Additionally, we contributed to an open source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
+\\
+% Research questions
+% Answer main research question
+To answer the main research question, we defined some research questions, which we discussed in \autoref{cpt:7_discussion}. The main research question was as follows:
+\begin{quote}
+\rqMain
+\end{quote}
+As component from the generated system, we selected the operations on the custom types that \textit{Rebel} supports. The approach used was based on the \textit{QuickCheck} approach, but it was different in our case. The \textit{Rebel} language has been used to define the properties and to make use of the type checker. Next, the existing generator was being used to generate the SUT and to translate the properties to test cases. When running the test suit against the generated system, we found some errors in the implementation of the generated system. Additionally, we were able to detect a compilation error and to detect incorrectly translated formulas. Although the latter was not the case, we showed that this can be detected when modifying the generator such that a formula is being translated incorrectly.\\
+\\
+We conclude that this approach is a way how the implementation of certain components in the generated system can be checked. Additionally, it is a way to check certain parts in the generator, namely the parts where an expression is being translated. However, it does not mean that there are no implementation errors in case the test suite finishes successfully. It only means that no implementation errors were found using this test framework. The test framework can be extended such that it covers more components of the implementation, making it more suitable to test more components of the generated system.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Contribution
+\section{Contribution}
+% - Definitions (properties)
+We provided a definition of some types in \textit{Rebel} and described properties that should hold when using operations with these types. Since there were no clear definitions available yet of what these types exactly do, a contribution has been made to the \textit{Rebel} project, such that there are now some definitions and properties available. This also helps when reasoning about the implementation, as there is now a definition of what is expected. Although these definitions might change over time, it allows to reason back to an earlier starting point.\\
+\\
+% - A way to automatically test the generator and generated system using Rebel, defining properties as events
+We have shown a way to automatically test the generator and the generated system using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that should hold in the first case. Which can be translated to a Rebel specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
+\\
+% - Found number of bugs in generated system
+A number of bugs have been found in the generated system, precision errors, overflow/underflow errors and even a compile error. These bugs are now known issues in this project, while these were unknown before. This shows us that this approach already worked in such a way that it is able to detect bugs in the generated system. It can be extended to detect even more bugs. With some modifications, it is also possible to use this approach with other generated systems, such that it can detect inequalities among these.\\
+\\
+% - Squants issues
+In this approach, we identified two bugs, which were due to an open source library used in the generated
+system, called \textit{Squants}. We reported these two issues, such that these can be fixed in a later version of the library.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Future work
+\section{Future work}
+\todo{Write  this out. Points below are baselines for the content here}
+- Generate properties (automatically) for each type, allowing dynamic adding of new operators and types.  Or to detect errors in the typechecker. For example: if the type checker allows multiplication of Money, an error at compile or run time will occur in the generated system. Since this was not the aim of the project, it is not required, but can be useful to detect errors in the generated system when a new type has been added.  \\
+- Dynamic values generation based on conditions. Maybe other tools can be used to do this or as guideline. (probably some QuickCheck variants support this already). Could use SMT for this, or a tool like SAGE (SRC).\\
+- More properties, define more things to test. Also other types.\\
+% - Sync properties. (Or maybe we do cover them later. At the moment of writing this is not the case yet)
+- Support for checking other components, such as syncblock\\
+% - Mutation checks if we catch invalid generations of the program. 'proving' that our suit is useful. (Although it already found bugs)
+- Mutation coverage as measure to how effective this could be. Are all mutants killed? Available at bitcode level for Scala as it compiles to Java in the end. However, this might also generate mutants that are not being killed, as it might do some modifications that still result in a correct implementation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinelanguage{sdf}{%
+  numbers=none,
+  morekeywords={module,imports,exports,sorts,context,lexical,free,syntax,==,=,+,-,left,cons,prefer,avoid,bracket},
+  columns=flexible,
+  morestring=[b]",
+  basicstyle=\footnotesize\mdseries,
+  literate={->}{{\,\,$\to$\,\,}}1
+}
+
+\definecolor{colorRascalKeyword}{RGB}{106,63,96}
+\definecolor{colorRascalString}{RGB}{176,133,155}
+%\definecolor{colorRascalString}{RGB}{2,112,10}
+\definecolor{colorRascalComment}{RGB}{150,152,150}
+
+\lstdefinelanguage{rascal}{
+  morekeywords={syntax, keyword, lexical, break, continue, finally, private, fail, filter, if, tag, extend, append, non-assoc, assoc, test, anno, layout, data, join, it, bracket, in, import, all, solve, try, catch, notin, else, insert, switch, return, case, while, throws, visit, for, assert, default, map, alias, any, module, mod, public, one, throw, start, value, loc, node, num, type, bag, int, rat, rel, lrel, real, tuple, str, bool, void, datetime, set, map, list},
+  morestring=[b]",
+  basicstyle=\footnotesize\mdseries,
+  keywordstyle=\color{colorRascalKeyword}\bfseries\rmfamily,
+  stringstyle=\color{colorRascalString}\ttfamily,
+  commentstyle=\color{colorRascalComment}\ttfamily,
+  morecomment=[l][\color{colorRascalComment}]{\//}
+}
+
+% Same colors in Rebel (Rascal colors)
+\lstdefinelanguage{rebel}{
+  morekeywords={module, import, specification, fields, events, event, lifeCycle, initial, final, new, this, preconditions, postconditions},
+  morestring=[b]",
+  basicstyle=\footnotesize\mdseries,
+  keywordstyle=\color{colorRascalKeyword}\bfseries\rmfamily,
+  stringstyle=\color{colorRascalString}\ttfamily,
+  commentstyle=\color{colorRascalComment}\ttfamily,
+  morecomment=[l][\color{colorRascalComment}]{\//},
+  morecomment=[l][\color{colorRascalComment}]{@}
+}
+
+% Source: https://tex.stackexchange.com/questions/47175/scala-support-in-listings-package
+% Missing colors
+\lstdefinelanguage{scala}{
+  morekeywords={abstract,case,catch,class,def,%
+    do,else,extends,false,final,finally,%
+    for,if,implicit,import,match,mixin,%
+    new,null,object,override,package,%
+    private,protected,requires,return,sealed,%
+    super,this,throw,trait,true,try,%
+    type,val,var,while,with,yield},
+  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[n]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]"""
+}
+
+\lstdefinelanguage{log}{
+  %morekeywords={},
+  %morecomment=[l]{//},
+  %morestring=[b]",
+}
+
+\lstset{%
+  frame=none,
+  xleftmargin=2pt,
+  stepnumber=1,
+  numbers=left,
+  numbersep=7pt,
+  numberstyle=\ttfamily\scriptsize\color[gray]{0.3},
+  belowcaptionskip=\bigskipamount,
+  captionpos=b,
+  tabsize=2,
+  emphstyle={\bf},
+  stringstyle=\itshape,
+  showspaces=false,
+  keywordstyle=\bfseries\rmfamily,
+  columns=flexible,
+  basicstyle=\small\ttfamily,
+  showstringspaces=false,
+  breaklines=true, % sets automatic line breaking
+}
