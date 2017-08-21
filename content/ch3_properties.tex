@@ -82,8 +82,7 @@ problems with this arithmetic are intended to exist on the Money type.
 Considering that that a high volume flows within a bank in terms of
 \textit{Money}, using the Floating-Point Arithmetic properties can result in the
 known precision, overflow and underflow errors as described
-in~\cite{goldberg1991every}. Which can have a huge impact on the system and the
-bank. The precision errors for instance, should be avoided when using the
+in~\cite{goldberg1991every}. Such errors should be avoided when using the
 \textit{Money} type. The author of \cite{fowler2002patterns} also describes that
 the intend of the \textit{Money} type is to avoid this:
 \begin{quote}
@@ -97,7 +96,7 @@ the intend of the \textit{Money} type is to avoid this:
 \pinfo{Money operations, expecting division problem}
 The author of~\cite{fowler2002patterns} also describes the operations that can
 be done with the \textit{Money} type, which are: +, -, *, allocate, $<$, $>$,
-$\leq$, $\geq$ and =. Where the allocate method is used instead of the division (/) operation. This is due to the division problem, requiring a number to be rounded off at a certain time. For example, when splitting 1 EUR with 3 people, everyone would receive 33 cents, but what is done with the last cent that is left? This is the problem that is being solved by the allocate method, which describes the ratio\todo{Check in source if 'ratio' is correct} on where the last cent would go to in this case. The allocate method is a thing that \textit{Rebel} does not have, instead it just allows the use of the division operator. Because of this, we expect the division problem to occur while running the test framework. The amount of a \textit{Money} value is often rounded when it is being represented to the user, as it could have many decimals. The representation of the \textit{Money} value is up to the business on how this is done, as there are multiple factors influencing this. Instead, we only focus on the internal value that is used when operating with the \textit{Money} type.\\
+$\leq$, $\geq$ and =. Where the allocate method is used instead of the division (/) operation. This is due to the division problem, requiring a number to be rounded off at a certain time. For example, when splitting 1 EUR with 3 people, everyone would receive 33 cents, but what is done with the last cent that is left? This is the problem that is being solved by the allocate method, which describes the ratio \todo{Check in source if 'ratio' is correct} on where the last cent would go to in this case. The allocate method is a thing that \textit{Rebel} does not have, instead it just allows the use of the division operator. Because of this, we expect the division problem to occur while running the test framework. The amount of a \textit{Money} value is often rounded when it is being represented to the user, as it could have many decimals. The representation of the \textit{Money} value is up to the business on how this is done, as there are multiple factors influencing this. Instead, we only focus on the internal value that is used when operating with the \textit{Money} type.\\
 \\
 \pinfo{Not between different currencies}
 It is unsupported to use these operations with \textit{Money} values when using
@@ -277,7 +276,7 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 \label{tbl:ch4_money_associativity}
 \end{table}
 % Reasoning
-The law of associativity is known on addition and multiplication \cite{baumgart1961axioms}. It defines that the order in which certain operations are done, does not affect the result of the whole expression. As described in \autoref{ssct:4_commutativity} it is not possible to operate with multiplication with only \textit{Money} types. However, in Rebel the same properties should hold when using different types, as shown in \autoref{tbl:ch4_money_associativity}.
+The law of associativity is known on addition and multiplication \cite{baumgart1961axioms}. It defines that the order in which certain operations are done, does not affect the result of the whole expression. As described in \autoref{ssct:4_commutativity} it is not possible to operate with multiplication with only \textit{Money} types. However, in \textit{Rebel} the same properties should hold when using different types, as shown in \autoref{tbl:ch4_money_associativity}.
 
 % % % % % % % % % % % % %
 % Subsection: Non-associativity
@@ -446,9 +445,26 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 The law of trichotomy defines that for every pair of arbitrary real numbers, exactly one of the relations $<$, ==, $>$ holds. We can define a property for this on money, as shown in \autoref{tbl:ch4_money_trichotomy}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Conclusion
-\section{Conclusion}
+% Section: Analysis
+\section{Analysis}
+In this chapter, we focused on the properties of the custom types in \textit{Rebel}. Since there was no definition of the custom types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type.\\
+\\
+The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that the test framework haven't found an error in the properties that it checks the generator on. Many properties can be defined within a language, the properties defined here are certainly not all the properties in \textit{Rebel}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Discussion and threats to validity
-\section{Discussion and threats to validity}
+% Section: Threats to validity
+\section{Threats to validity}
+
+% Lack of properties / missing properties
+\subsection*{Lack of properties}
+The properties that we have defined are based on the Axioms of Algebra. Many axioms exist, which brings a threat to this approach such that we may have missed certain properties that can trigger even more bugs. However, due to the current setup of the test framework, additional properties can easily be added by just appending these properties to the \textit{Rebel} specifications.
+
+% Other components
+\subsection*{Other components}
+The current setup is intended to be used to test a certain component of the SUT. Namely, the types and the operations among these. The focus was to test (some of) the custom types that are available in \textit{Rebel}, the \textit{Money} type has been worked with thoroughly. More specifications and properties can be added to check every type that \textit{Rebel} supports. However, this only allows to reason about a specific component in the SUT. The test framework could be extended such that it can also test other components of the system. Such as the sync block definitions, defining actions that should happen synchronously. Or performance measures when interacting with the data in the system, which uses a database implementation. Currently, such components are not being tested, while these components are also important for a bank. This is left as future work.\\
+\\
+Although the test framework can be extended to also test other components of the SUT, it will not be possible to check all the components by using this approach. A generated system, for example, exposes its actions via a Rest API, which should be used to interact with the system. The tests that are done by using this approach do not check the implementation of this interface. Also, it is not able to check how, for example, multiple generated systems would integrate with each other and if this is done correctly.
+
+% Invalid definitions
+\subsection*{Invalid definitions}
+We provided properties that should hold on \textit{Rebel} types. We already discussed the lack of properties, but it could be the case that our definitions are invalid or might be renewed in the future such that some properties are invalid. When this is the case, the properties could be adjusted to fit the updated definitions in this case.

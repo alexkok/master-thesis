@@ -3,23 +3,25 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Discussion}
 \label{cpt:7_discussion}
-In this chapter, we discuss the research questions that are defined to answer the main research question. Additionally, the threats to validity are being discussed.
-
+In this chapter, we discuss the research questions that are defined to answer the main research question. Additionally, the threats to validity are being discussed.\\
+NOTE: Not applicable anymore after restructuring document
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 1
 \section{RQ 1: \rqOne}
-Throughout this project, we focused on the properties of the custom types in \textit{Rebel} and how these are implemented in the generated system. This is the component we focused on. Since there was no definition of the custom types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour was when operating with the types and which operations were allowed in which order on each type.\\\
-\\
+% > Test mechanics
 To automatically generate tests for this, existing approaches have been used as input. However, the existing approaches often require the SUT to be written in the same language. This was not possible in this project, as the SUT is being generated based on the \textit{Rebel} specifications. We use an approach that is similar to QuickCheck but use a \textit{Rebel} specification to generate the test cases for the SUT. Furthermore, we implemented the random value generator ourselves to be able to generate values that satisfy certain conditions.\\
 \\
+% > Test mechanics (follow-up)
 Another way how this could be done was to check how the custom types were generated to \textit{Scala}. And then generate a \textit{Scala} test project using the same types. Then writing property tests for each type could achieve the same goal when it comes to checking the implementation of this component in the generated system. However, if we would follow this approach, we wouldn't use the generator to translate the \textit{Rebel} expressions to \textit{Scala}. This results in that the generator itself is still not being tested. With our approach, we use the generator and are able to find errors in the translations done by the generator. Although we cannot conclude that the generator is implemented correctly if the generated test suit runs successful, rather we can detect some errors when these are present.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 2
 \section{RQ 2: \rqTwo}
+% > Experiment 1
 Although we did not exactly know what kind of errors we would find in the generated system, it was
 known which component of the generated system we were going to test. Errors when using certain operations that provide incorrect results can be detected when using property based testing. We managed to find precision errors, overflow and underflow errors and triggered the division problem in the generated system. Additionally, we found a compilation error when using a property which was expected to be correct.\\
 \\
+% Experiment 1 (follow-up)
 Unfortunately the compilation error has not been fixed throughout this project, however, it is an open issue on \textit{Github}. Some precision errors originated from a library used in the generated system, called Squants. An issue was created covering these precision errors, which were fixed in the next release of that library. As for the overflow and underflow errors, these occurred when using the \textit{Integer} type in \textit{Rebel}. When using the \textit{Integer} type, this might have been expected behaviour which causes this to happen. However, the generated system does not check whether this happens, nor does it prevent this. Additionally, we can consider this behaviour unexpected on the Integer type in
 \textit{Rebel}, as \textit{Rebel} does not support any other kind of number type that can hold a bigger value. For example, compared to
 Java, a \textit{BigDecimal} would be possible. We consider the overflow and underflow errors as unexpected, as the \textit{Rebel} language does not support other numeric types to hold a bigger value than an \textit{Integer} supports.
@@ -27,14 +29,16 @@ Java, a \textit{BigDecimal} would be possible. We consider the overflow and unde
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 3
 \section{RQ 3: \rqThree}
-We might have missed some properties in our definitions in \autoref{cpt:4_properties}. More properties could be added to the specification, such that other parts of the generated system that we haven't tested are also covered. Think of the other types that \textit{Rebel} supports which we did not cover, such as sets or the primitive types as \textit{Integer} and \textit{String}. Since there are no definitions on how these are implemented in \textit{Rebel}, these have to be defined too then.\\
-\\
+% > Experiment 2
 The second experiment triggered a case which was not found in the first experiment. This is an example of an improvement made throughout the project when working with the test framework. Further extensions are possible, think of our random generator, this could be made more dynamic. Resulting in a generator that could generate values based on the actual preconditions defined in the Rebel specifications, making it more dynamic when additional properties are being added.\\
 \\
+% Future work
 \textit{Rebel} contains a type checker, which is able to determine exactly which operations are supported by using certain combinations of operators and types. This could be used to automatically generate the specifications for each type in \textit{Rebel}. Considering that a map of all operations can be created and a map of all existing types, each combination can be tested against the type checker. If the type checker allows determines it as a correct expression, an event definition in \textit{Rebel} could be created for it. Although this might result in many definitions that are being tested, with a possible overlap between them, it would be a way to automatically test each operation using different types. Furthermore, it can make it more dynamic when a new type could be added to \textit{Rebel}. However, this could be done in the future to extend the test framework.\\
 \\
+% > Future work
 Another improvement could be to define the expected behaviour of the sync blocks that \textit{Rebel} supports, which hooks into the improvement point of missing properties. The current test framework is not able to test sync blocks at all, but this would be a useful improvement. There were already some known issues with the sync block expressions of which some have been fixed already. Furthermore, there is the expectation that the sync blocks implementation has more bugs.\\
 \\
+% > Test mechanics and future work
 Throughout this project, we have only tested the system that is generated by the Scala/Akka generator which is developed by ING. Since there are more generators available, the test framework can be improved such that it is compatible with the other systems that can be generated by using one of the other generators that are available within ING. By doing this, the same property definitions can be tested on different kind of generated systems. This can be used to detect inequalities among the generated system.
 % Optimizations: efficiency
 
@@ -42,28 +46,18 @@ Throughout this project, we have only tested the system that is generated by the
 % Section: Threats of validity
 \section{Threats of validity}
 
-% Lack of properties / missing properties
-\subsection*{Lack of properties}
-The properties that we have defined are based on the Axioms of Algebra. Many axioms exist, which brings a threat to this approach such that we may have missed certain properties that can trigger even more bugs. However, due to the current setup of the test framework, additional properties can easily be added by just appending these properties to the \textit{Rebel} specifications.
-
-% Other components
-\subsection*{Other components}
-The current setup is intended to be used to test a certain component of the SUT. Namely, the types and the operations among these. The focus was to test (some of) the custom types that are available in \textit{Rebel}, the \textit{Money} type has been worked with thoroughly. More specifications and properties can be added to check every type that \textit{Rebel} supports. However, this only allows to reason about a specific component in the SUT. The test framework could be extended such that it can also test other components of the system. Such as the sync block definitions, defining actions that should happen synchronously. Or performance measures when interacting with the data in the system, which uses a database implementation. Currently, such components are not being tested, while these components are also important for a bank. This is left as future work.\\
-\\
-Although the test framework can be extended to also test other components of the SUT, it will not be possible to check all the components by using this approach. A generated system, for example, exposes its actions via a Rest API, which should be used to interact with the system. The tests that are done by using this approach do not check the implementation of this interface. Also, it is not able to check how, for example, multiple generated systems would integrate with each other and if this is done correctly.
-
-% Invalid definitions
-\subsection*{Invalid definitions}
-Throughout this project, we provided a definition of types and the properties on these. We already discussed the lack of properties, but it could be the case that our definitions are invalid or might be renewed in the future such that some properties are invalid. When this is the case, the properties can easily be adjusted to fit the adjusted definitions in this case. 
 
 % Incorrect results
+% > Test mechanics
 \subsection*{Accuracy}
 To evaluate an experiment we used coverage as a metric, which could have reported incorrect results. Scoverage has been used to determine the coverage and to generate a report from it. Since we are using random data as input, the results of the test coverage can fluctuate by small amounts in each run. However, we can still reason about the differences when there is a big difference between certain experiments. Additionally to the coverage we used the number of bugs that were found as another metric. This metric depends on which system the test suite is being run and if the system already fixed the bugs that the test suite would find. It is also the case that after fixing the bugs that were found earlier, this metric can be seen as unnecessary, as it would result in 0 then.
 
 % One system
+% > Test mechanics
 \subsection*{One system}
 Only one generator was used throughout this project. In which we successfully discovered bugs that were unknown before. However, it would be useful to make the test framework compatible with the other generators and generated systems too. This enables reasoning about the different implementations and its generators. Some changes are required to make the test framework compatible with these systems. But by doing so, every generated system for which a generator is built by ING can be checked based on the same properties, resulting in that the defined properties are checked thoroughly on every system.\\
 \\
+% > Test mechanics
 A threat in doing so is that one of the other generators might not support the translation of each expression that is used in our specification. Thus this test framework can also be used to check whether every expression variant is taken into account by the generator. Unfortunately, an error in this translation would be blocking, in that it can lead to a generated system that is not able to compile. Resulting in that the test framework cannot proceed to run the test suite on the generated system. This could be used as a way to check the generators too. Although compilation errors were not the aim of the project, as compilation errors can have many causes, the test framework can still be used to detect those to a certain extent.
 
 
@@ -76,21 +70,3 @@ A threat in doing so is that one of the other generators might not support the t
 % > Squants
 %	- Some bugs, maybe there are more in there
 % 	- Snapshot release unavailable for some time? (1.4.0-SNAPSHOT was not reachable, had to compile it ourselves)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
