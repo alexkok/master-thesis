@@ -1,7 +1,7 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Chapter: Property definitions
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\chapter{Property definitions} 
+\chapter{Properties}
 \label{cpt:4_properties}
 % Definition: An Axiom is a mathematical statement that is assumed to be true.
 % ( http://www.aaaknow.com/lessonFull.php?slug=propsCommAssoc )
@@ -9,9 +9,9 @@
 % Axioms in algebra — where did they come from?
 % http://www.jstor.org.proxy.uba.uva.nl:2048/stable/pdf/27956337.pdf?refreqid=excelsior%3A623b1c85f79f8cd18bc9d09560339b9b
 % (simple formulas, history, and explanations)
-% A perspective on the algebra of logic 
+% A perspective on the algebra of logic
 % http://www-tandfonline-com.proxy.uba.uva.nl:2048/doi/pdf/10.2989/16073606.2011.622856?needAccess=true
-% (More formulas, deeper explanations) 
+% (More formulas, deeper explanations)
 % Might contain more properties
 
 % Another source was (but not a paper or so)
@@ -20,34 +20,98 @@
 % Another good source (book)
 % Calculus, Vol. 1: One-Variable Calculus, with an Introduction to Linear Algebra 2nd Edition
 
-\pinfo{Types and axioms}
-For types like integers the axioms can be used to determine whether the implementation in the generated system is correct. These are most likely translated to integers in the generated system too, with the expectation that these have the same properties in Scala. For these types the known axioms could be used. However, it depends on what \textit{Rebel} defines as \textit{Integer}.\\
-\\
-\pinfo{Custom types, no properties yet. Focusing on Rebel types initially}
-\textit{Rebel} has built-in types that are specifically designed for it's domain, the banking domain. Types like \textit{Money}, \textit{Percentage} and \textit{Iban} do not have a specification of what properties these have exactly. In this chapter we will define properties for these types, which we can then use to generate the test suite. The properties that we define are based on the known axioms in algebra \cite{baumgart1961axioms,raftery2011perspective,apostol2007calculus}. We provide a short explanation of why a certain property should also hold in these cases. We will focus on the custom types that are introduced in \textit{Rebel}.
+\pinfo{Specific types in Rebel}
+Rebel introduces specific types, like \textit{Iban} and \textit{Money} and
+allows operations on those~\cite{stoel2016solving}. But what are the expected
+properties of the generator? In this chapter we will try to answer the first
+research question:
+\begin{description}
+	\item [~~~~RQ 1:] \rqOne
+\end{description}
+To answer this question, we first describe a way how we can determine the
+properties. Followed by the property defintions that will be used troughout this
+thesis, with a motivation why these properties are expected to hold. Next, we
+will provide a discussion about the properties that we defined.
+
 %\todo[inline]{Percentage? Not yet, defining those requires properties again. And running the test suit again, evaluate again, etc.\\
 %Describe what exactly is Percentage if we define it in a specification, which rules does it inherit?\\
 %Percentage (expected): 2/more decimals, however its a precise amount. Calculating with it is expected in a result of the real value.\\
 %Percentage (current): As it is defined now: full number, it can exceed 100. However it does not support decimals yet.}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Money specification
-\section{Money specification}
-\pinfo{Money definition, operations. And rounding up to business}
-The Money type is a built-in type in Rebel, but there is no exact definition of it yet. It consists of a currency and an amount value, which is similar to the pattern that Fowler describes for a \textit{Money} type \cite{fowler2002patterns}. The author also describes the operations that can be done with the \textit{Money} type, which are: +, -, *, allocate, $<$, $>$, $\leq$, $\geq$ and =. However, Rebel also allows the division (/) operation on the \textit{Money} type. \improve{Allocate is division, but with the problem covered. Explain that instead of Rebel supporting division as additional. Describing this also shows we have read the part in Fowlers book.} It is unsupported to use these operations with \textit{Money} values using different currencies. This is due to the exchange rates between currencies, which can vary and are not implemented yet. The amount of a \textit{Money} value is often rounded when it is being represented to the user, as it could have many decimals. The representation of the \textit{Money} value is up to the business on how this is done, as there are multiple factors influencing this. Instead, we only focus on the internal value that is used when operating with it.\\
+% Section: Determining the properties
+\section{Determining the properites}
+\pinfo{Properties not defined for Rebel. We must define these}
+Currently, there are no definitions available of what the properties are of each
+type and operation in \textit{Rebel}. Due to the missing definitions of these
+types, it means that we first have to define what the the expected properties
+on these types are and substantiate these. Only then we can determine whether
+the generator is working as expected with these properties. As there are many
+operations available among the available types in \textit{Rebel}, we are not
+able to define all the properties that exist in the \textit{Rebel} language. As
+there can be countless of properties and combinations among the different types
+that \textit{Rebel} supports. During this thesis we will focus on the
+\textit{Money} type, considering this is the most important type for a bank that
+has the highest priority to be implemented correctly.\\
+\\
+\pinfo{Types and axioms}
+For types like integers the axioms of algebra can be used to determine whether
+the implementation in the generated system is correct. These are most likely
+translated to integers in the generated system too, with perhaps the expectation
+that these have the same properties in \textit{Scala}. However, it is not
+possible to rely on the \textit{Integer} definition of a specific language, as
+another generator might generate a system in another language, or might
+implement it differently in the same language. Would that mean that the
+properties on that other language should now hold on the \textit{Integer} type?
+Well, as this is not defined for \textit{Rebel}, this is unknown. In this
+chapter we will define properties that are expected to hold on the
+\textit{Money} type in \textit{Rebel}. The properties that we define are based
+on the known axioms in
+algebra~\cite{baumgart1961axioms,raftery2011perspective,apostol2007calculus}.
+We provide an explanation of why a certain property should also hold in these
+cases.\\
 \\
 \pinfo{Amount, not floating-point arithmetic}
-Since the amount of a \textit{Money} value contains multiple decimals, it can be seen as a floating number. Does this mean that it inherits the computation properties of Floating-Point Arithmetic, as defined in the IEEE standards 754 or 854? Since the Rebel is a formal specification language for banking products, we don't expect that the described problems with this arithmetic are intended to exist on the Money type. Considering that that a high volume flows within a bank in terms of Money, using the Arithmetic properties can result in the known precision, overflow and underflow errors as described in \cite{goldberg1991every}. The precision errors for instance, should be avoided when using the \textit{Money} type. The author of \cite{fowler2002patterns} also describes that the intend of the \textit{Money} type is to avoid this:
+The \textit{Money} type can be seen as a currency with an amount value. The
+amount of a \textit{Money} value can have multiple decimals depending on the
+currency. Thus, the amount can be seen as a floating number. Does this mean that
+it inherits the computation properties of Floating-Point Arithmetic, as defined
+in the IEEE standards 754 or 854? Since the Rebel is intended to be a formal
+specification language for banking products, we don't expect that the described
+problems with this arithmetic are intended to exist on the Money type.
+Considering that that a high volume flows within a bank in terms of
+\textit{Money}, using the Floating-Point Arithmetic properties can result in the
+known precision, overflow and underflow errors as described
+in~\cite{goldberg1991every}. Which can have a huge impact on the system and the
+bank. The precision errors for instance, should be avoided when using the
+\textit{Money} type. The author of \cite{fowler2002patterns} also describes that
+the intend of the \textit{Money} type is to avoid this:
 \begin{quote}
 \todo{Use quotes instead of "" (latex-advice)}
-	"You should absolutely avoid any kind of floating point type, as that will introduce the kind of rounding problems that Money is intended to avoid." 
-    -- Martin Fowler \cite{fowler2002patterns} %[p. 462] % Of pdf, ebook thing doesn't have page numbers
+	"You should absolutely avoid any kind of floating point type, as that will
+	introduce the kind of rounding problems that Money is intended to avoid."
+    -- Martin Fowler \cite{fowler2002patterns}
+		%[p. 462] % Of pdf, ebook thing doesn't have page numbers
 \end{quote}
-\pinfo{Conclusion: Precise value, rounding only for division}
-We say that the amount of a \textit{Money} value in Rebel should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, is this also 60 decimals?}\\
+
+\pinfo{Money operations, expecting division problem}
+The author of~\cite{fowler2002patterns} also describes the operations that can
+be done with the \textit{Money} type, which are: +, -, *, allocate, $<$, $>$,
+$\leq$, $\geq$ and =. Where the allocate method is used instead of the division (/) operation. This is due to the division problem, requiring a number to be rounded off at a certain time. For example, when splitting 1 EUR with 3 people, everyone would receive 33 cents, but what is done with the last cent that is left? This is the problem that is being solved by the allocate method, which describes the ratio\todo{Check in source if 'ratio' is correct} on where the last cent would go to in this case. The allocate method is a thing that \textit{Rebel} does not have, instead it just allows the use of the division operator. Because of this, we expect the division problem to occur while running the test framework. The amount of a \textit{Money} value is often rounded when it is being represented to the user, as it could have many decimals. The representation of the \textit{Money} value is up to the business on how this is done, as there are multiple factors influencing this. Instead, we only focus on the internal value that is used when operating with the \textit{Money} type.\\
 \\
+\pinfo{Not between different currencies}
+It is unsupported to use these operations with \textit{Money} values when using
+values that are of different currencies. This is due to the exchange rates
+between currencies, which can vary and are not implemented yet.\\
+\\
+\pinfo{Thus: precise value, rounding only for division}
+We say that the amount of a \textit{Money} value in \textit{Rebel} should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, is this also 60 decimals?}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Property definitions
+\section{Property definitions}
 \pinfo{Properties based on known axioms, but has restrictions}
-The properties that we define on the \textit{Money} type of Rebel are based on the axioms of integers. It isn't possible to multiply two \textit{Money} types with each other to support the multiplicative property for example. Instead we can only multiply \textit{Money} with other types, such as \textit{Integer} and \textit{Percentage}, resulting in multiple property definitions when using different types. In the following sections we motivate the properties that we use during the project.
+The properties that we define are based on the known axioms in algebra. Although, not every property can be used. For example, it isn't possible to multiply two \textit{Money} types with each other to support the multiplicative property for example. Instead we can only multiply \textit{Money} with other types, such as \textit{Integer} and \textit{Percentage}, resulting in multiple property definitions when using different types. In the following sections we motivate the properties that we use during the project.
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection{Reflexivity}
@@ -97,7 +161,7 @@ Reflexivity already described equality on \textit{Money} when used on the same v
 \hline
                         \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x $\leq$ y \&\& y $\leq$ x $\implies$ x == y & antisymmetryLET        & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & y: Money                 \\ 
+\rowcolor[HTML]{EFEFEF}                                              &                        & y: Money                 \\
                         x $\geq$ y \&\& y $\geq$ x $\implies$ x == y & antisymmetryGET        & x: Money                 \\
                                                                      &                        & y: Money                 \\ \hline
 \end{tabular}
@@ -124,7 +188,7 @@ The antisymmetric relation describes that whenever there is a relation from x to
                                                                           &                         & z: Money                 \\
 \rowcolor[HTML]{EFEFEF}  x $>$ y \&\& y $>$ z $\implies$ x $>$ z          & transitiveInequalityGT  & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\ 
+\rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\
                          x $\leq$ y \&\& y $\leq$ z $\implies$ x $\leq$ z & transitiveInequalityLET & x: Money                 \\
                                                                           &                         & y: Money                 \\
                                                                           &                         & z: Money                 \\
@@ -136,7 +200,7 @@ The antisymmetric relation describes that whenever there is a relation from x to
 \label{tbl:ch4_money_transitivity}
 \end{table}
 % Reasoning
-Operations can be done on the \textit{Money} types. The transitive properties \cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations. 
+Operations can be done on the \textit{Money} types. The transitive properties \cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations.
 
 % % % % % % % % % % % % %
 % Subsection: Commutativity
@@ -314,7 +378,7 @@ The inverse relation describes for additivity that using addition with the input
 \rowcolor[HTML]{EFEFEF}                                              &                        & z: Money                 \\
                         x == y \&\& z == a $\implies$ x + z == y + a & additive4params        & x: Money                 \\
                                                                      &                        & y: Money                 \\
-                                                                     &                        & z: Money                 \\ 
+                                                                     &                        & z: Money                 \\
                                                                      &                        & a: Money                 \\ \hline
 \end{tabular}
 \caption{Additivity on \textit{Money}}
@@ -351,8 +415,8 @@ The property of zero on multiplication states that if something is multiplied by
 \hline
                         \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x * y == z $\implies$ x == z / y & division1              & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                  &                        & y: Integer               \\ 
-\rowcolor[HTML]{EFEFEF}                                  &                        & y: Money                 \\ 
+\rowcolor[HTML]{EFEFEF}                                  &                        & y: Integer               \\
+\rowcolor[HTML]{EFEFEF}                                  &                        & y: Money                 \\
                         x == z * y $\implies$ x / y == z & division2              & x: Money                 \\
                                                          &                        & y: Integer               \\
                                                          &                        & y: Money                 \\ \hline
@@ -381,24 +445,10 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 % Reasoning
 The law of trichotomy defines that for every pair of arbitrary real numbers, exactly one of the relations $<$, ==, $>$ holds. We can define a property for this on money, as shown in \autoref{tbl:ch4_money_trichotomy}.
 
-
-
-% Old content
-
-%\change{Axiom is a specification of a property.}
-%The properties that we test are based on the properties of Axioms in Algebra. We assume that any expression that Rebel allows in its syntax, should be a valid expression. \change{In syntax more is allowed. Syntax is first. Then type checker and then its valid. Maybe reasoning might adds more...} Rebel supports multiple types for variables, where some types can be used in conjunction with others. The property definitions can depend on the combination of types too.\change{Type system, just a term for it, Jargon. Also check other papers how these define it} For example when we have a value x of type `Money` and value y and z of type `Percentage`, then it is not the case that x*(y*z) equals (x*y)*z. But this property would hold if all the values x, y and z were of type `Integer`.
-%\todo{Tabular representation with samples?}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Reflexitivity
-%\section{Reflexitivity}
-%A type is equal to itself
+% Section: Conclusion
+\section{Conclusion}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Associative addition and multiplication
-%\section{Associative addition and multiplication}
-%The expected result when operating with money types is that the total amount remains the same despite of the order. This is also a property in the Axioms of Algebra on Integers, which we can relate to the Money type. For example, if we first receive 50 euros, and then 40 euros, we have a total of 90 euros. But its also expected that we have 90 euros in case we first receive the 40 euros and then the 50 euros. Although this holds with the addition of money, it doesn't hold for subtraction. Furthermore we cannot multiply money with itself. We can however multiply between Money and an Integer, or with Money and Percentage. For these cases we also expect that the result of money multiplied by an int will be the same as multiplying the int with the money.\change{Why 'int' here? Kevin: read as Rebel int and Integer as scala int...}\\
-%\\
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Distributive multiplication
-%\section{Distributive multiplication}
-%etc...
+% Section: Discussion and threats to validity
+\section{Discussion and threats to validity}
