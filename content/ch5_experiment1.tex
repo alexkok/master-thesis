@@ -25,7 +25,7 @@ checking properties. Unlike \textit{QuickCheck}, the test framework does not shr
 \section{Results}
 In this experiment two runs are being done to detect bugs in the generator. The
 first run terminated quickly, which is why the test framework did not succeed in
-testing every property. The following sections describe the two runs in detail.
+testing every property.
 
 % % % % % % % % % % % % %
 % Subsection: First run
@@ -77,10 +77,10 @@ The error log does not clearly indicate what is exactly going wrong, it also doe
 % Subsection: Second run
 \subsection{Second run}
 \pinfo{Failing tests, describing each}
-After disabling the \textit{AssociativeMultiplicationInteger1} property, the test framework was able to run completely. This results in 7 failing tests. For each test the input values for which the property doesn't hold are logged such that the error can be reproduced. In ... an overview of the failing properties, along with it's input values are shown.
+After disabling the \textit{AssociativeMultiplicationInteger1} property, the test framework was able to run completely. This results in 7 failing tests. For each test the input values for which the property doesn't hold are logged such that the error can be reproduced. In \autoref{tbl:experiment1_overview_second_run} an overview of the failing properties, along with it's input values are shown.
 % Table
 \FloatBarrier
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{llll}
 \hline
@@ -94,7 +94,7 @@ DistributiveInt1                     & -1790274467.41 EUR       & 1691684272    
 AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
 \end{tabular}
 \caption{Overview of failing tests along with its input values}
-\label{ch4_init_check_DistributivePercentage1}
+\label{tbl:experiment1_overview_second_run}
 \end{table}
 \FloatBarrier
 % End table
@@ -103,7 +103,7 @@ AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27          
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-For each test we describe the investigation of what went wrong. The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were initially also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. For the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done such that we are able to reveal the other errors that these properties can reveal.
+For each failed test we investigate what went wrong. The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were initially also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. For the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done such that we are able to reveal the other errors that these properties can reveal.
 
 \todo{Add red and bold in tables}
 % % %
@@ -116,23 +116,22 @@ For each test we describe the investigation of what went wrong. The first four t
 This property uses a \textit{Percentage} value and two \textit{Money} values for it's tests. The values are named x, y and z respectively. To check this failing test, we check the results of the intermediate calculations in the formula that is being used. In \autoref{ch4_init_check_DistributivePercentage1} values are shown for which the test case fails, among with the intermediate calculations. The intermediate calculations seem to work as expected, as the results are the same when we compare the results of the Scala evaluation and the Rascal evaluation. Unfortunately the resulting left hand side of the expression contains a precision error, which is caused when multiplying a \textit{Percentage} (the x variable) with a \textit{Money} type (the result of y+z in this case).
 % Table
 \FloatBarrier
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{DistributivePercentage1}                          \\ \hline
-Variable               & Value                   & Type                \\
-\multicolumn{1}{|r}{X} & 0.51                    & Percentage          \\
-\multicolumn{1}{|r}{Y} & -311254801.77 EUR       & Money               \\
-\multicolumn{1}{|r}{Z} & -707194075.77 EUR       & Money               \\ \hline
-Formula                & Scala result            & Expected result     \\
-x*(y+z) == (y*x)+(z*x) & false                   & true                \\
-x*(y+z)                & -519408927.54539996 EUR & -519408927.5454 EUR \\
-(y*x)+(z*x)            & -519408927.5454 EUR     & -519408927.5454 EUR \\
-                       &                         &                     \\
-y+z                    & -1018448877.54 EUR      & -1018448877.54 EUR  \\
-y*x                    & -158739948.9027 EUR     & -158739948.9027 EUR \\
-z*x                    & -360668978.6427 EUR     & -360668978.6427 EUR \\ \hline
+\textbf{Variable}      & \textbf{Value}          & \textbf{Type}            \\ \hline
+X                      & 0.51                    & Percentage               \\
+Y                      & -311254801.77 EUR       & Money                    \\
+Z                      & -707194075.77 EUR       & Money                    \\ \hline
+\textbf{Formula}       & \textbf{Scala result}   & \textbf{Expected result} \\ \hline
+x*(y+z) == (y*x)+(z*x) & false                   & true                     \\
+x*(y+z)                & -519408927.54539996 EUR & -519408927.5454 EUR      \\
+(y*x)+(z*x)            & -519408927.5454 EUR     & -519408927.5454 EUR      \\
+                       &                         &                          \\
+y+z                    & -1018448877.54 EUR      & -1018448877.54 EUR       \\
+y*x                    & -158739948.9027 EUR     & -158739948.9027 EUR      \\
+z*x                    & -360668978.6427 EUR     & -360668978.6427 EUR      \\ \hline
 \end{tabular}
 \caption{DistributivePercentage1: Precision error when multiplying a \textit{Percentage} with \textit{Money}}
 \label{ch4_init_check_DistributivePercentage1}
@@ -144,74 +143,76 @@ z*x                    & -360668978.6427 EUR     & -360668978.6427 EUR \\ \hline
 % DistributivePercentage2
 \subsubsection{DistributivePercentage2}
 This test case looks similar than the \textit{DistributivePercentage1} (\autoref{ssct:ch5_distributivePercentage1}). It uses the same type of variables, but the expression is slightly different. In \autoref{ch4_init_check_DistributivePercentage2} the result and the intermediate calculations of a failing case are shown. What can be seen here is that the precision error occurs when the Money type is multiplied by the Percentage type. While in \autoref{ssct:ch5_distributivePercentage1} it was the other way around.
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{DistributivePercentage2}                           \\ \hline
-Variable               & Value                   & Type                 \\
-\multicolumn{1}{|r}{X} & 0.93                    & Percentage           \\
-\multicolumn{1}{|r}{Y} & 2089630160.75 EUR       & Money                \\
-\multicolumn{1}{|r}{Z} & -1316628389.49 EUR      & Money                \\ \hline
-Formula                & Scala result            & Expected result      \\
-(y+z)*x == (y*x)+(z*x) & false                   & true                 \\
-(y+z)*x                & 718891647.2718 EUR      & 718891647.2718 EUR   \\
-(y*x)+(z*x)            & 718891647.2718001 EUR   & 718891647.2718 EUR   \\
-                       &                         &                      \\
-y+z                    & 773001771.26 EUR        & 773001771.26 EUR     \\
-y*x                    & 1943356049.4975002 EUR  & 1943356049.4975 EUR  \\
-z*x                    & -1224464402.2257001 EUR & -1224464402.2257 EUR \\ \hline
+\textbf{Variable}      & \textbf{Value}          & \textbf{Type}            \\ \hline
+X                      & 0.93                    & Percentage               \\
+Y                      & 2089630160.75 EUR       & Money                    \\
+Z                      & -1316628389.49 EUR      & Money                    \\ \hline
+\textbf{Formula}       & \textbf{Scala result}   & \textbf{Expected result} \\ \hline
+(y+z)*x == (y*x)+(z*x) & false                   & true                     \\
+(y+z)*x                & 718891647.2718 EUR      & 718891647.2718 EUR       \\
+(y*x)+(z*x)            & 718891647.2718001 EUR   & 718891647.2718 EUR       \\
+                       &                         &                          \\
+y+z                    & 773001771.26 EUR        & 773001771.26 EUR         \\
+y*x                    & 1943356049.4975002 EUR  & 1943356049.4975 EUR      \\
+z*x                    & -1224464402.2257001 EUR & -1224464402.2257 EUR     \\ \hline
 \end{tabular}
 \caption{DistributivePercentage1: Precision error when multiplying a \textit{Money} with \textit{Percentage}}
 \label{ch4_init_check_DistributivePercentage2}
 \end{table}
-\\
+\FloatBarrier
+% End table
 
 % % %
 % DistributiveInt2
 \subsubsection{DistributiveInt2}
 \label{ssct:ch5_distributiveInt2}
 This case uses \textit{Integer} in conjunction with the \textit{Money} type. Earlier cases showed that there was a precision error when using the \textit{Percentage} and \textit{Money} types. Since the \textit{Percentage} type is translated to a \textit{Double} in the generated system, it can be expected that there would be precision problems occuring. As this is a known issue with types that use floating-point arithmetic \cite{goldberg1991every}. This case reveals that a precision error also occurs when multiplying \textit{Money} with an \textit{Integer}. In the intermediate calculations when investigating a failing test with it's values are shown in \autoref{ch4_init_check_DistributiveInt2}. The last two rows, colored in red, show that a precision error occurs when \textit{Money} is multiplied by an \textit{Integer}.
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{DistributiveInt2}                                                                              \\ \hline
-\multicolumn{1}{|l}{Variable}           & Value                   & \multicolumn{1}{l|}{Type}                       \\
-\multicolumn{1}{|r}{X}                  & -883022216              & \multicolumn{1}{l|}{Integer}                    \\
-\multicolumn{1}{|r}{Y}                  & -298435082.93 EUR       & \multicolumn{1}{l|}{Money}                      \\
-\multicolumn{1}{|r}{Z}                  & 715725888.96 EUR        & \multicolumn{1}{l|}{Money}                      \\ \hline
-\multicolumn{1}{|l}{Formula}            & Scala result            & \multicolumn{1}{l|}{Expected result}            \\
-\multicolumn{1}{|l}{(x*y)*z == x*(y*z)} & false                   & \multicolumn{1}{l|}{true}                       \\
-\multicolumn{1}{|l}{(x*y)*z}            & -368477052257036740 EUR & \multicolumn{1}{l|}{-368477052257036762.48 EUR} \\
-\multicolumn{1}{|l}{x*(y*z)}            & -368477052257036796 EUR & \multicolumn{1}{l|}{-368477052257036762.48 EUR} \\
-\multicolumn{1}{|l}{}                   &                         & \multicolumn{1}{l|}{}                           \\
-\multicolumn{1}{|l}{y+z}                & 417290806.03 EUR        & \multicolumn{1}{l|}{417290806.03 EUR}           \\
-\multicolumn{1}{|l}{y*x}                & 263524808260992384 EUR  & \multicolumn{1}{l|}{263524808260992372.88 EUR}  \\
-\multicolumn{1}{|l}{z*x}                & -632001860518029180 EUR & \multicolumn{1}{l|}{-632001860518029135.36 EUR} \\ \hline
+\textbf{Variable}  & \textbf{Value}          & \textbf{Type}              \\ \hline
+X                  & -883022216              & Integer                    \\
+Y                  & -298435082.93 EUR       & Money                      \\
+Z                  & 715725888.96 EUR        & Money                      \\ \hline
+\textbf{Formula}   & \textbf{Scala result}   & \textbf{Expected result}   \\ \hline
+(x*y)*z == x*(y*z) & false                   & true                       \\
+(x*y)*z            & -368477052257036740 EUR & -368477052257036762.48 EUR \\
+x*(y*z)            & -368477052257036796 EUR & -368477052257036762.48 EUR \\
+                   &                         &                            \\
+y+z                & 417290806.03 EUR        & 417290806.03 EUR           \\
+y*x                & 263524808260992384 EUR  & 263524808260992372.88 EUR  \\
+z*x                & -632001860518029180 EUR & -632001860518029135.36 EUR \\ \hline
 \end{tabular}
 \caption{DistributiveInt2: Precision error when multiplying Money with an Integer}
 \label{ch4_init_check_DistributiveInt2}
 \end{table}
-\\
+\FloatBarrier
+% End table
 
 % % %
 % AssociativeMultiplicationPercentage2
 \subsubsection{AssociativeMultiplicationPercentage2}
 The earlier cases already shown a precision error when using Doubles and Integers in conjunction with \textit{Money}. This case triggers the same problem, but also reveals that the same thing happens when multiplying an \textit{Integer} with \textit{Money}. While in \autoref{ssct:ch5_distributiveInt2} it was the other way around. The intermediate calculations are shown in \autoref{ch4_init_check_AssociativeMultiplicationPercentage2}, the calculation of multiplying an Integer with Money is shown in red. Additionally, this case shows that the small precision error that we've seen earlier can cause a seemingly difference, which is a difference of 130 EUR in this case.
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
 \hline
-\multicolumn{3}{c}{\textbf{AssociativeMultiplicationPercentage2}}                \\ \hline
-\textbf{Variable}           & \textbf{Value}                   & \textbf{Type}                       \\ \hline
+\textbf{Variable}  & \textbf{Value}          & \textbf{Type}              \\ \hline
 X                  & 840296462               & Integer                    \\
 Y                  & 1771903729.60 EUR       & Money                      \\
 Z                  & 0.53                    & Percentage                 \\ \hline
-\textbf{Formula}            & \textbf{Scala result}            & \textbf{Expected result}            \\ \hline
+\textbf{Formula}   & \textbf{Scala result}   & \textbf{Expected result}   \\ \hline
 (x*y)*z == x*(y*z) & false                   & true                       \\
 (x*y)*z            & 789129950543366910 EUR  & 789129950543366877.856 EUR \\
 x*(y*z)            & 789129950543366780 EUR  & 789129950543366877.856 EUR \\
@@ -222,53 +223,53 @@ y*z                & 939108976.688 EUR       & 939108976.688 EUR          \\ \hl
 \caption{AssociativeMultiplicationPercentage2: Precision error causing bigger differences}
 \label{ch4_init_check_AssociativeMultiplicationPercentage2}
 \end{table}
-\\
+\FloatBarrier
+% End table
 
 % % %
 % AssociativeMultiplicationInt2
 \subsubsection{AssociativeMultiplicationInteger2}
 % - Integer overflows, causing negative values etc.
 For this case three variables are used: x, y and z, which are of type \textit{Money}, \textit{Integer} and \textit{Integer} respectively. In \autoref{ch4_init_check_AssociativeMultiplicationInteger2} the values of a failing test case are shown with the intermediate formula steps. On the left side of the expression we see the expected results, while on the right side there is a big difference. The red colored row shows a huge difference in the resulting values between Scala and the expected value of the intermediate step on this expression. The result value of the operation is smaller than the minimum value of an \textit{Integer}. Causing it to underflow, resulting in an unexpected amount as result. Thus the operation neither checks for underflowing an \textit{Integer} value, nor does it prevent it.\todo{SOURCE-Over/underflow}
-% Table: Values of AssociativeMultiplicationInt2
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{AssociativeMultiplicationInteger2}                                                \\ \hline
-Variable               & Value                               & Type                                \\
-\multicolumn{1}{|r}{X} & -1852801029.34 EUR                  & Money                               \\
-\multicolumn{1}{|r}{Y} & -1309504561                         & Integer                             \\
-\multicolumn{1}{|r}{Z} & 1880170895                          & Integer                             \\ \hline
-Formula                & Scala result                        & Expected result                     \\
-(x*y)*z == x*(y*z)     & false                               & true                                \\
-(x*y)*z                & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR \\
-x*(y*z)                & 3877739486117270379.94 EUR          & 4561767263499657218201769467.30 EUR \\
-                       &                                     &                                     \\
-x*y                    & 2426251398546224819.74 EUR          & 2426251398546224819.74 EUR          \\
-y*z                    & -2092906591                         & -2462092362461952095                \\ \hline
+\textbf{Variable}  & \textbf{Value}                      & \textbf{Type}                       \\ \hline
+X                  & -1852801029.34 EUR                  & Money                               \\
+Y                  & -1309504561                         & Integer                             \\
+Z                  & 1880170895                          & Integer                             \\ \hline
+\textbf{Formula}   & \textbf{Scala result}               & \textbf{Expected result}            \\ \hline
+(x*y)*z == x*(y*z) & false                               & true                                \\
+(x*y)*z            & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR \\
+x*(y*z)            & 3877739486117270379.94 EUR          & 4561767263499657218201769467.30 EUR \\
+                   &                                     &                                     \\
+x*y                & 2426251398546224819.74 EUR          & 2426251398546224819.74 EUR          \\
+y*z                & -2092906591                         & -2462092362461952095                \\ \hline
 \end{tabular}
 \caption{AssociativeMultiplicationInteger2: \textit{Integer} underflows when using multiply}
 \label{ch4_init_check_AssociativeMultiplicationInteger2}
 \end{table}
-\\
+\FloatBarrier
+% End table
 
 % % %
 % DistributiveInt1
 \subsubsection{DistributiveInt1}
 This case also uses three variables: x, y and z. Which are of type \textit{Money}, \textit{Integer} and \textit{Integer} respectively. In \autoref{ch4_init_check_DistributiveInteger1} the different values are shown of the calculation between Scala and the expected result. The red line shows how the addition of two (positive) Integers results in a negative value. The result value would be bigger than the maximum value of an \textit{Integer}, causing it to overflow. Thus the operation also does not check or prevent against overflowing. \todo{SOURCE-Over/underflow}
-% Table: Values of DistributiveInt1
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{DistributiveInteger1}                                             \\ \hline
-Variable               & Value                       & Type                        \\
-\multicolumn{1}{|r}{X} & -1790274467.41 EUR          & Money                       \\
-\multicolumn{1}{|r}{Y} & 1691684272                  & Integer                     \\
-\multicolumn{1}{|r}{Z} & 1449321647                  & Integer                     \\ \hline
-Formula                & Scala result                & Expected result             \\
+\textbf{Variable}      & \textbf{Value}              & \textbf{Type}               \\ \hline
+X                      & -1790274467.41 EUR          & Money                       \\
+Y                      & 1691684272                  & Integer                     \\
+Z                      & 1449321647                  & Integer                     \\ \hline
+\textbf{Formula}       & \textbf{Scala result}       & \textbf{Expected result}    \\ \hline
 x*(y+z) == (x*y)+(x*z) & false                       & true                        \\
 x*(y+z)                & 2065907589620385223.57 EUR  & -5623262698769382599.79 EUR \\
 (x*y)+(x*z)            & -5623262698769382599.79 EUR & -5623262698769382599.79 EUR \\
@@ -280,7 +281,8 @@ x*z                    & -2594683539688709024.27 EUR & -2594683539688709024.27 E
 \caption{DistributiveInteger1: \textit{Integer} overflows when using addition}
 \label{ch4_init_check_DistributiveInt1}
 \end{table}
-\\
+\FloatBarrier
+% End table
 
 % % %
 % AssociativeMultiplicationPercentage1
@@ -297,29 +299,29 @@ the results of Scala and Rascal with each other. This issue is caused by the
 is being multiplied with an \textit{Integer}. This results in a \textit{Double}
 value containing a precision error, which is related to the problems with
 floating-point arithmetic \cite{goldberg1991every}.
-% Table: Values of AssociativeMultiplicationPercentage1
-\\
-\begin{table}[h!]
+% Table
+\FloatBarrier
+\begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{AssociativeMultiplicationPercentage1}                    \\ \hline
-Variable               & Value                  & Type                        \\
-\multicolumn{1}{|r}{X} & -352883323.42 EUR      & Money                       \\
-\multicolumn{1}{|r}{Y} & 0.27                   & Percentage                  \\
-\multicolumn{1}{|r}{Z} & 294211708              & Integer                     \\ \hline
-Formula                & Scala result           & Expected result             \\
-(x*y)*z == x*(y*z)     & false                  & true                        \\
-(x*y)*z                & -28032049433190944 EUR & -28032049433190942.3672 EUR \\
-x*(y*z)                & -28032049433190948 EUR & -28032049433190942.3672 EUR \\
-                       &                        &                             \\
-x*y                    & -95278497.3234 EUR     & -95278497.3234 EUR          \\
-y*z                    & 79437161.16000001      & 79437161.16                 \\ \hline
+\textbf{Variable}  & \textbf{Value}         & \textbf{Type}               \\ \hline
+X                  & -352883323.42 EUR      & Money                       \\
+Y                  & 0.27                   & Percentage                  \\
+Z                  & 294211708              & Integer                     \\ \hline
+\textbf{Formula}   & Scala result           & Expected result             \\ \hline
+(x*y)*z == x*(y*z) & false                  & true                        \\
+(x*y)*z            & -28032049433190944 EUR & -28032049433190942.3672 EUR \\
+x*(y*z)            & -28032049433190948 EUR & -28032049433190942.3672 EUR \\
+                   &                        &                             \\
+x*y                & -95278497.3234 EUR     & -95278497.3234 EUR          \\
+y*z                & 79437161.16000001      & 79437161.16                 \\ \hline
 \end{tabular}
 \caption{AssociativeMultiplicationPercentage1: A precision error when using \textit{Percentage}}
 \label{ch4_init_check_AssociativeMultiplicationPercentage1}
 \end{table}
-\\
+\FloatBarrier
+% End table
 Additionally, we can see a difference in the results on the left and right side of the expression evaluation in Scala. Where as the intermediate step for the left side is calculated correctly. This also hints to the bug in the \textit{Money} type which we already found with the `DistributiveInt2` test. For the right side we cannot say this immediately, as there is already an error in the intermediate step.\\
 \\
 This property revealed a precision error when the \textit{Percentage} type is being used. The \textit{Percentage} is being translated to a \textit{Double} value, causing operations with it to have precision errors. In this case the \textit{Percentage} is being multiplied by an \textit{Integer}.
