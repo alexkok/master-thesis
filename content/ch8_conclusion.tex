@@ -4,7 +4,7 @@
 \chapter{Conclusion}
 \label{chp:conclusion}
 % Summary
-Throughout this project, we have shown a way how a component of the generated system can be automatically checked by using a \textit{Rebel} specification. This is done by generating tests based on the specification and making use of the generator to generate the tests. The \textit{Rebel} specification contains a set of defined properties that are defined on the custom types of \textit{Rebel}. However, these definitions were not defined earlier, thus we provide a definition for some of these types and  define properties that hold when operating with it. We have proven that the test framework was improved throughout the project by taking the coverage and amount of bugs found metrics into account. Furthermore, we have found some bugs in the generated system that were unknown before, showing that this approach already helped to identify some problems in the generator and the generated system. Additionally, we contributed to an open source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
+Throughout this project, we have shown a way how the generatog can be tested by using a \textit{Rebel} specification. This is done by generating tests based on the specification and making use of the generator to generate the tests. The \textit{Rebel} specification contains a set of defined properties that are defined on the custom types of \textit{Rebel}. However, these definitions were not defined earlier, thus we provide a definition for some of these types and  define properties that hold when operating with it. We have proven that the test framework was improved throughout the project by taking the coverage and amount of bugs found metrics into account. Furthermore, we have found some bugs in the generated system that were unknown before, showing that this approach already helped to identify some problems in the generator and the generated system. Additionally, we contributed to an open source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
 \\
 % Research questions
 % Answer main research question
@@ -36,7 +36,7 @@ system, called \textit{Squants}. We reported these two issues, such that these c
 % Section: Future work
 \section{Future work}
 \todo{Write  this out. Points below are baselines for the content here}
-- Generate properties (automatically) for each type, allowing dynamic adding of new operators and types.  Or to detect errors in the typechecker. For example: if the type checker allows multiplication of Money, an error at compile or run time will occur in the generated system. Since this was not the aim of the project, it is not required, but can be useful to detect errors in the generated system when a new type has been added.  \\
+- Generate properties (automatically) for each type, allowing dynamic adding of new operators and types. Or to detect errors in the typechecker. For example: if the type checker allows multiplication of Money, an error at compile or run time will occur in the generated system. Since this was not the aim of the project, it is not required, but can be useful to detect errors in the generated system when a new type has been added.  \\
 - Dynamic values generation based on conditions. Maybe other tools can be used to do this or as guideline. (probably some QuickCheck variants support this already). Could use SMT for this, or a tool like SAGE (SRC).\\
 - More properties, define more things to test. Also other types.\\
 % - Sync properties. (Or maybe we do cover them later. At the moment of writing this is not the case yet)
@@ -46,18 +46,14 @@ system, called \textit{Squants}. We reported these two issues, such that these c
 
 
 
+% From old discussion
+% Future work
+\textit{Rebel} contains a type checker, which is able to determine exactly which operations are supported by using certain combinations of operators and types. This could be used to automatically generate the specifications for each type in \textit{Rebel}. Considering that a map of all operations can be created and a map of all existing types, each combination can be tested against the type checker. If the type checker allows determines it as a correct expression, an event definition in \textit{Rebel} could be created for it. Although this might result in many definitions that are being tested, with a possible overlap between them, it would be a way to automatically test each operation using different types. Furthermore, it can make it more dynamic when a new type could be added to \textit{Rebel}. However, this could be done in the future to extend the test framework.\\
+\\
+% > Future work
+Another improvement could be to define the expected behaviour of the sync blocks that \textit{Rebel} supports, which hooks into the improvement point of missing properties. The current test framework is not able to test sync blocks at all, but this would be a useful improvement. There were already some known issues with the sync block expressions of which some have been fixed already. Furthermore, there is the expectation that the sync blocks implementation has more bugs.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+% > Test mechanics and future work (Also handled in threat of test mechanics)
+Throughout this project, we have only tested the system that is generated by the Scala/Akka generator which is developed by ING. Since there are more generators available, the test framework can be improved such that it is compatible with the other systems that can be generated by using one of the other generators that are available within ING. By doing this, the same property definitions can be tested on different kind of generated systems. This can be used to detect inequalities among the generated system.
+% Optimizations: efficiency
