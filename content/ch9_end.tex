@@ -45,65 +45,6 @@ event symmetric(x: Money, y:Money) {
 \end{sourcecode}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Appendix II: Initial generated test cases
-\chapter{Initial generated test cases}
-\label{app:b_resulting_tests}
-
-\begin{sourcecode}[h!]
-\begin{lstlisting}[language=Scala]
-    "work with CommutativeMultiplicationInt2" in {
-       generateRandomParamList(List("Money", "Integer"), 100).foreach {
-         data: List[Any] => {
-           checkAction( CommutativeMultiplicationInt2(data(0).asInstanceOf[Money], data(1).asInstanceOf[Int]) )
-         }
-       }
-     }
-    "work with CommutativeMultiplicationPercentage1" in {
-       generateRandomParamList(List("Percentage", "Money"), 100).foreach {
-         data: List[Any] => {
-           checkAction( CommutativeMultiplicationPercentage1(data(0).asInstanceOf[Double], data(1).asInstanceOf[Money]) )
-         }
-       }
-     }
-    "work with CommutativeMultiplicationPercentage2" in {
-       generateRandomParamList(List("Money", "Percentage"), 100).foreach {
-         data: List[Any] => {
-           checkAction( CommutativeMultiplicationPercentage2(data(0).asInstanceOf[Money], data(1).asInstanceOf[Double]) )
-         }
-       }
-     }
-    "work with AssociativeMultiplicationPercentage2" in {
-       generateRandomParamList(List("Integer", "Money", "Percentage"), 100).foreach {
-         data: List[Any] => {
-           checkAction( AssociativeMultiplicationPercentage2(data(0).asInstanceOf[Int], data(1).asInstanceOf[Money], data(2).asInstanceOf[Double]) )
-         }
-       }
-     }
-\end{lstlisting}
-\caption{The first generated test file. It uses random values as input for every test. Each test is run 100 times}
-\end{sourcecode}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% Section: Appendix II:
+\chapter{...}
+\label{app:...}
