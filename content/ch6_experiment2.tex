@@ -2,7 +2,7 @@
 % Chapter: Experiment 2
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 2: Smarter values generation}
-\label{chp:experiment2}
+\label{cpt:experiment2}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Smarter values generation
 %\section{Smarter values generation}
@@ -81,7 +81,7 @@ Now that the input values for the implication events satisfy the if-clause, we c
 % Section: Results
 \section{Results}
 \pinfo{Failing tests: Division}
-Running the test suit with these changes resulted in an extra of 2 tests that were failing compared to the first experiment (\autoref{cpt:5_experiment1}). These were \textit{Division1} and \textit{Division2}, which reported that the precondition failed on the input values that were used, as shown in \autoref{lst:ch6_division_preconditionfailed}.
+Running the test suit with these changes results in 2 extra tests that are failing compared to the first experiment (\autoref{cpt:experiment1}). These were \textit{Division1} and \textit{Division2}, which reported that the precondition failed on the input values that were used, as shown in \autoref{lst:ch6_division_preconditionfailed}.
 \\
 \begin{sourcecode}[h!]
 \begin{lstlisting}[language=Log]
@@ -106,8 +106,11 @@ Running the test suit with these changes resulted in an extra of 2 tests that we
 \label{lst:ch6_division_preconditionfailed}
 \end{sourcecode}
 \\
-The values should be correct since we generated these values such that they match the if-clause of the implication properties. Note that the condition of the if-clause was added as preconditions in the specification, which causes these errors.\\
-\\
+The values should be correct since we generated these values such that they match the if-clause of the implication properties. Note that the condition of the if-clause was added as preconditions in the specification, which causes these errors.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Analysis
+\section{Analysis}
 \pinfo{Describe precision error happening at first}
 For \textit{Division1} it states that the condition \code{x*y == z} failed. The values used for \textit{x}, \textit{y} and \textit{z} were \textit{-44.68 USD}, \textit{870} and \textit{-38870.47 USD} respectively. The result of \textit{x * y} = \textit{-44.68 USD * 870} = \textit{-38871.60 USD}. This should be equal to \textit{z}, in fact, the input of \textit{z} was slightly different, \textit{-38870.47 USD}. Remember that the input values are being mutated by a random operation that we have added to the test cases. This difference is caused by the precision error when operating with the \textit{Money} type, which we already found in \autoref{cpt:5_experiment1}. The random operation that was done was causing this behaviour. The same goes for the error with \textit{Division2}, where \code{x == z*y} should hold. The values of \textit{x}, \textit{y} and \textit{z} are \textit{-16729.90 USD}, \textit{830}, \textit{-20.16 USD} respectively. The result of \textit{z * y} = \textit{-16732.80 USD}, which is not equal to \textit{-16729.90} USD.\\
 \\
@@ -115,9 +118,10 @@ For \textit{Division1} it states that the condition \code{x*y == z} failed. The 
 The first experiment already described the precision problem and how it could be fixed. We run these tests again against a new generated system (using the same generator) in which the precision errors that we identified earlier, are fixed. Running the test suit again on this system still results in the same amount of failing tests. As shown in Listing X, one case still fails on the precondition check, while the other case returns \textit{false}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Analysis
-\section{Analysis}
-In this experiment we generated the input values such that the condition of the properties using implication are satisfied. When looking at the coverage report concerning a specific property, it can be seen that the else-clause of the implication is not being triggered any more. In \autoref{fig:ch6_eval_e2_highlighting_transitive-equality} the coverage of \textit{TransitiveEquality} is shown, note that only the else condition (which was translated to \textit{false}) is not triggered by the test suite. This was also the intention of the modification used in this experiment, as the if-clause is actually what we intended the property to check.
+% Section: Evaluation criteria
+\section{Evaluation criteria}
+\pinfo{Property coverage}
+When looking at the coverage report concerning a specific property, it can be seen that the else-clause of the implication is not being triggered any more. In \autoref{fig:ch6_eval_e2_highlighting_transitive-equality} the coverage of \textit{TransitiveEquality} is shown, note that only the else condition (which was translated to \textit{false}) is not triggered by the test suite. This was also the intention of the modification used in this experiment, as the if-clause is actually what we intended the property to check.
 \\
 \begin{figure}[h!]
 \frame{
@@ -128,10 +132,8 @@ In this experiment we generated the input values such that the condition of the 
 \centering
 \end{figure}
 \\
-Although this did not lead to many additional bugs compared to the earlier experiment, there were still 2 additional failing tests related to the division problem. Both failing tests are related to the division problem that occurs when there is no even division of a number. For example: when dividing 1 by 3. When defining the specifications on the \textit{Money} type, we said that when this problem occurs, the value has to be rounded at the Xth \todo{Define x} decimal. However, these tests reveal that the generated system does not yet take this rule into account. Instead it tries to hold the exact value. As we have seen in Listing X \todo{Add listing}, one case (\textit{Division1}) fails because of a \code{PreconditionFailed} error, while \textit{Division2} passed the precondition check but results in \textit{false}. Since the \textit{Division2} test passes the precondition check in this example, it is probably the case that the calculated value tried to be used. The result check reveals that the property is still failing, meaning that it fails to hold the exact value. Which is understandable, as it has to be rounded somewhere, but it is not defined clearly yet. But this reveals that it is not the case that the rounding is done at the Xth \todo{Define x} decimal according to our definition.
 
 % Evaluation criteria
-\subsubsection{Evaluation criteria}
 \pinfo{74\% on conditionals. Others remain the same - image}
 The expectation was that the test suite could be improved, such that the test coverage on the SUT would become higher. In the first experiment we found that the properties using implication were not tested thoroughly. In this experiment these properties are triggering the if-clause of the properties using implication, thus we expect the test coverage to be higher when looking on the coverage of the properties. This is also follows from the results, as we can see in \autoref{fig:ch6_eval_experiment2}, the test coverage when looking at the logic file of the implicative properties is 74\%.
 \\
@@ -147,8 +149,15 @@ The expectation was that the test suite could be improved, such that the test co
 \pinfo{Coverage, 85\% (overall), better}
 The total test coverage on the SUT is reported to be 85\%. As we have discussed in the evaluation of the first experiment, we do not expect to reach the 100\% coverage, as there are certain components in the generated system which we do not test with this approach. Also, considering that the else-clause is not being triggered of the implicative properties, the test coverage will never become 100\%. Which is not a problem in that sense, as we don't intent to test the else clause, we are more interested in the result of the if-clause of these implicative properties.\\
 \\
-\pinfo{\# of bugs, 1 more}
+\pinfo{\# of bugs, 2 more}
 The other criteria we use was the amount of bugs that we have found. Using this approach 2 more tests were failing compared to the first experiment in \autoref{cpt:5_experiment1}. The bug found was when using division with the \textit{Money} type, which is expected to be rounded off at the Xth decimal \todo{Define X}. However, as we have seen in this experiment, the generated system does not take this into account. We can categorize this bug into one category, rounding errors. These are different from precision errors as the precision errors are caused by having an incorrectly calculated value, where rounding errors are basically not working with the rounding method that is defined.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Conclusion
+\section{Conclusion}
+In this experiment we generated the input values such that the condition of the properties using implication are satisfied. Although this did not lead to many additional bugs compared to the earlier experiment, there were still 2 additional failing tests related to the division problem. Both failing tests are related to the division problem that occurs when there is no even division of a number. For example: when dividing 1 by 3.\\
+\\
+When defining the properties in \autoref{cpt:properties}, we said that when this problem occurs, the value has to be rounded at the Xth \todo{Define x} decimal. However, these tests reveal that the generated system does not yet take this rule into account. Instead it tries to hold the exact value. As we have seen in Listing X \todo{Add listing}, one case (\textit{Division1}) fails because of a \code{PreconditionFailed} error, while \textit{Division2} passed the precondition check but results in \textit{false}. Since the \textit{Division2} test passes the precondition check in this example, it is probably the case that the calculated value tried to be used. The result check reveals that the property is still failing, meaning that it fails to hold the exact value. Which is understandable, as it has to be rounded somewhere, but it is not defined clearly yet. But this reveals that it is not the case that the rounding is done at the Xth \todo{Define x} decimal according to our definition.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
