@@ -12,7 +12,7 @@ try to answer the following research question:
 \end{description}
 
 We use property-based testing as testing technique. The aim of this project
-was to test the implementation of the generator and trying to find yet unknown
+is to test the implementation of the generator and trying to find yet unknown
 bugs in it. Unfortunately we cannot test the properties right away on the
 generator, but we aim to test the properties as automatic as possible. To check
 the generator, we need to use the system that it generates. But in order to do
@@ -24,15 +24,24 @@ whether the defined properties hold when using the generator
 % Section: The test framework
 \section{The test framework}
 \pinfo{Describing phases}
-A \textit{Rebel} specification can be created with the property definitions. Which can then be used to generate the test cases. The resulting test cases is the content of the test suite, which we can be run against the generated system. The goal of the test framework is to combine most of the required phases such
-that each defined property is being checked as automatic as possible. An overview of the phases is shown in Figure X, to sum up: the phases
+A \textit{Rebel} specification can be created with the property definitions.
+Which can then be used to generate the test cases. The collection of resulting
+test cases is the content of the test suite, which we can be run against the
+generated system. The goal of the test framework is to combine most of the
+required phases such that each defined property is being checked as automatic as
+possible. An overview of the phases is shown in Figure X, to sum up: the phases
 are defined as follows:
+\def \tfPhaseOne{Create specification}
+\def \tfPhaseTwo{Check \& Build}
+\def \tfPhaseThree{Generate system}
+\def \tfPhaseFour{Generate test suite}
+\def \tfPhaseFive{Run test suite}
 \begin{enumerate}
-  \item Create \textit{Rebel} specification
-  \item Check \& build
-  \item Generate system
-  \item Generate test suite
-  \item Run test suite
+  \item \tfPhaseOne{}
+  \item \tfPhaseTwo{}
+  \item \tfPhaseThree{}
+  \item \tfPhaseFour{}
+  \item \tfPhaseFive{}
 \end{enumerate}
 
 We will describe each phase in detail in the next sections. Additionally we will define some evaluation criteria which will be used to evaluate the test framework. The \textit{Reflexitivity} property will be used to demonstrate each phase. More specifically: the case of \textit{Reflexivity} when using equality, called \textit{ReflexiveEquality} throughout this project. The definition of \textit{ReflexiveEquality} is shown in \autoref{tbl:ch3_small_property_definition}.
@@ -54,10 +63,13 @@ x & Money \\ \hline
 
 % % % % % % % % % % % % %
 % Subsection: From property definitions to Rebel specification
-\subsection{From property definitions to Rebel}
+\subsection{\tfPhaseOne{}}
 \label{sct:3_prop_to_rebel}
+\pinfo{Generator requires spec}
+The generator requires a consistent \textit{Rebel} specification in order to generate a system. This means that we have to translate the properties (which are defined in \autoref{cpt:4_properties}) to a \textit{Rebel} specification. A rebel specification consist of a lifecycle definition together with its event definitions.\\
+\\
 \pinfo{Property to event translation}
-A test case should be able to pass values as parameters to test a specific property for a certain amount of times. We can use the events for this in the \textit{Rebel} definition. An event describes a transition from one state to another and accepts parameters. Additionally, it can have pre- and postconditions, where the postconditions implicitly state what happens when the transaction is being executed. In \autoref{lst:ch3_rebel_event_of_property} the event definition for the \textit{ReflexiveEquality} property written in \textit{Rebel} is shown.
+A test case should be able to pass values as parameters to test a specific property for a certain amount of times. We can use the events for this in the \textit{Rebel} definition. An event describes a transition from one state to another and accepts parameters. Additionally, it can have pre- and postconditions, where the postconditions can state what happens when the transaction is being executed. In \autoref{lst:ch3_rebel_event_of_property} the event definition for the \textit{ReflexiveEquality} property written in \textit{Rebel} is shown.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[h!]
@@ -74,7 +86,7 @@ event reflexiveEquality(x: Money) {
 \FloatBarrier
 % End listing
 \pinfo{Further explanation, parameters, result field}
-The event name and the parameters are used to generate a test case from this event definition. To check whether the property was fulfilled given a certain tuple of parameters, we store the result in a data field called \textit{result}. The test cases can retrieve the value of this field, to determine the result. In case the result value is \textit{false} during testing, a bug has been found.\\
+The event name and the parameters are used to generate a test case from this event definition. To check whether the property was fulfilled given a certain tuple of parameters, we store the result in a data field called \textit{result}. The test cases can retrieve the value of this field, to determine the result. In case the result value is \textit{false} during testing, a bug has been found. (The \textit{new} keyword is used to state how the field changes when a transition is taking place.)\\
 \\
 \pinfo{Also need to define the specification itself}
 Besides the event definition, we need to write the actual \textit{Rebel} specification to be able to generate a system from it. The specification describes the fields, the events it uses and the life cycle of the state machine. Since we are only interested in testing the events, we can hold the specification itself to a minimum. The life cycle consists of 2 states, the initial and final state. The transition between these states is the event we defined, \textit{ReflexiveEquality}. In \autoref{lst:ch3_rebel_specification_oneprop} a specification used for one property is shown. In the case of multiple properties, we can add these to the events block. In the life cycle, we can comma separate the transitions.
@@ -109,13 +121,30 @@ specification MoneyExample {
 % End listing
 
 % % % % % % % % % % % % %
-% Subsection: Generating the tests
-\subsection{Generating the tests}
+% Subsection: Phase 2: Check & build
+\subsection{\tfPhaseTwo{}}
 \pinfo{Build specification}
-Now that we have a specification, we can build that specification. This is done with \textit{Rascal}, we also use \textit{Rascal} to generate the test suite. Building the specification means that the specification is being parsed, which results in an AST of the specification.\\
+Now that we have a specification, that specification can be checked and builded. Which results in an AST of the specification that the test framework can use to generate the tests. This is done by using the existing toolchain that is available for Rebel. The test framework itself is written in \textit{Rascal}.\\
+\\
+Building the specification means that the specification is being checked and returns an AST of the specification when the specification is consistent. This is required in order to generate a system from it by using the generator, additonally the AST is used by the test framework to generate the test suite.
+
+% % % % % % % % % % % % %
+% Subsection: Phase 3: Generate system
+\subsection{\tfPhaseThree{}}
+The system which will be used to check each property is generated by using the generator. This system is called the SUT throughout this thesis. The test framework uses the generator to generate the system. Note that the generated system is assumed to be runnable. As otherwise the test suite that will be generated by the test framework (in the next phase) cannot be run against the generated system.
+
+% % % % % % % % % % % % %
+% Subsection: Phase 4: Generate test suite
+\subsection{\tfPhaseFour{}}
+\label{sct:3_tf_phase_four}
+\pinfo{Init and generate}
+The test suite requires some configuration to work with the generated system. The test framework first initializes the test suite, then generates the test cases.\\
+\\
+\pinfo{Test suite initialization}
+The generated system uses Akka as messaging layer, the required configuration files for running the test suite on the generated system are added by the test framework. Furthermore the test suite is build up such that it first starts the SUT and then runs all the tests against the SUT. Thus when running the test suite (next phase), the SUT will automatically be started such that this does not require additional steps. Furthermore the initialization part can be found back in the source of this project. We do not cover this in detail here since there are no custom settings in there, rather its more default configuration that is only required to make the messaging layer work for the test suite.\\
 \\
 \pinfo{Test case generation based on event}
-In \textit{Rascal}, we can traverse the AST and generate a test case for each event. A test case is generated by using the templating feature of Rascal, where we fill in event specific data as shown in \autoref{lst:ch3_rascal_testcase_template}. The resulting test case of \textit{ReflexiveEquality} is shown in \autoref{lst:ch3_generated_test_example}.
+The test framework can traverse the AST and generate a test case for each event. A test case is generated by using the templating feature of Rascal, where we fill in event specific data as shown in \autoref{lst:ch3_rascal_testcase_template}. The resulting test case of \textit{ReflexiveEquality} is shown in \autoref{lst:ch3_generated_test_example}.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[h!]
@@ -165,14 +194,10 @@ public str snippetTestCase(str eventName, list[str] params, int tries) {
 The functions \code{generateParamList()} and \code{checkAction()} are utility functions that are defined in the template that is used for a test file. The \code{generateRandomParamList()} method generates tuples of random values that are used as parameters. \code{checkAction()} is a method that executes the given event and checks whether the resulting value of the result field was \textit{true}. A test file consists of the utility functions and all of the snippets that were generated.
 
 % % % % % % % % % % % % %
-% Subsection: Running the test suit
-\subsection{Full cycle}
-\label{sct:ch3_full_cycle}
-\pinfo{Build before running}
-In order to run our tests, we first have to generate the system from the specification that we created by using the generator. Next, we initialize the test suite and generate the test cases, such that it is being added to the source of the generated system.\\
-\\
+% Subsection: Phase 5: Run test suite
+\subsection{\tfPhaseFive{}}
 \pinfo{How to run the test suit + result}
-The tests can be run with \textit{SBT} by using \code{sbt test}. It will first start the generated system to which it will test against. When the system has been started, all the tests will be run. The log shows detailed information about the tests and shows a summary when the test suit has finished. When running the test framework with the specification that we created in \autoref{sct:3_prop_to_rebel} the test suite finishes successfully, as shown in \autoref{lst:ch3_log_testrun_success}.
+The test suite can be run with \textit{SBT} by using \code{sbt test}. The log shows detailed information about the tests and shows a summary when the test suit has finished. When running the test framework with the specification that we created in \autoref{sct:3_prop_to_rebel} the test suite finishes successfully, as shown in \autoref{lst:ch3_log_testrun_success}.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[h!]
@@ -194,7 +219,7 @@ The tests can be run with \textit{SBT} by using \code{sbt test}. It will first s
 \FloatBarrier
 % End listing
 \pinfo{Notable start up time explanation}
-Looking at the run time of this specific run, it shows us that the \textit{ReflexiveEquality} test case was executed within 4 seconds. While the whole test suit run took almost 37 seconds. This difference is due to the fact that the generated system first has to be started. This log clearly shows which test cases were run and whether these failed or not.\\
+Looking at the run time of this specific run, it shows us that the \textit{ReflexiveEquality} test case was executed within 4 seconds. While the whole test suit run took almost 37 seconds. This difference is due to the fact that the SUT first has to be started, as described in \autoref{sct:3_tf_phase_four}. The log clearly shows which test cases were run and whether these failed or not.\\
 \\
 \pinfo{Modify generator, demonstrate failing case}
 Now that we have a working case, how does this work in case of a test failed? We can simulate a bug by modifying the generator that we use. Let's say that we have a translation error in the generator, such that the equality (==) operator would be translated to a not equal (!=) operator in the generated system. The results show a detailed stack trace of what went wrong along with the input values, such that the issue can be reproduced. \autoref{lst:ch3_log_testrun_failed} shows the output after modifying the generator.
@@ -230,22 +255,6 @@ Now that we have a working case, how does this work in case of a test failed? We
 \end{sourcecode}
 \FloatBarrier
 % End listing
-
-% Summary
-\pinfo{Combining all steps}
-To summarize, we can describe the full cycle of running the test suit in the following steps:
-\begin{enumerate}
-\item Create Rebel specification(s) with defined properties
-\item Build the specification(s)
-\item Generate a system from the specification(s)
-\item Initialize the test suite
-\item Generate the tests
-\item Run the test suite
-\end{enumerate}
-The first step is done manually by writing the specification. The other steps are combined to one method, which can be found in the \code{Main.rsc} file in the source code of this project.\\
-\\
-\pinfo{Larger specification for experiments}
-In this chapter, we demonstrated a full cycle based on one property. For the experiments, more properties are being used, resulting in a bigger specification which is being tested automatically. The properties that are being used are described in \autoref{cpt:4_properties}. The event definitions of these properties can be found in \autoref{app:a_event_definitions}. In \autoref{app:b_resulting_tests} the generated test cases from these events can be found.
 
 % % % % % % % % % % % % %
 % Subsection: Test framework evaluation
@@ -290,9 +299,23 @@ The number of bugs found by an experiment also describes how effective the exper
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-...
+\pinfo{Combining all steps}
+We described the folloring 5 phases that are required to test the generator:
+\begin{enumerate}
+\item \tfPhaseOne{}
+\item \tfPhaseTwo{}
+\item \tfPhaseThree{}
+\item \tfPhaseFour{}
+\item \tfPhaseFive{}
+\end{enumerate}
+The first step is done manually by translating the properties to a consistent \textit{Rebel} specification. The test framework is able to execute the other phases, which can be found in the \code{Main.rsc} file in the source code of this project.\\
+\\
+\pinfo{Larger specification for experiments}
+In this chapter, we demonstrated a full cycle based on one property. For the experiments, more properties are being used, resulting in a bigger specification which is being tested automatically. The properties that are being used are described in \autoref{cpt:4_properties}. The event definitions of these properties can be found in \autoref{app:a_event_definitions}. In \autoref{app:b_resulting_tests} the generated test cases from these events can be found.
+
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
 ...
+% - Not compilable system. Can be detected but not sure if its a bug or soemthing else that went wrong. Hard to argua, which is why we assumed it to be compilable. However, this might happen when running the test suite if certain operations that are expected to work are incorrectly being translated.
