@@ -446,13 +446,16 @@ The law of trichotomy defines that for every pair of arbitrary real numbers, exa
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-In this chapter, we focused on the properties of the custom types in \textit{Rebel}. Since there was no definition of the custom types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type.\\
+In this chapter, we focused on the properties of the custom types in \textit{Rebel}. The research question lead as follows:\rqOne\\
+\\
+Since there were no definition available of the types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type. In this chapter we have defined a set of properties that are expected to hold with Rebel.\\
 \\
 The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that the test framework haven't found an error in the properties that it checks the generator on. Many properties can be defined within a language, the properties defined here are certainly not all the properties in \textit{Rebel}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
+We defined a set of properties that are expected to hold in \textit{Rebel}. This can be seen as an incomplete set, as many more properties can hold and can be expected when using \textit{Rebel}. The set of properties we defined are aimed to cover many operations when using the \textit{Money} type, as this can be considered the most important type for a bank. This leads to some threats to validity.
 
 % Lack of properties / missing properties
 \subsection*{Lack of properties}
