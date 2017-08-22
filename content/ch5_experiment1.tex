@@ -9,37 +9,31 @@ test cases as described in \autoref{cpt:3_testmechanics}. In this experiment we
 expect to find some bugs that were unknown before by using the test framework.
 When we have triggered some bugs, an investigation is needed to check what the
 cause is of that bug. Next, we can categorize the bugs found to come to an
-answer to this research question: \rqThree{}
+answer to this research question:\rqThree{}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
 %\label{sec:initial_case}
 \pinfo{Like QuickCheck, recall cycle shortly}
-In the first experiment each property will be tested 100 times with random input
-values. This is a similar approach as what \textit{QuickCheck} does with
-checking properties. The methods to generate the random value pairs are added to
-the template of a test file. A full test run consists of multiple steps, as
-described in \autoref{sct:ch3_full_cycle}. In short these steps are: building
-the specifications, generating the system, generating the test suit and as last
-run the generated test suit.
+In the first experiment each property will be tested 100 times by random input
+values. This means that if the property holds for 100 tests, it is reported to be successfully satisfying the property. This is a similar approach as what \textit{QuickCheck} does when
+checking properties. Unlike \textit{QuickCheck}, the test framework does not shrink the input values to come with minimum values for which the case fails. Instead it will just report the values that were used when the property failed.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
 \section{Results}
-Running the test framework in this experiment required two runs. As the first
-run was not as successfull as expected and thus did not find many bugs. Thus,
-for the second experiment the property that was causing the issue has been
-disabled. This allows to continue using the test framework for the other
-properties that are defined.
+In this experiment two runs are being done to detect bugs in the generator. The
+first run terminated quickly, which is why the test framework did not succeed in
+testing every property. The following sections describe the two runs in detail.
 
 % % % % % % % % % % % % %
 % Subsection: First run
 \subsection{First run}
 \pinfo{Termination, compile error due to library}
-The first run resulted into a termination of the run due to a compile error in the generated system. Although we made the assumption that the generated system should be compilable, this error came from a property definition that was expected to fulfill, namely \textit{AssociativeMultiplicationInteger1}. Which is why we can consider this as an error. The error describes that an overloaded method cannot be applied to the \textit{Money} type, as shown in \autoref{lst:ch5_firstrun_termination_log}.
-\\
+The first run results into a termination of the run due to a compile error in the generated system. Although we made the assumption that the generated system should be compilable, this error came from a property definition that was expected to fulfill, namely \textit{AssociativeMultiplicationInteger1} (\autoref{ssct:4_associativity}). Which is why we can consider this as an error that is found when using the test framework. The error describes that an overloaded method cannot be applied to the \textit{Money} type, as shown in \autoref{lst:ch5_firstrun_termination_log}.
 % Listing
+\FloatBarrier
 \begin{sourcecode}[h!]
 \begin{lstlisting}[language=Log]
 [error] MoneySpec.scala:316: overloaded method value * with alternatives:
@@ -74,21 +68,42 @@ The first run resulted into a termination of the run due to a compile error in t
 \label{lst:ch5_firstrun_termination_log}
 \end{sourcecode}
 \todo{Up arrow is incorrectly aligned in the listing due to layout}
+\FloatBarrier
 % End listing
-\\
 \pinfo{Investigation, found property and var types}
-The error log does not clearly indicate what is exactly going wrong, it also does not describe what the types of the variables were. Investigating the generated system reveals that both errors were happening when dealing with the \textit{AssociativeMultiplicationInteger1} property. This means that the variables x, y and z are of type \textit{Integer}, \textit{Integer}, \textit{Money} respectively, as described in \autoref{ssct:ch2_money_associativity}.\\
-\\
-\pinfo{Created issue in Squants, now proceed}
-For the \textit{Money} type, an open source library is used called Squants\footnote{https://github.com/typelevel/squants}. The missing method was actually an issue within this library. This means that in order to proceed further, a fix in the library would be required. For this we created an issue on Github describing the problem\footnote{https://github.com/typelevel/squants/issues/281}. In order to proceed with our test suit, we temporary disable this property till a fix has been made in the Squants library.
+The error log does not clearly indicate what is exactly going wrong, it also does not describe what the types of the variables were. Investigating the generated system reveals that both errors were happening when dealing with the \textit{AssociativeMultiplicationInteger1} property. This means that the variables x, y and z are of type \textit{Integer}, \textit{Integer}, \textit{Money} respectively, as described in \autoref{ssct:4_associativity}. Temporarily disabling this property allows the test framework to
 
 % % % % % % % % % % % % %
 % Subsection: Second run
 \subsection{Second run}
 \pinfo{Failing tests, describing each}
-After disabling the \textit{AssociativeMultiplicationInteger1} property, the test suit was able to run completely. The result was 7 failing tests. For each test the input values are logged such that the error can be reproduced. For each test we describe the investigation of what went wrong. After that, the results of our test suit can be evaluated.\\
-\\
-The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were initially also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. For the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done so that we were able to reveal the other errors that these properties reveal.
+After disabling the \textit{AssociativeMultiplicationInteger1} property, the test framework was able to run completely. This results in 7 failing tests. For each test the input values for which the property doesn't hold are logged such that the error can be reproduced. In ... an overview of the failing properties, along with it's input values are shown.
+% Table
+\FloatBarrier
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\hline
+\textbf{Property name}               & \textbf{X}               & \textbf{Y}        & \textbf{Z}         \\ \hline
+DistributivePercentage1              & 0.51                     & -311254801.77 EUR & -707194075.77 EUR  \\
+DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
+DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
+AssociativeMultiplicationPercentage2 & 840296462                & 1771903729.60 EUR & 0.53               \\
+AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
+DistributiveInt1                     & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
+AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
+\end{tabular}
+\caption{Overview of failing tests along with its input values}
+\label{ch4_init_check_DistributivePercentage1}
+\end{table}
+\FloatBarrier
+% End table
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Analysis
+\section{Analysis}
+For each test we describe the investigation of what went wrong. The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were initially also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. For the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done such that we are able to reveal the other errors that these properties can reveal.
 
 \todo{Add red and bold in tables}
 % % %
@@ -99,14 +114,14 @@ The first four tests reveal precision problems when using the \textit{Money} typ
 \subsubsection{DistributivePercentage1}
 \label{ssct:ch5_distributivePercentage1}
 This property uses a \textit{Percentage} value and two \textit{Money} values for it's tests. The values are named x, y and z respectively. To check this failing test, we check the results of the intermediate calculations in the formula that is being used. In \autoref{ch4_init_check_DistributivePercentage1} values are shown for which the test case fails, among with the intermediate calculations. The intermediate calculations seem to work as expected, as the results are the same when we compare the results of the Scala evaluation and the Rascal evaluation. Unfortunately the resulting left hand side of the expression contains a precision error, which is caused when multiplying a \textit{Percentage} (the x variable) with a \textit{Money} type (the result of y+z in this case).
-% Table: Values of DistributivePercentage1
+% Table
 \FloatBarrier
 \begin{table}[h!]
 \centering
 \begin{tabular}{|lll|}
 \hline
 \multicolumn{3}{|c|}{DistributivePercentage1}                          \\ \hline
-Variable   -            & Value                   & Type                \\
+Variable               & Value                   & Type                \\
 \multicolumn{1}{|r}{X} & 0.51                    & Percentage          \\
 \multicolumn{1}{|r}{Y} & -311254801.77 EUR       & Money               \\
 \multicolumn{1}{|r}{Z} & -707194075.77 EUR       & Money               \\ \hline
@@ -123,6 +138,7 @@ z*x                    & -360668978.6427 EUR     & -360668978.6427 EUR \\ \hline
 \label{ch4_init_check_DistributivePercentage1}
 \end{table}
 \FloatBarrier
+% End table
 
 % % %
 % DistributivePercentage2
@@ -160,9 +176,9 @@ This case uses \textit{Integer} in conjunction with the \textit{Money} type. Ear
 \\
 \begin{table}[h!]
 \centering
-\begin{tabular}{lll}
+\begin{tabular}{|lll|}
 \hline
-\multicolumn{3}{|c|}{DistributiveInt2}                                                                                \\ \hline
+\multicolumn{3}{|c|}{DistributiveInt2}                                                                              \\ \hline
 \multicolumn{1}{|l}{Variable}           & Value                   & \multicolumn{1}{l|}{Type}                       \\
 \multicolumn{1}{|r}{X}                  & -883022216              & \multicolumn{1}{l|}{Integer}                    \\
 \multicolumn{1}{|r}{Y}                  & -298435082.93 EUR       & \multicolumn{1}{l|}{Money}                      \\
@@ -188,20 +204,20 @@ The earlier cases already shown a precision error when using Doubles and Integer
 \\
 \begin{table}[h!]
 \centering
-\begin{tabular}{lll}
+\begin{tabular}{rll}
 \hline
-\multicolumn{3}{|c|}{AssociativeMultiplicationPercentage2}                                                            \\ \hline
-\multicolumn{1}{|l}{Variable}           & Value                   & \multicolumn{1}{l|}{Type}                       \\
-\multicolumn{1}{|r}{X}                  & 840296462               & \multicolumn{1}{l|}{Integer}                    \\
-\multicolumn{1}{|r}{Y}                  & 1771903729.60 EUR       & \multicolumn{1}{l|}{Money}                      \\
-\multicolumn{1}{|r}{Z}                  & 0.53                    & \multicolumn{1}{l|}{Double}                     \\ \hline
-\multicolumn{1}{|l}{Formula}            & Scala result            & \multicolumn{1}{l|}{Expected result}            \\
-\multicolumn{1}{|l}{(x*y)*z == x*(y*z)} & false                   & \multicolumn{1}{l|}{true}                       \\
-\multicolumn{1}{|l}{(x*y)*z}            & 789129950543366910 EUR  & \multicolumn{1}{l|}{789129950543366877.856 EUR} \\
-\multicolumn{1}{|l}{x*(y*z)}            & 789129950543366780 EUR  & \multicolumn{1}{l|}{789129950543366877.856 EUR} \\
-\multicolumn{1}{|l}{}                   &                         & \multicolumn{1}{l|}{}                           \\
-\multicolumn{1}{|l}{x*y}                & 1488924434987484670 EUR & \multicolumn{1}{l|}{1488924434987484675.2 EUR}  \\
-\multicolumn{1}{|l}{y*z}                & 939108976.688 EUR       & \multicolumn{1}{l|}{939108976.688 EUR}          \\ \hline
+\multicolumn{3}{c}{\textbf{AssociativeMultiplicationPercentage2}}                \\ \hline
+\textbf{Variable}           & \textbf{Value}                   & \textbf{Type}                       \\ \hline
+X                  & 840296462               & Integer                    \\
+Y                  & 1771903729.60 EUR       & Money                      \\
+Z                  & 0.53                    & Percentage                 \\ \hline
+\textbf{Formula}            & \textbf{Scala result}            & \textbf{Expected result}            \\ \hline
+(x*y)*z == x*(y*z) & false                   & true                       \\
+(x*y)*z            & 789129950543366910 EUR  & 789129950543366877.856 EUR \\
+x*(y*z)            & 789129950543366780 EUR  & 789129950543366877.856 EUR \\
+                   &                         &                            \\
+x*y                & 1488924434987484670 EUR & 1488924434987484675.2 EUR  \\
+y*z                & 939108976.688 EUR       & 939108976.688 EUR          \\ \hline
 \end{tabular}
 \caption{AssociativeMultiplicationPercentage2: Precision error causing bigger differences}
 \label{ch4_init_check_AssociativeMultiplicationPercentage2}
@@ -309,50 +325,17 @@ Additionally, we can see a difference in the results on the left and right side 
 This property revealed a precision error when the \textit{Percentage} type is being used. The \textit{Percentage} is being translated to a \textit{Double} value, causing operations with it to have precision errors. In this case the \textit{Percentage} is being multiplied by an \textit{Integer}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Analysis
-\section{Analysis}
-% 1: Squants using doubles internally. Small precision error can lead to bigger (unexpected) amounts as we've seen in AMP2.
-% 	 - DistributivePercentage1: Multiplying Double with Money causes a precision error
-%	 - DistributivePercentage2: Multiplying Money with Double causes a precision error
-% 	 - DistributiveInt2: Multiplying Money with Integer
-%    - AssociativeMultiplicationPercentage2: Multiplying Integer with Money. And with double. Causing big numbers to be losing precision anyway. Bug in Squants is the problem here though.
-% 2: Operations on an Integer are over/underflowing, causing incorrect results.
-%	 - AssociativeMultiplicationInt2: When using Multiply on Ints
-%	 - DistributiveInt1: When using Addition on Ints
-% 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
-%	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
-\pinfo{Short recap}
-In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. The errors that were found can be separated into the following 3 categories:
-\begin{itemize}
-\item Compilation errors: Errors that make the generated system unable to compile, and thus it cannot be used.
-\item Overflow/underflow errors:~ ~ Errors happening because of a limit that has been reached on specific types.
-\item Precision errors: ~ Errors causing an unexpected outcome value when being calculated.
-\end{itemize}
-\subsection*{Compilation errors}
-\pinfo{Compilation error, Squants issue}
-The fact that the test suit initially was being terminated was because of a compilation error. Although one assumption was that the generated system should be able to compile, another assumption we made was that the specification was consistent. The specification we created for all the properties is consistent, as Rebel did not report any syntactic or semantic errors with the type checker. The test suit is thus able to find such compilation errors. However, there can be many more compilation errors for which we do not check, which is also out of the scope of this project. The cause of this error was actually caused by an implementation error in an open source library that the generated system used, called Squants\footnote{https://github.com/typelevel/squants}. To fix this, we created a Github issue\footnote{https://github.com/typelevel/squants/issues/281} describing the problem. So that this can be fixed in the next release of the library.
+% Section: Evaluation criteria
+\section{Evaluation criteria}
 
-\subsection*{Overflow/underflow errors}
-\pinfo{Overflow/underflow errors, discussion and unclear definition}
-The overflow/underflow errors are caused because of the use of the \textit{Integer} type. On one hand this could be prevented by checking the operations beforehand for overflow errors. On the other hand, this could be the expected behavior when an \textit{Integer} is being used in Rebel. As \textit{Integers} are known have such limits that are also dependent on the platform the application is run \todo{SOURCE}. However, in Rebel there is currently no other type that can be used to hold a bigger number. For example in Java there is \textit{Long} for a larger number, or \textit{BigDecimal} for even bigger numbers. This would mean that Rebel does not support big numbers, or that a custom type must be used for this. Considering that Rebel does not provide a type for bigger numbers, we think that the Integer is supposed to also hold bigger numbers. Since the specification is about banking products and it probably could happen that a big number is needed. After all we cannot know this for sure, as Rebel does not provide a specification yet of each of type in Rebel.
-
-\subsection*{Precision errors}
-\pinfo{Precision errors, Squants issue}
-As we have seen, the Money precision errors both occurred when using \textit{Percentage} values as well as when using \textit{Integer} values to operate with the \textit{Money} type. Since we were able to reproduce the issue in a clean REPL environment, the problem existed in the open source library, called Squants, that was used for the \textit{Money} type. In order to solve this problem, we created an issue on Github\footnote{https://github.com/typelevel/squants/issues/265} related to the precision problems on the \textit{Money} type. A contributor responded and fixed the issue within a day, the change will be included in the next version of the library (1.4). So it is required to update this library in order to let these tests in our test suit pass.
-
-\subsection*{Conclusion}
-\pinfo{Conclusion}
-The research question lead as follows: \rqThree{} We have shown that the generator can be tested using property-based testing. We managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.\\
-\\
+% Property coverage
 \pinfo{Not tested implicative properties}
 When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not satisfied. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the Transitive property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
 \\
 \textbf{Figure X}
 \todo{Add figure}
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Evaluation criteria
-\section{Evaluation criteria}
+% Total coverage
 \pinfo{Test coverage, 30\% for implicative, 100\% for others}
 The first criteria to evaluate an experiment was to determine the test coverage. The properties using implication are not covered when using random values as input data. The other properties, which do not use implication, are fully tested though. This can be seen in Figure X, where the test coverage of the properties using implication only covers roughly 30\%. The files with a name ending with "Logic" contain the implementation of the properties, as well as the precondition checks. The test coverage concerning the other properties (those that do not use implication), reports 95\% coverage. When investigating further, the other 5\% are not related to the properties that we test, thus it is not required for this project to achieve 100\% coverage on the Logic files.\\
 \begin{figure}[h!]
@@ -367,18 +350,35 @@ The first criteria to evaluate an experiment was to determine the test coverage.
 \pinfo{Overall 68\%, cannot be 100, but can be improved}
 The overall coverage over the generated system is 68\%, however, note that the generated system is based on the properties that we defined and that the libraries that are being used by the generated system are not included in the coverage report. The generated system also contains some other logic that is more related to how it communicates with other instances when it is deployed, which is not something that we test. As a result, we will not be able to bring the test coverage to 100\%. Although the test suite can be improved to have a higher test coverage, by generating values such that the properties using implication are also triggering the if-clause. Which is currently not the case, as we have seen when checking the coverage of each property in Figure X-1.\\
 \\
-\pinfo{\# of bugs, 4}
+% % of bugs
+\pinfo{\# of bugs, 7}
 The second criteria that we defined was the amount of bugs that we have found by doing the experiment. By using this approach we found a total of 4 bugs. A compilation error, overflow/underflow error and precision errors. 2 of these 4 bugs were related to the precision problem when using doubles, but one originated from the library that is used for the Money type, while the other is because the \textit{Percentage} type is translated to a \textit{Double}. Which is why we define these as 2 separate bugs. An improvement of the test suite to also cover the properties using implication might result in more bugs that can be found.
 
-
-%\improvement{Comes out of the blue. Why this is done? Why exactly these changes? Tabular representation maybe?}
-%Additional to the errors that we found in the generated system, we should be able to find bugs in the generator in case an expression is being incorrectly translated. We can easily test this by modifying the generator such that this is the case. So if we modify the translation of the "$\geq$" operator to "$>$", the result is 8 failing tests. But if we translate the "$\geq$" to "$\leq$" there will still be 7 failing tests. So to cover this, we would need more properties to test which focuses on the implementation of these operators.\change{What is done here? Change it. Not clear what the 8 tests and 7 tests mean. And why has this been done? Describe decisions}\\
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Conclusion
+\section{Conclusion}
+% 1: Squants using doubles internally. Small precision error can lead to bigger (unexpected) amounts as we've seen in AMP2.
+% 	 - DistributivePercentage1: Multiplying Double with Money causes a precision error
+%	 - DistributivePercentage2: Multiplying Money with Double causes a precision error
+% 	 - DistributiveInt2: Multiplying Money with Integer
+%    - AssociativeMultiplicationPercentage2: Multiplying Integer with Money. And with double. Causing big numbers to be losing precision anyway. Bug in Squants is the problem here though.
+% 2: Operations on an Integer are over/underflowing, causing incorrect results.
+%	 - AssociativeMultiplicationInt2: When using Multiply on Ints
+%	 - DistributiveInt1: When using Addition on Ints
+% 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
+%	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
+\pinfo{Recap, found 7 bugs using this approach}
+In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. In this experiment we managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
 
-\subsection{Unfixed issue}
+\subsection*{Fixed amount of tries}
+\pinfo{Fixed amount of tries not substantiated}
+The 100 tries to check a property is a fixed number that is being used. But why exactly this number and not a higher or lower number? It might be the case that some errors are not triggered because of this fixed amount. Running more cases might be revealing an additional error, or it might not. In case it doesn't, it means that the test suite just requires more time to run the whole test suite, while it does not have an effect on the results. 100 seems to be an amount that works such that it consistently reports the same amount of failing tests, however this has checked by running it the test runs multiple times, also with using numbers like 300 or 50 for the amount. Also \textit{QuickCheck} uses this amount to check a property. During this thesis we stick with 100 as amount. Finding the optimal amount of tries is left as future work, thus remaining as a threat of validity in this approach.
+
+\subsection*{Unfixed issue}
 \pinfo{Compile error not fixed}
 Unfortunately the compilation error has not been fixed throughout this project, however, it is an open issue on \textit{Github}. Some precision errors originated from a library used in the generated system, called Squants. An issue was created covering these precision errors, which were fixed in the next release of that library. As for the overflow and underflow errors, these occurred when using the \textit{Integer} type in \textit{Rebel}. When using the \textit{Integer} type, this might have been expected behaviour which causes this to happen. However, the generated system does not check whether this happens, nor does it prevent this. Additionally, we can consider this behaviour unexpected on the Integer type in
 \textit{Rebel}, as \textit{Rebel} does not support any other kind of number type that can hold a bigger value. For example, compared to
