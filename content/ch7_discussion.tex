@@ -1,32 +1,9 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Chapter: Discussion
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\chapter{Discussion}
-\label{cpt:7_discussion}
-NOTE: Not applicable anymore after restructuring document
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% RQ 1
-\section{RQ 1: \rqOne}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% RQ 2
-\section{RQ 2: \rqTwo}
-% > Experiment 1
-Although we did not exactly know what kind of errors we would find in the generated system, it was
-known which component of the generated system we were going to test. Errors when using certain operations that provide incorrect results can be detected when using property based testing. We managed to find precision errors, overflow and underflow errors and triggered the division problem in the generated system. Additionally, we found a compilation error when using a property which was expected to be correct.\\
-\\
-% Experiment 1 (follow-up)
-Unfortunately the compilation error has not been fixed throughout this project, however, it is an open issue on \textit{Github}. Some precision errors originated from a library used in the generated system, called Squants. An issue was created covering these precision errors, which were fixed in the next release of that library. As for the overflow and underflow errors, these occurred when using the \textit{Integer} type in \textit{Rebel}. When using the \textit{Integer} type, this might have been expected behaviour which causes this to happen. However, the generated system does not check whether this happens, nor does it prevent this. Additionally, we can consider this behaviour unexpected on the Integer type in
-\textit{Rebel}, as \textit{Rebel} does not support any other kind of number type that can hold a bigger value. For example, compared to
-Java, a \textit{BigDecimal} would be possible. We consider the overflow and underflow errors as unexpected, as the \textit{Rebel} language does not support other numeric types to hold a bigger value than an \textit{Integer} supports.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% RQ 3
-\section{RQ 3: \rqThree}
-% > Experiment 2
-The second experiment triggered a case which was not found in the first experiment. This is an example of an improvement made throughout the project when working with the test framework. Further extensions are possible, think of our random generator, this could be made more dynamic. Resulting in a generator that could generate values based on the actual preconditions defined in the Rebel specifications, making it more dynamic when additional properties are being added.
-
-
+% \chapter{Discussion}
+% \label{cpt:7_discussion}
+% NOTE: Not applicable anymore after restructuring document
 
 % Advice?
 % To think of: Where there some things encountered during the project, which might require attention, but haven't or won't be thoroughly tested with this approach. Or do some additions cover these?
