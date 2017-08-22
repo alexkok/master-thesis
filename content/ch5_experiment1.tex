@@ -3,22 +3,35 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 1: Using random input}
 \label{cpt:experiment1}
-... % Intro
+\pinfo{Props to test cases, implication returns True}
+The properties that we defined in \autoref{cpt:4_properties} are translated into
+test cases as described in \autoref{cpt:3_testmechanics}. In this experiment we
+expect to find some bugs that were unknown before by using the test framework.
+When we have triggered some bugs, an investigation is needed to check what the
+cause is of that bug. Next, we can categorize the bugs found to come to an
+answer to this research question: \rqThree{}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
 %\label{sec:initial_case}
-\pinfo{Props to test cases, implication returns True}
-The properties that we defined in \autoref{cpt:4_properties} are translated into test cases as described in \autoref{cpt:3_testmechanics}.\\
-\\
 \pinfo{Like QuickCheck, recall cycle shortly}
-In the first experiment each property will be tested 100 times with random input values. This is a similar approach as what QuickCheck does with checking properties. The methods to generate the random value pairs are added to the template of a test file. A full test run consists of multiple steps, as described in \autoref{sct:ch3_full_cycle}. In short these steps are: building the specifications, generating the system, generating the test suit and as last run the generated test suit.
+In the first experiment each property will be tested 100 times with random input
+values. This is a similar approach as what \textit{QuickCheck} does with
+checking properties. The methods to generate the random value pairs are added to
+the template of a test file. A full test run consists of multiple steps, as
+described in \autoref{sct:ch3_full_cycle}. In short these steps are: building
+the specifications, generating the system, generating the test suit and as last
+run the generated test suit.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
 \section{Results}
-... % Intro
+Running the test framework in this experiment required two runs. As the first
+run was not as successfull as expected and thus did not find many bugs. Thus,
+for the second experiment the property that was causing the issue has been
+disabled. This allows to continue using the test framework for the other
+properties that are defined.
 
 % % % % % % % % % % % % %
 % Subsection: First run
@@ -257,7 +270,17 @@ x*z                    & -2594683539688709024.27 EUR & -2594683539688709024.27 E
 % AssociativeMultiplicationPercentage1
 \subsubsection{AssociativeMultiplicationPercentage1}
 % - Generating big double, precision can't be known for Squants!
-In this case there are three variables: x, y and z, which are of type \textit{Money}, \textit{Percentage} and \textit{Integer} respectively. In Table \ref{ch4_init_check_AssociativeMultiplicationPercentage1} the values and intermediate calculations are shown of a failing case, such that we can reason about the results. The row marked in red shows a precision error when comparing the results of Scala and Rascal with each other. This issue is caused by the \textit{Percentage} that is being used. In the implementation, the \textit{Percentage} is actually being translated into a \textit{Double}, which is being multiplied with an \textit{Integer}. This results in a \textit{Double} value containing a precision error, which is related to the problems with floating-point arithmetic \cite{goldberg1991every}.
+In this case there are three variables: x, y and z, which are of type
+\textit{Money}, \textit{Percentage} and \textit{Integer} respectively. In Table
+\ref{ch4_init_check_AssociativeMultiplicationPercentage1} the values and
+intermediate calculations are shown of a failing case, such that we can reason
+about the results. The row marked in red shows a precision error when comparing
+the results of Scala and Rascal with each other. This issue is caused by the
+\textit{Percentage} that is being used. In the implementation, the
+\textit{Percentage} is actually being translated into a \textit{Double}, which
+is being multiplied with an \textit{Integer}. This results in a \textit{Double}
+value containing a precision error, which is related to the problems with
+floating-point arithmetic \cite{goldberg1991every}.
 % Table: Values of AssociativeMultiplicationPercentage1
 \\
 \begin{table}[h!]
@@ -299,29 +322,37 @@ This property revealed a precision error when the \textit{Percentage} type is be
 % 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
 %	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
 \pinfo{Short recap}
-In the first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using randomly generated values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. The errors that were found can be separated into the following 3 categories:
+In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. The errors that were found can be separated into the following 3 categories:
 \begin{itemize}
 \item Compilation errors: Errors that make the generated system unable to compile, and thus it cannot be used.
 \item Overflow/underflow errors:~ ~ Errors happening because of a limit that has been reached on specific types.
 \item Precision errors: ~ Errors causing an unexpected outcome value when being calculated.
 \end{itemize}
+\subsection*{Compilation errors}
 \pinfo{Compilation error, Squants issue}
-The fact that the test suit initially was being terminated was because of a compilation error. Although one assumption was that the generated system should be able to compile, another assumption we made was that the specification was consistent. The specification we created for all the properties is consistent, as Rebel did not report any syntactic or semantic errors with the type checker. The test suit is thus able to find such compilation errors. However, there can be many more compilation errors for which we do not check, which is also out of the scope of this project. The cause of this error was actually caused by an implementation error in an open source library that the generated system used, called Squants\footnote{https://github.com/typelevel/squants}. To fix this, we created a Github issue\footnote{https://github.com/typelevel/squants/issues/281} describing the problem. So that this can be fixed in the next release of the library.\\
-\\
+The fact that the test suit initially was being terminated was because of a compilation error. Although one assumption was that the generated system should be able to compile, another assumption we made was that the specification was consistent. The specification we created for all the properties is consistent, as Rebel did not report any syntactic or semantic errors with the type checker. The test suit is thus able to find such compilation errors. However, there can be many more compilation errors for which we do not check, which is also out of the scope of this project. The cause of this error was actually caused by an implementation error in an open source library that the generated system used, called Squants\footnote{https://github.com/typelevel/squants}. To fix this, we created a Github issue\footnote{https://github.com/typelevel/squants/issues/281} describing the problem. So that this can be fixed in the next release of the library.
+
+\subsection*{Overflow/underflow errors}
 \pinfo{Overflow/underflow errors, discussion and unclear definition}
-The overflow/underflow errors are caused because of the use of the \textit{Integer} type. On one hand this could be prevented by checking the operations beforehand for overflow errors. On the other hand, this could be the expected behavior when an \textit{Integer} is being used in Rebel. As \textit{Integers} are known have such limits that are also dependent on the platform the application is run \todo{SOURCE}. However, in Rebel there is currently no other type that can be used to hold a bigger number. For example in Java there is \textit{Long} for a larger number, or \textit{BigDecimal} for even bigger numbers. This would mean that Rebel does not support big numbers, or that a custom type must be used for this. Considering that Rebel does not provide a type for bigger numbers, we think that the Integer is supposed to also hold bigger numbers. Since the specification is about banking products and it probably could happen that a big number is needed. After all we cannot know this for sure, as Rebel does not provide a specification yet of each of type in Rebel.\\
-\\
+The overflow/underflow errors are caused because of the use of the \textit{Integer} type. On one hand this could be prevented by checking the operations beforehand for overflow errors. On the other hand, this could be the expected behavior when an \textit{Integer} is being used in Rebel. As \textit{Integers} are known have such limits that are also dependent on the platform the application is run \todo{SOURCE}. However, in Rebel there is currently no other type that can be used to hold a bigger number. For example in Java there is \textit{Long} for a larger number, or \textit{BigDecimal} for even bigger numbers. This would mean that Rebel does not support big numbers, or that a custom type must be used for this. Considering that Rebel does not provide a type for bigger numbers, we think that the Integer is supposed to also hold bigger numbers. Since the specification is about banking products and it probably could happen that a big number is needed. After all we cannot know this for sure, as Rebel does not provide a specification yet of each of type in Rebel.
+
+\subsection*{Precision errors}
 \pinfo{Precision errors, Squants issue}
-As we have seen, the Money precision errors both occurred when using \textit{Percentage} values as well as when using \textit{Integer} values to operate with the \textit{Money} type. Since we were able to reproduce the issue in a clean REPL environment, the problem existed in the open source library, called Squants, that was used for the \textit{Money} type. In order to solve this problem, we created an issue on Github\footnote{https://github.com/typelevel/squants/issues/265} related to the precision problems on the \textit{Money} type. A contributor responded and fixed the issue within a day, the change will be included in the next version of the library (1.4). So it is required to update this library in order to let these tests in our test suit pass.\\
+As we have seen, the Money precision errors both occurred when using \textit{Percentage} values as well as when using \textit{Integer} values to operate with the \textit{Money} type. Since we were able to reproduce the issue in a clean REPL environment, the problem existed in the open source library, called Squants, that was used for the \textit{Money} type. In order to solve this problem, we created an issue on Github\footnote{https://github.com/typelevel/squants/issues/265} related to the precision problems on the \textit{Money} type. A contributor responded and fixed the issue within a day, the change will be included in the next version of the library (1.4). So it is required to update this library in order to let these tests in our test suit pass.
+
+\subsection*{Conclusion}
+\pinfo{Conclusion}
+The research question lead as follows: \rqThree{} We have shown that the generator can be tested using property-based testing. We managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.\\
 \\
-\pinfo{Conclusion, not tested implicative properties}
-By using this approach we found some bugs in the generated system. When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not satisfied. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the Transitive property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
+\pinfo{Not tested implicative properties}
+When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not satisfied. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the Transitive property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
 \\
 \textbf{Figure X}
 \todo{Add figure}
 
-% Evaluation criteria
-\subsubsection{Evaluation criteria}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Evaluation criteria
+\section{Evaluation criteria}
 \pinfo{Test coverage, 30\% for implicative, 100\% for others}
 The first criteria to evaluate an experiment was to determine the test coverage. The properties using implication are not covered when using random values as input data. The other properties, which do not use implication, are fully tested though. This can be seen in Figure X, where the test coverage of the properties using implication only covers roughly 30\%. The files with a name ending with "Logic" contain the implementation of the properties, as well as the precondition checks. The test coverage concerning the other properties (those that do not use implication), reports 95\% coverage. When investigating further, the other 5\% are not related to the properties that we test, thus it is not required for this project to achieve 100\% coverage on the Logic files.\\
 \begin{figure}[h!]
@@ -346,4 +377,9 @@ The second criteria that we defined was the amount of bugs that we have found by
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
-...
+
+\subsection{Unfixed issue}
+\pinfo{Compile error not fixed}
+Unfortunately the compilation error has not been fixed throughout this project, however, it is an open issue on \textit{Github}. Some precision errors originated from a library used in the generated system, called Squants. An issue was created covering these precision errors, which were fixed in the next release of that library. As for the overflow and underflow errors, these occurred when using the \textit{Integer} type in \textit{Rebel}. When using the \textit{Integer} type, this might have been expected behaviour which causes this to happen. However, the generated system does not check whether this happens, nor does it prevent this. Additionally, we can consider this behaviour unexpected on the Integer type in
+\textit{Rebel}, as \textit{Rebel} does not support any other kind of number type that can hold a bigger value. For example, compared to
+Java, a \textit{BigDecimal} would be possible. We consider the overflow and underflow errors as unexpected, as the \textit{Rebel} language does not support other numeric types to hold a bigger value than an \textit{Integer} supports.
