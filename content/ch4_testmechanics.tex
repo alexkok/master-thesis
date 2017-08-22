@@ -299,6 +299,10 @@ The number of bugs found by an experiment also describes how effective the exper
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
+\pinfo{Our approach, like QuickCheck}
+To automatically generate tests for this, existing approaches have been used as input. However, the existing approaches often require the SUT to be written in the same language. This was not possible in this project, as the SUT is being generated based on the \textit{Rebel} specifications. We use an approach that is similar to QuickCheck but use a \textit{Rebel} specification to generate the test cases for the SUT.\\
+\\
+
 \pinfo{Combining all steps}
 We described the folloring 5 phases that are required to test the generator:
 \begin{enumerate}
@@ -311,11 +315,27 @@ We described the folloring 5 phases that are required to test the generator:
 The first step is done manually by translating the properties to a consistent \textit{Rebel} specification. The test framework is able to execute the other phases, which can be found in the \code{Main.rsc} file in the source code of this project.\\
 \\
 \pinfo{Larger specification for experiments}
-In this chapter, we demonstrated a full cycle based on one property. For the experiments, more properties are being used, resulting in a bigger specification which is being tested automatically. The properties that are being used are described in \autoref{cpt:4_properties}. The event definitions of these properties can be found in \autoref{app:a_event_definitions}. In \autoref{app:b_resulting_tests} the generated test cases from these events can be found.
+In this chapter, we demonstrated a full cycle based on one property. For the experiments, all the properties defined in \autoref{cpt:4_properties} are being used, resulting in a bigger specification which is being tested automatically. The event definitions of each property can be found in \autoref{app:a_event_definitions}.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
-...
-% - Not compilable system. Can be detected but not sure if its a bug or soemthing else that went wrong. Hard to argua, which is why we assumed it to be compilable. However, this might happen when running the test suite if certain operations that are expected to work are incorrectly being translated.
+
+\subsection*{Uncompilable system}
+When the SUT is unable to compile, the test framework cannot proceed. As it cannot run the generated test suite against the SUT in that case. Although such errors could be detected by the test framework, it is out of scope for this thesis. IT is hard to argue whether the compilation error would be a bug or something else, as it can have many causes. However, when running the test framework this might still occur, which is a threat to this approach.
+
+\subsection*{Accuracy}
+\pinfo{Possibly incorrect results, due to Scoverage}
+To evaluate the test framework we use coverage as a metric, which could have reported incorrect results. Scoverage is being used to determine the coverage and to generate a report from it. Since we are using random data as input, the results of the test coverage can fluctuate by small amounts in each run. However, we can still reason about the differences when there is a big difference between certain experiments. Additionally to the coverage we used the number of bugs that were found as another metric. This metric depends on which system the test suite is being run and if the system already fixed the bugs that the test suite would find. It is also the case that after fixing the bugs that were found earlier, this metric can be seen as unnecessary, as it would result in 0 then.
+
+\subsection*{One system}
+\pinfo{Only one generator}
+Only one generator is being used throughout this thesis. However, it could be useful to make the test framework compatible with the other generators and generated systems too. This enables reasoning about the different implementations and its generators. Some changes are required to make the test framework compatible with these systems. But by doing so, every generated system for which a generator is built by ING can be checked based on the same properties, resulting in that the defined properties are checked thoroughly on every system and that inequalities can be detected between the different generators.\\
+\\
+\pinfo{Probably causing compile errors}
+A threat in doing so is that one of the other generators might not support some translations of each expression that is used in the specification that we created. Thus this test framework can also be used to check whether every expression variant is taken into account by the generator. Unfortunately, an error in this translation would be blocking, in that it can lead to a generated system that is not able to compile. Resulting in that the test framework cannot proceed to run the test suite on the generated system. This could be used as a way to check the generators too. Although compilation errors were not the aim of the project, as compilation errors can have many causes, the test framework can still be used to detect those to a certain extent.\\
+\\
+\subsection*{Other approaches}
+\pinfo{ScalaCheck, not testing generator then}
+We chose to use property-based testing and implement the required functionality ourselfes, resulting in a white-box implementation. Another way how this could be done was to check how the custom types were generated to \textit{Scala}. And then generate a \textit{Scala} test project using the same types. Writing property tests for each type could achieve the same goal when it comes to checking the implementation of this component in the generated system. However, if we would follow this approach, we wouldn't use the generator to translate the \textit{Rebel} expressions to \textit{Scala}. This results in that the generator itself is still not being tested. With our approach, we test the generator and are able to find errors in the generator. Although we cannot conclude that the generator is implemented correctly if the generated test suit runs successful, rather we can conclude that the properties it checks for are satisfied.
