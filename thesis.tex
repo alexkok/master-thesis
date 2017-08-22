@@ -17,6 +17,12 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Customization
+\usepackage{fancyhdr} % Fancy header package
+\pagestyle{fancy} % Enable
+\fancyhf{} % Clear
+\fancyhead[L]{\leftmark} % Fancy header
+\fancyfoot[C]{\thepage} % Leave page numbers on footer
+
 \def\chapterautorefname{Chapter} % "Chapter X" instead of "SS X" when referring to chapters
 \renewcommand{\arraystretch}{1.3} % Vertical spacing in tables
 \usepackage[labelfont=bf]{caption} % Make figure and table tags bold too
@@ -72,7 +78,7 @@
 %\def \rqTwo{ What kind of errors can we find using this approach? }
 % New
 \def \rqTwo{
-	How can we test each property as automatically as possible to find bugs?
+	How can we test each property as automatically as possible to find bugs in the generator?
 }
 % Old one: future work question...
 %\def \rqThree{ How can we extend the test suite to find more implementation errors in the generated system? }
