@@ -11,14 +11,14 @@ try to answer the following research question:
   \item [RQ 2:] \rqTwo
 \end{description}
 
-We use property-based testing as testing technique. The aim of this project
-is to test the implementation of the generator and trying to find yet unknown
-bugs in it. Unfortunately we cannot test the properties right away on the
-generator, but we aim to test the properties as automatic as possible. To check
-the generator, we need to use the system that it generates. But in order to do
-this, a valid \textit{Rebel} specification is required. In this chapter we
-describe how the test framework is setup such that it can automatically check
-whether the defined properties hold when using the generator
+We use property-based testing as testing technique. The aim of this project is
+to test the implementation of the generator and trying to find yet unknown bugs
+in it. Unfortunately we cannot test the properties right away on the generator,
+but we aim to test the properties as automatic as possible. To check the
+generator, we need to use the system that it generates. But in order to do this,
+a valid \textit{Rebel} specification is required. In this chapter we describe
+how the test framework is setup such that it can automatically check whether the
+defined properties hold when using the generator
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: The test framework
@@ -300,11 +300,10 @@ The number of bugs found by an experiment also describes how effective the exper
 % Section: Analysis
 \section{Analysis}
 \pinfo{Our approach, like QuickCheck}
-To automatically generate tests for this, existing approaches have been used as input. However, the existing approaches often require the SUT to be written in the same language. This was not possible in this project, as the SUT is being generated based on the \textit{Rebel} specifications. We use an approach that is similar to QuickCheck but use a \textit{Rebel} specification to generate the test cases for the SUT.\\
+The research question for this chapter lead as follows: \rqTwo{}. Existing approaches often require the SUT to be written in the same language. This was not possible when testing the generator in our case. The generator is being used to generate a system that is being used to test the generator. We use an approach that is similar to QuickCheck but using a \textit{Rebel} specification, the generator and the generated system to check whether the properties hold.\\
 \\
-
 \pinfo{Combining all steps}
-We described the folloring 5 phases that are required to test the generator:
+We demonstrated a full cycle based on one property, which consists of the following 5 phases:
 \begin{enumerate}
 \item \tfPhaseOne{}
 \item \tfPhaseTwo{}
@@ -315,8 +314,7 @@ We described the folloring 5 phases that are required to test the generator:
 The first step is done manually by translating the properties to a consistent \textit{Rebel} specification. The test framework is able to execute the other phases, which can be found in the \code{Main.rsc} file in the source code of this project.\\
 \\
 \pinfo{Larger specification for experiments}
-In this chapter, we demonstrated a full cycle based on one property. For the experiments, all the properties defined in \autoref{cpt:4_properties} are being used, resulting in a bigger specification which is being tested automatically. The event definitions of each property can be found in \autoref{app:a_event_definitions}.
-
+For the experiments all the properties defined in \autoref{cpt:4_properties} will be used. This results in a bigger specification which can be used to test the generator automatically by using the test framework. The event definitions of each property can be found in \autoref{app:a_event_definitions}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
