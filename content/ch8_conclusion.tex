@@ -4,11 +4,12 @@
 \chapter{Conclusion}
 \label{chp:conclusion}
 % Summary
-Throughout this project, we have shown a way how the generatog can be tested by using a \textit{Rebel} specification. This is done by generating tests based on the specification and making use of the generator to generate the tests. The \textit{Rebel} specification contains a set of defined properties that are defined on the custom types of \textit{Rebel}. However, these definitions were not defined earlier, thus we provide a definition for some of these types and  define properties that hold when operating with it. We have proven that the test framework was improved throughout the project by taking the coverage and amount of bugs found metrics into account. Furthermore, we have found some bugs in the generated system that were unknown before, showing that this approach already helped to identify some problems in the generator and the generated system. Additionally, we contributed to an open source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
+Throughout this thesis, we have shown a way how the generator can be tested by
+using property-based testing. This is done by generating tests based on the \textit{Rebel} specification and making use of the generator to generate the tests. The \textit{Rebel} specification contains a set of defined properties that are defined on the custom types of \textit{Rebel}. However, these definitions were not defined earlier, thus we provide a definition for some of these types and  define properties that hold when operating with it. We have proven that the test framework was improved throughout the project by taking the coverage and amount of bugs found metrics into account. Furthermore, we have found some bugs in the generated system that were unknown before, showing that this approach already helped to identify some problems in the generator and the generated system. Additionally, we contributed to an open source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
 \\
 % Research questions
 % Answer main research question
-To answer the main research question, we defined some research questions, which we discussed in \autoref{cpt:7_discussion}. The main research question was as follows:
+To answer the main research question, we defined and answered the three sub research questions. The main research question was as follows:
 \begin{quote}
 \rqMain
 \end{quote}
@@ -23,13 +24,13 @@ We conclude that this approach is a way how the implementation of certain compon
 We provided a definition of some types in \textit{Rebel} and described properties that should hold when using operations with these types. Since there were no clear definitions available yet of what these types exactly do, a contribution has been made to the \textit{Rebel} project, such that there are now some definitions and properties available. This also helps when reasoning about the implementation, as there is now a definition of what is expected. Although these definitions might change over time, it allows to reason back to an earlier starting point.\\
 \\
 % - A way to automatically test the generator and generated system using Rebel, defining properties as events
-We have shown a way to automatically test the generator and the generated system using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that should hold in the first case. Which can be translated to a Rebel specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
+We have shown a way to automatically test the generator using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that are expected to hold in the first case. Which can be translated to a \textit{Rebel} specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
 \\
 % - Found number of bugs in generated system
 A number of bugs have been found in the generated system, precision errors, overflow/underflow errors and even a compile error. These bugs are now known issues in this project, while these were unknown before. This shows us that this approach already worked in such a way that it is able to detect bugs in the generated system. It can be extended to detect even more bugs. With some modifications, it is also possible to use this approach with other generated systems, such that it can detect inequalities among these.\\
 \\
 % - Squants issues
-In this approach, we identified two bugs, which were due to an open source library used in the generated
+In this approach, we identified two bugs, which were due to an open-source library used in the generated
 system, called \textit{Squants}. We reported these two issues, such that these can be fixed in a later version of the library.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
