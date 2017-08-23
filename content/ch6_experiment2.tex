@@ -8,19 +8,39 @@
 %\section{Smarter values generation}
 %\label{sec:ch4_smarter_values_generation}
 \pinfo{Context - result of experiment 1, what aim is now}
-Some bugs were found by using random input values in the first experiment. However the properties that use implication were not effectively checked in terms of the chance that the if-clause of the implicative properties were triggered when using random input values. This is what we aim to improve in this experiment, expecting to detect more bugs by triggering the if-clause of the implicative properties.
+Some bugs were found by using random input values in the first experiment. However the implicative properties were not effectively checked in terms of triggering the if-clause when using random input values. This is what we aim to improve in this experiment, expecting to detect more bugs.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
 \pinfo{2 categories separation}
-We can separate the properties that we have in 2 different categories: those using implication ($\implies$) and those that do not. The defined properties are being separated into two specifications according to which category these belong. For the properties that use implication, another way of generating the random values is more useful. We optimize the random input values such that the condition of the if-clause of these properties are being satisfied. For the other category the earlier approach (random values as input) can still be used, we do not need to change this functionality for these cases.\\
+We can separate the properties that we have in 2 different categories: those using implication ($\implies$) and those that do not. The defined properties are being separated over two specifications according to which category these belong. We name these specifications \textit{MoneyExpressions} and \textit{MoneyConditionals}. For the \textit{MoneyConditionals} specification (the implicative properties), another way of generating the random values is more useful. The random input values are being optimized such that the condition of the if-clause of these properties are being satisfied. For the other specification (\textit{MoneyExpressions}), the earlier approach (random values as input) can still be used, we do not need to change this functionality for these cases.\\
 \\
 \pinfo{Adding preconditions}
-For the implication events, the condition to trigger the if-clause will be added to the preconditions of the event definition, such that these can be used to generate the values matching this clause. When generating the test suite, the events are being traversed. In case an event with some preconditions is found, it generates a test that satisfies the condition to trigger the if-clause, which is different than the earlier generated tests.\\
+In the \textit{MoneyConditionals} specification, the condition to trigger the if-clauses will be added to the preconditions of each the event definition, such that these can be used to generate the values matching this clause. The updated event definition of the \textit{Symmetric} property is shown in \autoref{lst:experiment2_updated_definition} for example. Where the preconditions have been added to the event definition.
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rebel]
+event symmetric(x: Money, y:Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+       new this.result == ( (x == y) ? y == x : False );
+    }
+}
+\end{lstlisting}
+\caption{The updated event definition of the \textit{Symmetric} property}
+\label{lst:experiment2_updated_definition}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+\pinfo{Generating checks for preconditions}
+When generating the test suite, the events are being traversed. In case an event with some preconditions is found, it generates a list of value tuples that satisfy the condition to trigger the if-clause. Which is different compared to the generated tests in \autoref{cpt:experiment1}.\\
 \\
 \pinfo{Diff1: custom generator}
-The first difference is that it now uses our custom generator to determine the input values, instead of the build-in Java random generator. A list of tuples, containing values which satisfies the if-clause of the implication, are being generated. Our custom generator is a simple proof of concept in order to check if this will actually result in more failing tests. This custom generator basically consists of multiple methods which are being called based on the event name. In \autoref{lst:ch4_second_generating_values} this behavior is shown for the \textit{Symmetric} and \textit{Division1} event. The String parameter of these methods is a way how we can pattern match on the event name in \textit{Rascal}. In case the event couldn't be handled, an exception is thrown.
+The first difference is that it now uses our custom generator to determine the input values, instead of the built-in Java random generator. A list of tuples, containing values which satisfies the if-clause of the implication, are being generated. Our custom generator is a simple proof of concept in order to check if this will actually result in more failing tests. This custom generator basically consists of multiple methods which are being called based on the event name. In \autoref{lst:ch4_second_generating_values} this behavior is shown for the \textit{Symmetric} and \textit{Division1} event. The \textit{String} parameter of these methods is a way how we can pattern match on the event name in \textit{Rascal}. In case the event couldn't be handled, an exception is thrown.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[!ht]
@@ -49,7 +69,7 @@ private default list[Expr] genTestValueForEvent(str eventName) {
 This means that the way how we determine these values is basically hard-coded, requiring to have knowledge about the if-clause itself. Note that this doesn't make this approach very dynamic, but the result will consist of a list of tuples that satisfy the if-clause. These tuples will be used as input for the test case that will be generated.\\
 \\
 \pinfo{Mutating values with random operation}
-However, these values are fixed when we use them directly in a test case, which completely removes the randomness of the values when running the tests. It would be better to keep the randomness, such that the values are different on each run. To solve this problem, we mutate the values in the list such that the values are sort of random again. The tuples still have to satisfy the condition to trigger the if-clause, as this was the actual intention. So the second difference is that for each tuple in the list, we will generate a random operation and use that operation to mutate the values inside the tuple. To ensure that the tuple values still satisfy the condition of the if-clause, each value will be mutated by the same operation. In \autoref{lst:experiment2_second_resulting_test} an example of a generated test case is shown. The list of values are generated by using our custom generator, the amount of tuples in the list can be defined when generating the test suit. A method \code{genRandomOperation()} has been added to the template, which is used to mutate the fixed values in the list. After all the \code{checkAction()} method is being called to check the result of the test.
+However, the values that are generated now are fixed when we use them directly in a test case, which completely removes the randomness of the values when running the tests. It would be better to keep the randomness, such that the values are different on each run. To solve this problem, we mutate the values in the list such that the values are sort of random again. The tuples still have to satisfy the condition to trigger the if-clause, as this was the actual intention. So the second difference is that for each tuple in the list, we will generate a random operation and use that operation to mutate the values inside the tuple. To ensure that the tuple values still satisfy the condition of the if-clause, each value will be mutated by the same operation. In \autoref{lst:experiment2_second_resulting_test} an example of a generated test case is shown.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[!ht]
@@ -78,6 +98,9 @@ However, these values are fixed when we use them directly in a test case, which 
 \end{sourcecode}
 \FloatBarrier
 % End listing
+\pinfo{Small explanation about the new test case}
+The list of values are generated by using our custom generator, the amount of tuples in the list can be defined when generating the test suit. A method \code{genRandomOperation()} has been added to the template, which is used to mutate the fixed values in the list. After all the \code{checkAction()} method is being called to check the result of the test.\\
+\\
 \pinfo{Also: else now returns false}
 Now that the input values for the implication events should always satisfy the condition of the if-clause, we can also update the specification such that the else-clause of the expression always returns \textit{False}. This results in a failing case again in case the precondition was not met. When this happens, it could indicate that there's a problem with either our custom generator, or in the generator.
 
@@ -105,10 +128,12 @@ Running the test suit with these changes results in 2 extra tests that are faili
 \FloatBarrier
 % End listing
 
+\todo{Add overview of failing cases with input? Just like experiment1}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-The values should be correct since we generated these values such that they satisfy the condition of the if-clause of the implication properties. Note that the conditions of the if-clause were added as preconditions in the specification, which causes the error. As the \textit{PreConditionFailed} error is thrown by the system when the input values do not satisfy the preconditions.\\
+The values used in the test case should be correct, since we generated these values such that they satisfy the condition of the if-clause and thus they should satisfy the preconditions. Note that the conditions of the if-clause were added as preconditions in the \textit{MoneyConditionals} specification, which causes the error. As the \textit{PreConditionFailed} error is thrown by the system when the input values do not satisfy the preconditions.\\
 \\
 \pinfo{Describe precision error happening at first}
 For \textit{Division1} it states that the condition \code{x*y == z} failed. The values used for \textit{x}, \textit{y} and \textit{z} were \textit{-44.68 USD}, \textit{870} and \textit{-38870.47 USD} respectively. The result of \textit{x * y} = \textit{-44.68 USD * 870} = \textit{-38871.60 USD}. This should be equal to \textit{z}, in fact, the input of \textit{z} was slightly different, \textit{-38870.47 USD}. Remember that the input values are being mutated by a random operation that we have added to the test cases. This difference is caused by the precision error when operating with the \textit{Money} type, which was found in \autoref{cpt:experiment1}. The random operation that was done was causing this behaviour. The same goes for the error with \textit{Division2}, where \code{x == z*y} should hold. The values of \textit{x}, \textit{y} and \textit{z} are \textit{-16729.90 USD}, \textit{830}, \textit{-20.16 USD} respectively. The result of \textit{z * y} = \textit{-16732.80 USD}, which is not equal to \textit{-16729.90} USD.\\
