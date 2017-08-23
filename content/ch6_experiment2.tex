@@ -108,11 +108,28 @@ Now that the input values for the implication events should always satisfy the c
 % Section: Results
 \section{Results}
 \pinfo{Failing tests: Division}
-Running the test suit with these changes results in 2 extra tests that are failing compared to the first experiment (\autoref{cpt:experiment1}). These were \textit{Division1} and \textit{Division2}, which report that the precondition was not met on the input values that were used, as shown in \autoref{lst:experiment2_division_preconditionfailed}.
+Running the test suit with these changes results in 2 additional failing tests compared to the first experiment (\autoref{cpt:experiment1}). An overview of the failing properties and the used input values are shown in \autoref{tbl:experiment2_overview_first_run}. The log of the test run reports that the precondition was not met when using these input values, as shown in \autoref{lst:experiment2_log_first_run}.
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{llll}
+\hline
+\textbf{Property name} & \textbf{x}    & \textbf{y} & \textbf{z} \\ \hline
+Division1              & -16729.90 USD & 830        & -20.16     \\
+Division2              & -44.68 USD    & 870        & -38870.47  \\ \hline
+\end{tabular}
+\caption{Failing tests overview along with its input values}
+\label{tbl:experiment2_overview_first_run}
+\end{table}
+\FloatBarrier
+% End table
+
 % Listing
+\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Log]
-[info] MoneyConditionsSpec
+[info] MoneyConditionals
 [info] - should work with Additive4params (7 seconds, 224 milliseconds)
 [info] - should work with AntisymmetryLET (5 seconds, 493 milliseconds)
 [info] - should work with Symmetric (5 seconds, 344 milliseconds)
@@ -123,12 +140,10 @@ Running the test suit with these changes results in 2 extra tests that are faili
 // ...
 \end{lstlisting}
 \caption{Precondition failed error in \textit{Division1} and \textit{Division2}.}
-\label{lst:experiment2_division_preconditionfailed}
+\label{lst:experiment2_log_first_run}
 \end{sourcecode}
 \FloatBarrier
 % End listing
-
-\todo{Add overview of failing cases with input? Just like experiment1}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
@@ -136,13 +151,136 @@ Running the test suit with these changes results in 2 extra tests that are faili
 The values used in the test case should be correct, since we generated these values such that they satisfy the condition of the if-clause and thus they should satisfy the preconditions. Note that the conditions of the if-clause were added as preconditions in the \textit{MoneyConditionals} specification, which causes the error. As the \textit{PreConditionFailed} error is thrown by the system when the input values do not satisfy the preconditions.\\
 \\
 \pinfo{Describe precision error happening at first}
-For \textit{Division1} it states that the condition \code{x*y == z} failed. The values used for \textit{x}, \textit{y} and \textit{z} were \textit{-44.68 USD}, \textit{870} and \textit{-38870.47 USD} respectively. The result of \textit{x * y} = \textit{-44.68 USD * 870} = \textit{-38871.60 USD}. This should be equal to \textit{z}, in fact, the input of \textit{z} was slightly different, \textit{-38870.47 USD}. Remember that the input values are being mutated by a random operation that we have added to the test cases. This difference is caused by the precision error when operating with the \textit{Money} type, which was found in \autoref{cpt:experiment1}. The random operation that was done was causing this behaviour. The same goes for the error with \textit{Division2}, where \code{x == z*y} should hold. The values of \textit{x}, \textit{y} and \textit{z} are \textit{-16729.90 USD}, \textit{830}, \textit{-20.16 USD} respectively. The result of \textit{z * y} = \textit{-16732.80 USD}, which is not equal to \textit{-16729.90} USD.\\
+For \textit{Division1} it states that the condition \code{x*y == z} failed. The
+values used for \textit{x}, \textit{y} and \textit{z} were \textit{-44.68 USD},
+\textit{870} and \textit{-38870.47 USD} respectively. The result of
+\textit{x * y} = \textit{-44.68 USD * 870} = \textit{-38871.60 USD}. This should
+be equal to \textit{z}, in fact, the input of \textit{z} was slightly different,
+\textit{-38870.47 USD}.\\
+\\
+Remember that the input values are being mutated by a
+random operation that we have added to the test cases. This difference is caused
+by the precision error when operating with the \textit{Money} type, which was
+found in \autoref{cpt:experiment1}. The random operation that was done was
+causing this behaviour. The same goes for the error with \textit{Division2},
+where \code{x == z*y} should hold. The values of \textit{x}, \textit{y} and
+\textit{z} are \textit{-16729.90 USD}, \textit{830}, \textit{-20.16 USD}
+respectively. The result of \textit{z * y} = \textit{-16732.80 USD}, which is
+not equal to \textit{-16729.90} USD.\\
 \\
 \pinfo{Next (when fixed precision), division problem}
-The first experiment already described the precision problem and how it could be fixed. To solve this problem, we modify the generator such that the precision error is fixed when generating the system. Next, the test framework is being executed again. This results in the same amount of failing tests. As shown in Listing X, one case still fails on the precondition check, while the other case just reports values for which the result is \textit{false}.
+The first experiment already described the precision problem and how it could be fixed. To solve this problem, we modify the generator such that the precision error is fixed when generating the system. Then the test framework is being executed again to check whether both tests are succeeding. This resulted in the same amount of tests that were failing, which means that we found a different case now. In \autoref{tbl:experiment2_overview_second_run} an overview of the used input values are shown\footnote{The decimals have been truncated for readability, \autoref{lst:experiment2_log_second_run} shows the exact values}. The log reported that, one case still fails on the precondition check, while the other case just reports values for which the result is \textit{false}, as shown in \autoref{lst:experiment2_log_second_run}.
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{llll}
+\hline
+\textbf{Property name} & \textbf{x}                               & \textbf{y} & \textbf{z}                               \\ \hline
+% Division1              & 1.504347826086956521739130434782609 USD  & -779       & -1171.886956521739130434782608695652 USD \\
+Division1              & 1.5043478260... USD     & -779       & -1171.8869565217... USD \\
+% Division2              & -3328.825454545454545454545454545455 USD & -129       & 25.80484848484848484848484848484848 USD  \\ \hline
+Division2              & -3328.8254545454... USD & -129       & 25.8048484848... USD    \\ \hline
+\end{tabular}
+\caption{Failing tests overview, after fixing precision errors}
+\label{tbl:experiment2_overview_second_run}
+\end{table}
+\FloatBarrier
+% End table
 
-\todo{LISTING}
-\todo{More analysis, whats going wrong now?? (Division problem) explain and how to fix / or report it}
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Log]
+[info] MoneyConditionalsSpec:
+[info] MoneyConditionals
+[info] - should work with Additive4params (7 seconds, 24 milliseconds)
+[info] - should work with AntisymmetryLET (3 seconds, 66 milliseconds)
+[info] - should work with Symmetric (4 seconds, 361 milliseconds)
+[info] - should work with Division2 *** FAILED *** (670 milliseconds)
+[info]   java.lang.AssertionError: assertion failed: expected CommandSuccess(Division2(-3328.825454545454545454545454545455 USD,-129,25.80484848484848484848484848484848 USD)), found CommandFailed(NonEmptyList(PreConditionFailed(x == z*y)))
+[info] - should work with Division1 *** FAILED *** (316 milliseconds)
+[info]   java.lang.AssertionError: assertion failed: expected CurrentState(Result,Initialised(Data(None,Some(true)))), found CurrentState(Result,Initialised(Data(None,Some(false)))): With command: Division1(1.504347826086956521739130434782609 USD,-779,-1171.886956521739130434782608695652 USD)
+// ...
+\end{lstlisting}
+\caption{Precondition failed error in \textit{Division1} and \textit{Division2}.}
+\label{lst:experiment2_log_second_run}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+\pinfo{Division2 triggers division problem}
+The test concerning \textit{Division2} shows that the precondition check fails. If we look at the input values, it can be seen that the \textit{Money} values are a fractional number. As it contains many decimals and it rounds up at the end. When operating with this rounded value, the resulting value is also slightly different. As the generated system is implemented such that the preconditions are being checked first, the \textit{PreConditionFailed} exception is thrown. This leads to the issue of the division problem \todo{Source?} in which a number cannot be equally divided. In \autoref{cpt:properties}, we defined that the precision in this case should be of X \todo{Define X} decimals. However, the test framework does not specifically check for this precision yet.\\
+\\
+\pinfo{Division1 triggers difference in rounding problem}
+% Division1 is defined as \code{x*y == z $\implies$ x == z/y}.
+When looking at \textit{Division1}, we see another case as the input values passed the precondition checks. This indicates that the values satisfy the condition to trigger the if-clause of the property. However, the result of the if-clause returns \textit{false}, showing us that the property does not hold when using these input values. Thus a case has been found for which the \textit{Division1} property doesn't hold. The investigation of the intermediate calculation steps are shown in TX. Note that the \textit{Division1} property is defined as \code{x*y == z $\implies$ x == z/y}.
+
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{rll}
+\hline
+\textbf{Variable}  & \textbf{Value}                                    & \textbf{Type}                                        \\ \hline
+X                  & 1.504347826086956521739130434782609 USD           & Money                                                \\
+Y                  & -779                                              & Integer                                              \\
+Z                  & -1171.886956521739130434782608695652 USD          & Money                                                \\ \hline
+\textbf{Formula}   & \textbf{Scala result}                             & \textbf{Expected result}                             \\ \hline
+x*y == z           & true                                              & false                                                \\
+x == z/y           & false                                             & false                                                \\
+                   &                                                   &                                                      \\
+x*y                & -1171.886956521739130434782608695652 USD          & -1171.886956521739130434782608695652\textbf{411} USD \\
+z/y                & 1.504347826086956521739130434782608 USD           & 1.504347826086956521739130434782608 USD              \\ \hline
+\end{tabular}
+\caption{Division1: Difference in rounding}
+\label{tbl:experiment2_division1_rounding_difference}
+\end{table}
+\FloatBarrier
+% End table
+
+In the results we can see that the expected values do not match the property either. Although in \textit{Scala} the first expression is considered true. Since the expected results also return false for the intermediate calculations, the input values might not fully satisfy the condition to trigger the if-clause. Which could be an implementation error in our calues generator. However, its notable that in \textit{Scala} the condition is considered to hold, which triggered this case. This indicates that there is a rounding error happening in the system, which results in this behaviour.
+
+The expected results as in boolean values are now returning \textit{false}, which is also done by \textit{Scala}. The intermediate calculations indicate that a precision error occurs, although the precision errors should already be fixed due to the first experiment that was done. Looking back at executing these calculations, we found that the value for \textit{x} and \textit{z} is being rounded off to a total of 18 characters long (thus \textit{x} is being defined as \textit{1.5043478260869565 USD}). When using this value in the expression \textit{x*y}, the result is the same value as shown in \autoref{tbl:experiment2_division1_rounding_difference}. Thus the initial amount used for the calculation is already being rounded, resulting in unexpected values in the calculation.\\
+\\
+In this case the input amount might be considered unrealistic, as it has 33 decimals. But what will happen when the amount is being increased? In case the \textit{Money} type holds a maximum of 19 characters as value, more problems will arise. With a small test we can check whether this is the case by using the REPL to interpret the values, while we increase the value on each step. A log of this execution is shown in \autoref{lst:experiment2_log_repl_precision_check}.
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Log]
+scala> USD(1.504347826086956521739130434782609)
+res1: squants.market.Money = 1.5043478260869565 USD
+
+scala> USD(11.504347826086956521739130434782609)
+res2: squants.market.Money = 11.504347826086956 USD
+
+scala> USD(111.504347826086956521739130434782609)
+res3: squants.market.Money = 111.50434782608696 USD
+
+scala> USD(1111111.504347826086956521739130434782609)
+res4: squants.market.Money = 1111111.5043478261 USD
+
+scala> USD(1.504347826086956521739130434782609) + USD(110)
+res5: squants.market.Money = 111.5043478260869565 USD
+
+scala> USD(1.504347826086956521739130434782609) + USD(1110)
+res6: squants.market.Money = 1111.5043478260869565 USD
+
+scala> USD(1.504347826086956521739130434782609) + USD(11110)
+res7: squants.market.Money = 11111.5043478260869565 USD
+\end{lstlisting}
+\caption{Checking the behaviour of \textit{Money} using the REPL.}
+\label{lst:experiment2_log_repl_precision_check}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+
+We can conclude from this that the constructor rounds the given value to 17 ch
+
+
+
+
+% In conclusion currently:
+When defining the properties in \autoref{cpt:properties}, we said that when this problem occurs, the value has to be rounded at the Xth \todo{Define x} decimal. However, these tests reveal that the generated system does not yet take this rule into account. Instead it tries to hold the exact value. As we have seen in Listing X \todo{Add listing}, one case (\textit{Division1}) fails because of a \code{PreconditionFailed} error, while \textit{Division2} passed the precondition check but results in \textit{false}. Since the \textit{Division2} test passes the precondition check in this example, it is probably the case that the calculated value tried to be used. The result check reveals that the property is still failing, meaning that it fails to hold the exact value. Which is understandable, as it has to be rounded somewhere, but it is not defined clearly yet. But this reveals that it is not the case that the rounding is done at the Xth \todo{Define x} decimal according to our definition.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation criteria
@@ -213,5 +351,8 @@ There are other solvers available too, or other methods to generate values that 
 \subsection*{Implicative properties effectiveness}
 \pinfo{Uneffective? Checking more though}
 The use of implicative properties might not be as effective as using properties that do not. If the properties could be rewritten such that random values could be used to check the same thing, the implicative properties might be unneccessary. On the other hand, more functionalities from the generator are being used, and thus being tested, by this approach. Which wouldn't be the case when the implicative properties are being removed. If-statements and preconditions were not being used in the first experiment.
+
+% Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
+
 
 % Not extra coverage maybe? If we evaluate that different than earlier.
