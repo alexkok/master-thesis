@@ -240,42 +240,6 @@ z/y                & 1.504347826086956521739130434782608 USD           & 1.50434
 
 In the results we can see that the expected values do not match the property either. Although in \textit{Scala} the first expression is considered true. Since the expected results also return false for the intermediate calculations, the input values might not fully satisfy the condition to trigger the if-clause. Which could be an implementation error in our calues generator. However, its notable that in \textit{Scala} the condition is considered to hold, which triggered this case. This indicates that there is a rounding error happening in the system, which results in this behaviour.
 
-The expected results as in boolean values are now returning \textit{false}, which is also done by \textit{Scala}. The intermediate calculations indicate that a precision error occurs, although the precision errors should already be fixed due to the first experiment that was done. Looking back at executing these calculations, we found that the value for \textit{x} and \textit{z} is being rounded off to a total of 18 characters long (thus \textit{x} is being defined as \textit{1.5043478260869565 USD}). When using this value in the expression \textit{x*y}, the result is the same value as shown in \autoref{tbl:experiment2_division1_rounding_difference}. Thus the initial amount used for the calculation is already being rounded, resulting in unexpected values in the calculation.\\
-\\
-In this case the input amount might be considered unrealistic, as it has 33 decimals. But what will happen when the amount is being increased? In case the \textit{Money} type holds a maximum of 19 characters as value, more problems will arise. With a small test we can check whether this is the case by using the REPL to interpret the values, while we increase the value on each step. A log of this execution is shown in \autoref{lst:experiment2_log_repl_precision_check}.
-% Listing
-\FloatBarrier
-\begin{sourcecode}[!ht]
-\begin{lstlisting}[language=Log]
-scala> USD(1.504347826086956521739130434782609)
-res1: squants.market.Money = 1.5043478260869565 USD
-
-scala> USD(11.504347826086956521739130434782609)
-res2: squants.market.Money = 11.504347826086956 USD
-
-scala> USD(111.504347826086956521739130434782609)
-res3: squants.market.Money = 111.50434782608696 USD
-
-scala> USD(1111111.504347826086956521739130434782609)
-res4: squants.market.Money = 1111111.5043478261 USD
-
-scala> USD(1.504347826086956521739130434782609) + USD(110)
-res5: squants.market.Money = 111.5043478260869565 USD
-
-scala> USD(1.504347826086956521739130434782609) + USD(1110)
-res6: squants.market.Money = 1111.5043478260869565 USD
-
-scala> USD(1.504347826086956521739130434782609) + USD(11110)
-res7: squants.market.Money = 11111.5043478260869565 USD
-\end{lstlisting}
-\caption{Checking the behaviour of \textit{Money} using the REPL.}
-\label{lst:experiment2_log_repl_precision_check}
-\end{sourcecode}
-\FloatBarrier
-% End listing
-
-We can conclude from this that the constructor rounds the given value to 17 ch
-
 
 
 
