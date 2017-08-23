@@ -285,7 +285,10 @@ The coverage report shows how many statements exist in the SUT and how many of t
 \FloatBarrier
 % End figure
 \pinfo{Property coverage}
-The logic of a specification is defined in one Class in the generated system, which is called \textit{Logic} and prefixed by the specification name. We will only look at these classes to check to which extent the properties have been tested, using the highlighting that shows the coverage. This is because our test suit is not intended to check the other components of the system. However, all files in the generated system will be used to determine the overall coverage percentage. Since we use the same SUT to determine the coverage of the test suite on the SUT, the higher the coverage, the more complete it tests the defined properties in the generated system.
+The logic of a specification is defined in one Class in the generated system, which is called \textit{Logic} and prefixed by the specification name. We will only look at these classes to check to which extent the properties have been tested, using the highlighting that shows the coverage.\\
+\\
+\pinfo{Won't reach 100\%}
+The generated system also contains some other logic that is more related to how it communicates with other instances when it is deployed, which is not something that we test. As a result, we will not be able to bring the test coverage to 100\%. However, all files in the generated system will be used to determine the overall coverage percentage. Since we use the same SUT to determine the coverage of the test suite on the SUT, the higher the coverage, the more complete it tests the defined properties in the generated system.
 
 % Amount of bugs
 \subsubsection{Amount of bugs}
@@ -297,13 +300,13 @@ The number of bugs found by an experiment also describes how effective the exper
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Analysis
-\section{Analysis}
+% Section: Conclusion
+\section{Conclusion}
 \pinfo{Our approach, like QuickCheck}
-The research question for this chapter lead as follows:\rqTwo{}. Existing approaches often require the SUT to be written in the same language. This was not possible when testing the generator in our case. The generator is being used to generate a system that is being used to test the generator. We use an approach that is similar to QuickCheck but using a \textit{Rebel} specification, the generator and the generated system to check whether the properties hold.\\
+The research question for this chapter lead as follows:\rqTwo{}. Existing approaches often require the SUT to be written in the same language. This was not possible when testing the generator in our case. The generator is being used to generate a system that is being used to test the generator. We use an approach that is similar to QuickCheck but using a \textit{Rebel} specification and the generated system to check whether the properties hold when using the generator.\\
 \\
 \pinfo{Combining all steps}
-We demonstrated a full cycle based on one property, which consists of the following 5 phases:
+We demonstrated a full cycle based on one property, which indicated that this approach works to check a property. A full cycle consists of the following 5 phases:
 \begin{enumerate}
 \item \tfPhaseOne{}
 \item \tfPhaseTwo{}
@@ -314,7 +317,7 @@ We demonstrated a full cycle based on one property, which consists of the follow
 The first step is done manually by translating the properties to a consistent \textit{Rebel} specification. The test framework is able to execute the other phases, which can be found in the \code{Main.rsc} file in the source code of this project.\\
 \\
 \pinfo{Larger specification for experiments}
-For the experiments all the properties defined in \autoref{cpt:4_properties} will be used. This results in a bigger specification which can be used to test the generator automatically by using the test framework. The event definitions of each property can be found in \autoref{app:a_event_definitions}.
+For the experiments all the properties defined in \autoref{cpt:properties} will be used. This results in a bigger specification which can be used to test the generator automatically by using the test framework. After running the test framework, we evaluate it on the coverage and amount of bugs found metrics. The event definitions of each property defined in \autoref{cpt:properties} can be found in \autoref{app:a_event_definitions}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
