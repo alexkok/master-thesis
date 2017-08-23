@@ -332,14 +332,14 @@ This property revealed a precision error when the \textit{Percentage} type is be
 
 % Property coverage
 \pinfo{Not tested implicative properties}
-When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not being triggered. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the \textit{Transitive} property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
+When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not being triggered. As shown in \textbf{Figure X}, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the \textit{Transitive} property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
 \\
 \textbf{Figure X}
 \todo{Add figure}
 
 % Total coverage
 \pinfo{Test coverage, 30\% for implicative, 100\% for others}
-The first criteria to evaluate an experiment was to determine the test coverage. The properties using implication are not covered when using random values as input data. The other properties, which do not use implication, are fully tested though. This can be seen in Figure X, where the test coverage of the properties using implication only covers roughly 30\%. The files with a name ending with "Logic" contain the implementation of the properties, as well as the precondition checks. The test coverage concerning the other properties (those that do not use implication), reports 95\% coverage. When investigating further, the other 5\% are not related to the properties that we test, thus it is not required for this project to achieve 100\% coverage on the Logic files.\\
+The first criteria to evaluate an experiment was to determine the test coverage. The properties using implication are not covered when using random values as input data. The other properties, which do not use implication, are fully tested though. This can be seen in \autoref{fig:ch5_eval_experiment1}, where the test coverage of the properties using implication only covers roughly 30\%. The files with a name ending with "Logic" contain the implementation of the properties, as well as the precondition checks. The test coverage concerning the other properties (those that do not use implication), reports 95\% coverage. When investigating further, the other 5\% are not related to the properties that we test, thus it is not required for this project to achieve 100\% coverage on the Logic files.\\
 \begin{figure}[h!]
 \frame{
 	\includegraphics[width=\linewidth]{figures/eval_experiment1}
@@ -350,7 +350,7 @@ The first criteria to evaluate an experiment was to determine the test coverage.
 \end{figure}
 \\
 \pinfo{Overall 68\%, cannot be 100, but can be improved}
-The overall coverage over the generated system is 68\%. Note that the libraries that are being used by the generated system are not included in the coverage report. We expect that this number can be improved by generating values such that the properties using implication are also triggering the if-clause. Which is currently not the case, as we have seen when checking the coverage of each property in Figure X-1.\\
+The overall coverage over the generated system is 68\%. Note that the libraries that are being used by the generated system are not included in the coverage report. We expect that this number can be improved by generating values such that the properties using implication are also triggering the if-clause. Which is currently not the case, as we have seen when checking the coverage of each property in \textbf{Figure X}.\\
 \\
 % % of bugs
 \pinfo{\# of bugs, 7}
