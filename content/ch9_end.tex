@@ -12,10 +12,12 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \appendix
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Appendix I: Initial property definitions
-\chapter{Initial generated test cases}
+% Section: Appendix I: Property definitions of Rebel in Rebel
+\chapter{Property definitions of Rebel in Rebel}
 \label{app:a_event_definitions}
-\begin{sourcecode}[h!]
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
 event reflexiveEquality(x: Money) {
     postconditions {
@@ -23,7 +25,7 @@ event reflexiveEquality(x: Money) {
     }
 }
 
-event reflexiveInequalitySET(x: Money) {
+event reflexiveInequalityLET(x: Money) {
     postconditions {
        new this.result == ( x <= x );
     }
@@ -40,9 +42,262 @@ event symmetric(x: Money, y:Money) {
        new this.result == ( (x == y) ? y == x : True );
     }
 }
+
+event transitiveEquality(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x == y && y == z) ? x == z : True );
+    }
+}
+
+event transitiveInequalityLT(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x < y && y < z) ? x < z : True );
+    }
+}
+
+event transitiveInequalityGT(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x > y && y > z) ? x > z : True );
+    }
+}
 \end{lstlisting}
-\caption{The property definitions written as a Rebel specification}
+\caption{The property definitions as Rebel specification}
 \end{sourcecode}
+\FloatBarrier
+% End listing
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rebel]
+event transitiveInequalityLET(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x <= y && y <= z) ? x <= z : True );
+    }
+}
+
+event transitiveInequalityGET(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x >= y && y >= z) ? x >= z : True );
+    }
+}
+
+event additive(x: Money, y: Money, z: Money) {
+    postconditions {
+         new this.result == ( (x==y) ? x+z == y+z : True );
+    }
+}
+
+event additive4params(x: Money, y: Money, z: Money, a: Money) {
+    postconditions {
+        new this.result == ( (x == y && z == a) ? x+z == y+a : True );
+    }
+}
+
+event commutativeAddition(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x+y == y+x );
+    }
+}
+
+event commutativeMultiplicationInteger1(x: Integer, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationInteger2(x: Money, y: Integer) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationPercentage1(x: Percentage, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationPercentage2(x: Money, y: Percentage) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event associativeAddition(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x+y)+z == x+(y+z) );
+    }
+}
+
+event associativeMultiplicationInteger1(x: Integer, y: Integer, z: Money) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+\end{lstlisting}
+\caption{The property definitions as Rebel specification (continued)}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rebel]
+event associativeMultiplicationInteger2(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage1(x: Money, y: Percentage, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage2(x: Integer, y: Money, z: Percentage) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event distributiveInteger1(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributiveInteger2(x: Integer, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+event distributivePercentage1(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributivePercentage2(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+event additiveIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x + EUR 0.00 == x );
+    }
+}
+
+event additiveIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( EUR 0.00 + x == x );
+    }
+}
+
+event multiplicativeIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x*1 == x );
+    }
+}
+event multiplicativeIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( 1*x == x );
+    }
+}
+\end{lstlisting}
+\caption{The property definitions as Rebel specification (continued)}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rebel]
+event additiveInverse1(x: Money) {
+    postconditions {
+        new this.result == ( x+(-x) == EUR 0.00 );
+    }
+}
+
+event additiveInverse2(x: Money) {
+    postconditions {
+        new this.result == ( (-x)+x == EUR 0.00 );
+    }
+}
+
+event antisymmetryLET(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( (x <= y && y <= x) ? x == y : True );
+    }
+}
+
+event antisymmetryGET(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( (x >= y && y >= x) ? x == y : True );
+    }
+}
+
+event division1(x: Money, y: Integer, z: Money) {
+    postconditions {
+        new this.result == ( (x*y == z) ? (x == z/y) : True );
+    }
+}
+
+event division2(x: Money, y: Integer, z: Money) {
+    postconditions {
+        new this.result == ( (x == z*y) ? (x/y == z) : True );
+    }
+}
+
+event multiplicativeZeroProperty1(x: Money) {
+    postconditions {
+        new this.result == ( x*0 == EUR 0.00 );
+    }
+}
+
+event multiplicativeZeroProperty2(x: Money) {
+    postconditions {
+        new this.result == ( 0*x == EUR 0.00 );
+    }
+}
+
+event anticommutativity(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x-y == -(y-x) );
+    }
+}
+
+event nonassociativity(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x-y)-z != x-(y-z) );
+    }
+}
+
+event trichotomy(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x < y || x == y || x > y );
+    }
+}
+\end{lstlisting}
+\caption{The property definitions as Rebel specification (continued)}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+
+% Listing
+%\FloatBarrier
+%\begin{sourcecode}[!ht]
+%\begin{lstlisting}[language=Rebel]
+%
+%\end{lstlisting}
+%\caption{The property definitions as Rebel specification (continued)}
+%\end{sourcecode}
+%\FloatBarrier
+% End listing
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Appendix II:
