@@ -27,9 +27,10 @@ defined properties hold when using the generator.
 A \textit{Rebel} specification can be created with the property definitions.
 Which can then be used to generate the test cases. The collection of resulting
 test cases is the content of the test suite, which we can be run against the
-generated system. The goal of the test framework is to combine most of the
-required phases such that each defined property is being checked as automatic as
-possible. An overview of the phases is shown in Figure X, to sum up: the phases
+generated system. We can divide the process into different phases. The goal of
+the test framework is to combine most of the required phases such that each
+defined property is being checked as automatic as possible. An overview of the
+phases is shown in Figure X, to sum up: the phases
 are defined as follows:
 \def \tfPhaseOne{Create specification}
 \def \tfPhaseTwo{Check \& Build}
@@ -44,7 +45,13 @@ are defined as follows:
   \item \tfPhaseFive{}
 \end{enumerate}
 
-We will describe each phase in detail in the next sections. Additionally we will define some evaluation criteria which will be used to evaluate the test framework. The \textit{Reflexitivity} property will be used to demonstrate each phase. More specifically: the case of \textit{Reflexivity} when using equality, called \textit{ReflexiveEquality} throughout this project. The definition of \textit{ReflexiveEquality} is shown in \autoref{tbl:ch3_small_property_definition}.
+We will describe each phase in detail in the next sections. Additionally we will
+define some evaluation criteria which will be used to evaluate the test
+framework. The \textit{Reflexitivity} property will be used to demonstrate each
+phase. More specifically: the case of \textit{Reflexivity} when using equality,
+called \textit{ReflexiveEquality} throughout this project. The definition of
+\textit{ReflexiveEquality} is shown in
+\autoref{tbl:ch3_small_property_definition}.
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -66,7 +73,7 @@ x == x & x & Money \\ \hline
 \subsection{\tfPhaseOne{}}
 \label{sct:3_prop_to_rebel}
 \pinfo{Generator requires spec}
-The generator requires a consistent \textit{Rebel} specification in order to generate a system. This means that we have to translate the properties (which are defined in \autoref{cpt:4_properties}) to a \textit{Rebel} specification. A rebel specification consist of a lifecycle definition together with its event definitions.\\
+The generator requires a consistent \textit{Rebel} specification in order to generate a system. This means that we have to translate the properties (which are defined in \autoref{cpt:properties}) to a \textit{Rebel} specification. A rebel specification consist of a lifecycle definition together with its event definitions.\\
 \\
 \pinfo{Property to event translation}
 A test case should be able to pass values as parameters to test a specific property for a certain amount of times. We can use the events for this in the \textit{Rebel} definition. An event describes a transition from one state to another and accepts parameters. Additionally, it can have pre- and postconditions, where the postconditions can state what happens when the transaction is being executed. In \autoref{lst:ch3_rebel_event_of_property} the event definition for the \textit{ReflexiveEquality} property written in \textit{Rebel} is shown.
