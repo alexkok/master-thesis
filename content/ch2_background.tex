@@ -57,13 +57,13 @@ Due to the effectiveness of \textit{QuickCheck}, many ports for other languages 
 \\
 \pinfo{No QuickCheck for Rebel, probably not using ScalaCheck}
 There is no \textit{QuickCheck} implementation for \textit{Rebel}. As the generated system is written in \textit{Scala}, ScalaCheck might be applicable to us. However, this would result in using \textit{ScalaCheck} as a black box, implementing the random functionality ourselves makes sure we know what is going on. Thus resulting in a white box implementation for our test framework. Also, we can modify it to our needs when we want to improve our test suite. One of the things that we might want to improve is to generate values under certain conditions. For example, if a property only holds under a certain condition, the chance that random values satisfy the condition can be very low. Resulting in a test case that wouldn't do anything most of the time. An example of such a property is \textit{Transitivity} (\code{x == y $\implies$ y == x}).%, which defines that y should be equal to x iff x is equal to y.
-Additionally, we might also need to slightly interact with other components, such as the messaging layer, that the generated system uses. This could make the implementation more complicated when using \textit{ScalaCheck}. 
+Additionally, we might also need to slightly interact with other components, such as the messaging layer, that the generated system uses. This could make the implementation more complicated when using \textit{ScalaCheck}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Terminology
 \section{Terminology}
 \pinfo{Confusing terminologies and abstractions}
-In this thesis there are some levels of abstraction, the terminology used throughout this theses can cause some confusion. Words like "specification", "properties" and "tests" can have a different meaning depending on the context. In this section we describe the confusing terminologies and abstractions in detail.
+In this thesis there are some levels of abstraction, the terminology used throughout this theses can cause confusion. Words like "specification", "properties" and "tests" generally can have a different meaning depending on the context. In this section we describe the confusing terminologies and abstractions in detail.
 
 \begin{description}
 \item[Specification]\hfill\\
