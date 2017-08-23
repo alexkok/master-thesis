@@ -4,8 +4,8 @@
 \chapter{Experiment 1: Using random input}
 \label{cpt:experiment1}
 \pinfo{Props to test cases, implication returns True}
-The properties that we defined in \autoref{cpt:4_properties} are translated into
-test cases as described in \autoref{cpt:3_testmechanics}. In this experiment we
+The properties that we defined in \autoref{cpt:properties} are translated into
+test cases as described in \autoref{cpt:testmechanics}. In this experiment we
 expect to find some bugs that were unknown before by using the test framework.
 When we have triggered some bugs, an investigation is needed to check what the
 cause is of that bug. Next, we can categorize the bugs found to come to an
@@ -16,7 +16,7 @@ answer to this research question:\rqThree{}
 \section{Method}
 %\label{sec:initial_case}
 \pinfo{Like QuickCheck, recall cycle shortly}
-In the first experiment each property will be tested 100 times by random input
+In the first experiment each property will be tested 100 times with random input
 values. This means that if the property holds for 100 tests, it is reported to be successfully satisfying the property. This is a similar approach as what \textit{QuickCheck} does when
 checking properties. Unlike \textit{QuickCheck}, the test framework does not shrink the input values to come with minimum values for which the case fails. Instead it will just report the values that were used when the property failed.
 
@@ -31,7 +31,7 @@ testing every property.
 % Subsection: First run
 \subsection{First run}
 \pinfo{Termination, compile error due to library}
-The first run results into a termination of the run due to a compile error in the generated system. Although we made the assumption that the generated system should be compilable, this error came from a property definition that was expected to fulfill, namely \textit{AssociativeMultiplicationInteger1} (\autoref{ssct:4_associativity}). Which is why we can consider this as an error that is found when using the test framework. The error describes that an overloaded method cannot be applied to the \textit{Money} type, as shown in \autoref{lst:ch5_firstrun_termination_log}.
+The first run results into a termination of the run due to a compile error in the generated system. Although we made the assumption that the generated system should be compilable, this error came from a property definition that was expected to hold, namely \textit{AssociativeMultiplicationInteger1} (\autoref{ssct:4_associativity}). Which is why we can consider this as an error that is found when using the test framework. The error describes that an overloaded method cannot be applied to the \textit{Money} type, as shown in \autoref{lst:ch5_firstrun_termination_log}.
 % Listing
 \FloatBarrier
 \begin{sourcecode}[h!]
@@ -71,20 +71,20 @@ The first run results into a termination of the run due to a compile error in th
 \FloatBarrier
 % End listing
 \pinfo{Investigation, found property and var types}
-The error log does not clearly indicate what is exactly going wrong, it also does not describe what the types of the variables were. Investigating the generated system reveals that both errors were happening when dealing with the \textit{AssociativeMultiplicationInteger1} property. This means that the variables x, y and z are of type \textit{Integer}, \textit{Integer}, \textit{Money} respectively, as described in \autoref{ssct:4_associativity}. Temporarily disabling this property allows the test framework to
+The error log does not clearly indicate what is exactly going wrong, it doesn't show which property is causing it, also it does not describe what the types of the variables were. Investigating the generated system reveals that both errors were happening when dealing with the \textit{AssociativeMultiplicationInteger1} property. This means that the variables x, y and z are of type \textit{Integer}, \textit{Integer}, \textit{Money} respectively, as described in \autoref{ssct:4_associativity}. Temporarily disabling this property allows the test framework to proceed further.
 
 % % % % % % % % % % % % %
 % Subsection: Second run
 \subsection{Second run}
 \pinfo{Failing tests, describing each}
-After disabling the \textit{AssociativeMultiplicationInteger1} property, the test framework was able to run completely. This results in 7 failing tests. For each test the input values for which the property doesn't hold are logged such that the error can be reproduced. In \autoref{tbl:experiment1_overview_second_run} an overview of the failing properties, along with it's input values are shown.
+After disabling the \textit{AssociativeMultiplicationInteger1} property, the test framework was able to run completely. This results in 7 failing tests. For each test the input values for which the property doesn't hold are logged such that the error can be reproduced. In \autoref{tbl:experiment1_overview_second_run} an overview of the failing properties, along with it's input values (\textit{x}, \textit{y} and \textit{z}) are shown.
 % Table
 \FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{llll}
 \hline
-\textbf{Property name}               & \textbf{X}               & \textbf{Y}        & \textbf{Z}         \\ \hline
+\textbf{Property name}               & \textbf{x}               & \textbf{y}        & \textbf{z}         \\ \hline
 DistributivePercentage1              & 0.51                     & -311254801.77 EUR & -707194075.77 EUR  \\
 DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
 DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
@@ -103,7 +103,7 @@ AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27          
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-For each failed test we investigate what went wrong. The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were initially also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. For the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done such that we are able to reveal the other errors that these properties can reveal.
+For each failed test we investigate what went wrong. The first four tests reveal precision problems when using the \textit{Money} type in calculations. The latter three tests were also failing because of these precision problems. However, these tests were also failing after the precision errors were fixed. Thus, for the latter 3 tests another version of the generated system was used, which contains the fixes for the precision problems. This is done such that we are able to reveal the other errors that these properties can reveal.
 
 \todo{Add red and bold in tables}
 % % %
@@ -113,7 +113,7 @@ For each failed test we investigate what went wrong. The first four tests reveal
 % DistributivePercentage1
 \subsubsection{DistributivePercentage1}
 \label{ssct:ch5_distributivePercentage1}
-This property uses a \textit{Percentage} value and two \textit{Money} values for it's tests. The values are named x, y and z respectively. To check this failing test, we check the results of the intermediate calculations in the formula that is being used. In \autoref{ch4_init_check_DistributivePercentage1} values are shown for which the test case fails, among with the intermediate calculations. The intermediate calculations seem to work as expected, as the results are the same when we compare the results of the Scala evaluation and the Rascal evaluation. Unfortunately the resulting left hand side of the expression contains a precision error, which is caused when multiplying a \textit{Percentage} (the x variable) with a \textit{Money} type (the result of y+z in this case).
+This property uses a \textit{Percentage} value and two \textit{Money} values for its tests. The values are named x, y and z respectively. To check this failing test, we check the results of the intermediate calculations in the formula that is being used. In \autoref{ch4_init_check_DistributivePercentage1} values are shown for which the test case fails, among with the intermediate calculations. The intermediate calculations seem to work as expected, as the results are the same when we compare the results of the Scala evaluation and the Rascal evaluation. Unfortunately the resulting left hand side of the expression contains a precision error, which is caused when multiplying a \textit{Percentage} (the x variable) with a \textit{Money} type (the result of y+z in this case).
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -332,7 +332,7 @@ This property revealed a precision error when the \textit{Percentage} type is be
 
 % Property coverage
 \pinfo{Not tested implicative properties}
-When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not satisfied. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the Transitive property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
+When looking at the coverage results of the test suite, it is notable that the if-clause of the implicative properties are often not being triggered. As shown in Figure X, green highlighting indicate the statements that are executed, while red highlighting indicate statements that were not checked at all. As a result, the property always returns \textit{true}, as this is how it was specified in the specification (the else-clause of an implicative property). This is due to the random values that are being used as input. An example of this is the \textit{Transitive} property (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data, there is a seldom chance that 3 values are equal to each other. Thus we could optimize the random values such that the condition holds, such that we also test these properties such that the if-clause is triggered.\\
 \\
 \textbf{Figure X}
 \todo{Add figure}
@@ -350,7 +350,7 @@ The first criteria to evaluate an experiment was to determine the test coverage.
 \end{figure}
 \\
 \pinfo{Overall 68\%, cannot be 100, but can be improved}
-The overall coverage over the generated system is 68\%, however, note that the generated system is based on the properties that we defined and that the libraries that are being used by the generated system are not included in the coverage report. The generated system also contains some other logic that is more related to how it communicates with other instances when it is deployed, which is not something that we test. As a result, we will not be able to bring the test coverage to 100\%. Although the test suite can be improved to have a higher test coverage, by generating values such that the properties using implication are also triggering the if-clause. Which is currently not the case, as we have seen when checking the coverage of each property in Figure X-1.\\
+The overall coverage over the generated system is 68\%. Note that the libraries that are being used by the generated system are not included in the coverage report. We expect that this number can be improved by generating values such that the properties using implication are also triggering the if-clause. Which is currently not the case, as we have seen when checking the coverage of each property in Figure X-1.\\
 \\
 % % of bugs
 \pinfo{\# of bugs, 7}
@@ -370,7 +370,10 @@ The second criteria that we defined was the amount of bugs that we have found by
 % 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
 %	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
 \pinfo{Recap, found 7 bugs using this approach}
-In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. In this experiment we managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.
+In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. In this experiment we managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.\\
+\\
+\pinfo{Implicative properties not tested}
+Although many properties were tested succesfully, the test framework also indicates that the implicative properties were satisfied. However, when looking at the statement coverage of the implicative properties, we saw that the if-clause is often not being. Meaning that it would call the else-clause which simply returns true. When relying on random data, there is a seldom chance that the if-clause is being triggered. Thus we could optimize the generated input values such that these satisfy the condition for the if-clause.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
