@@ -30,10 +30,22 @@ test cases is the content of the test suite, which we can be run against the
 generated system. We can divide the process into different phases. The goal of
 the test framework is to combine most of the required phases such that each
 defined property is being checked as automatic as possible. An overview of the
-phases is shown in Figure X, to sum up: the phases
-are defined as follows:
+phases and the test framework is shown in \autoref{fig:testmechanics_overview}.
+% Figure
+\FloatBarrier
+\begin{figure}[!ht]
+%\frame{
+	\includegraphics[width=\linewidth]{figures/testmechanics_overview}
+%}
+\caption{Overview of the test framework and the phases}
+\label{fig:testmechanics_overview}
+\centering
+\end{figure}
+\FloatBarrier
+% End figure
+The phases are defined as follows:
 \def \tfPhaseOne{Create specification}
-\def \tfPhaseTwo{Check \& Build}
+\def \tfPhaseTwo{Check \& build}
 \def \tfPhaseThree{Generate system}
 \def \tfPhaseFour{Generate test suite}
 \def \tfPhaseFive{Run test suite}
@@ -44,7 +56,6 @@ are defined as follows:
   \item \tfPhaseFour{}
   \item \tfPhaseFive{}
 \end{enumerate}
-
 We will describe each phase in detail in the next sections. Additionally we will
 define some evaluation criteria which will be used to evaluate the test
 framework. The \textit{Reflexitivity} property will be used to demonstrate each
