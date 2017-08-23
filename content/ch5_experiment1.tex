@@ -309,7 +309,7 @@ floating-point arithmetic \cite{goldberg1991every}.
 X                  & -352883323.42 EUR      & Money                       \\
 Y                  & 0.27                   & Percentage                  \\
 Z                  & 294211708              & Integer                     \\ \hline
-\textbf{Formula}   & Scala result           & Expected result             \\ \hline
+\textbf{Formula}   & \textbf{Scala result}  & \textbf{Expected result}    \\ \hline
 (x*y)*z == x*(y*z) & false                  & true                        \\
 (x*y)*z            & -28032049433190944 EUR & -28032049433190942.3672 EUR \\
 x*(y*z)            & -28032049433190948 EUR & -28032049433190942.3672 EUR \\
@@ -370,7 +370,7 @@ The second criteria that we defined was the amount of bugs that we have found by
 % 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
 %	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
 \pinfo{Recap, found 7 bugs using this approach}
-In this first experiment we tested each property that was defined in \autoref{cpt:4_properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. In this experiment we managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.\\
+In this first experiment we tested each property that was defined in \autoref{cpt:properties} 100 times with using random values as input. First the test suit terminated due to a compilation error. After disabling the causing property (temporarily), a total of 7 tests were failing. In this experiment we managed to find precision errors and overflow/underflow errors. Additionally, we found a compilation error when using a property which was expected to hold.\\
 \\
 \pinfo{Implicative properties not tested}
 Although many properties were tested succesfully, the test framework also indicates that the implicative properties were satisfied. However, when looking at the statement coverage of the implicative properties, we saw that the if-clause is often not being. Meaning that it would call the else-clause which simply returns true. When relying on random data, there is a seldom chance that the if-clause is being triggered. Thus we could optimize the generated input values such that these satisfy the condition for the if-clause.
