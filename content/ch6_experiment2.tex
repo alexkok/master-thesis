@@ -238,7 +238,9 @@ z/y                & 1.504347826086956521739130434782608 USD           & 1.50434
 \FloatBarrier
 % End table
 
-In the results we can see that the expected values do not match the property either. Although in \textit{Scala} the first expression is considered true. Since the expected results also return false for the intermediate calculations, the input values might not fully satisfy the condition to trigger the if-clause. Which could be an implementation error in our calues generator. However, its notable that in \textit{Scala} the condition is considered to hold, which triggered this case. This indicates that there is a rounding error happening in the system, which results in this behaviour.
+In the results we can see that the expected values do not match the property either. Although in \textit{Scala} the first expression is considered true. Since the expected results also return false for the intermediate calculations, the input values might not fully satisfy the condition to trigger the if-clause. Which could be an implementation error in our calues generator. However, its notable that in \textit{Scala} the condition is considered to hold, which triggered this case. This indicates that there is a rounding error happening in the system, which triggered this case.\\
+\\
+Unfortunately, we are unable to trace back how the input values used for this tests were exactly determined. As these are build up by using random generated and then being mutated by a random operation. 
 
 
 
