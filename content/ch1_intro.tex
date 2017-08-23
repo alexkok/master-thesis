@@ -73,6 +73,28 @@ We will start off with defining the properties that are expected to hold on the 
 Next, we generate tests for each of these properties and run these against the generated system. After running the test suit, the result is being evaluated. When one or more tests are failing, a bug is found. However, we need to investigate the failing case such that we discover what the actual bug is. After evaluating we improve our test generation and continue to evaluate the results again.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Contribution
+\section{Contribution}
+% - Definitions (properties)
+% Before, in conclusion:
+% We provided a definition of some types in \textit{Rebel} and described properties that should hold when using operations with these types. Since there were no clear definitions available yet of what these types exactly do, a contribution has been made to the \textit{Rebel} project, such that there are now some definitions and properties available. This also helps when reasoning about the implementation, as there is now a definition of what is expected. Although these definitions might change over time, it allows to reason back to an earlier starting point.\\
+We provide definitions of the properties that are expected to hold when using the \textit{Rebel} language and its toolchain. Allowing to reason about the generator and whether the implementation satisfies these properties. There are no property definitions of \textit{Rebel} yet, so we provide a starting point for this with the focus on the important properties.\\
+\\
+% - A way to automatically test the generator and generated system using Rebel, defining properties as events
+% Before, in conclusion:
+% We have shown a way to automatically test the generator using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that are expected to hold in the first case. Which can be translated to a \textit{Rebel} specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
+The defined properties are being used to check the generator. We come with a solution that uses the input that is required for the generator and the output of the generator to check the generator. This process should be as automatic as possible, such that it doesn't require much time to make use of it. Our test framework will combine the required steps to detect bugs as automatically as possible.\\
+\\
+% - Found number of bugs in generated system
+% Before, in conclusion:
+%A number of bugs have been found in the generated system, precision errors, overflow/underflow errors and even a compile error. These bugs are now known issues in this project, while these were unknown before. This shows us that this approach already worked in such a way that it is able to detect bugs in the generated system. It can be extended to detect even more bugs. With some modifications, it is also possible to use this approach with other generated systems, such that it can detect inequalities among these.\\
+The generator that is being used is expected to contain bugs. Therefore, we expect to detect, yet unknown, bugs in the generator. These bugs are then known bugs and can be fixed. The bugs found will then also indicate what kind of bugs we can detect in a generator by using this approach.
+
+% - Squants issues
+% Before, in conclusion:
+%In this approach, we identified two bugs, which were due to an open-source library used in the generated system, called \textit{Squants}. We reported these two issues, such that these can be fixed in a later version of the library.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Related work
 \section{Related work}
 % // Doesn't this have to be at the end?
