@@ -240,13 +240,7 @@ z/y                & 1.504347826086956521739130434782608 USD           & 1.50434
 
 In the results we can see that the expected values do not match the property either. Although in \textit{Scala} the first expression is considered true. Since the expected results also return false for the intermediate calculations, the input values might not fully satisfy the condition to trigger the if-clause. Which could be an implementation error in our calues generator. However, its notable that in \textit{Scala} the condition is considered to hold, which triggered this case. This indicates that there is a rounding error happening in the system, which triggered this case.\\
 \\
-Unfortunately, we are unable to trace back how the input values used for this tests were exactly determined. As these are build up by using random generated and then being mutated by a random operation. 
-
-
-
-
-% In conclusion currently:
-When defining the properties in \autoref{cpt:properties}, we said that when this problem occurs, the value has to be rounded at the Xth \todo{Define x} decimal. However, these tests reveal that the generated system does not yet take this rule into account. Instead it tries to hold the exact value. As we have seen in Listing X \todo{Add listing}, one case (\textit{Division1}) fails because of a \code{PreconditionFailed} error, while \textit{Division2} passed the precondition check but results in \textit{false}. Since the \textit{Division2} test passes the precondition check in this example, it is probably the case that the calculated value tried to be used. The result check reveals that the property is still failing, meaning that it fails to hold the exact value. Which is understandable, as it has to be rounded somewhere, but it is not defined clearly yet. But this reveals that it is not the case that the rounding is done at the Xth \todo{Define x} decimal according to our definition.
+Unfortunately, we are unable to trace back how the input values used for this tests were exactly determined. As these are build up by using random generated values and then mutating these by a random operation. Nevertheless, the results show that there is also an unexpected rounding going on when executing \textit{x*y} in \textit{Scala}. As the expected value contains some additional decimals compared to the result from \textit{Scala}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation criteria
@@ -290,13 +284,22 @@ The other criteria we use was the amount of bugs that we have found. Using this 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
 \section{Conclusion}
-In this experiment we generated the input values such that the condition of the properties using implication are satisfied. Although this did not lead to many additional bugs compared to the earlier experiment, there were still 2 additional failing tests related to the division problem. Both failing tests are related to the division problem that occurs when there is no even division of a number. For example: when dividing 1 by 3.\\
+In this experiment we generated the input values such that the condition of the properties using implication are satisfied. This revealed 2 additional failing cases. One is related to the division problem and one is indicating a rounding error. Although the latter one might also be caused because of incorrectly generated values. The division problem occurs when there is no even division of a number. For example: when dividing 1 by 3. The generated system tries to hold the exact value, which triggers this situation. It is reasonable that the system tries to hold the exact value, however, the rounding method is not taken into account here. Furthermore, it is not clear from the specification how this rounding should be done.\\
 \\
-When defining the properties in \autoref{cpt:properties}, we said that when this problem occurs, the value has to be rounded at the Xth \todo{Define x} decimal. However, these tests reveal that the generated system does not yet take this rule into account. Instead it tries to hold the exact value. As we have seen in Listing X \todo{Add listing}, one case (\textit{Division1}) fails because of a \code{PreconditionFailed} error, while \textit{Division2} passed the precondition check but results in \textit{false}. Since the \textit{Division2} test passes the precondition check in this example, it is probably the case that the calculated value tried to be used. The result check reveals that the property is still failing, meaning that it fails to hold the exact value. Which is understandable, as it has to be rounded somewhere, but it is not defined clearly yet. But this reveals that it is not the case that the rounding is done at the Xth \todo{Define x} decimal according to our definition.
+When defining the properties in \autoref{cpt:properties}, we said that a value should be precise. When rounding is needed, it must have X decimals \todo{Define x}. However, the test framework does not yet take this rule into account when testing these properties.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
+
+% Incorrect value generation
+\subsection*{Incorrect value generation}
+We have implemented a custom value generator to generate values for each test case. Furthermore, a random operation is being done on these values to make these random again. There could be an error in the implementation that incorrect values are being created, which are expected to be correct. When this is the case, the traceability of how the values were created is hard. This might affect the results or make some errors hard to trace back. We have seen this in this experiment.
+
+% Detecting precision
+\subsection*{Detecting precision}
+In this chapter we triggered the division problem and found that this can cause problems in the generator. The value generation could be modified such that this case isn't being triggered anymore. But on the other hand, its important to know what the expected result would be in this case. A possibility is to define this on the Rebel language, or to make such rounding and precision rules part of the specification. Currently it is unclear what should happen in this situation. We concluded that the generator doesn't take the rules on precision and rounding, that we have defined in \autoref{cpt:properties}, are not taken into account. And that it currently uses a lower precision. Such a high precision is perhaps not expected for Rebel specifications, leaving it as a threat for this approach.
+% Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
 
 % Dynamicallity
 \subsection*{Dynamicallity}
@@ -318,7 +321,6 @@ There are other solvers available too, or other methods to generate values that 
 \pinfo{Uneffective? Checking more though}
 The use of implicative properties might not be as effective as using properties that do not. If the properties could be rewritten such that random values could be used to check the same thing, the implicative properties might be unneccessary. On the other hand, more functionalities from the generator are being used, and thus being tested, by this approach. Which wouldn't be the case when the implicative properties are being removed. If-statements and preconditions were not being used in the first experiment.
 
-% Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
 
 
 % Not extra coverage maybe? If we evaluate that different than earlier.
