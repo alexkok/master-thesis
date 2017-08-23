@@ -89,8 +89,8 @@ DistributivePercentage1              & 0.51                     & -311254801.77 
 DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
 DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
 AssociativeMultiplicationPercentage2 & 840296462                & 1771903729.60 EUR & 0.53               \\
-AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
 DistributiveInt1                     & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
+AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
 AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
 \end{tabular}
 \caption{Overview of failing tests along with its input values}
@@ -227,35 +227,6 @@ y*z                & 939108976.688 EUR       & 939108976.688 EUR          \\ \hl
 % End table
 
 % % %
-% AssociativeMultiplicationInt2
-\subsubsection{AssociativeMultiplicationInteger2}
-% - Integer overflows, causing negative values etc.
-For this case three variables are used: x, y and z, which are of type \textit{Money}, \textit{Integer} and \textit{Integer} respectively. In \autoref{ch4_init_check_AssociativeMultiplicationInteger2} the values of a failing test case are shown with the intermediate formula steps. On the left side of the expression we see the expected results, while on the right side there is a big difference. The red colored row shows a huge difference in the resulting values between Scala and the expected value of the intermediate step on this expression. The result value of the operation is smaller than the minimum value of an \textit{Integer}. Causing it to underflow, resulting in an unexpected amount as result. Thus the operation neither checks for underflowing an \textit{Integer} value, nor does it prevent it.\todo{SOURCE-Over/underflow}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{rll}
-\hline
-\textbf{Variable}  & \textbf{Value}                      & \textbf{Type}                       \\ \hline
-X                  & -1852801029.34 EUR                  & Money                               \\
-Y                  & -1309504561                         & Integer                             \\
-Z                  & 1880170895                          & Integer                             \\ \hline
-\textbf{Formula}   & \textbf{Scala result}               & \textbf{Expected result}            \\ \hline
-(x*y)*z == x*(y*z) & false                               & true                                \\
-(x*y)*z            & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR \\
-x*(y*z)            & 3877739486117270379.94 EUR          & 4561767263499657218201769467.30 EUR \\
-                   &                                     &                                     \\
-x*y                & 2426251398546224819.74 EUR          & 2426251398546224819.74 EUR          \\
-y*z                & -2092906591                         & -2462092362461952095                \\ \hline
-\end{tabular}
-\caption{AssociativeMultiplicationInteger2: \textit{Integer} underflows when using multiply}
-\label{ch4_init_check_AssociativeMultiplicationInteger2}
-\end{table}
-\FloatBarrier
-% End table
-
-% % %
 % DistributiveInt1
 \subsubsection{DistributiveInt1}
 This case also uses three variables: x, y and z. Which are of type \textit{Money}, \textit{Integer} and \textit{Integer} respectively. In \autoref{ch4_init_check_DistributiveInteger1} the different values are shown of the calculation between Scala and the expected result. The red line shows how the addition of two (positive) Integers results in a negative value. The result value would be bigger than the maximum value of an \textit{Integer}, causing it to overflow. Thus the operation also does not check or prevent against overflowing. \todo{SOURCE-Over/underflow}
@@ -280,6 +251,35 @@ x*z                    & -2594683539688709024.27 EUR & -2594683539688709024.27 E
 \end{tabular}
 \caption{DistributiveInteger1: \textit{Integer} overflows when using addition}
 \label{ch4_init_check_DistributiveInteger1}
+\end{table}
+\FloatBarrier
+% End table
+
+% % %
+% AssociativeMultiplicationInt2
+\subsubsection{AssociativeMultiplicationInteger2}
+% - Integer overflows, causing negative values etc.
+For this case three variables are used: x, y and z, which are of type \textit{Money}, \textit{Integer} and \textit{Integer} respectively. In \autoref{ch4_init_check_AssociativeMultiplicationInteger2} the values of a failing test case are shown with the intermediate formula steps. On the left side of the expression we see the expected results, while on the right side there is a big difference. The red colored row shows a huge difference in the resulting values between Scala and the expected value of the intermediate step on this expression. The result value of the operation is smaller than the minimum value of an \textit{Integer}. Causing it to underflow, resulting in an unexpected amount as result. Thus the operation neither checks for underflowing an \textit{Integer} value, nor does it prevent it.\todo{SOURCE-Over/underflow}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{rll}
+\hline
+\textbf{Variable}  & \textbf{Value}                      & \textbf{Type}                       \\ \hline
+X                  & -1852801029.34 EUR                  & Money                               \\
+Y                  & -1309504561                         & Integer                             \\
+Z                  & 1880170895                          & Integer                             \\ \hline
+\textbf{Formula}   & \textbf{Scala result}               & \textbf{Expected result}            \\ \hline
+(x*y)*z == x*(y*z) & false                               & true                                \\
+(x*y)*z            & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR \\
+x*(y*z)            & 3877739486117270379.94 EUR          & 4561767263499657218201769467.30 EUR \\
+                   &                                     &                                     \\
+x*y                & 2426251398546224819.74 EUR          & 2426251398546224819.74 EUR          \\
+y*z                & -2092906591                         & -2462092362461952095                \\ \hline
+\end{tabular}
+\caption{AssociativeMultiplicationInteger2: \textit{Integer} underflows when using multiply}
+\label{ch4_init_check_AssociativeMultiplicationInteger2}
 \end{table}
 \FloatBarrier
 % End table
