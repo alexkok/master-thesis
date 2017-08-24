@@ -114,9 +114,10 @@ The properties that we define are based on the known axioms in algebra. Although
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x == x           & reflexiveEquality      & x: Money                 \\
@@ -126,6 +127,8 @@ The properties that we define are based on the known axioms in algebra. Although
 \caption{Reflexivity on \textit{Money}}
 \label{tbl:ch4_money_reflexivity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 \pinfo{Equality, currency and amount}
 The reflexive property means a relation of a type with itself \cite{raftery2011perspective}. An instance of type \textit{Money} should be equal to itself. Taking both the currency and the amount into account. The inequality relations \textit{smaller or equal to} and \textit{greater or equal to} should hold too. As we can compare \textit{Money} variables and defined equality in the first row of the table.
@@ -134,9 +137,10 @@ The reflexive property means a relation of a type with itself \cite{raftery2011p
 % Subsection: Symmetry
 \subsection*{Symmetry}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}         & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ y == x & symmetric              & x: Money                 \\
@@ -145,6 +149,8 @@ The reflexive property means a relation of a type with itself \cite{raftery2011p
 \caption{Symmetry on \textit{Money}}
 \label{tbl:ch4_money_symmetry}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 \pinfo{Equality, currency and amount}
 Reflexivity already described equality on \textit{Money} when used on the same variable. When two different variables are used, the order should not matter and thus it should work in both ways. Which is known as the symmetric property \cite{raftery2011perspective}.
@@ -153,9 +159,10 @@ Reflexivity already described equality on \textit{Money} when used on the same v
 % Subsection: Antisymmetry
 \subsection*{Antisymmetry}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x $\leq$ y \&\& y $\leq$ x $\implies$ x == y & antisymmetryLET        & x: Money                 \\
@@ -166,16 +173,70 @@ Reflexivity already described equality on \textit{Money} when used on the same v
 \caption{Antisymmetry on \textit{Money}}
 \label{tbl:ch4_money_antisymmetry}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The antisymmetric relation describes that whenever there is a relation from x to y and a relation from y to x, then x and y should be equal. The lower or equal then and greater or equal then relations fit in this category, as shown in \autoref{tbl:ch4_money_antisymmetry}. We can use these operations on the \textit{Money} type when both x and y use the same currency. This antisymmetric relation is also expected to hold, as \textit{Money} values should be equal when they are of the same currency and hold the same amount.
+
+% % % % % % % % % % % % %
+% Subsection: Commutativity
+\subsection*{Commutativity}
+\label{ssct:4_commutativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula} & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x + y == y + x   & commutativeAddition                  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Money                 \\
+                        x * y == y * x   & commutativeMultiplicationInteger1    & x: Integer               \\
+                                         &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationInteger2    & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Integer               \\
+                        x * y == y * x   & commutativeMultiplicationPercentage1 & x: Percentage            \\
+                                         &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationpercentage2 & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Percentage            \\ \hline
+\end{tabular}
+\caption{Commutativity on \textit{Money}}
+\label{tbl:ch4_money_commutativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+These properties are based on the commutative law \cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. For multiplication, there is no known value for multiplying two \textit{Money} variables. It is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
+
+% % % % % % % % % % % % %
+% Subsection: Anticommutativity
+\subsection*{Anticommutativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}  & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x - y == -(y - x) & anticommutativity      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                   &                        & y: Money                 \\ \hline
+\end{tabular}
+\caption{Anticommutativity on \textit{Money}}
+\label{tbl:ch4_money_anticommutativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+In \autoref{ssct:4_commutativity} we described the commutative properties. Note that the operations only use addition and multiplication on this property. Subtraction is a operation that is anticommutative as swapping the order of the two argumates is negating the result. The anticommutative property thus negates the result of swapping the two arguments, intending to result in the actual value again, as shown in \autoref{tbl:ch4_money_anticommutativity}.
 
 % % % % % % % % % % % % %
 % Subsection: Transitivity
 \subsection*{Transitivity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                          \textbf{Formula}                                 & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF}  x == y \&\& y == z $\implies$ x == z             & transitiveEquality      & x: Money                 \\
@@ -197,62 +258,20 @@ The antisymmetric relation describes that whenever there is a relation from x to
 \caption{Transitivity on \textit{Money}}
 \label{tbl:ch4_money_transitivity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 Operations can be done on the \textit{Money} types. The transitive properties \cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations.
-
-% % % % % % % % % % % % %
-% Subsection: Commutativity
-\subsection*{Commutativity}
-\label{ssct:4_commutativity}
-% Table
-\begin{table}[!ht]
-\centering
-\begin{tabular}{|lll|}
-\hline
-                        \textbf{Formula} & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x + y == y + x   & commutativeAddition                  & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Money                 \\
-                        x * y == y * x   & commutativeMultiplicationInteger1    & x: Integer               \\
-                                         &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationInteger2    & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Integer               \\
-                        x * y == y * x   & commutativeMultiplicationPercentage1 & x: Percentage            \\
-                                         &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationpercentage2 & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Percentage            \\ \hline
-\end{tabular}
-\caption{Commutativity on \textit{Money}}
-\label{tbl:ch4_money_commutativity}
-\end{table}
-% Reasoning
-These properties are based on the commutative law \cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. For multiplication, there is no known value for multiplying two \textit{Money} variables. It is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
-
-% % % % % % % % % % % % %
-% Subsection: Anticommutativity
-\subsection*{Anticommutativity}
-% Table
-\begin{table}[!ht]
-\centering
-\begin{tabular}{|lll|}
-\hline
-                        \textbf{Formula}  & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x - y == -(y - x) & anticommutativity      & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                   &                        & y: Money                 \\ \hline
-\end{tabular}
-\caption{Anticommutativity on \textit{Money}}
-\label{tbl:ch4_money_anticommutativity}
-\end{table}
-% Reasoning
-In \autoref{ssct:4_commutativity} we described the commutative properties. Note that the operations only use addition and multiplication on this property. Subtraction is a operation that is anticommutative as swapping the order of the two argumates is negating the result. The anticommutative property thus negates the result of swapping the two arguments, intending to result in the actual value again, as shown in \autoref{tbl:ch4_money_anticommutativity}.
 
 % % % % % % % % % % % % %
 % Subsection: Associativity
 \subsection*{Associativity}
 \label{ssct:4_associativity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}           & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} (x + y) + z == x + (y + z) & associativeAddition                  & x: Money                 \\
@@ -274,6 +293,8 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 \caption{Associativity on \textit{Money}}
 \label{tbl:ch4_money_associativity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The law of associativity is known on addition and multiplication \cite{baumgart1961axioms}. It defines that the order in which certain operations are done, does not affect the result of the whole expression. As described in \autoref{ssct:4_commutativity} it is not possible to operate with multiplication with only \textit{Money} types. However, in \textit{Rebel} the same properties should hold when using different types, as shown in \autoref{tbl:ch4_money_associativity}.
 
@@ -281,9 +302,10 @@ The law of associativity is known on addition and multiplication \cite{baumgart1
 % Subsection: Non-associativity
 \subsection*{Non-associativity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}           & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} (x - y) - z != x - (y - z) & nonassociativity       & x: Money                 \\
@@ -292,6 +314,8 @@ The law of associativity is known on addition and multiplication \cite{baumgart1
 \caption{Non-associativity on \textit{Money}}
 \label{tbl:ch4_money_nonassociativity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 % in tegenstelling tot steen is geen steen stoep
 In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity described that the order does affect the result of the whole expression. As we can see in \autoref{tbl:ch4_money_nonassociativity} subtraction is a relation where this property holds. An exception to this would be when each argument is zero.
@@ -300,9 +324,10 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 % Subsection: Distributivity
 \subsection*{Distributivity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}             & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x * (y + z) == x * y + x * z & distributiveInteger1    & x: Money                 \\
@@ -321,6 +346,8 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 \caption{Distributivity on \textit{Money}}
 \label{tbl:ch4_money_distributivity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The law of distributivity is another well-known law \cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Note that it is not possible to multiply \textit{Money} types with each other, so the variable types are an important part in these properties as described in \autoref{tbl:ch4_money_distributivity}.
 
@@ -328,9 +355,10 @@ The law of distributivity is another well-known law \cite{baumgart1961axioms}. U
 % Subsection: Identity
 \subsection*{Identity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x + 0 == x       & additiveIdentity1       & x: Money                 \\
@@ -341,6 +369,8 @@ The law of distributivity is another well-known law \cite{baumgart1961axioms}. U
 \caption{Identity on \textit{Money}}
 \label{tbl:ch4_money_identity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The identity relation describes a function that returns the same value as the value that was given as input. For additive this entails the addition of zero to the input value and for multiplicative this entails multiplying the value by 1. Also the commutative property holds here, as the order does not matter in which this function is applied. Since it is not possible to just add 0 to a \textit{Money} value, the 0 showed in \autoref{tbl:ch4_money_identity} must be defined in a \textit{Money} format. Thus it must have the same currency as the parameter, with the amount of 0. For multiplication the \textit{Integer} type can be used.
 
@@ -348,9 +378,10 @@ The identity relation describes a function that returns the same value as the va
 % Subsection: Inverse
 \subsection*{Inverse}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x + (-x) == 0    & additiveInverse1       & x: Money                 \\
@@ -359,6 +390,8 @@ The identity relation describes a function that returns the same value as the va
 \caption{Inverse on \textit{Money}}
 \label{tbl:ch4_money_inverse}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The inverse relation describes for additivity that using addition with the input parameter and the negative of the input parameter, results in the value zero. Note that the operation is used on the \textit{Money} type, so the expected value is 0 with the same currency as the currency of the input parameter. Although the inverse relation could also be used with multiplication and division (defined as \code{x*(1/x) == 0}), it is not possible to use this definition in this project. As we cannot divide something with the \textit{Money} type, which is why we only define the inverse relation using addition on \textit{Money}.
 
@@ -366,9 +399,10 @@ The inverse relation describes for additivity that using addition with the input
 % Subsection: Additivity
 \subsection*{Additivity}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additive               & x: Money                 \\
@@ -382,6 +416,8 @@ The inverse relation describes for additivity that using addition with the input
 \caption{Additivity on \textit{Money}}
 \label{tbl:ch4_money_additivity}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativity}) and Associativity (\autoref{ssct:4_associativity}) properties. The properties mentioned here extend these by defining properties that are true when the input values are equal. When using the addition operator such that the resulting values on both sides remain the same, as shown in \autoref{tbl:ch4_money_symmetry}, it should not break the equality property on the resulting values.
 
@@ -389,9 +425,10 @@ Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativ
 % Subsection: Property of Zero
 \subsection*{Property of Zero}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name}     & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x * 0 == 0       & multiplicativeZeroProperty1 & x: Money                 \\
@@ -400,6 +437,8 @@ Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativ
 \caption{Property of Zero on \textit{Money}}
 \label{tbl:ch4_money_propertyzero}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The property of zero on multiplication states that if something is multiplied by zero, the result will always be zero. Since Rebel allows the use of multiplication on the \textit{Money} type, it's possible to multiply it by 0. Since the value of a \textit{Money} variable is based on a decimal number, this property states that the value will be exactly 0 (or 0.00 in the representation of a \textit{Money} value). But it should not contain any decimal number\unsure{Not sure if decimal is right here? - Fraction}. \todo{Note the order doesnt matter}
 
@@ -407,9 +446,10 @@ The property of zero on multiplication states that if something is multiplied by
 % Subsection: Division
 \subsection*{Division}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x * y == z $\implies$ x == z / y & division1              & x: Money                 \\
@@ -422,6 +462,8 @@ The property of zero on multiplication states that if something is multiplied by
 \caption{Division on \textit{Money}}
 \label{tbl:ch4_money_division}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 When using division with the \textit{Money} type, it is not possible to use a \textit{Money} value as denominator. However, a Money type can be dived by an Integer, thus we can define the division properties by using both the \textit{Money} and \textit{Integer} type. Note that the denominator cannot be zero, as division by zero is not possible. % Maybe theres a source for division by zero? :)
 
@@ -429,9 +471,10 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 % Subsection: Trichotomy
 \subsection*{Trichotomy}
 % Table
+\FloatBarrier
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|lll|}
+\begin{tabular}{lll}
 \hline
                         \textbf{Formula}             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x $<$ y || x == y || x $>$ y & trichotomy             & x: Money                 \\
@@ -440,6 +483,8 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 \caption{Trichotomy on \textit{Money}}
 \label{tbl:ch4_money_trichotomy}
 \end{table}
+\FloatBarrier
+% End table
 % Reasoning
 The law of trichotomy defines that for every pair of arbitrary real numbers, exactly one of the relations $<$, ==, $>$ holds. We can define a property for this on money, as shown in \autoref{tbl:ch4_money_trichotomy}.
 
