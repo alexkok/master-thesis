@@ -341,9 +341,9 @@ When looking at the coverage results of the test suite, it is notable that the i
 \pinfo{Test coverage, 30\% for implicative, 100\% for others}
 The first criteria to evaluate an experiment was to determine the test coverage. The properties using implication are not covered when using random values as input data. The other properties, which do not use implication, are fully tested though. This can be seen in \autoref{fig:ch5_eval_experiment1}, where the test coverage of the properties using implication only covers roughly 30\%. The files with a name ending with "Logic" contain the implementation of the properties, as well as the precondition checks. The test coverage concerning the other properties (those that do not use implication), reports 95\% coverage. When investigating further, the other 5\% are not related to the properties that we test, thus it is not required for this project to achieve 100\% coverage on the Logic files.\\
 \begin{figure}[h!]
-\frame{
+%\frame{
 	\includegraphics[width=\linewidth]{figures/eval_experiment1}
-}
+%}
 \caption{Test coverage report of the first experiment}
 \label{fig:ch5_eval_experiment1}
 \centering
