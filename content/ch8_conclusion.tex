@@ -26,10 +26,9 @@ We conclude that this approach is a way how the implementation of the generator 
 % - Sync properties. (Or maybe we do cover them later. At the moment of writing this is not the case yet)
 - Support for checking other components, such as syncblock\\
 % - Mutation checks if we catch invalid generations of the program. 'proving' that our suit is useful. (Although it already found bugs)
-- Mutation coverage as measure to how effective this could be. Are all mutants killed? Available at bitcode level for Scala as it compiles to Java in the end. However, this might also generate mutants that are not being killed, as it might do some modifications that still result in a correct implementation.
-
-
-
+- Mutation coverage as measure to how effective this could be. Are all mutants killed? Available at bitcode level for Scala as it compiles to Java in the end. However, this might also generate mutants that are not being killed, as it might do some modifications that still result in a correct implementation.\\
+\\
+\\
 % From old discussion
 % Future work
 \textit{Rebel} contains a type checker, which is able to determine exactly which operations are supported by using certain combinations of operators and types. This could be used to automatically generate the specifications for each type in \textit{Rebel}. Considering that a map of all operations can be created and a map of all existing types, each combination can be tested against the type checker. If the type checker allows determines it as a correct expression, an event definition in \textit{Rebel} could be created for it. Although this might result in many definitions that are being tested, with a possible overlap between them, it would be a way to automatically test each operation using different types. Furthermore, it can make it more dynamic when a new type could be added to \textit{Rebel}. However, this could be done in the future to extend the test framework.\\
