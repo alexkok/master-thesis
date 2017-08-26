@@ -213,7 +213,7 @@ The test concerning \textit{Division2} shows that the precondition check fails. 
 \\
 \pinfo{Division1 triggers difference in rounding problem}
 % Division1 is defined as \code{x*y == z $\implies$ x == z/y}.
-When looking at \textit{Division1}, we see another case as the input values passed the precondition checks. This indicates that the values satisfy the condition to trigger the if-clause of the property. However, the result of the if-clause returns \textit{false}, showing us that the property does not hold when using these input values. Thus a case has been found for which the \textit{Division1} property doesn't hold. The investigation of the intermediate calculation steps are shown in TX. Note that the \textit{Division1} property is defined as \code{x*y == z $\implies$ x == z/y}.
+When looking at \textit{Division1}, we see another case as the input values passed the precondition checks. This indicates that the values satisfy the condition to trigger the if-clause of the property. However, the result of the if-clause returns \textit{false}, showing us that the property does not hold when using these input values. Thus a case has been found for which the \textit{Division1} property doesn't hold. The investigation of the intermediate calculation steps are shown in \autoref{tbl:experiment2_division1_rounding_difference}. Note that the \textit{Division1} property is defined as \code{x*y == z $\implies$ x == z/y}.
 
 % Table
 \FloatBarrier
