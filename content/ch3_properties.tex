@@ -131,7 +131,7 @@ The properties that we define are based on the known axioms in algebra. Although
 % End table
 % Reasoning
 \pinfo{Equality, currency and amount}
-The reflexive property means a relation of a type with itself \cite{raftery2011perspective}. An instance of type \textit{Money} should be equal to itself. Taking both the currency and the amount into account. The inequality relations \textit{smaller or equal to} and \textit{greater or equal to} should hold too. As we can compare \textit{Money} variables and defined equality in the first row of the table.
+The reflexive property means a relation of a type with itself \cite{raftery2011perspective}. An instance of type \textit{Money} should be equal to itself. Taking both the currency and the amount into account. The inequality relations \textit{smaller or equal to} and \textit{greater or equal to} should hold too, as we can compare \textit{Money} variables. The equality relation exists on the \textit{Money} type, which is also used in the first row of the table.
 
 % % % % % % % % % % % % %
 % Subsection: Symmetry
@@ -496,7 +496,7 @@ In this chapter, we focused on the properties of the custom types in \textit{Reb
 \\
 Since there were no definition available of the types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type. In this chapter we have defined a set of properties that are expected to hold with Rebel.\\
 \\
-The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that the test framework haven't found an error in the properties that it checks the generator on. Many properties can be defined within a language, the properties defined here are certainly not all the properties in \textit{Rebel}.
+The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that the test framework has not found an error in the properties that it checks the generator on. Many properties can be defined within a language, the properties defined here are certainly not all the properties in \textit{Rebel}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
@@ -518,5 +518,5 @@ Although the test framework can be extended to also test other components of the
 We provided properties that should hold on \textit{Rebel} types. We already discussed the lack of properties, but it could be the case that our definitions are invalid or might be renewed in the future such that some properties are invalid. When this is the case, the properties could be adjusted to fit the updated definitions in this case.
 
 % Substituting properties
-\subsection*{Substituting properties}
-In this chapter we defined many properties. Some of the defined properties might be overlapping each other, it might be possible to substitute the amount of properties that have to be defined. However, the purpose of each property on what it tests is different. So one should be carefull when determining some property unneccesary such that it can be substituted. For this thesis we used some well-known properties and defined those for the \textit{Rebel} types.
+\subsection*{Alternative properties}
+In this chapter we defined many properties. Some of the defined properties might be overlapping each other, it might be possible to lower the amount of properties that have to be defined. However, the purpose of each property on what it tests is different. So one should be careful when determining some property unneccesary such that it can be substituted. For this thesis we used some well-known properties and defined those for the \textit{Rebel} types.
