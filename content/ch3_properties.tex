@@ -95,12 +95,33 @@ the intend of the \textit{Money} type is to avoid this:
 \pinfo{Money operations, expecting division problem}
 The author of~\cite{fowler2002patterns} also describes the operations that can
 be done with the \textit{Money} type, which are: +, -, *, allocate, $<$, $>$,
-$\leq$, $\geq$ and =. Where the allocate method is used instead of the division (/) operation. This is due to the division problem, requiring a number to be rounded off at a certain time. For example, when splitting 1 EUR with 3 people, everyone would receive 33 cents, but what is done with the last cent that is left? This is the problem that is being solved by the allocate method, representing the ratio in which the rest amounts should be allocated (the last cent would go to in this case) \cite{fowler2002patterns}. The allocate method is a thing that \textit{Rebel} does not have, instead it just allows the use of the division operator. Because of this, we expect the division problem to occur while running the test framework. The amount of a \textit{Money} value is often rounded when it is being represented to the user, as it could have many decimals. The representation of the \textit{Money} value is up to the business on how this is done, as there are multiple factors influencing this. Instead, we only focus on the internal value that is used when operating with the \textit{Money} type.\\
+$\leq$, $\geq$ and =. Where the allocate method is used instead of the
+division~(/) operation. This is due to the division problem, requiring a number
+to be rounded off at a certain time. For example, when splitting 1 EUR with 3
+people, everyone would receive 33 cents, but what is done with the last cent
+that is left? This is the problem that is being solved by the allocate method,
+representing the ratio in which the rest amounts should be allocated (the last
+cent would go to in this case)~\cite{fowler2002patterns}. The allocate method is
+a thing that \textit{Rebel} does not have, instead it just allows the use of the
+division operator. Because of this, we expect the division problem to occur
+while running the test framework. The amount of a \textit{Money} value is often
+rounded when it is being represented to the user, as it could have many
+decimals. The representation of the \textit{Money} value is up to the business
+on how this is done, as there are multiple factors influencing this. Instead, we
+only focus on the internal value that is used when operating with the
+\textit{Money} type.\\
 \\
 \pinfo{Not between different currencies}
 It is unsupported to use these operations with \textit{Money} values when using
-values that are of different currencies. This is due to the exchange rates
-between currencies, which can vary and are not implemented yet.\\
+values that are of different currencies. This is this could be done by taking
+the exchange rates into account, as described in~\cite{fowler2002patterns}.
+However, this is not implemented in Rebel yet and thus it is unsupported to use
+these operations when using different currencies.\\
+\\
+\pinfo{Equality, currency overrules}
+When using equality both the currency and the amount are taken into account,
+which should be equal for both variables. In case of different currencies, it is
+not considered equal, even if the amount would be equal. \\
 \\
 \pinfo{Thus: precise value, rounding only for division}
 We say that the amount of a \textit{Money} value in \textit{Rebel} should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, is this also 60 decimals?}
@@ -110,20 +131,24 @@ We say that the amount of a \textit{Money} value in \textit{Rebel} should hold t
 \section{Property definitions}
 \pinfo{Properties based on known axioms, but has restrictions}
 The properties that we define are based on the known axioms in algebra, although
-not every property can be used. For example, it isn't possible to multiply two
+not every property can be used.\\
+\\
+For example, it isn't possible to multiply two
 \textit{Money} types with each other in order to support the multiplicative
 property. This is becasue the type checker of \textit{Rebel} would not allow
 multiplication between \textit{Money} types, additionally we should think of
 what the result would be when two Money values are being multiplied. We consider
 this as an unknown result type, thus it is reasonable that we cannot use
 multiplication when using only \textit{Money} types. Division has a similar case
-, as something cannot be divided a \textit{Money} type. Instead we can use these
-operations with \textit{Money} in combination with other types, such as
-\textit{Integer} and \textit{Percentage}. The type checker for \textit{Rebel}
-will be used to determine these combinations. Due to this, one property
-definition can lead to different possible combinations which can be used. This
-results in multiple property definitions when using different types. In the
-following sections we motivate the properties that we use during the project.
+, as something cannot be divided a \textit{Money} type.\\
+\\
+Instead we can use these operations with \textit{Money} in combination with
+other types, such as \textit{Integer} and \textit{Percentage}. The type checker
+for \textit{Rebel} will be used to determine these combinations. Due to this,
+one property definition can lead to different possible combinations which can be
+used. This results in multiple property definitions when using different types.
+In the following sections we motivate the properties that we use during the
+project.
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
@@ -147,8 +172,7 @@ following sections we motivate the properties that we use during the project.
 \pinfo{Equality, currency and amount}
 The reflexive property means a relation of a type with
 itself~\cite{raftery2011perspective}. An instance of type \textit{Money} should
-be equal to itself. Taking both the currency and the amount into account. The
-inequality relations \textit{smaller or equal to} and
+be equal to itself. The inequality relations \textit{smaller or equal to} and
 \textit{greater or equal to} should hold too, as we can compare \textit{Money}
 variables. The equality relation exists on the \textit{Money} type, which is
 also used in the first row of the table.
