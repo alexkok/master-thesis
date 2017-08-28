@@ -129,6 +129,7 @@ We say that the amount of a \textit{Money} value in \textit{Rebel} should hold t
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Property definitions
 \section{Property definitions}
+\label{sct:properties_property_definitions}
 \pinfo{Properties based on known axioms, but has restrictions}
 The properties that we define are based on the known axioms in algebra, although
 not every property can be used.\\
@@ -343,7 +344,7 @@ Operations can be done on the \textit{Money} types. The transitive properties \c
 The law of associativity is known on addition and
 multiplication~\cite{baumgart1961axioms}. It defines that the order in which
 certain operations are done, does not affect the result of the whole expression.
-As described in \autoref{ssct:4_commutativity}, it is not possible to use
+As described in \autoref{sct:properties_property_definitions}, it is not possible to use
 multiplication with only \textit{Money} types. In
 \autoref{tbl:ch4_money_associativity} we define possible combintations for this
 property, which are accepted by the type checker of \textit{Rebel}.
@@ -400,7 +401,7 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 \FloatBarrier
 % End table
 % Reasoning
-The law of distributivity is another well-known law \cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Note that it is not possible to multiply \textit{Money} types with each other, so the variable types are an important part in these properties as described in \autoref{tbl:ch4_money_distributivity}.
+The law of distributivity is another well-known law \cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Remember that it is not possible to multiply \textit{Money} types with each other, as described in \autoref{sct:properties_property_definitions}. Thus the variable types are an important part in these properties, in \autoref{tbl:ch4_money_distributivity} property definitions are shown based on this property.
 
 % % % % % % % % % % % % %
 % Subsection: Identity
@@ -413,7 +414,7 @@ The law of distributivity is another well-known law \cite{baumgart1961axioms}. U
 \hline
                         \textbf{Formula} & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x + 0 == x       & additiveIdentity1       & x: Money                 \\
-						0 + x == x       & additiveIdentity2       & x: Money                 \\
+						            0 + x == x       & additiveIdentity2       & x: Money                 \\
 \rowcolor[HTML]{EFEFEF} x * 1 == x       & multiplicativeIdentity1 & x: Money                 \\
                         1 * x == x       & multiplicativeIdentity2 & x: Money                 \\ \hline
 \end{tabular}
