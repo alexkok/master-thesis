@@ -37,7 +37,7 @@ event symmetric(x: Money, y:Money) {
 \FloatBarrier
 % End listing
 \pinfo{Generating checks for preconditions}
-When generating the test suite, the events are being traversed. In case an event with some preconditions is found, it generates a list of value tuples that satisfy the condition to trigger the if-clause. Which is different compared to the generated tests in \autoref{cpt:experiment1}.\\
+When generating the test suite, the events are being traversed. In case an event with some preconditions is found, it generates a list of value tuples that satisfy the condition to trigger the if-clause. Which is different compared to the generated tests in \autoref{cpt:experiment1}. The size of the tuples depends on the arity of the event from which the test is being generated.\\
 \\
 \pinfo{Diff1: custom generator}
 The first difference is that it now uses our custom generator to determine the input values, instead of the built-in Java random generator. A list of tuples, containing values which satisfies the if-clause of the implication, are being generated. Our custom generator is a simple proof of concept in order to check if this will actually result in more failing tests. This custom generator basically consists of multiple methods which are being called based on the event name. In \autoref{lst:ch4_second_generating_values} this behavior is shown for the \textit{Symmetric} and \textit{Division1} event. The \textit{String} parameter of these methods is a way how we can pattern match on the event name in \textit{Rascal}. In case the event couldn't be handled, an exception is thrown.
