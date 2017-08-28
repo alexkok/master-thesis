@@ -109,7 +109,21 @@ We say that the amount of a \textit{Money} value in \textit{Rebel} should hold t
 % Section: Property definitions
 \section{Property definitions}
 \pinfo{Properties based on known axioms, but has restrictions}
-The properties that we define are based on the known axioms in algebra. Although, not every property can be used. For example, it isn't possible to multiply two \textit{Money} types with each other to support the multiplicative property for example. Instead we can only multiply \textit{Money} with other types, such as \textit{Integer} and \textit{Percentage}, resulting in multiple property definitions when using different types. In the following sections we motivate the properties that we use during the project.
+The properties that we define are based on the known axioms in algebra, although
+not every property can be used. For example, it isn't possible to multiply two
+\textit{Money} types with each other in order to support the multiplicative
+property. This is becasue the type checker of \textit{Rebel} would not allow
+multiplication between \textit{Money} types, additionally we should think of
+what the result would be when two Money values are being multiplied. We consider
+this as an unknown result type, thus it is reasonable that we cannot use
+multiplication when using only \textit{Money} types. Division has a similar case
+, as something cannot be divided a \textit{Money} type. Instead we can use these
+operations with \textit{Money} in combination with other types, such as
+\textit{Integer} and \textit{Percentage}. The type checker for \textit{Rebel}
+will be used to determine these combinations. Due to this, one property
+definition can lead to different possible combinations which can be used. This
+results in multiple property definitions when using different types. In the
+following sections we motivate the properties that we use during the project.
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
@@ -131,7 +145,13 @@ The properties that we define are based on the known axioms in algebra. Although
 % End table
 % Reasoning
 \pinfo{Equality, currency and amount}
-The reflexive property means a relation of a type with itself \cite{raftery2011perspective}. An instance of type \textit{Money} should be equal to itself. Taking both the currency and the amount into account. The inequality relations \textit{smaller or equal to} and \textit{greater or equal to} should hold too, as we can compare \textit{Money} variables. The equality relation exists on the \textit{Money} type, which is also used in the first row of the table.
+The reflexive property means a relation of a type with
+itself~\cite{raftery2011perspective}. An instance of type \textit{Money} should
+be equal to itself. Taking both the currency and the amount into account. The
+inequality relations \textit{smaller or equal to} and
+\textit{greater or equal to} should hold too, as we can compare \textit{Money}
+variables. The equality relation exists on the \textit{Money} type, which is
+also used in the first row of the table.
 
 % % % % % % % % % % % % %
 % Subsection: Symmetry
@@ -296,7 +316,13 @@ Operations can be done on the \textit{Money} types. The transitive properties \c
 \FloatBarrier
 % End table
 % Reasoning
-The law of associativity is known on addition and multiplication \cite{baumgart1961axioms}. It defines that the order in which certain operations are done, does not affect the result of the whole expression. As described in \autoref{ssct:4_commutativity} it is not possible to operate with multiplication with only \textit{Money} types. However, in \textit{Rebel} the same properties should hold when using different types, as shown in \autoref{tbl:ch4_money_associativity}.
+The law of associativity is known on addition and
+multiplication~\cite{baumgart1961axioms}. It defines that the order in which
+certain operations are done, does not affect the result of the whole expression.
+As described in \autoref{ssct:4_commutativity}, it is not possible to use
+multiplication with only \textit{Money} types. In
+\autoref{tbl:ch4_money_associativity} we define possible combintations for this
+property, which are accepted by the type checker of \textit{Rebel}.
 
 % % % % % % % % % % % % %
 % Subsection: Non-associativity
