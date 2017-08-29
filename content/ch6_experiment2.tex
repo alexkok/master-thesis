@@ -209,7 +209,7 @@ Division2              & -3328.8254545454... USD & -129       & 25.8048484848...
 \FloatBarrier
 % End listing
 \pinfo{Division2 triggers division problem}
-The test concerning \textit{Division2} shows that the precondition check fails. If we look at the input values, it can be seen that the \textit{Money} values are a fractional number. As it contains many decimals and it rounds up at the end. When operating with this rounded value, the resulting value is also slightly different. As the generated system is implemented such that the preconditions are being checked first, the \textit{PreConditionFailed} exception is thrown. This leads to the issue of the division problem \todo{Source?} in which a number cannot be equally divided. In \autoref{cpt:properties}, we defined that the precision in this case should be of X \todo{Define X} decimals. However, the test framework does not specifically check for this precision yet.\\
+The test concerning \textit{Division2} shows that the precondition check fails. If we look at the input values, it can be seen that the \textit{Money} values are a fractional number. As it contains many decimals and it rounds up at the end. When operating with this rounded value, the resulting value is also slightly different. As the generated system is implemented such that the preconditions are being checked first, the \textit{PreConditionFailed} exception is thrown. This leads to the issue of the division problem \todo{SRC division problem?} in which a number cannot be equally divided. In \autoref{cpt:properties}, we defined that the precision in this case should be of X \todo{Define X} decimals. However, the test framework does not specifically check for this precision yet.\\
 \\
 \pinfo{Division1 triggers difference in rounding problem}
 % Division1 is defined as \code{x*y == z $\implies$ x == z/y}.
@@ -303,7 +303,6 @@ In this chapter we triggered the division problem and found that this can cause 
 
 % Dynamicallity
 \subsection*{Dynamicallity}
-\todo{Not sure if 'dynamicallity' is a correct word for this}
 \pinfo{Not very dynamic}
 The implicative properties are now being tested such that the condition of the if-clause is being satisfied. However, the values generator that is being used for this is not very dynamic. As it simply checks for the event name and throws an exception in case this is not defined for the property yet. This means that adding new property definitions to the test framework, requires a modification to the value generator in case of an implicative property. This makes the test framework less dynamic when adding new properties that should be tested on the generator.\\
 \\
