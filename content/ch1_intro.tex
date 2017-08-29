@@ -48,7 +48,6 @@ To answer the main research question, we will first answer the following researc
 
 % - Shortly describe how this is done, and how it would find bugs, test mechanics explain it in more detail, image in test mechanics.
 \pinfo{In short: how. Details are in CH3}
-\todo{Is this needed here? Maybe remove or place somewhere else?}
 The generator takes a \textit{Rebel} specification as input. Which contains the properties that are expected to hold in the generated system. Next, \textit{Scala} tests are being generated based on the properties, using the existing generator to translate the expressions used in the properties. These tests will be run against the generated system, to check whether each property holds. In case a test of a failing test, a bug has been found. There are multiple generators available within ING. Throughout this thesis, we will use the most mature generator, which is the Scala/Akka generator. This generator is often used for other experiments too.\\
 \\
 \pinfo{Assumptions}
