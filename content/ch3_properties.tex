@@ -123,7 +123,7 @@ which should be equal for both variables. In case of different currencies, it is
 not considered equal, even if the amount would be equal. \\
 \\
 \pinfo{Thus: precise value, rounding only for division}
-We say that the amount of a \textit{Money} value in \textit{Rebel} should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, is this also 60 decimals?}
+We say that the amount of a \textit{Money} value in \textit{Rebel} should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, 4 decimals minimal?}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Property definitions
