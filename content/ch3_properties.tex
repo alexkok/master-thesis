@@ -197,7 +197,7 @@ also used in the first row of the table.
 % End table
 % Reasoning
 \pinfo{Equality, currency and amount}
-Reflexivity already described equality on \textit{Money} when used on the same variable. When two different variables are used, the order should not matter and thus it should work in both ways. Which is known as the symmetric property \cite{raftery2011perspective}.
+Reflexivity already described equality on the same variable of the \textit{Money} type. When two different variables are used, the order should not matter and thus it should work in both ways. Which is known as the symmetric property~\cite{raftery2011perspective}.
 
 % % % % % % % % % % % % %
 % Subsection: Antisymmetry
@@ -220,7 +220,7 @@ Reflexivity already described equality on \textit{Money} when used on the same v
 \FloatBarrier
 % End table
 % Reasoning
-The antisymmetric relation describes that whenever there is a relation from x to y and a relation from y to x, then x and y should be equal. The lower or equal then and greater or equal then relations fit in this category, as shown in \autoref{tbl:ch4_money_antisymmetry}. We can use these operations on the \textit{Money} type when both x and y use the same currency. This antisymmetric relation is also expected to hold, as \textit{Money} values should be equal when they are of the same currency and hold the same amount.
+The antisymmetric relation describes that whenever there is a relation from x to y and a relation from y to x, then x and y should be equal. The lower or equal then and greater or equal then relations fit in this category, as shown in \autoref{tbl:ch4_money_antisymmetry}. We can use these operations with the \textit{Money} type when both x and y use the same currency. This antisymmetric relation is also expected to hold, as \textit{Money} values should be equal when they are of the same currency and hold the same amount.
 
 % % % % % % % % % % % % %
 % Subsection: Commutativity
@@ -250,7 +250,7 @@ The antisymmetric relation describes that whenever there is a relation from x to
 \FloatBarrier
 % End table
 % Reasoning
-These properties are based on the commutative law \cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. For multiplication, there is no known value for multiplying two \textit{Money} variables. It is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
+These properties are based on the commutative law~\cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. For multiplication, there is no known value for multiplying two \textit{Money} variables. It is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
 
 % % % % % % % % % % % % %
 % Subsection: Anticommutativity
@@ -305,7 +305,7 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 \FloatBarrier
 % End table
 % Reasoning
-Operations can be done on the \textit{Money} types. The transitive properties \cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations.
+Operations can be done on the \textit{Money} types. The transitive properties~\cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations.
 
 % % % % % % % % % % % % %
 % Subsection: Associativity
@@ -400,7 +400,7 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 \FloatBarrier
 % End table
 % Reasoning
-The law of distributivity is another well-known law \cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Remember that it is not possible to multiply \textit{Money} types with each other, as described in \autoref{sct:properties_property_definitions}. Thus the variable types are an important part in these properties, in \autoref{tbl:ch4_money_distributivity} property definitions are shown based on this property.
+The law of distributivity is another well-known law~\cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Remember that it is not possible to multiply \textit{Money} types with each other, as described in \autoref{sct:properties_property_definitions}. Thus the variable types are an important part in these properties, in \autoref{tbl:ch4_money_distributivity} property definitions are shown based on this property.
 
 % % % % % % % % % % % % %
 % Subsection: Identity
@@ -565,7 +565,6 @@ Although the test framework can be extended to also test other components of the
 
 % Invalid definitions
 \subsection*{Invalid definitions}
-We provided properties that should hold on \textit{Rebel} types. We already discussed the lack of properties, but it could be the case that our definitions are invalid or might be renewed in the future such that some properties are invalid. When this is the case, the properties could be adjusted to fit the updated definitions in this case.
 
 % Substituting properties
 \subsection*{Alternative properties}
