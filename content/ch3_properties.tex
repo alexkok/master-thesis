@@ -163,7 +163,7 @@ project.
                         x $\leq$ x       & reflexiveInequalityLET & x: Money                 \\
 \rowcolor[HTML]{EFEFEF} x $\geq$ x       & reflexiveInequalityGET & x: Money                 \\ \hline
 \end{tabular}
-\caption{Reflexivity on \textit{Money}}
+\caption{Reflexivity when using \textit{Money}}
 \label{tbl:ch4_money_reflexivity}
 \end{table}
 \FloatBarrier
@@ -190,7 +190,7 @@ also used in the first row of the table.
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ y == x & symmetric              & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                          &                        & y: Money                 \\ \hline
 \end{tabular}
-\caption{Symmetry on \textit{Money}}
+\caption{Symmetry when using \textit{Money}}
 \label{tbl:ch4_money_symmetry}
 \end{table}
 \FloatBarrier
@@ -214,7 +214,7 @@ Reflexivity already described equality on \textit{Money} when used on the same v
                         x $\geq$ y \&\& y $\geq$ x $\implies$ x == y & antisymmetryGET        & x: Money                 \\
                                                                      &                        & y: Money                 \\ \hline
 \end{tabular}
-\caption{Antisymmetry on \textit{Money}}
+\caption{Antisymmetry when using \textit{Money}}
 \label{tbl:ch4_money_antisymmetry}
 \end{table}
 \FloatBarrier
@@ -244,7 +244,7 @@ The antisymmetric relation describes that whenever there is a relation from x to
 \rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationpercentage2 & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                  &                                      & y: Percentage            \\ \hline
 \end{tabular}
-\caption{Commutativity on \textit{Money}}
+\caption{Commutativity when using \textit{Money}}
 \label{tbl:ch4_money_commutativity}
 \end{table}
 \FloatBarrier
@@ -265,7 +265,7 @@ These properties are based on the commutative law \cite{baumgart1961axioms}. The
 \rowcolor[HTML]{EFEFEF} x - y == -(y - x) & anticommutativity      & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                   &                        & y: Money                 \\ \hline
 \end{tabular}
-\caption{Anticommutativity on \textit{Money}}
+\caption{Anticommutativity when using \textit{Money}}
 \label{tbl:ch4_money_anticommutativity}
 \end{table}
 \FloatBarrier
@@ -299,7 +299,7 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 \rowcolor[HTML]{EFEFEF}                                                   &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\ \hline
 \end{tabular}
-\caption{Transitivity on \textit{Money}}
+\caption{Transitivity when using \textit{Money}}
 \label{tbl:ch4_money_transitivity}
 \end{table}
 \FloatBarrier
@@ -334,7 +334,7 @@ Operations can be done on the \textit{Money} types. The transitive properties \c
 \rowcolor[HTML]{EFEFEF}                            &                                      & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                            &                                      & z: Percentage            \\ \hline
 \end{tabular}
-\caption{Associativity on \textit{Money}}
+\caption{Associativity when using \textit{Money}}
 \label{tbl:ch4_money_associativity}
 \end{table}
 \FloatBarrier
@@ -362,7 +362,7 @@ property, which are accepted by the type checker of \textit{Rebel}.
 \rowcolor[HTML]{EFEFEF}                            &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                            &                        & z: Money                 \\ \hline
 \end{tabular}
-\caption{Non-associativity on \textit{Money}}
+\caption{Non-associativity when using \textit{Money}}
 \label{tbl:ch4_money_nonassociativity}
 \end{table}
 \FloatBarrier
@@ -394,7 +394,7 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
                                                      &                         & y: Money                 \\
                                                      &                         & z: Money                 \\ \hline
 \end{tabular}
-\caption{Distributivity on \textit{Money}}
+\caption{Distributivity when using \textit{Money}}
 \label{tbl:ch4_money_distributivity}
 \end{table}
 \FloatBarrier
@@ -417,7 +417,7 @@ The law of distributivity is another well-known law \cite{baumgart1961axioms}. U
 \rowcolor[HTML]{EFEFEF} x * 1 == x       & multiplicativeIdentity1 & x: Money                 \\
                         1 * x == x       & multiplicativeIdentity2 & x: Money                 \\ \hline
 \end{tabular}
-\caption{Identity on \textit{Money}}
+\caption{Identity when using \textit{Money}}
 \label{tbl:ch4_money_identity}
 \end{table}
 \FloatBarrier
@@ -438,7 +438,7 @@ The identity relation describes a function that returns the same value as the va
 \rowcolor[HTML]{EFEFEF} x + (-x) == 0    & additiveInverse1       & x: Money                 \\
                         (-x) + x == 0    & additiveInverse2       & x: Money                 \\ \hline
 \end{tabular}
-\caption{Inverse on \textit{Money}}
+\caption{Inverse when using \textit{Money}}
 \label{tbl:ch4_money_inverse}
 \end{table}
 \FloatBarrier
@@ -464,7 +464,7 @@ The inverse relation describes for additivity that using addition with the input
                                                                      &                        & z: Money                 \\
                                                                      &                        & a: Money                 \\ \hline
 \end{tabular}
-\caption{Additivity on \textit{Money}}
+\caption{Additivity when using \textit{Money}}
 \label{tbl:ch4_money_additivity}
 \end{table}
 \FloatBarrier
@@ -485,7 +485,7 @@ Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativ
 \rowcolor[HTML]{EFEFEF} x * 0 == 0       & multiplicativeZeroProperty1 & x: Money                 \\
                         0 * x == 0       & multiplicativeZeroProperty2 & x: Money                 \\ \hline
 \end{tabular}
-\caption{Property of Zero on \textit{Money}}
+\caption{Property of Zero when using \textit{Money}}
 \label{tbl:ch4_money_propertyzero}
 \end{table}
 \FloatBarrier
@@ -510,7 +510,7 @@ The property of zero on multiplication states that if something is multiplied by
                                                          &                        & y: Integer               \\
                                                          &                        & y: Money                 \\ \hline
 \end{tabular}
-\caption{Division on \textit{Money}}
+\caption{Division when using \textit{Money}}
 \label{tbl:ch4_money_division}
 \end{table}
 \FloatBarrier
@@ -531,7 +531,7 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 \rowcolor[HTML]{EFEFEF} x $<$ y $||$ x == y $||$ x $>$ y & trichotomy             & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                              &                        & y: Money                 \\ \hline
 \end{tabular}
-\caption{Trichotomy on \textit{Money}}
+\caption{Trichotomy when using \textit{Money}}
 \label{tbl:ch4_money_trichotomy}
 \end{table}
 \FloatBarrier
