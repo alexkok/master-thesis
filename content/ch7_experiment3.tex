@@ -3,29 +3,46 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 3: Improving the value generation}
 \label{cpt:experiment3}
+% - Improving dynamicallity
+% - Also improved rounding definition. Now clearer and actually being tested
+% - Maybe adding additional properties?
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
+% - Tried SMT< didnt work > why?
+% - Generating a limited version by ourselves. Current properties can be covered, and more can be added that are supported too.
+% - Describe how
+% - Describe rounding too (modified generator for that)
+% - Describe limitations
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
 \section{Results}
+% - Run, tests succeed
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
+% - Test succeeding provided rounding
+% - Case of rounding down, it fails (bigger number shows difference)
+% ?- Adding properties didn't require a change in the value generator anymore
+% ?- Describe extra failing cases in case we added more
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation
 \section{Evaluation}
+% - Same coverage
+% - No extra bugs found (or if we do with new properties, describe those)
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
+% - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
+% - Existing approaches are available too, we only checked the Z3. But sagemath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
 ...
