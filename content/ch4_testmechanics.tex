@@ -380,3 +380,22 @@ A threat in doing so is that one of the other generators might not support some 
 We chose to use property-based testing and implement the required functionality ourselfes, resulting in a white-box implementation. This means that we expect that our values generation is working correctly too. In case this isn't working correctly, this has to be fixed too.\\
 \\
 Another way how this could be done was to check how the custom types were generated to \textit{Scala}. And then generate a \textit{Scala} test project using the same types. Writing property tests for each type could achieve the same goal when it comes to checking the implementation of this component in the generated system. However, if we would follow this approach, we wouldn't use the generator to translate the \textit{Rebel} expressions to \textit{Scala}. This results in that the generator itself is still not being tested. With our approach, we test the generator and are able to find errors in the generator. Although we cannot conclude that the generator is implemented correctly if the generated test suit runs successful, rather we can conclude that the properties it checks for are satisfied.
+
+\subsection*{Other components}
+The current setup is intended to be used to test a certain component of the
+generated system. Namely, the \textit{Rebel} types and the operations among
+these. More properties can be added to check every type that \textit{Rebel}
+supports. The test framework could also be extended such that it can also test
+other components of the system. Such as the sync block definitions, defining
+actions that should happen synchronously. Or performance measures when
+interacting with the data in the system, which uses a database implementation.
+Currently, such components are not being tested, while these components are also
+important for a bank. This is left as future work.\\
+\\
+Although the test framework can be extended to also test other components of
+the generated system, it might not be possible to check all the components by
+using this approach. A generated system, for example, exposes its actions via a
+Rest API, which should be used to interact with the system. The tests that are
+done by using this approach do not check the implementation of this interface.
+Also, it is not able to check how, multiple generated systems would integrate
+with each other and if this is done correctly.

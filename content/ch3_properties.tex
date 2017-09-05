@@ -21,16 +21,16 @@
 % Calculus, Vol. 1: One-Variable Calculus, with an Introduction to Linear Algebra 2nd Edition
 
 \pinfo{Specific types in Rebel}
-Rebel introduces specific types, like \textit{Iban} and \textit{Money} and
-allows operations on those~\cite{stoel2016solving}. But what are the expected
-properties of the generator? In this chapter we will try to answer the first
-research question:
+\textit{Rebel} introduces custom types, like \textit{Iban}, \textit{Percentage}
+and \textit{Money} and allows operations on those~\cite{stoel2016solving}. But
+what are the expected properties of the generator? In this chapter, we will try
+to answer the first research question:
 \begin{description}
 	\item [~~~~RQ 1:] \rqOne
 \end{description}
 To answer this question, we first describe a way how we can determine the
-properties. Followed by the property defintions that will be used troughout this
-thesis, with a motivation why these properties are expected to hold.
+properties. Followed by the property definitions that will be used throughout
+this thesis, with a motivation why these properties are expected to hold.
 
 %\todo[inline]{Percentage? Not yet, defining those requires properties again. And running the test suit again, evaluate again, etc.\\
 %Describe what exactly is Percentage if we define it in a specification, which rules does it inherit?\\
@@ -41,89 +41,97 @@ thesis, with a motivation why these properties are expected to hold.
 % Section: Determining the properties
 \section{Determining the properties}
 \pinfo{Properties not defined for Rebel. We must define these}
-Currently, there are no definitions available of what the properties are of each
-type and operation in \textit{Rebel}. Due to the missing definitions of these
-types, it means that we first have to define what the the expected properties
+Currently, there are no definitions available of what the properties are of
+each type and operation in \textit{Rebel}. Due to the missing definitions of
+these types, it means that we first have to define what the expected properties
 on these types are and substantiate these. Only then we can determine whether
-the generator is working as expected with these properties. As there are many
-operations available among the available types in \textit{Rebel}, we are not
-able to define all the properties that exist in the \textit{Rebel} language. As
-there can be countless of properties and combinations among the different types
-that \textit{Rebel} supports. During this thesis we will focus on the
-\textit{Money} type, considering this is the most important type for a bank that
+the generator is working as expected with these properties. There are many
+operations available among the available types in \textit{Rebel}. Thus we are
+not able to define all the properties that exist in the \textit{Rebel} language,
+as there can be countless of properties and combinations among the different
+types that \textit{Rebel} supports. During this thesis we will focus on the
+\textit{Money} type, considering this is the most important type for a bank and
 has the highest priority to be implemented correctly.\\
 \\
 \pinfo{Types and axioms}
-For types like integers the axioms of algebra can be used to determine whether
-the implementation in the generated system is correct. These are most likely
-translated to integers in the generated system too, with perhaps the expectation
-that these have the same properties in \textit{Scala}. However, it is not
-possible to rely on the \textit{Integer} definition of a specific language, as
-another generator might generate a system in another language, or might
-implement it differently in the same language. Would that mean that the
-properties on that other language should now hold on the \textit{Integer} type?
-Well, as this is not defined for \textit{Rebel}, this is unknown. In this
-chapter we will define properties that are expected to hold on the
-\textit{Money} type in \textit{Rebel}. The properties that we define are based
-on the known axioms in
-algebra~\cite{baumgart1961axioms,raftery2011perspective,apostol2007calculus}.
-We provide an explanation of why a certain property should also hold in these
-cases.\\
+For types like integers, the axioms of algebra can be used to determine whether
+the implementation is correct. These are most likely translated to integers in
+the generated system too, with perhaps the expectation that these have the same
+properties in \textit{Scala}. However, it is not possible to rely on the
+\textit{Integer} definition of a specific language. Because another generator
+might generate a system in another language or might implement it differently in
+the same language. Would that mean that the properties of that other language
+should now hold on the \textit{Integer} type? Well, as this is not defined for
+\textit{Rebel}, this is unknown. In this chapter, we will define properties that
+are expected to hold when using the \textit{Money} type in \textit{Rebel}. The
+properties that we define are based on the known axioms in
+algebra~\cite{baumgart1961axioms,raftery2011perspective,apostol2007calculus}. We
+provide an explanation of why a certain property is expected in
+\textit{Rebel}.\\
 \\
 \pinfo{Amount, not floating-point arithmetic}
 The \textit{Money} type can be seen as a currency with an amount value. The
 amount of a \textit{Money} value can have multiple decimals depending on the
 currency. Thus, the amount can be seen as a floating number. Does this mean that
 it inherits the computation properties of Floating-Point Arithmetic, as defined
-in the IEEE standards 754 or 854? Since the Rebel is intended to be a formal
-specification language for banking products, we don't expect that the described
-problems with this arithmetic are intended to exist on the Money type.
-Considering that that a high volume flows within a bank in terms of
-\textit{Money}, using the Floating-Point Arithmetic properties can result in the
-known precision, overflow and underflow errors as described
+in the IEEE standards 754 or 854? Since the \textit{Rebel} is intended to be a
+formal specification language for banking products, we don't expect that the
+described problems with this arithmetic are intended to exist on the
+\textit{Money} type. Considering that a high volume flows within a bank in terms
+of \textit{Money}, using the Floating-Point Arithmetic properties can result in
+the known precision, overflow and underflow errors as described
 in~\cite{goldberg1991every}. Such errors should be avoided when using the
-\textit{Money} type. The author of \cite{fowler2002patterns} also describes that
-the intend of the \textit{Money} type is to avoid this:
+\textit{Money} type. The author of~\cite{fowler2002patterns} also describes that
+the intention of the \textit{Money} type is to avoid this:
 \begin{quote}
 	``You should absolutely avoid any kind of floating point type, as that will
 	introduce the kind of rounding problems that Money is intended to avoid.''
-    -- Martin Fowler \cite{fowler2002patterns}
+    -- Martin Fowler~\cite{fowler2002patterns}
 		%[p. 462] % Of pdf, ebook thing doesn't have page numbers
 \end{quote}
 
 \pinfo{Money operations, expecting division problem}
-The author of~\cite{fowler2002patterns} also describes the operations that can
-be done with the \textit{Money} type, which are: +, -, *, allocate, $<$, $>$,
-$\leq$, $\geq$ and =. Where the allocate method is used instead of the
+In~\cite{fowler2002patterns} the operations that can be done with the
+\textit{Money} type are described, which are: \textit{+}, \textit{-},
+\textit{*}, \textit{allocate}, \textit{$<$}, \textit{$>$}, \textit{$\leq$},
+\textit{$\geq$} and \textit{=}. Where the allocate method is used instead of the
 division~(/) operation. This is due to the division problem, requiring a number
 to be rounded off at a certain time. For example, when splitting 1 EUR with 3
 people, everyone would receive 33 cents, but what is done with the last cent
 that is left? This is the problem that is being solved by the allocate method,
-representing the ratio in which the rest amounts should be allocated (the last
-cent would go to in this case)~\cite{fowler2002patterns}. The allocate method is
-a thing that \textit{Rebel} does not have, instead it just allows the use of the
-division operator. Because of this, we expect the division problem to occur
-while running the test framework. The amount of a \textit{Money} value is often
-rounded when it is being represented to the user, as it could have many
+representing the ratio in which the rest amount should be allocated (the last
+cent would go to in this case)~\cite{fowler2002patterns}. The \textit{allocate}
+method is a thing that \textit{Rebel} does not have, instead, it just allows the
+use of the division operator. Because of this, we expect the division problem to
+occur while running the test framework. The amount of a \textit{Money} value is
+often rounded when it is being represented to the user, as it could have many
 decimals. The representation of the \textit{Money} value is up to the business
 on how this is done, as there are multiple factors influencing this. Instead, we
 only focus on the internal value that is used when operating with the
 \textit{Money} type.\\
 \\
 \pinfo{Not between different currencies}
-It is unsupported to use these operations with \textit{Money} values when using
-values that are of different currencies. This is this could be done by taking
-the exchange rates into account, as described in~\cite{fowler2002patterns}.
-However, this is not implemented in Rebel yet and thus it is unsupported to use
-these operations when using different currencies.\\
+It is unsupported to use operations on \textit{Money} values when using values
+that are of different currencies. This could be done by taking the exchange
+rates into account, as described in~\cite{fowler2002patterns}. However, this is
+not implemented in \textit{Rebel} yet and thus it is unsupported to use
+operations on it when using different currencies.\\
 \\
 \pinfo{Equality, currency overrules}
 When using equality both the currency and the amount are taken into account,
 which should be equal for both variables. In case of different currencies, it is
-not considered equal, even if the amount would be equal. \\
+not considered equal, even if the amount would be equal.\\
 \\
 \pinfo{Thus: precise value, rounding only for division}
-We say that the amount of a \textit{Money} value in \textit{Rebel} should hold the exact value as if we would calculate the same expression by ourselves. Meaning that the precision errors would have to be prevented. An exception on this is when the result would be in the form of a fraction, for example 1/3. As this results in a value which we have to round up sometime. To fix this, we say that in this case we use x decimals when calculating, without rounding the x+1th decimal. When using properties with division, this should be taken into account in case the system fails on these tests. \todo{Define X, 4 decimals minimal?}
+We say that the amount of a \textit{Money} value in \textit{Rebel} should hold
+the exact value as if we would calculate the same expression by ourselves.
+Meaning that the precision errors would have to be prevented. An exception on
+this is when the result would be in the form of a fraction, for example, 1/3. As
+this results in a value which we have to round up sometime. To fix this, we say
+that in this case, we use x decimals when calculating, without rounding the
+x+1th decimal. When using properties that contain division, this should be taken
+into account in case the system fails on these tests.
+\todo{Define X, 4 decimals minimal?}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Property definitions
@@ -139,8 +147,8 @@ property. This is becasue the type checker of \textit{Rebel} would not allow
 multiplication between \textit{Money} types, additionally we should think of
 what the result would be when two Money values are being multiplied. We consider
 this as an unknown result type, thus it is reasonable that we cannot use
-multiplication when using only \textit{Money} types. Division has a similar case
-, as something cannot be divided a \textit{Money} type.\\
+multiplication when using only \textit{Money} types. Division has a similar
+case, as something cannot be divided a \textit{Money} type.\\
 \\
 Instead we can use these operations with \textit{Money} in combination with
 other types, such as \textit{Integer} and \textit{Percentage}. The type checker
@@ -152,6 +160,7 @@ project.
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
+\label{ssct:properties_reflexivity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -170,16 +179,16 @@ project.
 % End table
 % Reasoning
 \pinfo{Equality, currency and amount}
-The reflexive property means a relation of a type with
+The reflexive property is defined as a relation of a type with
 itself~\cite{raftery2011perspective}. An instance of type \textit{Money} should
 be equal to itself. The inequality relations \textit{smaller or equal to} and
 \textit{greater or equal to} should hold too, as we can compare \textit{Money}
-variables. The equality relation exists on the \textit{Money} type, which is
-also used in the first row of the table.
+variables.
 
 % % % % % % % % % % % % %
 % Subsection: Symmetry
 \subsection*{Symmetry}
+\label{ssct:properties_symmetry}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -197,11 +206,12 @@ also used in the first row of the table.
 % End table
 % Reasoning
 \pinfo{Equality, currency and amount}
-Reflexivity already described equality on the same variable of the \textit{Money} type. When two different variables are used, the order should not matter and thus it should work in both ways. Which is known as the symmetric property~\cite{raftery2011perspective}.
+\nameref{ssct:properties_reflexivity} described relations on the same variable of the \textit{Money} type. When two different variables are used, the order should not matter and thus it should work in both ways. Which is known as the symmetric property~\cite{raftery2011perspective}.
 
 % % % % % % % % % % % % %
 % Subsection: Antisymmetry
 \subsection*{Antisymmetry}
+\label{ssct:properties_antisymmetry}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -220,12 +230,12 @@ Reflexivity already described equality on the same variable of the \textit{Money
 \FloatBarrier
 % End table
 % Reasoning
-The antisymmetric relation describes that whenever there is a relation from x to y and a relation from y to x, then x and y should be equal. The lower or equal then and greater or equal then relations fit in this category, as shown in \autoref{tbl:ch4_money_antisymmetry}. We can use these operations with the \textit{Money} type when both x and y use the same currency. This antisymmetric relation is also expected to hold, as \textit{Money} values should be equal when they are of the same currency and hold the same amount.
+The antisymmetric relation describes that whenever there is a relation from \textit{x} to \textit{y} and a relation from \textit{y} to \textit{x}, then \textit{x} and \textit{y} should be equal. The \textit{lower or equal than ($\leq$)} and \textit{greater or equal than ($\geq$)} relations fit in this category, as shown in \autoref{tbl:ch4_money_antisymmetry}. This antisymmetric relation is also expected to hold, as the \textit{Money} type supports these operations.
 
 % % % % % % % % % % % % %
 % Subsection: Commutativity
 \subsection*{Commutativity}
-\label{ssct:4_commutativity}
+\label{ssct:properties_commutativity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -250,11 +260,12 @@ The antisymmetric relation describes that whenever there is a relation from x to
 \FloatBarrier
 % End table
 % Reasoning
-These properties are based on the commutative law~\cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. For multiplication, there is no known value for multiplying two \textit{Money} variables. It is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
+These properties are based on the commutative law~\cite{baumgart1961axioms}. The result of an addition or multiplication does not vary when swapping the input variables. Because of the \textit{Money} type, we can only do addition on \textit{Money} values with other \textit{Money} values. As described in \autoref{sct:properties_property_definitions} there is no known value for multiplying two \textit{Money} variables, but it is possible to multiply it by an \textit{Integer} or \textit{Percentage}. Also in this case, the order shouldn't matter if we would put the \textit{Money} value as first input parameter to multiplication or the other way around.
 
 % % % % % % % % % % % % %
 % Subsection: Anticommutativity
 \subsection*{Anticommutativity}
+\label{ssct:properties_anticommutativity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -271,11 +282,12 @@ These properties are based on the commutative law~\cite{baumgart1961axioms}. The
 \FloatBarrier
 % End table
 % Reasoning
-In \autoref{ssct:4_commutativity} we described the commutative properties. Note that the operations only use addition and multiplication on this property. Subtraction is a operation that is anticommutative as swapping the order of the two argumates is negating the result. The anticommutative property thus negates the result of swapping the two arguments, intending to result in the actual value again, as shown in \autoref{tbl:ch4_money_anticommutativity}.
+\nameref{ssct:properties_commutativity} described the commutative properties. Note that the properties in \nameref{ssct:properties_commutativity} only use addition and multiplication. Subtraction is an operation that is anticommutative as swapping the order of the two arguments is negates the result. The anticommutative property thus negates the result of swapping the two arguments, intending to result in the actual value again, as shown in \autoref{tbl:ch4_money_anticommutativity}.
 
 % % % % % % % % % % % % %
 % Subsection: Transitivity
 \subsection*{Transitivity}
+\label{ssct:properties_transitivity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -305,12 +317,12 @@ In \autoref{ssct:4_commutativity} we described the commutative properties. Note 
 \FloatBarrier
 % End table
 % Reasoning
-Operations can be done on the \textit{Money} types. The transitive properties~\cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can still compare the \textit{Money} values. It is important to note that either the currency of the values should be the same, or the conversion rate should be taken into account with these operations.
+Operations can be done on the \textit{Money} types. The transitive properties~\cite{raftery2011perspective} on the (in)equality operators should still hold on the \textit{Money} type as we can compare the \textit{Money} values.
 
 % % % % % % % % % % % % %
 % Subsection: Associativity
 \subsection*{Associativity}
-\label{ssct:4_associativity}
+\label{ssct:properties_associativity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -345,12 +357,13 @@ multiplication~\cite{baumgart1961axioms}. It defines that the order in which
 certain operations are done, does not affect the result of the whole expression.
 As described in \autoref{sct:properties_property_definitions}, it is not possible to use
 multiplication with only \textit{Money} types. In
-\autoref{tbl:ch4_money_associativity} we define possible combintations for this
+\autoref{tbl:ch4_money_associativity} we define possible combinations for this
 property, which are accepted by the type checker of \textit{Rebel}.
 
 % % % % % % % % % % % % %
 % Subsection: Non-associativity
 \subsection*{Non-associativity}
+\label{ssct:properties_nonassociativity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -369,11 +382,12 @@ property, which are accepted by the type checker of \textit{Rebel}.
 % End table
 % Reasoning
 % in tegenstelling tot steen is geen steen stoep
-In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity described that the order does affect the result of the whole expression. As we can see in \autoref{tbl:ch4_money_nonassociativity} subtraction is a relation where this property holds. An exception to this would be when each argument is zero.
+In contrast to associativity (\nameref{ssct:properties_associativity}), non-associativity describes that the order of the arguments does affect the result of the whole expression. As we can see in \autoref{tbl:ch4_money_nonassociativity} subtraction is a relation where this property holds. An exception to this would be when each argument is zero.
 
 % % % % % % % % % % % % %
 % Subsection: Distributivity
 \subsection*{Distributivity}
+\label{ssct:properties_distributivity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -400,11 +414,12 @@ In contrast to associativity (\autoref{ssct:4_associativity}), non-associativity
 \FloatBarrier
 % End table
 % Reasoning
-The law of distributivity is another well-known law~\cite{baumgart1961axioms}. Unlike associativity, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Remember that it is not possible to multiply \textit{Money} types with each other, as described in \autoref{sct:properties_property_definitions}. Thus the variable types are an important part in these properties, in \autoref{tbl:ch4_money_distributivity} property definitions are shown based on this property.
+The law of distributivity is another well-known law~\cite{baumgart1961axioms}. Unlike \nameref{ssct:properties_associativity}, the order does matter here when using different operations. These operations can be used on \textit{Money} and since we can see \textit{Money} as a number, this property is also expected on this type. Remember that it is not possible to multiply \textit{Money} types with each other, as described in \autoref{sct:properties_property_definitions}. Thus the variable types are an important part in these properties, in \autoref{tbl:ch4_money_distributivity} property definitions are shown based on this property.
 
 % % % % % % % % % % % % %
 % Subsection: Identity
 \subsection*{Identity}
+\label{ssct:properties_identity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -428,6 +443,7 @@ The identity relation describes a function that returns the same value as the va
 % % % % % % % % % % % % %
 % Subsection: Inverse
 \subsection*{Inverse}
+\label{ssct:properties_inverse}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -444,11 +460,12 @@ The identity relation describes a function that returns the same value as the va
 \FloatBarrier
 % End table
 % Reasoning
-The inverse relation describes for additivity that using addition with the input parameter and the negative of the input parameter, results in the value zero. Note that the operation is used on the \textit{Money} type, so the expected value is 0 with the same currency as the currency of the input parameter. Although the inverse relation could also be used with multiplication and division (defined as \code{x*(1/x) == 0}), it is not possible to use this definition in this project. As we cannot divide something with the \textit{Money} type, which is why we only define the inverse relation using addition on \textit{Money}.
+The inverse relation describes (for additivity) that using addition with the input parameter and the negative of the input parameter, results in the value zero. Note that the operation is used on the \textit{Money} type, so the expected value is 0 with the same currency as the currency of the input parameter. Although the inverse relation could also be used with multiplication and division (defined as \code{x*(1/x) == 0}), it is not possible to use this definition in this project. As we cannot divide something by a \textit{Money} type, which is why we only define the inverse relation using addition on \textit{Money}.
 
 % % % % % % % % % % % % %
 % Subsection: Additivity
 \subsection*{Additivity}
+\label{ssct:properties_additivity}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -470,11 +487,12 @@ The inverse relation describes for additivity that using addition with the input
 \FloatBarrier
 % End table
 % Reasoning
-Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativity}) and Associativity (\autoref{ssct:4_associativity}) properties. The properties mentioned here extend these by defining properties that are true when the input values are equal. When using the addition operator such that the resulting values on both sides remain the same, as shown in \autoref{tbl:ch4_money_symmetry}, it should not break the equality property on the resulting values.
+Addition was earlier mentioned for the \nameref{ssct:properties_commutativity} and \nameref{ssct:properties_associativity} properties. The properties mentioned here extend these by defining properties that are true when the input values are equal. When using the addition operator such that the resulting values on both sides remain the same, as shown in \autoref{tbl:ch4_money_symmetry}, it should not break the equality property on the resulting values.
 
 % % % % % % % % % % % % %
 % Subsection: Property of Zero
 \subsection*{Property of Zero}
+\label{ssct:properties_propertyofzero}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -491,11 +509,12 @@ Addition was earlier mentioned for the Commutativity (\autoref{ssct:4_commutativ
 \FloatBarrier
 % End table
 % Reasoning
-The property of zero on multiplication states that if something is multiplied by zero, the result will always be zero. Since Rebel allows the use of multiplication on the \textit{Money} type, it's possible to multiply it by 0. The order in which this happens shouldn't matter. Since the value of a \textit{Money} variable is based on a decimal number, this property states that the value will be exactly 0 (or 0.00 in the representation of a \textit{Money} value). But it should not contain any decimals that whould make the amount bigger than zero.
+The property of zero on multiplication states that if something is multiplied by zero, the result will always be zero. Since \textit{Rebel} allows the use of multiplication on the \textit{Money} type, it's possible to multiply it by 0. The order in which this happens shouldn't matter. Since the value of a \textit{Money} variable is based on a decimal number, this property states that the value will be exactly 0 (or 0.00 in the representation of a \textit{Money} value). It should not contain any decimals that whould make the amount bigger than zero. \todo{Incorporate (define X)}
 
 % % % % % % % % % % % % %
 % Subsection: Division
 \subsection*{Division}
+\label{ssct:properties_division}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -516,11 +535,12 @@ The property of zero on multiplication states that if something is multiplied by
 \FloatBarrier
 % End table
 % Reasoning
-When using division with the \textit{Money} type, it is not possible to use a \textit{Money} value as denominator. However, a Money type can be dived by an Integer, thus we can define the division properties by using both the \textit{Money} and \textit{Integer} type. Note that the denominator cannot be zero, as division by zero is not possible. % Maybe theres a source for division by zero? :)
+When using division with the \textit{Money} type, it is not possible to use a \textit{Money} value as denominator. A \textit{Money} type can be dived by an \textit{Integer}, thus we can define the division properties by using both the \textit{Money} and \textit{Integer} type. Note that the denominator cannot be zero, as division by zero is not possible. % Maybe theres a source for division by zero? :)
 
 % % % % % % % % % % % % %
 % Subsection: Trichotomy
 \subsection*{Trichotomy}
+\label{ssct:properties_trichotomy}
 % Table
 \FloatBarrier
 \begin{table}[!ht]
@@ -537,16 +557,16 @@ When using division with the \textit{Money} type, it is not possible to use a \t
 \FloatBarrier
 % End table
 % Reasoning
-The law of trichotomy defines that for every pair of arbitrary real numbers, exactly one of the relations $<$, ==, $>$ holds. We can define a property for this on money, as shown in \autoref{tbl:ch4_money_trichotomy}.
+The law of trichotomy defines that for every pair of arbitrary real numbers, exactly one of the relations \textit{$<$}, \textit{==}, \textit{$>$} holds. We can define a property for this when using \textit{Money}, as shown in \autoref{tbl:ch4_money_trichotomy}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
 \section{Analysis}
-In this chapter, we focused on the properties of the custom types in \textit{Rebel}. The research question lead as follows:\rqOne\\
+In this chapter, we focused on the properties when using the \textit{Money} type in \textit{Rebel}. The research question lead as follows:\rqOne\\
 \\
-Since there were no definition available of the types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type. In this chapter we have defined a set of properties that are expected to hold with Rebel.\\
+Since there were no definition available of the types in \textit{Rebel}, it was required to define the properties in detail. Describing what the expected behaviour is when operating with the types and which operations are allowed on each type. In this chapter we have defined a set of properties that are expected to hold with \textit{Rebel}.\\
 \\
-The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that the test framework has not found an error in the properties that it checks the generator on. Many properties can be defined within a language, the properties defined here are certainly not all the properties in \textit{Rebel}.
+The properties are based on the axioms in algebra, but the requirements of \textit{Rebel} have been taken into account when it comes to using certain operations with certain types. These properties can be used to test the generator. However, it is not true that there are no bugs in the generator in case every property holds. It does mean that there were no errors found in the properties that are being checked. Many properties can be defined within a language, the properties defined here are certainly not all the properties that exist in \textit{Rebel}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
@@ -555,13 +575,7 @@ The properties are based on the axioms in algebra, but the requirements of \text
 \subsection*{Lack of properties}
 We defined a set of properties that are expected to hold in \textit{Rebel}. This can be seen as an incomplete set, as many more properties can hold and can be expected when using \textit{Rebel}. The set of properties we defined are aimed to cover many operations when using the \textit{Money} type, as this can be considered the most important type for a bank. This leads to some threats to validity as other types can be used too in \textit{Rebel}.\\
 \\
-The properties that we have defined are based on the Axioms of Algebra. Many axioms exist, which brings a threat to this approach such that we may have missed certain properties that can trigger even more bugs. However, due to the current setup of the test framework, additional properties can easily be added by just appending these properties to the \textit{Rebel} specifications.
-
-% Other components
-\subsection*{Other components}
-The current setup is intended to be used to test a certain component of the SUT. Namely, the types and the operations among these. The focus was to test (some of) the custom types that are available in \textit{Rebel}, the \textit{Money} type has been worked with thoroughly. More specifications and properties can be added to check every type that \textit{Rebel} supports. However, this only allows to reason about a specific component in the SUT. The test framework could be extended such that it can also test other components of the system. Such as the sync block definitions, defining actions that should happen synchronously. Or performance measures when interacting with the data in the system, which uses a database implementation. Currently, such components are not being tested, while these components are also important for a bank. This is left as future work.\\
-\\
-Although the test framework can be extended to also test other components of the SUT, it will not be possible to check all the components by using this approach. A generated system, for example, exposes its actions via a Rest API, which should be used to interact with the system. The tests that are done by using this approach do not check the implementation of this interface. Also, it is not able to check how, for example, multiple generated systems would integrate with each other and if this is done correctly.
+The properties that we have defined are based on the axioms of algebra. Many axioms exist, which brings a threat to this approach such that we may have missed certain properties that can trigger even more bugs.
 
 % Invalid definitions
 \subsection*{Invalid definitions}
