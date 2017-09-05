@@ -8,20 +8,24 @@ In this chapter we discuss the research questions.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 1: Which properties
 \section{RQ 1: \rqOne{}}
-Rebel did not have any definitions of which properties are expected to hold on a
-specification. Since we are using property-based testing to check the generator,
-it was required to define the expected properties first. The definitions of each
-property can be found in \autoref{cpt:properties}.\\
+\textit{Rebel} did not have any definitions of which properties are expected to
+hold on a specification. Since we are using property-based testing to check the
+generator, it was required to define the expected properties first. The
+definitions of each property can be found in \autoref{cpt:properties}.\\
 \\
-Many properties were defined during this thesis, but these are certainly not all
-the properties that exists for Rebel. We focused on the Money type as this is
-the most important type for a bank. Additional properties can always be added to
-the test framework.
+Many properties were defined during this thesis, but these are certainly not
+all the properties that exist for \textit{Rebel}. We focused on the
+\textit{Money} type, which is considered the most important type for a bank.
+Additional properties can always be added to the test framework.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 2: How to test
 \section{RQ 2: \rqTwo{}}
-We have described a way how the generator could be tested by using property-based testing. In order to check the generator, a \textit{Rebel} specification was required. The generated system was used to determine the results for each test, allowing to reason about the generator. The test setup could be divided into the following phases:
+We have described a way how the generator could be tested by using
+property-based testing. In order to check the generator, a \textit{Rebel}
+specification was required. The generated system was used to determine the
+results, allowing to reason about the generator. The test setup could be divided
+into the following phases:
 \begin{enumerate}
   \item \tfPhaseOne{}
   \item \tfPhaseTwo{}
@@ -29,42 +33,73 @@ We have described a way how the generator could be tested by using property-base
   \item \tfPhaseFour{}
   \item \tfPhaseFive{}
 \end{enumerate}
-The first phase had to be done manually. For the other phases we introduced our test framework to automate these steps in order to detect the bugs as automatically as possible.
+The first phase had to be done manually. For the other phases, we introduced
+our test framework to automate these steps in order to detect the bugs as
+automatically as possible.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 3: Amount and kind of bugs
 \section{RQ 3: \rqThree{}}
-Multiple bugs were found using property-based testing to check the generator. The generator failed to satisfy a total of 9 properties that we have defined. Some properties triggered different kind of bugs. The bugs that were found can be separated into the following categories:
+Multiple bugs were found using property-based testing to check the generator.
+The generator failed to satisfy a total of 9 properties that we have defined.
+Some properties triggered different kind of bugs. The bugs that were found can
+be separated into the following categories:
 \begin{description}
   \item[~~~~Compilation errors:] Errors that make the generated system unable to compile, and thus it cannot be used.
   \item[~~~~Overflow/underflow errors:] Errors happening because of a limit that has been reached on specific types.
   \item[~~~~Precision errors:] Errors causing an unexpected outcome value when being calculated.
 \end{description}
+\todo{Add division}
 \subsection*{Compilation errors}
 \pinfo{Compilation error, Squants issue}
-The fact that the test suit initially was being terminated was because of a compilation error. Although one assumption was that the generated system should be able to compile, another assumption we made was that the specification was consistent. The specification we created for all the properties is consistent, as \textit{Rebel} did not report any syntactic or semantic errors with the type checker. The test suit is thus able to find such compilation errors. However, there can be many more compilation errors for which we do not check, which is also out of the scope of this project. The cause of this error was actually caused by an implementation error in an open source library that the generated system used, called Squants~\cite{siteSquants2017}. To fix this, we created a \textit{Github} issue\footnote{https://github.com/typelevel/squants/issues/281} describing the problem. So that this can be fixed in the next release of the library.
+The fact that the test suite initially was being terminated was because of a
+compilation error. Although one assumption was that the generated system should
+be able to compile, another assumption we made was that the specification was
+consistent. The specification we created for all the properties is consistent,
+as \textit{Rebel} did not report any syntactic or semantic errors with the type
+checker. The test suite is thus able to find such compilation errors. However,
+there can be many more compilation errors for which we do not check, which is
+also out of the scope of this project. The cause of this error was actually
+caused by an implementation error in an open-source library that the generated
+system used, called \textit{Squants}~\cite{siteSquants2017}. To fix this, we
+created a \textit{Github}
+issue\footnote{https://github.com/typelevel/squants/issues/281} describing the
+problem. So that this can be fixed in the next release of the library.
 
 \subsection*{Overflow/underflow errors}
 \pinfo{Overflow/underflow errors, discussion and unclear definition}
 The overflow/underflow errors are caused because of the use of the
-\textit{Integer} type. On one hand this could be prevented by checking the
+\textit{Integer} type. On one hand, this could be prevented by checking the
 operations beforehand for overflow errors. On the other hand, this could be the
-expected behavior when an \textit{Integer} is being used in Rebel. As
+expected behaviour when an \textit{Integer} is being used in \textit{Rebel}. As
 \textit{Integers} are known have such limits that are also dependent on the
-platform the application is run~\cite{wang2009intscope}. However, in \textit{Rebel}
-there is currently no other type that can be used to hold a bigger number. For
-example in \textit{Java} there is \textit{Long} for a larger number, or
-\textit{BigDecimal} for even bigger numbers. This would mean that Rebel does not
-support big numbers, or that a custom type must be used for this. Considering
-that Rebel does not provide a type for bigger numbers, we think that the
-\textit{Integer} is supposed to also hold bigger numbers. Since the
-specification is about banking products and it probably could happen that a big
-number is needed. After all we cannot know this for sure, as Rebel does not
-provide a specification yet of each of type in \textit{Rebel}.
+platform the application is run~\cite{wang2009intscope}. However, in
+\textit{Rebel} there is currently no other type that can be used to hold a
+bigger number. For example in \textit{Java} there is \textit{Long} for a larger
+number, or \textit{BigDecimal} for even bigger numbers. This would mean that
+\textit{Rebel} does not support big numbers, or that a custom type must be used
+for this. Considering that \textit{Rebel} does not provide another type for
+bigger numbers, the \textit{Integer} type is considered to also hold bigger
+numbers. Since the specification is about banking products and it probably could
+happen that a big number is needed. After all, we cannot know this for sure, as
+\textit{Rebel} does not provide a specification yet of each of type in
+\textit{Rebel}.
 
 \subsection*{Precision errors}
 \pinfo{Precision errors, Squants issue}
-As we have seen, the \textit{Money} precision errors both occurred when using \textit{Percentage} values as well as when using \textit{Integer} values to operate with the \textit{Money} type. Since we were able to reproduce the issue in a clean REPL environment, the problem existed in the open source library, called \textit{Squants}, that was used for the \textit{Money} type. In order to solve this problem, we created an issue on \textit{Github}\footnote{https://github.com/typelevel/squants/issues/265} related to the precision problems on the \textit{Money} type. A contributor responded and fixed the issue within a day, the change will be included in the next version of the library (1.4). So it is required to update this library in order to let these tests in our test suit pass.
+As we have seen, the \textit{Money} precision errors both occurred when using
+\textit{Percentage} values as well as when using \textit{Integer} values to
+operate with the \textit{Money} type. Since we were able to reproduce the issue
+in a clean \textit{REPL} environment, the problem existed in the open-source
+library, called \textit{Squants}, that was used for the \textit{Money} type. In
+order to solve this problem, we created an issue on
+\textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}
+related to the precision problems on the \textit{Money} type. A contributor
+responded and fixed the issue within a day, the change will be included in the
+next version of the library (1.4). So it is required to update this library in
+order to let these tests in our test suit pass.
+
+\todo{Add division}
 
 % Rounding errors
 % And division problem!
