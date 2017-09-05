@@ -4,7 +4,7 @@
 \chapter{Conclusion}
 \label{chp:conclusion}
 % Summary
-In this thesis, we have shown a way how the generator can be tested by using property-based testing. This is done by generating tests based on the \textit{Rebel} specification and making use of the generator to generate the tests. The \textit{Rebel} specification is build up based on a set of defined properties of \textit{Rebel}. However, these definitions were not defined earlier, thus we define properties of \textit{Rebel} that are expected hold. We have found found some bugs in the generated system that were unknown before, by using the test framework that we created. This proves that this approach already worked to identify some problems in the generator that were not known before. Additionally, we contributed to an open-source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
+In this thesis, we have shown a way how the generator can be tested by using property-based testing. This is done by generating tests based on the \textit{Rebel} specification and making use of the generator to generate the tests. The \textit{Rebel} specification is build up based on a set of defined properties of \textit{Rebel}. However, these definitions were not defined earlier, thus we defined properties of \textit{Rebel} that are expected hold. We have found found some bugs in the generated system that were unknown before, by using the test framework that we created. This proves that this approach already worked to identify some problems in the generator that were not known before. Additionally, we contributed to an open-source library called \textit{Squants}, we issued two reports of bugs that existed in the library.\\
 \\
 % Research questions
 % Answer main research question
@@ -12,21 +12,34 @@ To answer the main research question, we defined and answered the three sub rese
 \begin{quote}
 \rqMain
 \end{quote}
-A \textit{Rebel} specification was created from the defined properties. Next, the existing generator was being used to generate the SUT and to translate the properties (in the \textit{Rebel} specification) to test cases. When running the test suit against the generated system, we found some errors in the implementation of the generated system. Additionally, we were able to detect a compilation error and incorrectly translated formulas. Although the latter was not the case, we showed that this can be detected when modifying the generator such that a formula is being translated incorrectly.\\
+A \textit{Rebel} specification was created from the defined properties. Next, the existing generator was being used to generate the generated system and to translate the properties (in the \textit{Rebel} specification) to test cases. When running the test suite against the generated system, we found some errors in the implementation of the generated system. Additionally, we were able to detect a compilation error and incorrectly translated formulas. Although the latter was not the case, we showed that this can be detected when modifying the generator such that a formula is being translated incorrectly.\\
 \\
-We conclude that this approach is a way how the implementation of the generator can be checked to satisfy certain properties that have been defined. However, it does not mean that there are no implementation errors in case the test suite finishes successfully. It only means that no implementation errors were found using this test framework. The test framework can be extended such that it covers more components of the implementation, or to cover additional properties of \textit{Rebel}.
+We conclude that this approach is a way how the implementation of the generator can be checked to satisfy certain properties that have been defined. However, it does not mean that there are no implementation errors in case the test suite finishes successfully. It only means that no implementation errors were found using this test framework.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Future work
 \section{Future work}
 \subsection*{Complete property definitions}
 \pinfo{Full definitions for Rebel}
-In this thesis we defined some properties on the \textit{Rebel} language, which we consider to hold when using Rebel. This list of property definitions on \textit{Rebel} is not complete, there can be many more properties and there are other types available in \textit{Rebel} which we did not cover. These should be added to have a complete set of property definitions for the Rebel language. This is left as future work. When additional properties are known, these properties can be added to the test framework such that these will also be tested on the generator.\\
+In this thesis, we defined some properties on the \textit{Rebel} language,
+which we consider to hold when using \textit{Rebel}. This list of property
+definitions on \textit{Rebel} is not complete, there can be many more properties
+and there are other types available in \textit{Rebel} which we did not cover.
+These should be added to have a complete set of property definitions for the
+\textit{Rebel} language. This is left as future work. When additional properties
+are known, these properties can be added to the test framework such that these
+will also be tested on the generator.\\
 \\
 \pinfo{Other properties/components}
-Besides the mathematical properties, which have been focused on throughout this thesis, other properties could be defined too. This requires modifications to the test framework. As well as definitions of such properties, as these are missing currently. For example, it would have a valuable meaning for the bank to thoroughly check the properties of using a sync block in \textit{Rebel} and verify that these also holds when a system is being generated by the generator.
+Besides the mathematical properties, which have been focused on throughout this
+thesis, other properties could be defined too. This requires modifications to
+the test framework. As well as definitions of such properties, as these are
+missing currently. For example, it would have a valuable meaning for the bank to
+thoroughly check the properties of using a sync block in \textit{Rebel} and
+verify that these also holds when a system is being generated by the generator.
 
 \subsection*{Dynamic values generation}
+\todo{This is gonna be Experiment 3, rewrite or remove later}
 \pinfo{Improve value generator}
 The value generator in the test framework that we have created for the implicative properties can be improved. Such that random input values are generated based on the actual preconditions that are defined. Our value generator was more intended as a prototype, to check whether this approach would work to find more bugs. The current value generator requires an update whenever an implicative property is being added to check. If the value generator would be able to use the preconditions to solve this issue, it doesn't require an update anymore for each implicative property that is being added.\\
 \\
@@ -36,7 +49,7 @@ Another way how this could be done is to use some tools to determine the random 
 
 \subsection*{Multiple generators}
 \pinfo{Only one, support for more could be added}
-Throughout this project, we have only tested the system that is generated by the Scala/Akka generator which is developed by ING. Since there are more generators available, the test framework can be improved such that it is compatible with the other systems that can be generated by using one of the other generators that are available within ING. By doing this, the same property definitions can be tested on different kind of generated systems. This can be used to detect inequalities among the generated system.
+Throughout this project, we have only tested the system that is generated by the Scala/Akka generator which is developed by \textit{ING}. Since there are more generators available, the test framework can be improved such that it is compatible with the other systems that can be generated by using one of the other generators that are available within \textit{ING}. By doing this, the same property definitions can be tested on different kind of generated systems. This can be used to detect inequalities among the generated system.
 
 \subsection*{Mutation testing}
 Another approach to test the properties on the generator would be to use mutation testing. The mutation coverage could then be used to measure how effective the test framework would be (the amount of mutants created and the amount of killed mutants). Unfortunately, there is currently a limited support for mutation testing for \textit{Scala} systems\todo{SRC-PIT for mutation testing in scala, limited support}. Since \textit{Scala} compiles to \textit{Java} bytecode, mutating on bytecode level could be used to solve the problem of limited support. However, this could lead to false-positives, meaning that some mutants might not be relevant in that the modifications would not affect the implementation. This should then be taken into account.
