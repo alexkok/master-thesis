@@ -183,7 +183,7 @@ is also used by the test framework to generate the test suite.
 % % % % % % % % % % % % %
 % Subsection: Phase 3: Generate system
 \subsection{\tfPhaseThree{}}
-\pinfo{SUT is the generated system}
+\pinfo{Generated system}
 The generator will be used to generate a system from the specification that we
 have created. This system which will be used to check each property. Note that
 the generated system is assumed to be runnable. As otherwise the test suite,
@@ -382,9 +382,10 @@ determine the coverage. Note that the first experiment, for example, uses a
 smaller specification. While the second experiment separates the defined
 properties into two categories and added preconditions to one of the categories.
 In order to determine the coverage, the same specification will be used for both
-experiments, such that the SUT is equal and that the results from each
-experiment can be compared. In this example, the specifications of the second
-experiment will be used to determine the coverage of the first experiment.\\
+experiments, such that the generated system is equal and that the results from
+each experiment can be compared. In this example, the specifications of the
+secondexperiment will be used to determine the coverage of the first
+experiment.\\
 \\
 \pinfo{Which data exactly from reports}
 The coverage report shows how many statements exist in the generated system and
@@ -423,9 +424,9 @@ it communicates with other instances when it is deployed, which is not something
 that is covered by the properties we defined in \autoref{cpt:properties}. As a
 result, we will not be able to bring the test coverage to 100\%. However, all
 files in the generated system will be used to determine the overall coverage
-percentage. Since we use the same SUT to determine the coverage of the test
-suite on the SUT, the higher the coverage, the more complete it tests the
-defined properties in the generated system.
+percentage. Since we use the same generated system to determine the coverage,
+the higher the coverage, the more complete it tests the defined properties in
+the generated system.
 
 % Number of bugs
 \subsubsection{Number of bugs}

@@ -144,7 +144,7 @@ intermediate calculations in the formula that is being used. In
 the test case failed, along with the intermediate calculations. The intermediate
 calculations seem to be fine, as the results are almost the same when we compare
 the results of the \textit{Scala} evaluation and the expected result. The
-resulting left hand side of the expression contains a precision error, which is
+resulting left-hand side of the expression contains a precision error, which is
 caused when multiplying a \textit{Percentage} (the \textit{x} variable) with a
 \textit{Money} type (the result of \textit{y+z} in this case).
 % Table
@@ -410,7 +410,7 @@ x*y                & -95278497.3234 EUR         & -95278497.3234 EUR          \\
 % End table
 Additionally, we can see a difference in the results on the left-hand and
 right-hand side of the expression evaluation in \textit{Scala}. Whereas the
-intermediate step for the left side is calculated correctly. This also hints to
+intermediate step for the left-hand side is calculated correctly. This also hints to
 the bug in the \textit{Money} type which we already found when testing the
 \textit{DistributiveInteger2} property. For the right-hand side, we cannot say
 this immediately, as there is already an error in the intermediate step.\\
