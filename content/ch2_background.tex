@@ -19,7 +19,7 @@
 \pinfo{About Rebel}
 \textit{Rebel} is a domain specific language that focuses on the banking
 industry~\cite{stoel2016solving}. Banking products can be specified in the
-language, with the use of types like \textit{Money} and \textit{Iban}. The tool
+language, with the use of types like \textit{Money} and \textit{IBAN}. The tool
 chain of \textit{Rebel} allows to check, visualize and simulate the specified
 banking product. For checking and simulation an efficient, state-of-the-art SMT
 solver is being used called \textit{Z3}, which is developed by
@@ -93,7 +93,7 @@ In case there are pre- or postconditions, these have to be satisfied in order to
 successfully complete a transition.\\
 \\
 \pinfo{Diff types: known/expected problems. We have to specify expected properties}
-\textit{Rebel} introduces custom types, such as \textit{Iban},
+\textit{Rebel} introduces custom types, such as \textit{IBAN},
 \textit{Percentage} and \textit{Money}, these types are not supported natively
 in \textit{Scala}. For these cases, a library or own implementation is used. An
 example is the \textit{Money} type, which is available in the
@@ -136,7 +136,7 @@ the chance that this happens with random values is rather low.
 Due to the effectiveness of \textit{QuickCheck}, many ports for other languages
 were written. Most ports implement the basics of \textit{QuickCheck},
 additionally, each port could have added extra features. Examples of some ports
-are \textit{FortressCheck} (for \textit{Fortran}) \cite{kang2011fortresscheck}
+are \textit{FortressCheck} (for \textit{Fortran})~\cite{kang2011fortresscheck}
 and \textit{ScalaCheck} (for \textit{Scala})~\cite{siteScalaCheck2015}.
 \textit{FortressCheck} supports polymorphic types and, unlike
 \textit{QuickCheck}, heavily uses reflection for its value generation to solve
