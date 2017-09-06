@@ -35,7 +35,7 @@ translated to SMT constraints, next, the \textit{Z3} solver is being used to
 check whether the specification is consistent. An inconsistent specification
 means that a counter example has been found (a trace is found for which an
 invariant doesn't hold). It is bounded since it only checks if a counter example
-can be found within a certain amount of steps. Besides checking the
+can be found within a certain number of steps. Besides checking the
 specification, the specification can also be simulated. For simulation, the SMT
 solver is also being used to determine whether a transition can happen. After
 successfully checking the specification, meaning that no counter examples could
@@ -106,13 +106,13 @@ something incorrectly, we have to specify what the expected properties are in
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Property based testing
-\section{Property based testing}
-\pinfo{About property based testing}
-With property based testing properties are defined and being tested. It uses random values as input and checks whether the defined property holds. After a certain amount of succeeding cases the test succeeds and the next property is being checked.\\
+% Section: Property-based testing
+\section{Property-based testing}
+\pinfo{About property-based testing}
+With property-based testing properties are defined and being tested. It uses random values as input and checks whether the defined property holds. After a certain number of succeeding cases the test succeeds and the next property is being checked.\\
 \\
 \pinfo{About QuickCheck}
-A well-known tool which is based on property based testing is
+A well-known tool which is based on property-based testing is
 \textit{QuickCheck}, which is written for
 \textit{Haskell}~\cite{claessen2011quickcheck}. It tests the properties
 automatically by using random input values. For each property

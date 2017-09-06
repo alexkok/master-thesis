@@ -93,7 +93,7 @@ its event definitions.\\
 \\
 \pinfo{Property to event translation}
 A test case should be able to pass values as parameters to test a specific
-property for a certain amount of times. We can use the events for this in the
+property for a certain number of tries. We can use the events for this in the
 \textit{Rebel} definition. An event describes a transition from one state to
 another and accepts parameters. Additionally, it can have pre- and
 postconditions, where the postconditions state what happens when the transaction
@@ -427,8 +427,8 @@ percentage. Since we use the same SUT to determine the coverage of the test
 suite on the SUT, the higher the coverage, the more complete it tests the
 defined properties in the generated system.
 
-% Amount of bugs
-\subsubsection{Amount of bugs}
+% Number of bugs
+\subsubsection{Number of bugs}
 \pinfo{Not a hard criteria, still using for indication}
 The number of bugs found by an experiment also describes how effective the
 experiment was. Although this cannot be a hard criterion, as it can vary per
@@ -478,7 +478,7 @@ phases, which can be found in the \code{Main.rsc} file in the source code.\\
 For the experiments, all the properties defined in \autoref{cpt:properties}
 will be used. This results in a bigger specification, which can be used to test
 the generator automatically by using the test framework. After running the test
-framework, we evaluate it on the coverage and amount of bugs found metrics. The
+framework, we evaluate it on the coverage and number of bugs found metrics. The
 event definitions of each property defined in \autoref{cpt:properties} can be
 found in \autoref{app:a_event_definitions}.
 
