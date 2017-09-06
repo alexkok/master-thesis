@@ -17,8 +17,10 @@
 % Another source was (but not a paper or so)
 % http://www.aaamath.com/ac22.htm
 
+
 % Another good source (book)
 % Calculus, Vol. 1: One-Variable Calculus, with an Introduction to Linear Algebra 2nd Edition
+% Great source (overview): http://www.doe.virginia.gov/instruction/mathematics/resources/va_algebraic_properties.pdf
 
 \pinfo{Specific types in Rebel}
 \textit{Rebel} introduces custom types, like \textit{IBAN}, \textit{Percentage}
@@ -154,9 +156,44 @@ Instead we can use these operations with \textit{Money} in combination with
 other types, such as \textit{Integer} and \textit{Percentage}. The type checker
 for \textit{Rebel} will be used to determine these combinations. Due to this,
 one property definition can lead to different possible combinations which can be
-used. This results in multiple property definitions when using different types.
-In the following sections we motivate the properties that we use throughout this
-thesis.
+used. This results in multiple property definitions when using different types,
+for each definition a unique name is being defined to identify each separate
+property definition.\\
+\\
+We can separate the properties into two categories: ``Field properties'' and
+``Properties of equality and inequality''. In the following sections we describe
+these categories in detail along with the properties in the category. These
+property definitions will be used throughout the thesis. Additionally we will
+describe some property definitions that were added to this list of properties,
+which were added at the third experiment (\autoref{cpt:experiment3}).
+
+% % % % % % % % % % % % %
+% Subsection: Field properties
+\subsection{Field properties}
+\label{ssct:properties_definitions_fieldproperties}
+...
+
+% % % % % % % % % % % % %
+% Subsection: Properties of equality and inequality
+\subsection{Properties of equality and inequality}
+\label{ssct:properties_definitions_equalityproperties}
+...
+
+% % % % % % % % % % % % %
+% Subsection: Additional properties of equality and inequality
+\subsection{Additional properties of equality and inequality}
+\label{ssct:properties_definitions_additionalproperties}
+...
+
+
+
+\todo{Put the right properties into the right category. And fix references among them}
+
+
+
+
+
+
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
@@ -632,8 +669,8 @@ can define a property for this when using \textit{Money}, as shown in
 \autoref{tbl:ch4_money_trichotomy}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Analysis
-\section{Analysis}
+% Section: Conclusion
+\section{Conclusion}
 In this chapter, we focused on the properties when using the \textit{Money}
 type in \textit{Rebel}. The research question lead as follows:\rqOne\\
 \\
@@ -645,7 +682,16 @@ expected to hold with \textit{Rebel}.\\
 \\
 The properties are based on the axioms in algebra, but the requirements of
 \textit{Rebel} have been taken into account when it comes to using certain
-operations with certain types. These properties can be used to test the
+operations with certain types. The defined properties are separated into 2
+categories: ``\nameref{ssct:properties_definitions_fieldproperties}'' and
+``\nameref{ssct:properties_definitions_equalityproperties}''. An overview of the
+defined properties is shown in ...\todo{Add table}, the ellipsis is used to
+indicate that the property names are cut off for readability.\\
+\\
+\textbf{// ADD TABLE}
+\\
+\\
+The properties that we have defined in this chapter will be used to test the
 generator. However, it is not true that there are no bugs in the generator in
 case every property holds. It does mean that there were no errors found in the
 properties that are being checked. Many properties can be defined within a
