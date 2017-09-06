@@ -88,8 +88,8 @@ is based on these states and transitions defined in \textit{Rebel}, resulting in
 a system that works like a Labeled Transition System. Thus the generated program
 also implements it like states and transitions between them. An instance of a
 banking product can have fields and is in a specific state. In order to go to
-another state, a transition can be done which might have pre- or postconditions.
-In case there are pre- or postconditions, these have to be satisfied in order to
+another state, a transition can be done which might have pre- or post conditions.
+In case there are pre- or post conditions, these have to be satisfied in order to
 successfully complete a transition.\\
 \\
 \pinfo{Diff types: known/expected problems. We have to specify expected properties}
@@ -128,7 +128,7 @@ of values. An example of this is where 2 of the input values have to be equal,
 the chance that this happens with random values is rather low.
 \textit{QuickCheck} will try to generate new values each time, with a maximum of
 1000 tries by default. In case this maximum is reached, it reports the case as
-"untested" and continues to the next property. Note that these values of 100 and
+``untested'' and continues to the next property. Note that these values of 100 and
 1000 are the default values, these can be adjusted when needed.\\
 \\
 \pinfo{About the ports of it}
