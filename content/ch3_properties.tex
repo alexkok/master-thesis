@@ -127,13 +127,9 @@ not considered equal, even if the amount would be equal.\\
 \pinfo{Thus: precise value, rounding only for division}
 We say that the amount of a \textit{Money} value in \textit{Rebel} should hold
 the exact value as if we would calculate the same expression by ourselves.
-Meaning that the precision errors would have to be prevented. An exception on
-this is when the result would be in the form of a fraction, for example, 1/3. As
-this results in a value which we have to round up sometime. To fix this, we say
-that in this case, we use x decimals when calculating, without rounding the
-x+1th decimal. When using properties that contain division, this should be taken
-into account in case the system fails on these tests.
-\todo{Define X, 4 decimals minimal?}
+Meaning that the precision or rounding errors would have to be prevented on the
+calculated value. The representation of the \textit{Money} value to the customer
+is up to the business.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Property definitions
@@ -145,7 +141,7 @@ not every property can be used.\\
 \\
 For example, it isn't possible to multiply two
 \textit{Money} types with each other in order to support the multiplicative
-property. This is becasue the type checker of \textit{Rebel} would not allow
+property. This is because the type checker of \textit{Rebel} would not allow
 multiplication between \textit{Money} types, additionally we should think of
 what the result would be when two Money values are being multiplied. We consider
 this as an unknown result type, thus it is reasonable that we cannot use
@@ -171,28 +167,60 @@ which were added at the third experiment (\autoref{cpt:experiment3}).
 % Subsection: Field properties
 \subsection{Field properties}
 \label{ssct:properties_definitions_fieldproperties}
-...
+The field properties can be compared to the field axioms on real numbers as
+described in~\cite{apostol2007calculus}:
+\begin{quote}
+	``Along with the set \textbf{R} of real numbers we assume the existence of two operations called
+	\textit{addition} and \textit{multiplication}, such that for every pair of real numbers x and y we can form the
+	\textit{sum} of x and y, which is another real number denoted by x + y, and the \textit{product} of x and y,
+	denoted by xy or by x . y.''
+	-- ~\cite{apostol2007calculus}
+\end{quote}
+The \textit{addition} and \textit{multiplication} operations are also available
+when using the \textit{Money} type in \textit{Rebel} and are expected to apply
+these operations on the amount value. However, not every combination is possible
+in \textit{Rebel} when it comes to using these operations, as described earlier.
+The following properties are using \textit{addition} and/or
+\textit{multiplication} in their definitions.
+\todo{Move to here: Associativity, Commutativity, Identity, Inverse, Distributivity}
 
 % % % % % % % % % % % % %
 % Subsection: Properties of equality and inequality
 \subsection{Properties of equality and inequality}
 \label{ssct:properties_definitions_equalityproperties}
-...
+The properties in this category are mainly using the equality (==, !=) and
+inequality ($<$, $>$, $\leq$, $\geq$) operators in their definitions. For the
+property names we abbreviate these operations with the naming \textit{LT},
+\textit{GT}, \textit{LET} and \textit{GET} respectively. The following
+property definitions belong to this category.
+\todo{Move to here: Others}
 
 % % % % % % % % % % % % %
 % Subsection: Additional properties of equality and inequality
 \subsection{Additional properties of equality and inequality}
 \label{ssct:properties_definitions_additionalproperties}
-...
+For the third experiment (\autoref{cpt:experiment3}), additional properties have
+been defined to the list. These can be put in the category of equality and
+inequality properties and are using the implication ($\implies$) sign in its
+definitions.
 
+\todo{Add: subtraction, multiplication, addition+ (Inequality), divsion+}
+\subsubsection{Division}
+Due to the second experiment, the property definition for \textit{Division} had
+to be updated, as it did not take the division problem into account. It now
+makes use of a method \code{round()}, which rounds the value to 4 decimals. The
+rounding method used for this is ``HALF\_UP'', because rounding the value down
+might still cause a failure when using big numbers\todo{Reasoning? Why HALF-UP exactly?}.\\
+\\
+In addition to the updated definition, more combinations for the division
+property are defined. In ...\todo{Add table} we show the updated definition,
+along with the added definitions for the division property.
 
-
-\todo{Put the right properties into the right category. And fix references among them}
-
-
-
-
-
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % %   EXISTING  % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\todo[inline]{Put the existing properties into the right category.
+And fix references among them}
 
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
@@ -611,7 +639,7 @@ The order in which this happens shouldn't matter. Since the value of a
 \textit{Money} variable is based on a decimal number, this property states that
 the value will be exactly 0 (or 0.00 in the representation of a \textit{Money}
 value). It should not contain any decimals that would make the amount bigger
-than zero. \todo{Incorporate (define X)}
+than zero.
 
 % % % % % % % % % % % % %
 % Subsection: Division
@@ -683,10 +711,11 @@ expected to hold with \textit{Rebel}.\\
 The properties are based on the axioms in algebra, but the requirements of
 \textit{Rebel} have been taken into account when it comes to using certain
 operations with certain types. The defined properties are separated into 2
-categories: ``\nameref{ssct:properties_definitions_fieldproperties}'' and
-``\nameref{ssct:properties_definitions_equalityproperties}''. An overview of the
-defined properties is shown in ...\todo{Add table}, the ellipsis is used to
-indicate that the property names are cut off for readability.\\
+categories: ``Field properties'' and ``Properties of equality and inequality''.
+An overview of the defined properties is shown in ...\todo{Add table}
+\footnote{The ellipsis after a property name is used to indicate that the
+property contains multiple definitions. Only the first part of this property
+name is shown for readability.}\\
 \\
 \textbf{// ADD TABLE}
 \\
