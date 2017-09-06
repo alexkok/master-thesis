@@ -293,11 +293,11 @@ are a fractional number. As it contains many decimals and it rounds up at the
 end. When operating with this rounded value, the resulting value is also
 slightly different. As the generated system is implemented such that the
 preconditions are being checked first, the \textit{PreConditionFailed} exception
-is thrown. This leads to the issue of the division problem
-\todo{SRC division problem?} in which a number cannot be equally divided. In
-\autoref{cpt:properties}, we defined that the precision in this case should be
-of X \todo{Define X} decimals. However, the test framework does not specifically
-check for this precision yet.\\
+is thrown. This leads to the issue of the division problem in which a number
+cannot be equally divided. When defining the properties in
+\autoref{cpt:properties}, we did not take this into account. Instead, we defined
+that it should contain the exact value, which cannot be done in this case. This
+should be defined in order to determine whether this is expected or incorrect.\\
 \\
 \pinfo{Division1 triggers difference in rounding problem}
 % Division1 is defined as \code{x*y == z $\implies$ x == z/y}.
@@ -410,9 +410,8 @@ the if-clause of these implicative properties.\\
 The other criteria we use was the number of bugs that we have found. Using this
 approach 2 more tests were failing compared to the first experiment in
 \autoref{cpt:experiment1}. The bug found was when using division with the
-\textit{Money} type, which is expected to be rounded off at the Xth decimal
-\todo{Define X}. However, as we have seen in this experiment, the generated
-system does not take this into account. We can categorize this bug into one
+\textit{Money} type. However, as we have seen in this experiment, the division
+problem was not taken into account when defining the properties. Neither did we define what should happen in this case, . We can categorize this bug into one
 category, rounding errors. These are different from precision errors as the
 precision errors are caused by having an incorrectly calculated value, where
 rounding errors are basically not working with the rounding method that is
@@ -431,9 +430,8 @@ Furthermore, it is not clear from the specification how this rounding should be
 done.\\
 \\
 When defining the properties in \autoref{cpt:properties}, we said that a value
-should be precise. When rounding is needed, it must have X decimals
-\todo{Define x}. However, the test framework does not yet take this rule into
-account when testing these properties.
+should be precise. However, it is not possible to do this for division. Meaning
+that this has to be defined.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
@@ -462,43 +460,6 @@ And that it currently uses a lower precision. The precision we defined is
 perhaps not expected for \textit{Rebel} specifications, leaving it as a threat
 for this approach.
 % Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
-
-% Dynamicallity
-\subsection*{Dynamicallity}
-\pinfo{Not very dynamic}
-The implicative properties are now being tested such that the condition of the
-if-clause is being satisfied. However, the values generator that is being used
-for this is not very dynamic. As it simply checks for the event name and throws
-an exception in case this is not defined for the property yet. This means that
-adding new property definitions to the test framework requires a modification to
-the value generator in case of an implicative property. This makes the test
-framework less dynamic when adding new properties that should be tested on the
-generator.\\
-\\
-\pinfo{Fix: using the preconditions}
-To fix this, it would be better to generate the values by interpreting the
-preconditions such that random values can be determined based on a certain
-condition. Since the \textit{Rebel} toolchain already makes use of a bounded
-model checker to check a specification, this could be used to simply translate
-an expression and retrieve values for which the condition holds.\\
-\\
-\pinfo{Checked using Z3, but returns same values all the time}
-We have looked into this, by using the \textit{Z3} solver. However, the solver
-always returns the same number when executing it multiple times. Which means
-that the 100 values that we would ask from the generator, will be exactly the
-same. A workaround would be to then add the number that was received earlier as
-another constraint, such that 100 unique values are being retrieved. But the
-problem still remains, as executing the same script multiple times results in
-the same values. When changing the seed of the random generator that is being
-used, it will return different values. In order to make the test framework
-execute this behaviour, the value generator has to be changed to integrate with
-the solver. Additionally, this could have a huge effect on time increase that
-the test framework needs to successfully finish.\\
-\\
-\pinfo{Other possibilities, future work}
-There are other solvers available too, or other methods to generate values that
-match the condition. It would be useful to make the test framework more dynamic
-when such properties are being used.
 
 % Implicative properties
 \subsection*{Implicative properties effectiveness}

@@ -11,6 +11,45 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
+
+% Dynamicallity
+\subsection*{Dynamicallity}
+\pinfo{Not very dynamic}
+The implicative properties are now being tested such that the condition of the
+if-clause is being satisfied. However, the values generator that is being used
+for this is not very dynamic. As it simply checks for the event name and throws
+an exception in case this is not defined for the property yet. This means that
+adding new property definitions to the test framework requires a modification to
+the value generator in case of an implicative property. This makes the test
+framework less dynamic when adding new properties that should be tested on the
+generator.\\
+\\
+\pinfo{Fix: using the preconditions}
+To fix this, it would be better to generate the values by interpreting the
+preconditions such that random values can be determined based on a certain
+condition. Since the \textit{Rebel} toolchain already makes use of a bounded
+model checker to check a specification, this could be used to simply translate
+an expression and retrieve values for which the condition holds.\\
+\\
+\pinfo{Checked using Z3, but returns same values all the time}
+We have looked into this, by using the \textit{Z3} solver. However, the solver
+always returns the same number when executing it multiple times. Which means
+that the 100 values that we would ask from the generator, will be exactly the
+same. A workaround would be to then add the number that was received earlier as
+another constraint, such that 100 unique values are being retrieved. But the
+problem still remains, as executing the same script multiple times results in
+the same values. When changing the seed of the random generator that is being
+used, it will return different values. In order to make the test framework
+execute this behaviour, the value generator has to be changed to integrate with
+the solver. Additionally, this could have a huge effect on time increase that
+the test framework needs to successfully finish.\\
+\\
+
+
+
+
+
+
 % - Tried SMT< didnt work > why?
 % - Generating a limited version by ourselves. Current properties can be covered, and more can be added that are supported too.
 % - Describe how
@@ -46,3 +85,10 @@
 % - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
 % - Existing approaches are available too, we only checked the Z3. But sagemath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
 ...
+
+
+%
+%\pinfo{Other possibilities, future work}
+%There are other solvers available too, or other methods to generate values that
+%match the condition. It would be useful to make the test framework more dynamic
+%when such properties are being used.
