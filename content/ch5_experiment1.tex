@@ -426,7 +426,7 @@ value, causing operations with it to have precision errors. In this case the
 
 % Property coverage
 \pinfo{Not tested implicative properties}
-When looking at the coverage results of the test suite, it is notable that the
+When looking at the coverage results, it is notable that the
 condition for the if-clause of the implicative properties is often not being
 triggered. Resulting in that it always returns \textit{true}, as this is how it
 was specified in the specification (the else-clause of an implicative property).
@@ -538,7 +538,7 @@ The 100 tries to check a property is a fixed number that is being used. But why
 exactly this number and not a higher or lower number? It might be the case that
 some errors are not triggered because of this fixed amount. Running more cases
 might be revealing an additional error, or it might not. In case it doesn't, it
-means that the test suite just requires more time to run the whole test suite,
+means that the test framework just requires more time to run the whole test suite,
 while it does not have an effect on the results. 100 seems to be an amount that
 works such that it consistently reports the same amount of failing tests
 however, this has checked by running it the test runs multiple times, also with

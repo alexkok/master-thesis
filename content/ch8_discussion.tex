@@ -52,12 +52,12 @@ be separated into the following categories:
 \todo{Add division}
 \subsection*{Compilation errors}
 \pinfo{Compilation error, Squants issue}
-The fact that the test suite initially was being terminated was because of a
+The fact that the test framework initially was being terminated was because of a
 compilation error. Although one assumption was that the generated system should
 be able to compile, another assumption we made was that the specification was
 consistent. The specification we created for all the properties is consistent,
 as \textit{Rebel} did not report any syntactic or semantic errors with the type
-checker. The test suite is thus able to find such compilation errors. However,
+checker. The test framework is thus able to find such compilation errors. However,
 there can be many more compilation errors for which we do not check, which is
 also out of the scope of this project. The cause of this error was actually
 caused by an implementation error in an open-source library that the generated
@@ -97,7 +97,7 @@ order to solve this problem, we created an issue on
 related to the precision problems on the \textit{Money} type. A contributor
 responded and fixed the issue within a day, the change will be included in the
 next version of the library (1.4). So it is required to update this library in
-order to let these tests in our test suit pass.
+order to let these tests in our test suite pass.
 
 \todo{Add division}
 
