@@ -3,14 +3,79 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 3: Improving the value generation}
 \label{cpt:experiment3}
+In the second experiment (\autoref{cpt:experiment2}) it was found that the
+property definition for using division with the \textit{Monye} type wasn't clear
+enough in that it couldn't be satisfied the way how it was specified. In this
+experiment we aim to improve this. We update the existing definition such that
+it can now be correctly.\\
+\\
+Another result from the second experiment was that the value generation was not
+very dynamic when new properties were being added. It should be possible to add
+additional properties to the specification, which are then being tested
+automatically by the test framework. To do this, the value generator will be
+updated too, such that it uses the preconditions in the event definitions to
+determine the parameter values. Additional properties can then be added to test
+the generator.
+
+% - Updating properties, more for division
+% - Also adding rounding definition. Now clearer and division actually being tested
 % - Improving dynamicallity
-% - Also improved rounding definition. Now clearer and actually being tested
-% - Maybe adding additional properties?
-...
+% ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
+The property definition of division will be updated for this experiment, because
+the first definition did not take the division problem into account. There was
+also no definition for rounding the value, as the value was expected to hold the
+exact value. We will update the definition by using a round function. By using
+this, the fixed properties can be defined which can then be tested by the test
+framework. These are fixed because these property definitions turned out to be
+incomplete or incorrect in the second experiment (\autoref{cpt:experiment2}).\\
+\\
+Besides updating the property definitions that were using division, additional
+property definitions are being added to test more of the generator. However, as
+we have seen in the second experiment, the values generator was not very
+dynamic. Which resulted in that it had to be modified in case an implicative
+property is being added to the specification. This is the second thing that
+should be improved, such that additional (implicative) properties do not require
+modifications to the values generator.
+
+% % % % % % % % % % % % %
+% Subsection: Updating property definitions
+\subsection{Updating property definitions}
+\todo{Source for division - rounding?}
+\todo{Rephrase}
+\pinfo{Round method}
+Initially there were only 2 property definitions that were using division, which both are being updated. In order to check for the values such that the property definition can be used, we implement a \code{round()} method in the \textit{Rebel} specification. This \textit{round} method is intended to return a value which can be used to define the expected behaviour when using division with the \textit{Money} type.\\
+\\
+\pinfo{Defining, updating and adding more}
+In addition to updating the existing properties that are using division, more properties can be added. For example, properties of inequality when using division, as the ones that were defined for
+division only used equality. Also other properties like the subtraction property can
+be added and more definitions for multiplication and additivity
+can be added to the existing list of property definitions that we defined for \textit{Rebel}. The
+additional property definitions for division, multiplication, additivity and
+subtraction fall under the ``Properties of equality and inequality'' category
+and are defined in \autoref{ssct:properties_definitions_additionalproperties},
+along with the updated definitions for the existing property definitions that
+use division.\\
+\\
+\pinfo{Round method implementation + why}
+The properties using division are now using the \code{round()} method in its definition. \textit{Rebel} does not provide a way to round a value, which is why we need to define the function in the specification. In \textit{Rebel} a function is defined as an expression that is being executed whenever the function is being called. To implement the rounding \todo{HERE} functionality, such that the generated system makes use of this new function, we return the method body as a \textit{String}. Next, we modify the generator such that it generates the method with this body, such that the method also exists in the generated system. As mentioned earlier, \textit{Rebel} doesn't have the functionality to round a value, which is why a modification is needed in order to be able to test the division properties that we have defined.\\
+\\
+
+
+% % % % % % % % % % % % %
+% Improving dynamicallity
+\subsection{Improving dynamicallity}
+...
+
+% - Values generation could be done different: Tried SMT< didnt work > why?
+% - Generating a limited version by ourselves. Current properties can be covered, and more can be added that are supported too.
+% - Describe how
+% - Describe rounding too (modified generator for that)
+% - Describe limitations
+...
 
 % Dynamicallity
 \subsection*{Dynamicallity}
@@ -50,17 +115,10 @@ the test framework needs to successfully finish.\\
 
 
 
-% - Tried SMT< didnt work > why?
-% - Generating a limited version by ourselves. Current properties can be covered, and more can be added that are supported too.
-% - Describe how
-% - Describe rounding too (modified generator for that)
-% - Describe limitations
-...
-
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
 \section{Results}
-% - Run, tests succeed
+% - Run, tests succeed (hopefully)
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -68,8 +126,9 @@ the test framework needs to successfully finish.\\
 \section{Analysis}
 % - Test succeeding provided rounding
 % - Case of rounding down, it fails (bigger number shows difference)
-% ?- Adding properties didn't require a change in the value generator anymore
-% ?- Describe extra failing cases in case we added more
+% - > Thus probably division does this too usualy. FLooring causes difference
+% - Adding properties didn't require a change in the value generator anymore
+% ?- Describe extra failing cases in case there were more
 ...
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -83,7 +142,7 @@ the test framework needs to successfully finish.\\
 % Section: Threats to validity
 \section{Threats to validity}
 % - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
-% - Existing approaches are available too, we only checked the Z3. But sagemath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
+% - Existing approaches are available too, we only checked the Z3. But SageMath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
 ...
 
 
