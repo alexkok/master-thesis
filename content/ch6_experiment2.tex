@@ -409,29 +409,38 @@ the if-clause of these implicative properties.\\
 \pinfo{\# of bugs, 2 more}
 The other criteria we use was the number of bugs that we have found. Using this
 approach 2 more tests were failing compared to the first experiment in
-\autoref{cpt:experiment1}. The bug found was when using division with the
-\textit{Money} type. However, as we have seen in this experiment, the division
-problem was not taken into account when defining the properties. Neither did we define what should happen in this case, . We can categorize this bug into one
-category, rounding errors. These are different from precision errors as the
-precision errors are caused by having an incorrectly calculated value, where
-rounding errors are basically not working with the rounding method that is
-defined\todo{Rounding method}.
+\autoref{cpt:experiment1}. The division problem was not taken into account when
+defining the properties, which resulted  in these failing cases.\\
+\\
+When defining the properties, it was stated that the value should be the exact
+value, while this is not possible with division. This results in a threat to the
+definition of this property. Because of this, we consider the bugs that were
+found as false positives. Although, because of this it might be the case that
+the actual bugs it might be able to find, are being hidden because of this.
+Resulting in false negatives: bugs that exist in the system, but are not found
+by the test framework.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
 \section{Conclusion}
 In this experiment, we generated the input values such that the condition of
 the implicative properties are satisfied. This revealed 2 additional
-failing cases that are triggering the division problem. For example: when
-dividing 1 by 3. The generated system tries to hold the exact value, which
-triggers this situation. It is reasonable that the system tries to hold the
-exact value, however, the rounding method is not taken into account here.
-Furthermore, it is not clear from the specification how this rounding should be
-done.\\
+failing cases that are triggering the division problem. The generated system
+tries to hold the exact value, which triggers this situation. It is reasonable
+that the system tries to hold the exact value. It is also not clear from the
+property definitions what should happen in this case.\\
 \\
 When defining the properties in \autoref{cpt:properties}, we said that a value
-should be precise. However, it is not possible to do this for division. Meaning
-that this has to be defined.
+should be precise. However, it is not possible to do this for all division
+cases. Because of this, we consider the bugs that were found as false positives.
+The definition of the property has to be updated in order to specify what should
+happen in case such a division error occurs. Due to this error, it might be the
+case that existing bugs in the generator are not being detected with this
+approach.\\
+\\
+The property definitions should be updated such that it is known what should
+happen in this case. The definitions of the division property will probably need
+to be updated too. In the next experiment we will focus on improving this.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
@@ -449,6 +458,7 @@ this experiment.
 
 % Detecting precision
 \subsection*{Detecting precision}
+\todo{Update definition}
 In this chapter, we triggered the division problem and found that this can
 cause problems in the generator. It's important to know what the expected result
 would be in this case. A possibility is to define this on the \textit{Rebel}
