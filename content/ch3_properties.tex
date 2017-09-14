@@ -180,7 +180,241 @@ These operations are also available
 when using the \textit{Money} type in \textit{Rebel} and are expected to apply
 these operations on the amount value\footnote{We do not claim that the \textit{Money} type in \textit{Rebel} is a field. As it does not support each described operation when only using \textit{Money}. Instead, we use the field definitions to determine the properties on the \textit{Money} type.}. However, not every combination is possible
 in \textit{Rebel} when it comes to using these operations. This is because \textit{Rebel} does not support certain combinations. We define the following properties in this category:
-\todo{Move to here: Associativity, Commutativity, Identity, Inverse, Distributivity}
+
+% % % % % % % % % % % % %
+% Subsection: Associativity
+\subsection*{Associativity}
+\label{ssct:properties_associativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}           & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} (x + y) + z == x + (y + z) & associativeAddition                  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & z: Money                 \\
+                        (x * y) * z == x * (y * z) & associativeMultiplicationInteger1    & x: Integer               \\
+                                                   &                                      & y: Integer               \\
+                                                   &                                      & z: Money                 \\
+\rowcolor[HTML]{EFEFEF} (x * y) * z == x * (y * z) & associativeMultiplicationInteger2    & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & y: Integer               \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & z: Integer               \\
+                        (x * y) * z == x * (y * z) & associativeMultiplicationPercentage1 & x: Money                 \\
+                                                   &                                      & y: Percentage            \\
+                                                   &                                      & z: Integer               \\
+\rowcolor[HTML]{EFEFEF} (x * y) * z == x * (y * z) & associativeMultiplicationpercentage2 & x: Integer               \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                                      & z: Percentage            \\ \hline
+\end{tabular}
+\caption{Associativity when using \textit{Money}}
+\label{tbl:ch4_money_associativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The law of associativity is known on addition and
+multiplication~\cite{baumgart1961axioms}. It defines that the order in which
+certain operations are done does not affect the result of the whole expression.
+As described in \autoref{sct:properties_property_definitions}, it is not
+possible to use multiplication with only \textit{Money} types. In
+\autoref{tbl:ch4_money_associativity} we define possible combinations for this
+property, which are accepted by the type checker of \textit{Rebel}.
+
+% % % % % % % % % % % % %
+% Subsection: Non-associativity
+\subsection*{Non-associativity}
+\label{ssct:properties_nonassociativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}           & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} (x - y) - z != x - (y - z) & nonassociativity       & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                        & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                            &                        & z: Money                 \\ \hline
+\end{tabular}
+\caption{Non-associativity when using \textit{Money}}
+\label{tbl:ch4_money_nonassociativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+% in tegenstelling tot steen is geen steen stoep
+In contrast to associativity (\nameref{ssct:properties_associativity}),
+non-associativity describes that the order of the arguments does affect the
+result of the whole expression. As we can see in
+\autoref{tbl:ch4_money_nonassociativity} subtraction is a relation where this
+property holds. An exception to this would be when each argument is zero.
+
+% % % % % % % % % % % % %
+% Subsection: Commutativity
+\subsection*{Commutativity}
+\label{ssct:properties_commutativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula} & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x + y == y + x   & commutativeAddition                  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Money                 \\
+                        x * y == y * x   & commutativeMultiplicationInteger1    & x: Integer               \\
+                                         &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationInteger2    & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Integer               \\
+                        x * y == y * x   & commutativeMultiplicationPercentage1 & x: Percentage            \\
+                                         &                                      & y: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationpercentage2 & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                  &                                      & y: Percentage            \\ \hline
+\end{tabular}
+\caption{Commutativity when using \textit{Money}}
+\label{tbl:ch4_money_commutativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+These properties are based on the commutative law~\cite{baumgart1961axioms}.
+The result of an addition or multiplication does not vary when swapping the
+input variables. Because of the \textit{Money} type, we can only do addition on
+\textit{Money} values with other \textit{Money} values. As described in
+\autoref{sct:properties_property_definitions} there is no known value for
+multiplying two \textit{Money} variables, but it is possible to multiply it by
+an \textit{Integer} or \textit{Percentage}. Also in this case, the order
+shouldn't matter if we would put the \textit{Money} value as the first input
+parameter to multiplication or the other way around.
+
+% % % % % % % % % % % % %
+% Subsection: Anticommutativity
+\subsection*{Anticommutativity}
+\label{ssct:properties_anticommutativity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}  & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x - y == -(y - x) & anticommutativity      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                   &                        & y: Money                 \\ \hline
+\end{tabular}
+\caption{Anticommutativity when using \textit{Money}}
+\label{tbl:ch4_money_anticommutativity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+\nameref{ssct:properties_commutativity} described the commutative properties.
+Note that the properties in \nameref{ssct:properties_commutativity} only use
+addition and multiplication. Subtraction is an operation that is anticommutative
+as swapping the order of the two arguments is negates the result. The
+anticommutative property thus negates the result of swapping the two arguments,
+intending to result in the actual value again, as shown in
+\autoref{tbl:ch4_money_anticommutativity}.
+% % % % % % % % % % % % %
+% Subsection: Identity
+\subsection*{Identity}
+\label{ssct:properties_identity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula} & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x + 0 == x       & additiveIdentity1       & x: Money                 \\
+						            0 + x == x       & additiveIdentity2       & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * 1 == x       & multiplicativeIdentity1 & x: Money                 \\
+                        1 * x == x       & multiplicativeIdentity2 & x: Money                 \\ \hline
+\end{tabular}
+\caption{Identity when using \textit{Money}}
+\label{tbl:ch4_money_identity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The identity relation describes a function that returns the same value as the
+value that was given as input. For additivity, this entails the addition of zero
+to the input value and for multiplicativity, this entails multiplying the value
+by 1. Also, the \nameref{ssct:properties_commutativity} property holds here, as
+the order does not matter in which this function is applied. Since it is not
+possible to just add 0 to a \textit{Money} value, the 0 showed in
+\autoref{tbl:ch4_money_identity} must be defined in a \textit{Money} format.
+Thus it must have the same currency as the parameter, with the amount of 0. The
+\textit{Integer} type can be used for multiplication.
+
+% % % % % % % % % % % % %
+% Subsection: Inverse
+\subsection*{Inverse}
+\label{ssct:properties_inverse}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula} & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x + (-x) == 0    & additiveInverse1       & x: Money                 \\
+                        (-x) + x == 0    & additiveInverse2       & x: Money                 \\ \hline
+\end{tabular}
+\caption{Inverse when using \textit{Money}}
+\label{tbl:ch4_money_inverse}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The inverse relation describes (for additivity) that using addition with the
+input parameter and the negative of the input parameter, results in the value
+zero. Note that the operation is used on the \textit{Money} type, so the
+expected value is 0 with the same currency as the currency of the input
+parameter. Although the inverse relation could also be used with multiplication
+and division (defined as \code{x*(1/x) == 0}), it is not possible to use this
+definition in our case. As we cannot divide something by a \textit{Money}
+type, which is why we only define the inverse relation using addition.
+
+% % % % % % % % % % % % %
+% Subsection: Distributivity
+\subsection*{Distributivity}
+\label{ssct:properties_distributivity}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}             & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x * (y + z) == x * y + x * z & distributiveInteger1    & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                              &                         & y: Integer               \\
+\rowcolor[HTML]{EFEFEF}                              &                         & z: Integer               \\
+                        (y + z) * x == y * x + z * x & distributiveInteger2    & x: Integer               \\
+                                                     &                         & y: Money                 \\
+                                                     &                         & z: Money                 \\
+\rowcolor[HTML]{EFEFEF} x * (y + z) == x * y + x * z & distributivePercentage1 & x: Percentage            \\
+\rowcolor[HTML]{EFEFEF}                              &                         & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                              &                         & z: Money                 \\
+                        (y + z) * x == y * x + z * x & distributivePercentage2 & x: Percentage            \\
+                                                     &                         & y: Money                 \\
+                                                     &                         & z: Money                 \\ \hline
+\end{tabular}
+\caption{Distributivity when using \textit{Money}}
+\label{tbl:ch4_money_distributivity}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The law of distributivity is another well-known law~\cite{baumgart1961axioms}.
+Unlike \nameref{ssct:properties_associativity}, the order does matter here when
+using different operations. These operations can be used on \textit{Money} and
+since we can see \textit{Money} as a number, this property is also expected on
+this type. Remember that it is not possible to multiply \textit{Money} types
+with each other, as described in \autoref{sct:properties_property_definitions}.
+Thus the variable types are an important part of these properties, in
+\autoref{tbl:ch4_money_distributivity} property definitions are shown based on
+this property.
 
 % % % % % % % % % % % % %
 % Subsection: Properties of equality and inequality
@@ -190,7 +424,7 @@ The properties in this category are mainly using the equality (==, !=) and
 inequality ($<$, $>$, $\leq$, $\geq$) operators in their definitions. For the
 property names we abbreviate these operations with the naming \textit{LT},
 \textit{GT}, \textit{LET} and \textit{GET} respectively. The following
-property definitions belong to this category.
+property definitions belong to this category:
 \todo{Move to here: Others}
 
 % % % % % % % % % % % % %
@@ -304,71 +538,7 @@ The antisymmetric relation describes that whenever there is a relation from
 in \autoref{tbl:ch4_money_antisymmetry}. This antisymmetric relation is also
 expected to hold, as the \textit{Money} type supports these operations.
 
-% % % % % % % % % % % % %
-% Subsection: Commutativity
-\subsection*{Commutativity}
-\label{ssct:properties_commutativity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula} & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x + y == y + x   & commutativeAddition                  & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Money                 \\
-                        x * y == y * x   & commutativeMultiplicationInteger1    & x: Integer               \\
-                                         &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationInteger2    & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Integer               \\
-                        x * y == y * x   & commutativeMultiplicationPercentage1 & x: Percentage            \\
-                                         &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * y == y * x   & commutativeMultiplicationpercentage2 & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                  &                                      & y: Percentage            \\ \hline
-\end{tabular}
-\caption{Commutativity when using \textit{Money}}
-\label{tbl:ch4_money_commutativity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-These properties are based on the commutative law~\cite{baumgart1961axioms}.
-The result of an addition or multiplication does not vary when swapping the
-input variables. Because of the \textit{Money} type, we can only do addition on
-\textit{Money} values with other \textit{Money} values. As described in
-\autoref{sct:properties_property_definitions} there is no known value for
-multiplying two \textit{Money} variables, but it is possible to multiply it by
-an \textit{Integer} or \textit{Percentage}. Also in this case, the order
-shouldn't matter if we would put the \textit{Money} value as the first input
-parameter to multiplication or the other way around.
 
-% % % % % % % % % % % % %
-% Subsection: Anticommutativity
-\subsection*{Anticommutativity}
-\label{ssct:properties_anticommutativity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula}  & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x - y == -(y - x) & anticommutativity      & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                   &                        & y: Money                 \\ \hline
-\end{tabular}
-\caption{Anticommutativity when using \textit{Money}}
-\label{tbl:ch4_money_anticommutativity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-\nameref{ssct:properties_commutativity} described the commutative properties.
-Note that the properties in \nameref{ssct:properties_commutativity} only use
-addition and multiplication. Subtraction is an operation that is anticommutative
-as swapping the order of the two arguments is negates the result. The
-anticommutative property thus negates the result of swapping the two arguments,
-intending to result in the actual value again, as shown in
-\autoref{tbl:ch4_money_anticommutativity}.
 
 % % % % % % % % % % % % %
 % Subsection: Transitivity
@@ -408,175 +578,11 @@ properties~\cite{raftery2011perspective} on the (in)equality operators should
 still hold on the \textit{Money} type as we can compare the \textit{Money}
 values.
 
-% % % % % % % % % % % % %
-% Subsection: Associativity
-\subsection*{Associativity}
-\label{ssct:properties_associativity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula}           & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} (x + y) + z == x + (y + z) & associativeAddition                  & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & z: Money                 \\
-                        (x * y) * z == x * (y * z) & associativeMultiplicationInteger1    & x: Integer               \\
-                                                   &                                      & y: Integer               \\
-                                                   &                                      & z: Money                 \\
-\rowcolor[HTML]{EFEFEF} (x * y) * z == x * (y * z) & associativeMultiplicationInteger2    & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & y: Integer               \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & z: Integer               \\
-                        (x * y) * z == x * (y * z) & associativeMultiplicationPercentage1 & x: Money                 \\
-                                                   &                                      & y: Percentage            \\
-                                                   &                                      & z: Integer               \\
-\rowcolor[HTML]{EFEFEF} (x * y) * z == x * (y * z) & associativeMultiplicationpercentage2 & x: Integer               \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                                      & z: Percentage            \\ \hline
-\end{tabular}
-\caption{Associativity when using \textit{Money}}
-\label{tbl:ch4_money_associativity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-The law of associativity is known on addition and
-multiplication~\cite{baumgart1961axioms}. It defines that the order in which
-certain operations are done does not affect the result of the whole expression.
-As described in \autoref{sct:properties_property_definitions}, it is not
-possible to use multiplication with only \textit{Money} types. In
-\autoref{tbl:ch4_money_associativity} we define possible combinations for this
-property, which are accepted by the type checker of \textit{Rebel}.
 
-% % % % % % % % % % % % %
-% Subsection: Non-associativity
-\subsection*{Non-associativity}
-\label{ssct:properties_nonassociativity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula}           & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} (x - y) - z != x - (y - z) & nonassociativity       & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                        & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                            &                        & z: Money                 \\ \hline
-\end{tabular}
-\caption{Non-associativity when using \textit{Money}}
-\label{tbl:ch4_money_nonassociativity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-% in tegenstelling tot steen is geen steen stoep
-In contrast to associativity (\nameref{ssct:properties_associativity}),
-non-associativity describes that the order of the arguments does affect the
-result of the whole expression. As we can see in
-\autoref{tbl:ch4_money_nonassociativity} subtraction is a relation where this
-property holds. An exception to this would be when each argument is zero.
 
-% % % % % % % % % % % % %
-% Subsection: Distributivity
-\subsection*{Distributivity}
-\label{ssct:properties_distributivity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula}             & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x * (y + z) == x * y + x * z & distributiveInteger1    & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                              &                         & y: Integer               \\
-\rowcolor[HTML]{EFEFEF}                              &                         & z: Integer               \\
-                        (y + z) * x == y * x + z * x & distributiveInteger2    & x: Integer               \\
-                                                     &                         & y: Money                 \\
-                                                     &                         & z: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * (y + z) == x * y + x * z & distributivePercentage1 & x: Percentage            \\
-\rowcolor[HTML]{EFEFEF}                              &                         & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                              &                         & z: Money                 \\
-                        (y + z) * x == y * x + z * x & distributivePercentage2 & x: Percentage            \\
-                                                     &                         & y: Money                 \\
-                                                     &                         & z: Money                 \\ \hline
-\end{tabular}
-\caption{Distributivity when using \textit{Money}}
-\label{tbl:ch4_money_distributivity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-The law of distributivity is another well-known law~\cite{baumgart1961axioms}.
-Unlike \nameref{ssct:properties_associativity}, the order does matter here when
-using different operations. These operations can be used on \textit{Money} and
-since we can see \textit{Money} as a number, this property is also expected on
-this type. Remember that it is not possible to multiply \textit{Money} types
-with each other, as described in \autoref{sct:properties_property_definitions}.
-Thus the variable types are an important part of these properties, in
-\autoref{tbl:ch4_money_distributivity} property definitions are shown based on
-this property.
 
-% % % % % % % % % % % % %
-% Subsection: Identity
-\subsection*{Identity}
-\label{ssct:properties_identity}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula} & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x + 0 == x       & additiveIdentity1       & x: Money                 \\
-						            0 + x == x       & additiveIdentity2       & x: Money                 \\
-\rowcolor[HTML]{EFEFEF} x * 1 == x       & multiplicativeIdentity1 & x: Money                 \\
-                        1 * x == x       & multiplicativeIdentity2 & x: Money                 \\ \hline
-\end{tabular}
-\caption{Identity when using \textit{Money}}
-\label{tbl:ch4_money_identity}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-The identity relation describes a function that returns the same value as the
-value that was given as input. For additivity, this entails the addition of zero
-to the input value and for multiplicativity, this entails multiplying the value
-by 1. Also, the \nameref{ssct:properties_commutativity} property holds here, as
-the order does not matter in which this function is applied. Since it is not
-possible to just add 0 to a \textit{Money} value, the 0 showed in
-\autoref{tbl:ch4_money_identity} must be defined in a \textit{Money} format.
-Thus it must have the same currency as the parameter, with the amount of 0. The
-\textit{Integer} type can be used for multiplication.
 
-% % % % % % % % % % % % %
-% Subsection: Inverse
-\subsection*{Inverse}
-\label{ssct:properties_inverse}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula} & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x + (-x) == 0    & additiveInverse1       & x: Money                 \\
-                        (-x) + x == 0    & additiveInverse2       & x: Money                 \\ \hline
-\end{tabular}
-\caption{Inverse when using \textit{Money}}
-\label{tbl:ch4_money_inverse}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-The inverse relation describes (for additivity) that using addition with the
-input parameter and the negative of the input parameter, results in the value
-zero. Note that the operation is used on the \textit{Money} type, so the
-expected value is 0 with the same currency as the currency of the input
-parameter. Although the inverse relation could also be used with multiplication
-and division (defined as \code{x*(1/x) == 0}), it is not possible to use this
-definition in our case. As we cannot divide something by a \textit{Money}
-type, which is why we only define the inverse relation using addition.
+
 
 % % % % % % % % % % % % %
 % Subsection: Additivity
