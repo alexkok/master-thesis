@@ -61,8 +61,33 @@ along with the updated definitions for the existing property definitions that
 use division.\\
 \\
 \pinfo{Round method implementation + why}
-The properties using division are now using the \code{round()} method in its definition. \textit{Rebel} does not provide a way to round a value, which is why we need to define the function in the specification. In \textit{Rebel} a function is defined as an expression that is being executed whenever the function is being called. To implement the rounding \todo{HERE} functionality, such that the generated system makes use of this new function, we return the method body as a \textit{String}. Next, we modify the generator such that it generates the method with this body, such that the method also exists in the generated system. As mentioned earlier, \textit{Rebel} doesn't have the functionality to round a value, which is why a modification is needed in order to be able to test the division properties that we have defined.\\
-\\
+The properties using division are now using the \code{round()} method in its d
+efinition. \textit{Rebel} does not provide a way to round a value, which is why
+we need to define the function in the specification. In \textit{Rebel} a
+function is defined as an expression that is being executed whenever the
+function is being called. Unfortunately, there is no way in \textit{Rebel} to
+define the \textit{Scala} implementation of this \textit{round} function. As a
+workaround, we define the implementation as a \textit{String} and modify the
+generator such that the function's implementation is the content of the
+\textit{String} (removing the quotes). The \textit{round} method rounds the
+\textit{Money} value to a maximum of 4 decimals. The fifth decimal is being
+rounded by using ``HALF_UP'' technique
+\todo{Maybe a source or so? Or common knowledge?}. The function implementation
+in the \textit{Rebel} specification is shown in
+\autoref{lst:experiment3_rebel_round_implementation}.
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rebel]
+function round(money: Money): Money =
+    "money.currency(money.amount.setScale(4, RoundingMode.HALF_UP))";
+\end{lstlisting}
+\caption{The updated event definition of the \textit{Symmetric} property}
+\label{lst:experiment3_rebel_round_implementation}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+
 
 
 % % % % % % % % % % % % %
