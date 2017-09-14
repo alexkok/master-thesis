@@ -664,6 +664,99 @@ exactly one of the relations \textit{$<$}, \textit{==}, \textit{$>$} holds. We
 can define a property for this when using \textit{Money}, as shown in
 \autoref{tbl:ch4_money_trichotomy}.
 
+% % % % % % % % % % % % %
+% Subsection: Additional properties of equality and inequality
+\subsection{Additional properties of equality and inequality}
+\label{ssct:properties_definitions_additionalproperties}
+For the third experiment (\autoref{cpt:experiment3}), the property definitions for division have been updated and additional properties have
+been added to the list of defined properties. These extra properties can be put in the category of equality and
+inequality properties and are using the implication ($\implies$) sign in its
+definitions.
+
+% % % % % % % % % % % % %
+% Subsection: Division
+\subsection*{Division}
+\label{ssct:properties_division_updated}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}                                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} round(x * y) == round(z) $\implies$ round(x) == round(z / y) & divisionEquality1      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & y: Integer               \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & z: Money                 \\
+                        round(x) == round(z * y) $\implies$ round(x / y) == round(z) & divisionEquality2      & x: Money                 \\
+                                                                                     &                        & y: Integer               \\
+                                                                                     &                        & z: Money                 \\
+\rowcolor[HTML]{EFEFEF} x == y \&\& z == 0 $\implies$ x / z == y / z                 & divisionEquality3      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
+												x $<$ y \&\& z $>$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityLT1  & x: Money                 \\
+																																										 &                        & y: Integer               \\
+																																										 &                        & z: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $<$ y \&\& z $<$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityLT2  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
+												x $>$ y \&\& z $>$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityGT1  & x: Money                 \\
+																																										 &                        & y: Integer               \\
+																																										 &                        & z: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $>$ y \&\& z $<$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityGT2  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\ \hline
+\end{tabular}
+\caption{Updated definition of Division when using \textit{Money}}
+\label{tbl:properties_money_division_updated}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The initial property definitions for \textit{Division} did not take the division
+problem into account and thus had to be updated. The updated definitions are
+using the \textit{round()} method to prevent the occurrence of the division
+problem. The \textit{round()} method rounds the value to 4 decimals and uses the
+``HALF\_UP'' rounding technique. In addition to this modification, more property
+definitions have been added for division, as shown in
+\autoref{tbl:properties_money_division_updated}.
+
+% % % % % % % % % % % % %
+% Subsection: Additivity
+\subsection*{Additivity}
+\label{ssct:properties_additivity_updated}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula}                             & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additiveEquality        & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & z: Money                 \\
+                        x == y \&\& z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
+                                                                     &                         & y: Money                 \\
+                                                                     &                         & z: Money                 \\
+                                                                     &                         & a: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $<$ y $\implies$ x + z $<$ y + z           & additiveInequalityLT    & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & z: Money                 \\
+                        x $>$ y $\implies$ x + z $>$ y + z           & additiveInequalityGT    & x: Money                 \\
+                                                                     &                         & y: Money                 \\
+                                                                     &                         & z: Money                 \\
+                                                                     &                         & a: Money                 \\ \hline
+\end{tabular}
+\caption{Additivity when using \textit{Money}}
+\label{tbl:properties_money_additivity_updated}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+For additivity, additional property definitions are added that use inequality, 
+as shown in \autoref{tbl:properties_money_additivity_updated}. The existing ones
+(described in the first 2 rows) only used equality in its definitions.
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
 \section{Conclusion}
