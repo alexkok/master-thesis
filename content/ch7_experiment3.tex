@@ -58,7 +58,7 @@ additional property definitions for division, multiplication, additivity and
 subtraction fall under the ``Properties of equality and inequality'' category
 and are defined in \autoref{ssct:properties_definitions_additionalproperties},
 along with the updated definitions for the existing property definitions that
-use division.\\
+use division. \todo{Add added properties by name as list}\\
 \\
 \pinfo{Round method implementation + why}
 The properties using division are now using the \code{round()} method in its d
@@ -88,57 +88,99 @@ function round(money: Money): Money =
 \FloatBarrier
 % End listing
 
-
-
 % % % % % % % % % % % % %
-% Improving dynamicallity
+% Subsection: Improving dynamicallity
 \subsection{Improving dynamicallity}
-...
-
-% - Values generation could be done different: Tried SMT< didnt work > why?
-% - Generating a limited version by ourselves. Current properties can be covered, and more can be added that are supported too.
-% - Describe how
-% - Describe rounding too (modified generator for that)
-% - Describe limitations
-...
-
-% Dynamicallity
-\subsection*{Dynamicallity}
-\pinfo{Not very dynamic}
-The implicative properties are now being tested such that the condition of the
-if-clause is being satisfied. However, the values generator that is being used
-for this is not very dynamic. As it simply checks for the event name and throws
-an exception in case this is not defined for the property yet. This means that
-adding new property definitions to the test framework requires a modification to
-the value generator in case of an implicative property. This makes the test
-framework less dynamic when adding new properties that should be tested on the
-generator.\\
+\pinfo{Using preconditions}
+The additional properties that are being added also using implication in their definitions. In the second experiment (\autoref{cpt:experiment2}), the value generator was not dynamic enough in that it requires modifications for each implicative property that is being added. In this experiment we aim to improve this, by using the defined preconditions to determine the input values.\\
 \\
-\pinfo{Fix: using the preconditions}
-To fix this, it would be better to generate the values by interpreting the
-preconditions such that random values can be determined based on a certain
-condition. Since the \textit{Rebel} toolchain already makes use of a bounded
-model checker to check a specification, this could be used to simply translate
-an expression and retrieve values for which the condition holds.\\
+A custom generator is being created that uses the preconditions to determine the input values. Note that this can be seen as an update to the generator that was created in \autoref{cpt:experiment2}. This value generator parses the preconditions and intends to generate values based on these conditions. Since the expressions inside the preconditions might become quite complex, we focus on a limited version of it, while still satisfying the requirements that are needed for the properties that have been defined in \autoref{cpt:properties}.\\
 \\
-\pinfo{Checked using Z3, but returns same values all the time}
-We have looked into this, by using the \textit{Z3} solver. However, the solver
-always returns the same number when executing it multiple times. Which means
-that the 100 values that we would ask from the generator, will be exactly the
-same. A workaround would be to then add the number that was received earlier as
-another constraint, such that 100 unique values are being retrieved. But the
-problem still remains, as executing the same script multiple times results in
-the same values. When changing the seed of the random generator that is being
-used, it will return different values. In order to make the test framework
-execute this behaviour, the value generator has to be changed to integrate with
-the solver. Additionally, this could have a huge effect on time increase that
-the test framework needs to successfully finish.\\
+Most properties are using single variables in its precondition statements. Some are using expressions on the left-hand or right-hand side of a statement, but not on both sides. The value generator that we implement will not support using expressions on both the left-hand and right-hand side, as generating values matching the condition can become complex. Instead, it requires to only have a variable on one side and either an expression or a variable on the other side.\\
 \\
+The code to generate the tuples of input values is shown in \autoref{lst:experiment3_value_generation_code}. We can separate this process into the following steps:
+\def \valueGeneratorStepOne{Initialize value generation data}
+\def \valueGeneratorStepTwo{Traverse and handle statements}
+\def \valueGeneratorStepThree{Generate values for yet unassigned variables}
+\def \valueGeneratorStepFour{Add values to resulting list}
+\begin{enumerate}
+  \item \valueGeneratorStepOne
+  \item \valueGeneratorStepTwo
+  \item \valueGeneratorStepThree
+  \item \valueGeneratorStepFour
+\end{enumerate}
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rascal]
+public list[list[Expr]] genValues(str eventName, Preconditions? preconditions, list[Parameter] transitionParams, int amount) {
+    println("\> Generating values for event <eventName>");
 
+    list[list[Expr]] valueList = [];
+    for (int i <- [0..amount]) {
+        calculatedParams = (); // Clear old data
+        paramGenData = ("<p.name>" : <p.tipe, -9999.00, 9999.00, true> | p <- transitionParams);
 
+        // Calculating
+        for(/Statement s <- preconditions) {
+            <lhs, rhs, operator> = extractStatementData(s.expr);
+            handleConditionStatement(operator, lhs, rhs);
+        }
 
+        // Check whether all are determined, if not, determine those using the randomValueProps data
+        for (Parameter p <- transitionParams, !calculatedParams["<p.name>"]?) {
+            calculatedParams["<p.name>"] = calculateExpression(p.name);
+        }
 
+        // Add to list
+        valueList += [[getExprForVar("<p.name>") | p <- transitionParams]];
+    }
+    return valueList;
+}
+\end{lstlisting}
+\caption{The updated event definition of the \textit{Symmetric} property}
+\label{lst:experiment3_value_generation_code}
+\end{sourcecode}
+\FloatBarrier
+% End listing
 
+In the following sections we describe each step in detail.
+
+% Initialize value generation data for each variable
+\subsubsection{1. \valueGeneratorStepOne}
+To generate a single value, some data is being hold to keep track of the conditions to which a certain value should when it is being generated. These conditions are minimum value, maximum value and whether the zero value is allowed. Additionally the result type of the variable is stored, used when generating the final value. This data is stored in a tuple and called \textit{RandomValueProps} by using an \textit{alias} in \textit{Rascal}. This definition is shown in \autoref{lst:experiment3_alias_definition_randomvalueprops}.
+% Listing
+\FloatBarrier
+\begin{sourcecode}[!ht]
+\begin{lstlisting}[language=Rascal]
+// Minimum: including. So: if 0, then 0 can be a result value when determining it random.
+// Maximum: including. So: if 10, then 10.00 is max result value when determining random.
+alias RandomValueProps = tuple[Type tipe, real min, real max, bool allowZero];
+\end{lstlisting}
+\caption{The updated event definition of the \textit{Symmetric} property}
+\label{lst:experiment3_alias_definition_randomvalueprops}
+\end{sourcecode}
+\FloatBarrier
+% End listing
+The value generator initializes the \textit{RandomValueProps} for each input variable (\autoref{lst:experiment3_value_generation_code},~Line~7). Setting the minimum and maximum value to a default value and allowing zero by default.
+
+% Traverse statements in the precondition block and handle these based on the expression
+\subsubsection{2. \valueGeneratorStepTwo}
+Each statement in the preconditions block is being checked (\autoref{lst:experiment3_value_generation_code},~Line~9 -13). The \textit{handleStatement()} method handles each statement. The actions done by this method depend on the operators used in the statement that is being handled.\\
+\\
+In case of an expression that only contains variables and uses equality (for example, \textit{x == y}), the value generator assigns a random value to \textit{x} and assigns the same value to \textit{y}. In case of inequality (\textit{x > y}), the value generator also assigns a random value to \textit{x}, but adjusts the minimum or maximum bounds of the \textit{y} value such that it satisfies the condition.\\
+\\
+In case there is an expression on one side (for example, \textit{x * y == z}), the expression will be evaluated first. In this case, random values will be assigned to \textit{x} and \textit{y}. Next, the expression can be evaluated and the result of that is being assigned to \textit{z}. The same is done with inequality relations, but then the minimum or maximum bounds are being set based on the operator.\\
+\\
+Having expressions on both the left-hand and the right-hand side of the expression is unsupported. The \textit{handleStatement()} method will throw an error in case this happens.
+
+% Generate values for yet unassigned variables
+\subsubsection{3. \valueGeneratorStepThree}
+When handling each expression, some variables already get an assigned value. However, some variables might only have their \textit{RandomValueProps} updated but do not have an assigned value yet. In this step these variables, that do not have a value yet, are being assigned a value based on their \textit{RandomValueProps} (\autoref{lst:experiment3_value_generation_code},~Line~15-18).
+
+% Add values to resulting list
+\subsubsection{4. \valueGeneratorStepFour}
+The values that have been determined are being added to the list of generated input values (\autoref{lst:experiment3_value_generation_code},~Line~21). In the end the list is being returned, containing all the generated input values that match the preconditions of the event.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
@@ -169,6 +211,27 @@ the test framework needs to successfully finish.\\
 % - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
 % - Existing approaches are available too, we only checked the Z3. But SageMath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
 ...
+% More reliable solving. Checked but not working as expected. Which is why we did our own generator
+\subsubsection{Using existing solvers}
+\pinfo{BMC possibility, tested. But not working}
+Existing solvers could be used to determine a certain number of input values
+that satisfy the preconditions. Since the \textit{Rebel} toolchain already makes
+use of a bounded model checker to check a specification, this could be used to
+translate an expression and retrieve values for which the condition holds.\\
+\\
+\pinfo{Checked using Z3, but returns same values all the time}
+We have looked into this, by using the \textit{Z3} solver. However, the solver
+always returns the same number when executing it multiple times. Which means
+that the 100 values that we would ask from the generator, will be exactly the
+same. A workaround would be to then add the number that was received earlier as
+additional constraint, such that 100 unique values are being retrieved. But the
+problem still remains, as executing the same script multiple times will result in
+the same values. Another possibility would be to change the seed of the random generator that is being
+used to generate the values, resulting in different values, however, then a random seed should be used each time the solver is being run to make the generated values unique. In order to integrate the solver with the test framework, the value generator has to be changed.\\
+\\
+An update to the value generator is required anyway to determine the input values based on the preconditions. In addition, some existing examples to check a \textit{Rebel} specification already take up some time. Which are probably related to the translations that have to be done and actually running the solver. We have not measured the exact duration of each step in this case, but we expect that generating 100 random input values by using this approach requires some time. Resulting in a huge run time increase for the test framework.\\
+\\
+Other solvers might work better for this approach, but these still require an update to the values generation part of the test framework to integrate with such solvers.
 
 
 %
