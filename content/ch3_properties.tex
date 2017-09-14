@@ -167,8 +167,8 @@ which were added at the third experiment (\autoref{cpt:experiment3}).
 % Subsection: Field properties
 \subsection{Field properties}
 \label{ssct:properties_definitions_fieldproperties}
-The field properties can be compared to the field axioms on real numbers as
-described in~\cite{apostol2007calculus}:
+The field properties define the behavior of addition, multiplication, subtraction and division on rational and real numbers\footnote{https://en.wikipedia.org/wiki/Field_(mathematics)}. As described
+in~\cite{apostol2007calculus}, such operations can be used to determine the sum and the product of such values:
 \begin{quote}
 	``Along with the set \textbf{R} of real numbers we assume the existence of two operations called
 	\textit{addition} and \textit{multiplication}, such that for every pair of real numbers x and y we can form the
@@ -176,13 +176,10 @@ described in~\cite{apostol2007calculus}:
 	denoted by xy or by x . y.''
 	-- ~\cite{apostol2007calculus}
 \end{quote}
-The \textit{addition} and \textit{multiplication} operations are also available
+These operations are also available
 when using the \textit{Money} type in \textit{Rebel} and are expected to apply
-these operations on the amount value. However, not every combination is possible
-in \textit{Rebel} when it comes to using these operations, as described earlier.
-The following properties are using \textit{addition} and/or
-\textit{multiplication} in their definitions.
-\todo{Add footnote noting that: we do not claim to have the exact field properties on the money type, as that is not possible in rebel. Instead, we use these definitions together with other types to define the properties.}
+these operations on the amount value\footnote{We do not claim that the \textit{Money} type in \textit{Rebel} is a field. As it does not support each described operation when only using \textit{Money}. Instead, we use the field definitions to determine the properties on the \textit{Money} type.}. However, not every combination is possible
+in \textit{Rebel} when it comes to using these operations. This is because \textit{Rebel} does not support certain combinations. We define the following properties in this category:
 \todo{Move to here: Associativity, Commutativity, Identity, Inverse, Distributivity}
 
 % % % % % % % % % % % % %
