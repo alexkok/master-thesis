@@ -425,34 +425,35 @@ inequality ($<$, $>$, $\leq$, $\geq$) operators in their definitions. For the
 property names we abbreviate these operations with the naming \textit{LT},
 \textit{GT}, \textit{LET} and \textit{GET} respectively. The following
 property definitions belong to this category:
-\todo{Move to here: Others}
 
 % % % % % % % % % % % % %
-% Subsection: Additional properties of equality and inequality
-\subsection{Additional properties of equality and inequality}
-\label{ssct:properties_definitions_additionalproperties}
-For the third experiment (\autoref{cpt:experiment3}), additional properties have
-been defined to the list. These can be put in the category of equality and
-inequality properties and are using the implication ($\implies$) sign in its
-definitions.
-
-\todo{Add: subtraction, multiplication, addition+ (Inequality), divsion+}
-\subsubsection{Division}
-Due to the second experiment, the property definition for \textit{Division} had
-to be updated, as it did not take the division problem into account. It now
-makes use of a method \code{round()}, which rounds the value to 4 decimals. The
-rounding method used for this is ``HALF\_UP'', because rounding the value down
-might still cause a failure when using big numbers\todo{Reasoning? Why HALF-UP exactly?}.\\
-\\
-In addition to the updated definition, more combinations for the division
-property are defined. In ...\todo{Add table} we show the updated definition,
-along with the added definitions for the division property.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% % % % % % % % % % % %   EXISTING  % % % % % % % % % % % % % % % % % % % % %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\todo[inline]{Put the existing properties into the right category.
-And fix references among them}
+% Subsection: Property of Zero
+\subsection*{Property of Zero}
+\label{ssct:properties_propertyofzero}
+% Table
+\FloatBarrier
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lll}
+\hline
+                        \textbf{Formula} & \textbf{Property name}     & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x * 0 == 0       & multiplicativeZeroProperty1 & x: Money                 \\
+                        0 * x == 0       & multiplicativeZeroProperty2 & x: Money                 \\ \hline
+\end{tabular}
+\caption{Property of Zero when using \textit{Money}}
+\label{tbl:ch4_money_propertyzero}
+\end{table}
+\FloatBarrier
+% End table
+% Reasoning
+The property of zero on multiplication states that if something is multiplied
+by zero, the result will always be zero. Since \textit{Rebel} allows the use of
+multiplication on the \textit{Money} type, it's possible to multiply it by 0.
+The order in which this happens shouldn't matter. Since the value of a
+\textit{Money} variable is based on a decimal number, this property states that
+the value will be exactly 0 (or 0.00 in the representation of a \textit{Money}
+value). It should not contain any decimals that would make the amount bigger
+than zero.
 
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
@@ -538,8 +539,6 @@ The antisymmetric relation describes that whenever there is a relation from
 in \autoref{tbl:ch4_money_antisymmetry}. This antisymmetric relation is also
 expected to hold, as the \textit{Money} type supports these operations.
 
-
-
 % % % % % % % % % % % % %
 % Subsection: Transitivity
 \subsection*{Transitivity}
@@ -578,12 +577,6 @@ properties~\cite{raftery2011perspective} on the (in)equality operators should
 still hold on the \textit{Money} type as we can compare the \textit{Money}
 values.
 
-
-
-
-
-
-
 % % % % % % % % % % % % %
 % Subsection: Additivity
 \subsection*{Additivity}
@@ -594,14 +587,14 @@ values.
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additive               & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & y: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & z: Money                 \\
-                        x == y \&\& z == a $\implies$ x + z == y + a & additive4params        & x: Money                 \\
-                                                                     &                        & y: Money                 \\
-                                                                     &                        & z: Money                 \\
-                                                                     &                        & a: Money                 \\ \hline
+                        \textbf{Formula}                             & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additiveEquality        & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                              &                         & z: Money                 \\
+                        x == y \&\& z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
+                                                                     &                         & y: Money                 \\
+                                                                     &                         & z: Money                 \\
+                                                                     &                         & a: Money                 \\ \hline
 \end{tabular}
 \caption{Additivity when using \textit{Money}}
 \label{tbl:ch4_money_additivity}
@@ -617,35 +610,6 @@ sides remain the same, as shown in \autoref{tbl:ch4_money_symmetry}, it should
 not break the equality property on the resulting values.
 
 % % % % % % % % % % % % %
-% Subsection: Property of Zero
-\subsection*{Property of Zero}
-\label{ssct:properties_propertyofzero}
-% Table
-\FloatBarrier
-\begin{table}[!ht]
-\centering
-\begin{tabular}{lll}
-\hline
-                        \textbf{Formula} & \textbf{Property name}     & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x * 0 == 0       & multiplicativeZeroProperty1 & x: Money                 \\
-                        0 * x == 0       & multiplicativeZeroProperty2 & x: Money                 \\ \hline
-\end{tabular}
-\caption{Property of Zero when using \textit{Money}}
-\label{tbl:ch4_money_propertyzero}
-\end{table}
-\FloatBarrier
-% End table
-% Reasoning
-The property of zero on multiplication states that if something is multiplied
-by zero, the result will always be zero. Since \textit{Rebel} allows the use of
-multiplication on the \textit{Money} type, it's possible to multiply it by 0.
-The order in which this happens shouldn't matter. Since the value of a
-\textit{Money} variable is based on a decimal number, this property states that
-the value will be exactly 0 (or 0.00 in the representation of a \textit{Money}
-value). It should not contain any decimals that would make the amount bigger
-than zero.
-
-% % % % % % % % % % % % %
 % Subsection: Division
 \subsection*{Division}
 \label{ssct:properties_division}
@@ -658,10 +622,10 @@ than zero.
                         \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x * y == z $\implies$ x == z / y & division1              & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                  &                        & y: Integer               \\
-\rowcolor[HTML]{EFEFEF}                                  &                        & y: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                  &                        & z: Money                 \\
                         x == z * y $\implies$ x / y == z & division2              & x: Money                 \\
                                                          &                        & y: Integer               \\
-                                                         &                        & y: Money                 \\ \hline
+                                                         &                        & z: Money                 \\ \hline
 \end{tabular}
 \caption{Division when using \textit{Money}}
 \label{tbl:ch4_money_division}
@@ -685,9 +649,9 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+                        \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} x $<$ y $||$ x == y $||$ x $>$ y & trichotomy             & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                              &                        & y: Money                 \\ \hline
+\rowcolor[HTML]{EFEFEF}                                  &                        & y: Money                 \\ \hline
 \end{tabular}
 \caption{Trichotomy when using \textit{Money}}
 \label{tbl:ch4_money_trichotomy}
