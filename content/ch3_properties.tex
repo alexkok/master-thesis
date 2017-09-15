@@ -690,7 +690,7 @@ definitions.
                         round(x) == round(z * y) $\implies$ round(x / y) == round(z) & divisionEquality2      & x: Money                 \\
                                                                                      &                        & y: Integer               \\
                                                                                      &                        & z: Money                 \\
-\rowcolor[HTML]{EFEFEF} x == y \&\& z == 0 $\implies$ x / z == y / z                 & divisionEquality3      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x == y \&\& z != 0 $\implies$ x / z == y / z                 & divisionEquality3      & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
 												x $<$ y \&\& z $>$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityLT1  & x: Money                 \\
@@ -825,7 +825,7 @@ for subtraction we defined these properties as shown in
 % Reasoning
 The property definitions for multiplication are looking similar to those of
 \nameref{ssct:properties_division_updated}. But these are different in that it
-uses the multiplication operator along with the inequality symbols. 
+uses the multiplication operator along with the inequality symbols.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
