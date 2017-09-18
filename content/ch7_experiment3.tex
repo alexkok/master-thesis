@@ -203,8 +203,8 @@ For this experiment, additional property definitions have been added to test the
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation criteria
 \section{Evaluation criteria}
-% - Same coverage
-
+\pinfo{Not huge diff in coverage. But added props}
+The coverage in this experiment is almost the same as in the second experiment. The implicative properties are checked the same way. In this experiment additional properties were added. The total test coverage is 88,28\% (0,42\% lower than the second experiment), shown in \autoref{fig:experiment3_eval_e3}. This shows that adding additional properties do not increase or decrease the test coverage in big amounts. The small percentage loss can be related to the fact that we do not check the \textit{else} clauses of the implicative properties, which is also not intended to be done.
 % Figure
 \FloatBarrier
 \begin{figure}[!ht]
@@ -212,12 +212,14 @@ For this experiment, additional property definitions have been added to test the
 	\includegraphics[width=\linewidth]{figures/eval_e3}
 %}
 \caption{Test coverage report of the third experiment}
-\label{fig:experiment2_eval_e2}
+\label{fig:experiment3_eval_e3}
 \centering
 \end{figure}
 \FloatBarrier
 % End figure
-
+\pinfo{Branch coverage still 50\%}
+The branch coverage is still reported to be 50\%, while the amount of branches has been increased. This is correct, as the additional properties are using the implication symbol, which is being translated to if-else statements. This introduces these extra branches. As described before, we do not intend to check the else-clause, but are more interested in the if-clause. The consistent report of 50\% branch coverage supports this finding.\\
+\\
 % - No extra bugs found
 \pinfo{No 'extra' bugs found}
 Unfortunately, no additional bugs have been found in this experiment. Additional properties were being used in this experiment compared to the other experiments, but these did not reveal additional bugs. The implicative properties are checked in the same way as in the second experiment, but the values are now generated based on the preconditions of the event definitions in the \textit{Rebel} specification.\\
