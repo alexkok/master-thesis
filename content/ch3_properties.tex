@@ -700,8 +700,8 @@ definitions.
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
 												x $>$ y \&\& z $>$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityGT1  & x: Money                 \\
-																																										 &                        & y: Money                 \\
-																																										 &                        & z: Integer               \\
+                                                                                     &                        & y: Money                 \\
+                                                                                     &                        & z: Integer               \\
 \rowcolor[HTML]{EFEFEF} x $>$ y \&\& z $<$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityGT2  & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\ \hline
@@ -842,20 +842,20 @@ The properties are based on the axioms in algebra, but the requirements of
 \textit{Rebel} have been taken into account when it comes to using certain
 operations with certain types. The defined properties are separated into 2
 categories: ``Field properties'' and ``Properties of equality and inequality''.
-An overview of the defined properties is shown in ...\todo{Add table}
-\footnote{The ellipsis after a property name is used to indicate that the
-property contains multiple definitions. Only the first part of this property
-name is shown for readability.}\\
+%An overview of the defined properties is shown in ...\todo{Add table}
+%\footnote{The ellipsis after a property name is used to indicate that the
+%property contains multiple definitions. Only the first part of this property
+%name is shown for readability.}\\
+%\\
+%\textbf{// ADD TABLE}
 \\
-\textbf{// ADD TABLE}
 \\
-\\
-The properties that we have defined in this chapter will be used to test the
+The properties that are defined in this chapter will be used to test the
 generator. However, it is not true that there are no bugs in the generator in
 case every property holds. It does mean that there were no errors found in the
-properties that are being checked. Many properties can be defined within a
-language, the properties defined here are certainly not all the properties that
-exist in \textit{Rebel}.
+properties that are being checked. Many properties can be defined within the
+\textit{Rebel} language, the properties defined in this chapter are certainly
+not all the properties that exist in \textit{Rebel}.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
