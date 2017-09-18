@@ -517,7 +517,9 @@ In this first experiment, we tested each property that was defined in
 test suite terminated due to a compilation error. After disabling the causing
 property (temporarily), a total of 7 tests were failing. In this experiment, we
 managed to find precision errors and overflow/underflow errors. Additionally, we
-found a compilation error when using a property which was expected to hold.\\
+found a compilation error when using a property which was expected to hold. The
+precision errors that were related to the \textit{Money} type were reported.
+These bugs are fixed in the next version of the generator.\\
 \\
 \pinfo{Implicative properties not tested}
 Although many properties were tested successfully, the test framework also

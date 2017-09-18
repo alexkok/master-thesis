@@ -15,12 +15,11 @@ additional properties to the specification, which are then being tested
 automatically by the test framework. To do this, the value generator will be
 updated too, such that it uses the preconditions in the event definitions to
 determine the parameter values. Additional properties can then be added to test
-the generator.
-
-% - Updating properties, more for division
-% - Also adding rounding definition. Now clearer and division actually being tested
-% - Improving dynamicallity
-% ...
+the generator.\\
+\\
+In this experiment we will use an updated version of the generator. In this
+version the precision errors that were found in the first experiment are fixed,
+such that we can focus on possible additional errors that might occur.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
@@ -186,7 +185,7 @@ The values that have been determined are being added to the list of generated in
 % Section: Results
 \section{Results}
 % - Run, tests succeed (hopefully)
-Running the test framework with the addition of the additional properties (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. The log is shown in \_\_\_. Note that this is the case when using a version of the generator in which the precision problems in the \textit{Money} type are fixed. When running the test framework without these fixes, more tests are failing.
+Running the test framework with the addition of the additional properties (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. The log is shown in \_\_\_. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).
 \todo{Add log}
 \\
 \\
@@ -197,10 +196,10 @@ Running the test framework with the addition of the additional properties (\auto
 % - Test succeeding provided rounding
 % - Case of rounding down, it fails (bigger number shows difference)
 % - > Thus probably division does this too usually. FLooring causes difference
-The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is expected. Changing the number to 6 or 8 decimals do not change the results when looking at the amount of tests failing \todo{Check: is this true?}. However, changing the rounding mode would affect the results. When using ``DOWN'' as rounding mode, the tests are failing that are using the \textit{round()} method \todo{Check: All division tests or just 'some'?}. This can be seen in \_\_\_, where ``DOWN'' is being used as rounding mode.\\
+The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is expected. Changing the number to 6 or 8 decimals do not change the results when looking at the amount of tests failing \todo{Check: is this true?}. However, changing the rounding mode would affect the results. When using ``DOWN'' as rounding mode, the tests that use the \textit{round()} method are failing\todo{Check: All division tests or just 'some'?}. This can be seen in \_\_\_, where ``DOWN'' is being used as rounding mode.\\
 \todo{Add log}
 \\
-We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations. When using the ``DOWN'' rounding mode, the resulting value is sometimes off with a value of 0.001, which is caused by this rounding mode.
+We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations. When using the ``DOWN'' rounding mode, the resulting value is sometimes off with a difference value of 0.001, which is caused by this rounding mode.
 \\
 % - Adding properties didn't require a change in the value generator anymore
 For this experiment, additional property definitions have been added to test the generator. The value generator now determines the values based on the preconditions of the properties. Thus the additional properties used in this experiment did not require more effort than defining these in the \textit{Rebel} specification. Compared to the second experiment (\autoref{cpt:experiment2}) this is a huge improvement, as it does not require the developer to modify the value generator in case implicative properties are being added.
