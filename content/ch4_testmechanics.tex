@@ -504,9 +504,7 @@ report could report the test coverage incorrectly, causing it to be a threat for
 our evaluation.\\
 \\
 We are using random data as input. Because of this, the results of the test
-coverage can fluctuate by small amounts in each run. However, we can still
-reason about the differences when there is a big difference between certain
-experiments. Additional to the coverage we used the number of bugs that were
+coverage could fluctuate by small amounts in each run. However, multiple runs often report the same coverage. Because of this, we run the test framework multiple times in each experiment and take the results that are equal over multiple runs for our evaluation. Additional to the coverage we used the number of bugs that were
 found as another metric. This metric depends on which system the test suite is
 being run and if the system already fixed the bugs that the test suite would
 find. It is also the case that after fixing the bugs that were found earlier,
