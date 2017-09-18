@@ -444,7 +444,7 @@ were not checked at all.
 \FloatBarrier
 \begin{figure}[!ht]
 %\frame{
-	\includegraphics[width=\linewidth]{figures/experiment1_coverage_implicative_property}
+	\includegraphics[width=\linewidth]{figures/e1_coverage_implicative_property}
 %}
 \caption{Test coverage of an implicative property (\textit{TransitiveEquality})}
 \label{fig:experiment1_coverage_implicative_property}
@@ -457,13 +457,13 @@ were not checked at all.
 The first criteria to evaluate an experiment was to determine the test
 coverage. The implicative properties are not covered when using random
 values as input data. The other properties, which do not use implication, are
-fully tested though. In \autoref{fig:experiment1_evaluation_result} the results of the coverage report are shown, with a total of 87,80\% coverage. The files with a name
+fully tested though. In \autoref{fig:experiment1_evaluation_result} the results of the coverage report are shown, with a total of 87,80\% coverage. The file with its name
 ending with ``Logic'' contain the implementation of the properties. The other 12,20\% code is not tested, but this part is also not related to the implementation of the properties. Because of this, it is not required to achieve the full 100\% coverage. Note that the coverage does not include the coverage over the libraries that the system uses. Some implementation details are depended on the libraries that the generated system use, thus it can not be concluded that 87,80\% of the system is now tested.
 % Figure
 \FloatBarrier
 \begin{figure}[!ht]
 %\frame{
-	\includegraphics[width=\linewidth]{figures/eval_experiment1}
+	\includegraphics[width=\linewidth]{figures/eval_e1}
 %}
 \caption{Test coverage report of the first experiment}
 \label{fig:experiment1_evaluation_result}
@@ -471,8 +471,8 @@ ending with ``Logic'' contain the implementation of the properties. The other 12
 \end{figure}
 \FloatBarrier
 % End figure
-The branch coverage is reported to be 66,67\%. This is caused by the implicative properties that are being translated to \textit{if-else} statements, where the \textit{else} branch is translated to \textit{true}. Furthermore the coverage could be increased as not every part of the condition of implicative properties are being checked, as we have seen in \autoref{fig:experiment1_coverage_implicative_property}.
-
+The branch coverage is reported to be 66,67\%. This is caused by the implicative properties that are being translated to \textit{if-else} statements, where the \textit{else} branch is translated to \textit{true}. Furthermore the coverage could be increased as not every part of the condition of implicative properties are being checked, as we have seen in \autoref{fig:experiment1_coverage_implicative_property}.\\
+\\
 % % of bugs
 \pinfo{\# of bugs, 8}
 The second criterion that we defined is the number of bugs that we have found
