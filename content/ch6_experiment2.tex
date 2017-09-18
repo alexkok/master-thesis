@@ -353,19 +353,22 @@ to the result from \textit{Scala}.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation criteria
 \section{Evaluation criteria}
+\pinfo{Using 'fixed' version for evaluating}
+To evaluate this experiment, we use the version of the generator in which the precision problems related to the \textit{Money} type are fixed. This is done because otherwise the precision errors would cause more tests to fail and the report would indicate a lower amount of coverage.\\
+\\
 \pinfo{Property coverage}
-When looking at the coverage report concerning a specific property, it can be
-seen that the else-clause of the implication is not being triggered anymore. In
+When looking at the coverage report concerning a specific implicative property,
+it can be seen that the else-clause of the implication is not being triggered
+anymore. This was also the intention of the modification done in this
+experiment, as the if-clause is actually what we wanted to check in this
+experiment. In
 \autoref{fig:experiment2_eval_e2_highlighting_transitive-equality} the coverage
-of \textit{TransitiveEquality} is shown, note that only the else condition
-(which was translated to \textit{false}) is not triggered by the test suite.
-This was also the intention of the modification used in this experiment, as the
-if-clause is actually what we wanted to check in this experiment.
+highlighting of \textit{TransitiveEquality} is shown.
 % Figure
 \FloatBarrier
 \begin{figure}[!ht]
 %\frame{
-	\includegraphics[width=\linewidth]{figures/eval_e2_transitive-equality}
+	\includegraphics[width=\linewidth]{figures/e2_coverage_implicative_property}
 %}
 \caption{Test coverage for \textit{TransitiveEquality} in second experiment}
 \label{fig:experiment2_eval_e2_highlighting_transitive-equality}
@@ -375,20 +378,15 @@ if-clause is actually what we wanted to check in this experiment.
 % End figure
 
 % Evaluation criteria
-\pinfo{74\% on conditionals. Others remain the same - image}
+\pinfo{88,87\% - image}
 The expectation was that the test framework could be improved, such that the
 test coverage on the generated system would become higher. In the first
-experiment we found that the implicative properties were not tested thoroughly.
-In this experiment these properties are triggering the if-clause of the
-properties using implication, thus we expect the test coverage to be higher when
-looking at the coverage of the properties. This also follows from the results,
-as we can see in \autoref{fig:experiment2_eval_e2}, the test coverage when
-looking at the logic file of the implicative properties is 74\%.
+experiment we found that the implicative properties were not tested thoroughly. This is what has been improved in this experiment. The coverage report does not indicate a huge difference compared to the first experiment (\autoref{cpt:experiment1}). The total test coverage is 88,87\%, which is slightly higher than the results in the first experiment. The report is shown in \autoref{fig:experiment2_eval_e2}. Note that the properties have been categorized in this experiment, this is also visible in the coverage report (the two ``Logic'' files, one for each category).
 % Figure
 \FloatBarrier
 \begin{figure}[!ht]
 %\frame{
-	\includegraphics[width=\linewidth]{figures/eval_experiment2}
+	\includegraphics[width=\linewidth]{figures/eval_e2}
 %}
 \caption{Test coverage report of the first experiment}
 \label{fig:experiment2_eval_e2}
@@ -396,21 +394,18 @@ looking at the logic file of the implicative properties is 74\%.
 \end{figure}
 \FloatBarrier
 % End figure
-\pinfo{Coverage, 85\% (overall), better}
-The total test coverage on the generated system is reported to be 85\%. As we
-have discussed in the evaluation of the first experiment, we do not expect to
-reach the 100\% coverage, as there are certain components in the generated
-system which we do not test with this approach. Also, considering that the
+\pinfo{Branch coverage, 50\%}
+It is notable from the coverage report that the branch coverage is exactly 50\%. This amount is lower than what it was in the first experiment. However, in this experiment the implicative properties are being tested thoroughly, which was not the case in the first experiment. Considering that the
 else-clause of the implicative properties is not being triggered, the test
 coverage will never become 100\%. Which is not a problem in that sense, as we
 don't intend to test the else clause, we are more interested in the result of
-the if-clause of these implicative properties.\\
+the if-clause of these implicative properties. This is also true for the branch coverage, which can be expected to be 50\%. Although the first experiment reported a higher amount for this, it was not testing the implicative properties good enough in the first experiment.\\
 \\
-\pinfo{\# of bugs, 2 more}
+\pinfo{\# of bugs, 2 more, incorrect definition}
 The other criteria we use was the number of bugs that we have found. Using this
 approach 2 more tests were failing compared to the first experiment in
 \autoref{cpt:experiment1}. The division problem was not taken into account when
-defining the properties, which resulted  in these failing cases.\\
+defining the properties, which resulted in these failing cases.\\
 \\
 When defining the properties, it was stated that the value should be the exact
 value, while this is not possible with division. This results in a threat to the
@@ -439,14 +434,12 @@ case that existing bugs in the generator are not being detected with this
 approach.\\
 \\
 The property definitions should be updated such that it is known what should
-happen in this case. The definitions of the division property will probably need
-to be updated too. In the next experiment we will focus on improving this.
+happen in this case. In the next experiment we will focus on improving this.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
 
-\todo{Add threat: Running multiple times sometimes causes invalid values when using GT and LT. High probability that this is caused by the random operation. (can be added to the point below here)}
 % Incorrect value generation
 \subsection*{Incorrect value generation}
 We have implemented a custom value generator to generate values for each test
@@ -454,22 +447,23 @@ case. Furthermore, a random operation is being done on these values to make
 these random again. There could be an error in the implementation that incorrect
 values are being created, which are expected to be correct values. When this is
 the case, the traceability of how the values were created is hard. This might
-affect the results or make some errors hard to trace back. We have seen this in
-this experiment.
+affect the results or make some errors hard to trace back.\\
+\\
+We have seen such an error when running this experiment multiple times. It sometimes happened that there were additional tests failing. Although these do not trigger in every run, leaving it as a threat to this approach. The error that caused these test to fail was that the preconditions are not met. This was only the case for some properties that are using ``smaller than'' ($<$) and ``greater than'' ($>$) in its definitions. The input values are set to all zeros, which results in the condition $0 > 0$, which results in \textit{false}. There is a high probability that this is caused by the random operation that is being done to mutate the input values. As mentioned earlier, the traceability for this is hard and since it does not happen regularly, fixing this issue is left as future work. Leaving it as a threat to our results.
 
 % Detecting precision
-\subsection*{Detecting precision}
-\todo{Update definition}
-In this chapter, we triggered the division problem and found that this can
-cause problems in the generator. It's important to know what the expected result
-would be in this case. A possibility is to define this on the \textit{Rebel}
-language or to make such rounding and precision definitions part of the
-specification. Currently, it is unclear what should happen in this situation. We
-concluded that the generator doesn't take the rules on precision and rounding,
-that we have defined in \autoref{cpt:properties}, are not taken into account.
-And that it currently uses a lower precision. The precision we defined is
-perhaps not expected for \textit{Rebel} specifications, leaving it as a threat
-for this approach.
+%\subsection*{Detecting precision}
+%\todo{Update definition}
+%In this chapter, we triggered the division problem and found that this can
+%cause problems in the generator. It's important to know what the expected result
+%would be in this case. A possibility is to define this on the \textit{Rebel}
+%language or to make such rounding and precision definitions part of the
+%specification. Currently, it is unclear what should happen in this situation. We
+%concluded that the generator doesn't take the rules on precision and rounding,
+%that we have defined in \autoref{cpt:properties}, are not taken into account.
+%And that it currently uses a lower precision. The precision we defined is
+%perhaps not expected for \textit{Rebel} specifications, leaving it as a threat
+%for this approach.
 % Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
 
 % Implicative properties
