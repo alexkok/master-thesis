@@ -430,7 +430,7 @@ When looking at the coverage results, it is notable that the
 condition for the if-clause of the implicative properties is often not being
 triggered. Resulting in that it always returns \textit{true}, as this is how it
 was specified in the specification (the else-clause of an implicative property).
-This is due to the random values that are being used as input. An example of
+This is caused by the random values that are being used as input. An example of
 this is the \textit{TransitiveEquality} property
 (\code{x == y \&\& y == z $\implies$ x == z}). When relying on random data,
 there is a seldom chance that 3 values are equal to each other. Thus we could
@@ -454,18 +454,11 @@ were not checked at all.
 % End figure
 
 % Total coverage
-\pinfo{Test coverage, 30\% for implicative, 100\% for others}
 The first criteria to evaluate an experiment was to determine the test
 coverage. The implicative properties are not covered when using random
 values as input data. The other properties, which do not use implication, are
-fully tested though. This can be seen in
-\autoref{fig:experiment1_evaluation_result}, where the test coverage of the
-implicative properties only covers roughly 30\%. The files with a name
-ending with ``Logic'' contain the implementation of the properties, as well as the
-precondition checks. The test coverage concerning the other properties (those
-that do not use implication), reports 95\% coverage. When investigating further,
-the other 5\% are not related to the properties that we test, thus it is not
-required for this project to achieve 100\% coverage on the Logic files.
+fully tested though. In \autoref{fig:experiment1_evaluation_result} the results of the coverage report are shown, with a total of 87,80\% coverage. The files with a name
+ending with ``Logic'' contain the implementation of the properties. The other 12,20\% code is not tested, but this part is also not related to the implementation of the properties. Because of this, it is not required to achieve the full 100\% coverage. Note that the coverage does not include the coverage over the libraries that the system uses. Some implementation details are depended on the libraries that the generated system use, thus it can not be concluded that 87,80\% of the system is now tested.
 % Figure
 \FloatBarrier
 \begin{figure}[!ht]
@@ -478,24 +471,17 @@ required for this project to achieve 100\% coverage on the Logic files.
 \end{figure}
 \FloatBarrier
 % End figure
-\pinfo{Overall 68\%, cannot be 100, but can be improved}
-The overall coverage of the generated system is 68\%. Note that the libraries
-that are being used by the generated system are not included in the coverage
-report. We expect that this number can be improved by generating values such
-that the implicative properties are also triggering the if-clause. Which
-is currently not the case, as we have seen when checking the coverage of an
-implicative property in
-\autoref{fig:experiment1_coverage_implicative_property}.\\
-\\
+The branch coverage is reported to be 66,67\%. This is caused by the implicative properties that are being translated to \textit{if-else} statements, where the \textit{else} branch is translated to \textit{true}. Furthermore the coverage could be increased as not every part of the condition of implicative properties are being checked, as we have seen in \autoref{fig:experiment1_coverage_implicative_property}.
+
 % % of bugs
-\pinfo{\# of bugs, 7}
+\pinfo{\# of bugs, 8}
 The second criterion that we defined is the number of bugs that we have found
-by doing the experiment. By using this approach we found a total of 7 bugs. A
-compilation error, overflow/underflow errors and precision errors. Some
+by doing the experiment. By using this approach we found a total of 8 bugs. A
+compilation error (1x), overflow/underflow errors (2x) and precision errors (5x). Many of these
 precision errors originated from the library that is used for the \textit{Money}
 type, for which we created an issue on
 \textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}. An
-improvement of the test suite to also cover the implicative properties might
+improvement of the test framework to also cover the implicative properties might
 result in more bugs that can be found.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -511,7 +497,7 @@ result in more bugs that can be found.
 %	 - DistributiveInt1: When using Addition on Ints
 % 3: Percentage is double, causing big values to lose precision, which can cascade through the expressions
 %	 - AssociativeMultiplicationPercentage1: Multiplying Percentage with Int, causing a big Double value with precision loss. Squants cannot guess the actual number anymore
-\pinfo{Recap, found 7 bugs using this approach}
+\pinfo{Recap, found 8 bugs using this approach}
 In this first experiment, we tested each property that was defined in
 \autoref{cpt:properties} 100 times with using random values as input. First, the
 test suite terminated due to a compilation error. After disabling the causing
