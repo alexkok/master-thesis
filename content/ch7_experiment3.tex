@@ -43,8 +43,6 @@ modifications to the values generator.
 % % % % % % % % % % % % %
 % Subsection: Updating property definitions
 \subsection{Updating property definitions}
-\todo{Source for division - rounding?}
-\todo{Rephrase}
 \pinfo{Round method}
 Initially there were only 2 property definitions that were using division, which both are being updated. In order to check for the values such that the property definition can be used, we implement a \code{round()} method in the \textit{Rebel} specification. This \textit{round} method is intended to return a value which can be used to define the expected behaviour when using division with the \textit{Money} type.\\
 \\
@@ -70,7 +68,7 @@ workaround, we define the implementation as a \textit{String} and modify the
 generator such that the function's implementation is the content of the
 \textit{String} (removing the quotes). The \textit{round} method rounds the
 \textit{Money} value to a maximum of 4 decimals. The fifth decimal is being
-rounded by using ``HALF_UP'' technique
+rounded by using ``HALF\_UP'' technique
 \todo{Maybe a source or so? Or common knowledge?}. The function implementation
 in the \textit{Rebel} specification is shown in
 \autoref{lst:experiment3_rebel_round_implementation}.
@@ -167,7 +165,7 @@ The value generator initializes the \textit{RandomValueProps} for each input var
 \subsubsection{2. \valueGeneratorStepTwo}
 Each statement in the preconditions block is being checked (\autoref{lst:experiment3_value_generation_code},~Line~9 -13). The \textit{handleStatement()} method handles each statement. The actions done by this method depend on the operators used in the statement that is being handled.\\
 \\
-In case of an expression that only contains variables and uses equality (for example, \textit{x == y}), the value generator assigns a random value to \textit{x} and assigns the same value to \textit{y}. In case of inequality (\textit{x > y}), the value generator also assigns a random value to \textit{x}, but adjusts the minimum or maximum bounds of the \textit{y} value such that it satisfies the condition.\\
+In case of an expression that only contains variables and uses equality (for example, \textit{x == y}), the value generator assigns a random value to \textit{x} and assigns the same value to \textit{y}. In case of inequality (\textit{x $>$ y}), the value generator also assigns a random value to \textit{x}, but adjusts the minimum or maximum bounds of the \textit{y} value such that it satisfies the condition.\\
 \\
 In case there is an expression on one side (for example, \textit{x * y == z}), the expression will be evaluated first. In this case, random values will be assigned to \textit{x} and \textit{y}. Next, the expression can be evaluated and the result of that is being assigned to \textit{z}. The same is done with inequality relations, but then the minimum or maximum bounds are being set based on the operator.\\
 \\
@@ -185,10 +183,9 @@ The values that have been determined are being added to the list of generated in
 % Section: Results
 \section{Results}
 % - Run, tests succeed (hopefully)
-Running the test framework with the addition of the additional properties (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. The log is shown in \_\_\_. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).
-\todo{Add log}
+Running the test framework with the addition of the additional properties (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).\\
 \\
-\\
+There are still 3 failing tests, these are not fixed in the generator yet. These bugs have already been reported in the first experiment and thus are not new in this experiment.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
@@ -196,10 +193,9 @@ Running the test framework with the addition of the additional properties (\auto
 % - Test succeeding provided rounding
 % - Case of rounding down, it fails (bigger number shows difference)
 % - > Thus probably division does this too usually. FLooring causes difference
-The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is expected. Changing the number to 6 or 8 decimals do not change the results when looking at the amount of tests failing \todo{Check: is this true?}. However, changing the rounding mode would affect the results. When using ``DOWN'' as rounding mode, the tests that use the \textit{round()} method are failing\todo{Check: All division tests or just 'some'?}. This can be seen in \_\_\_, where ``DOWN'' is being used as rounding mode.\\
-\todo{Add log}
+The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is expected. Changing the precision number to 6 or 8 decimals do not change the results when looking at the amount of tests failing \todo{Check: is this true?}. Also, changing the rounding mode to ``DOWN'' does not affect the results. But using a bigger precision in combination with another rounding mode, such as ``FLOOR'' or ``TOP'', can result in some failing tests. This is being caused by an edge case in which the difference would be slightly off between the two values.\\
 \\
-We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations. When using the ``DOWN'' rounding mode, the resulting value is sometimes off with a difference value of 0.001, which is caused by this rounding mode.
+We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations and this mode is also a commonly used with rounding numbers\todo{Claim? Source? Or 'known'?}. One might want to use the ``DOWN'' rounding mode because a bank might want to prevent losing money because of this issue. It can be changed in the \textit{Rebel} specification when needed.
 \\
 % - Adding properties didn't require a change in the value generator anymore
 For this experiment, additional property definitions have been added to test the generator. The value generator now determines the values based on the preconditions of the properties. Thus the additional properties used in this experiment did not require more effort than defining these in the \textit{Rebel} specification. Compared to the second experiment (\autoref{cpt:experiment2}) this is a huge improvement, as it does not require the developer to modify the value generator in case implicative properties are being added.
@@ -208,9 +204,33 @@ For this experiment, additional property definitions have been added to test the
 % Section: Evaluation criteria
 \section{Evaluation criteria}
 % - Same coverage
+
+% Figure
+\FloatBarrier
+\begin{figure}[!ht]
+%\frame{
+	\includegraphics[width=\linewidth]{figures/eval_e3}
+%}
+\caption{Test coverage report of the third experiment}
+\label{fig:experiment2_eval_e2}
+\centering
+\end{figure}
+\FloatBarrier
+% End figure
+
 % - No extra bugs found
+\pinfo{No 'extra' bugs found}
+Unfortunately, no additional bugs have been found in this experiment. Additional properties were being used in this experiment compared to the other experiments, but these did not reveal additional bugs. The implicative properties are checked in the same way as in the second experiment, but the values are now generated based on the preconditions of the event definitions in the \textit{Rebel} specification.\\
+\\
 %   > but increased dynamicallity. We have shown that additional properties can now be added to check, without needing to update the test framework
-...
+The properties that have been added did not require changes in the value generator anymore. Instead, these had to be defined in the \textit{Rebel} specification and the test framework automatically determines the values for it. This is an improvement compared to the second experiment, as there it would be required to update the value generator whenever an implicative property is being added. There are some limitations on the value generator, for example, it does not support complex expressions as preconditions. This is also not needed for current set of property definitions and might or might not be needed in the future. Because of this, we leave the implementation for supporting complex expressions in the value generation as future work.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Conclusion
+\section{Conclusion}
+This experiment focused on improving the value generation such that it is not required to update the test framework whenever an implicative property is being added to the \textit{Rebel} specification. The value generator now uses the statements in the precondition block to determine the input values, which hereby satisfy the preconditions. We have shown that this increased the dynamicallity by adding additional property definitions. Adding these properties to the test framework was only a matter of translating those into the \textit{Rebel} specification.\\
+\\
+This experiment did not reveal extra bugs in the generator, but we have shown that adding more property definitions does not require an update to the test framework when it comes to implicative properties. However, there are still some limitations when it comes to the value generation. It does not work with complex expressions as preconditions.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
