@@ -78,7 +78,6 @@ is being rounded by using the ``HALF\_UP'' rounding mode
 \textit{Rebel} specification is shown in
 \autoref{lst:experiment3_rebel_round_implementation}.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
 function round(money: Money): Money =
@@ -112,7 +111,6 @@ The code to generate the tuples of input values is shown in \autoref{lst:experim
   \item \valueGeneratorStepFour
 \end{enumerate}
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rascal]
 public list[list[Expr]] genValues(str eventName, Preconditions? preconditions, list[Parameter] transitionParams, int amount) {
@@ -152,7 +150,6 @@ In the following sections we describe each step in detail.
 \subsubsection{1. \valueGeneratorStepOne}
 To generate a single value, some data is being hold to keep track of the conditions to which a certain value should when it is being generated. These conditions are minimum value, maximum value and whether the zero value is allowed. Additionally the result type of the variable is stored, used when generating the final value. This data is stored in a tuple and called \textit{RandomValueProps} by using an \textit{alias} in \textit{Rascal}. This definition is shown in \autoref{lst:experiment3_alias_definition_randomvalueprops}.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rascal]
 // Minimum: including. So: if 0, then 0 can be a result value when determining it random.
@@ -211,7 +208,6 @@ For this experiment, additional property definitions have been added to test the
 \pinfo{Not huge diff in coverage. But added props}
 The coverage in this experiment is almost the same as in the second experiment. The implicative properties are checked the same way. In this experiment additional properties were added. The total test coverage is 88,28\% (0,42\% lower than the second experiment), shown in \autoref{fig:experiment3_eval_e3}. This shows that adding additional properties do not increase or decrease the test coverage in big amounts. The small percentage loss can be related to the fact that we do not check the \textit{else} clauses of the implicative properties, which is also not intended to be done.
 % Figure
-\FloatBarrier
 \begin{figure}[!ht]
 %\frame{
 	\includegraphics[width=\linewidth]{figures/eval_e3}

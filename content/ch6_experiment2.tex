@@ -38,7 +38,6 @@ event definition of the \textit{Symmetric} property is shown in
 \autoref{lst:experiment2_updated_definition} for example. Where the
 preconditions have been added to the event definition.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
 event symmetric(x: Money, y:Money) {
@@ -75,7 +74,6 @@ parameter of these methods is a way how we can pattern match on the event name
 in \textit{Rascal}. In case the event couldn't be handled, an exception is
 thrown.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rascal]
 private list[Expr] genTestValueForEvent("Symmetric") {
@@ -120,7 +118,6 @@ mutated by the same operation. In
 \autoref{lst:experiment2_second_resulting_test} an example of a generated test
 case is shown.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Scala]
 "work with Antisymmetry" in {
@@ -173,7 +170,6 @@ failing properties and the used input values are shown in
 that the precondition was not met when using these input values, as shown in
 \autoref{lst:experiment2_log_first_run}.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{llll}
@@ -189,7 +185,6 @@ Division2              & -44.68 USD    & 870        & -38870.47  \\ \hline
 % End table
 
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Log]
 [info] MoneyConditionals
@@ -249,7 +244,6 @@ The log reported that one case still fails on the precondition check, while the
 other case just reports values for which the result is \textit{false}, as shown
 in \autoref{lst:experiment2_log_second_run}.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{llll}
@@ -267,7 +261,6 @@ Division2              & -3328.8254545454... USD & -129       & 25.8048484848...
 % End table
 
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Log]
 [info] MoneyConditionalsSpec:
@@ -312,7 +305,6 @@ calculation steps are shown in
 \textit{Division1} property is defined as \code{x*y == z $\implies$ x == z/y}.
 
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -365,7 +357,6 @@ experiment. In
 \autoref{fig:experiment2_eval_e2_highlighting_transitive-equality} the coverage
 highlighting of \textit{TransitiveEquality} is shown.
 % Figure
-\FloatBarrier
 \begin{figure}[!ht]
 %\frame{
 	\includegraphics[width=\linewidth]{figures/e2_coverage_implicative_property}
@@ -383,7 +374,6 @@ The expectation was that the test framework could be improved, such that the
 test coverage on the generated system would become higher. In the first
 experiment we found that the implicative properties were not tested thoroughly. This is what has been improved in this experiment. The coverage report does not indicate a huge difference compared to the first experiment (\autoref{cpt:experiment1}). The total test coverage is 88,87\%, which is slightly higher than the results in the first experiment. The report is shown in \autoref{fig:experiment2_eval_e2}. Note that the properties have been categorized in this experiment, this is also visible in the coverage report (the two ``Logic'' files, one for each category).
 % Figure
-\FloatBarrier
 \begin{figure}[!ht]
 %\frame{
 	\includegraphics[width=\linewidth]{figures/eval_e2}

@@ -37,7 +37,6 @@ proceed in testing every property in this run.
 \pinfo{Termination, compile error due to library}
 The first run results into a termination of the run due to a compile error in the generated system. Although we made the assumption that the generated system should be compilable, this error came from a property definition that was expected to hold, namely \textit{AssociativeMultiplicationInteger1} (\autoref{ssct:4_associativity}). Which is why we can consider this as an error that is found when using the test framework. The error describes that an overloaded method cannot be applied to the \textit{Money} type, as shown in \autoref{lst:ch5_firstrun_termination_log}.
 % Listing
-\FloatBarrier
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Log]
 [error] MoneySpec.scala:316: overloaded method value * with alternatives:
@@ -97,7 +96,6 @@ that the error can be reproduced. In
 properties, along with its input values (\textit{x}, \textit{y} and \textit{z})
 are shown.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{llll}
@@ -148,7 +146,6 @@ resulting left-hand side of the expression contains a precision error, which is
 caused when multiplying a \textit{Percentage} (the \textit{x} variable) with a
 \textit{Money} type (the result of \textit{y+z} in this case).
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -183,7 +180,6 @@ precision error occurs when the \textit{Money} type is multiplied by the
 \textit{Percentage} type. While with \nameref{ssct:ch5_distributivePercentage1}
 it was the other way around.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -224,7 +220,6 @@ failing test with its values are shown in
 that a precision error occurs when \textit{Money} is multiplied by an
 \textit{Integer}.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -263,7 +258,6 @@ Additionally, this case shows that the small precision errors can cause a
 noticeable difference, which lead to a difference of 130 EUR in this case (in
 the \textit{Scala} results).
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -302,7 +296,6 @@ behaviour. Although this could be expected when using the \textit{Integer} type,
 it can lead other errors classes of vulnerabilities, including stack and heap
 overflows~\cite{wang2009intscope}, when this is not being prevented.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -346,7 +339,6 @@ underflow results in an unexpected amount, which we can see back in the results.
 The operation neither checks for underflowing an \textit{Integer} value nor does
 it prevent it.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -386,7 +378,6 @@ multiplied with an \textit{Integer}. This results in a \textit{Double} value
 containing a precision error, which is related to the problems with
 floating-point arithmetic~\cite{goldberg1991every}.
 % Table
-\FloatBarrier
 \begin{table}[!ht]
 \centering
 \begin{tabular}{rll}
@@ -441,7 +432,6 @@ these properties such that the if-clause is triggered. In
 statements that are executed, while red highlighting indicates statements that
 were not checked at all.
 % Figure
-\FloatBarrier
 \begin{figure}[!ht]
 %\frame{
 	\includegraphics[width=\linewidth]{figures/e1_coverage_implicative_property}
@@ -460,7 +450,6 @@ values as input data. The other properties, which do not use implication, are
 fully tested though. In \autoref{fig:experiment1_evaluation_result} the results of the coverage report are shown, with a total of 87,80\% coverage. The file with its name
 ending with ``Logic'' contain the implementation of the properties. The other 12,20\% code is not tested, but this part is also not related to the implementation of the properties. Because of this, it is not required to achieve the full 100\% coverage. Note that the coverage does not include the coverage over the libraries that the system uses. Some implementation details are depended on the libraries that the generated system use, thus it can not be concluded that 87,80\% of the system is now tested.
 % Figure
-\FloatBarrier
 \begin{figure}[!ht]
 %\frame{
 	\includegraphics[width=\linewidth]{figures/eval_e1}
