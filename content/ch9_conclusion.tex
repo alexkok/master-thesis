@@ -62,8 +62,9 @@ Another approach to test the properties on the generator would be to use
 mutation testing. The mutation coverage could then be used to measure how
 effective the test framework would be (the number of mutants created and the
 number of killed mutants). Unfortunately, there is currently a limited support
-for mutation testing for \textit{Scala}
-systems\todo{SRC-PIT for mutation testing in Scala, limited support}. Since
+for mutation testing for \textit{Scala} systems, as it cannot meaningfully
+mutate \textit{Scala} code~\cite{siteSbtPit2017}.\\
+\\
 \textit{Scala} compiles to \textit{Java} bytecode, mutating on bytecode level
 could be used to solve the problem of limited support. However, this could lead
 to false-positives, meaning that some mutants might not be relevant in that the
