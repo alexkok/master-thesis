@@ -67,10 +67,15 @@ define the \textit{Scala} implementation of this \textit{round} function. As a
 workaround, we define the implementation as a \textit{String} and modify the
 generator such that the function's implementation is the content of the
 \textit{String} (removing the quotes). The \textit{round} method rounds the
-\textit{Money} value to a maximum of 4 decimals. The fifth decimal is being
-rounded by using ``HALF\_UP'' technique
-\todo{Maybe a source or so? Or common knowledge?}. The function implementation
-in the \textit{Rebel} specification is shown in
+\textit{Money} value to a maximum of 4 decimals.\\
+\\
+In \textit{Java} (and thus in \textit{Scala}), there are different rounding
+methods available. These consist of the rounding modes described in the IEEE 854
+standard and the additional rounding modes as described
+in~\cite{cowlishaw2003decimal}. The fifth decimal in our \textit{round()} method
+is being rounded by using the ``HALF\_UP'' rounding mode
+(described in~\cite{cowlishaw2003decimal}). The function implementation in the
+\textit{Rebel} specification is shown in
 \autoref{lst:experiment3_rebel_round_implementation}.
 % Listing
 \FloatBarrier
@@ -195,7 +200,7 @@ There are still 3 failing tests, these are not fixed in the generator yet. These
 % - > Thus probably division does this too usually. FLooring causes difference
 The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is expected. Changing the precision number to 6 or 8 decimals does not change the results when looking at the amount of tests failing. Also, changing the rounding mode to ``DOWN'' does not affect the results. But using a bigger precision in combination with another rounding mode, such as ``FLOOR'' or ``TOP'', can result in some failing tests. This is being caused by an edge case in which the difference would be slightly off between the two values.\\
 \\
-We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations and this mode is also a commonly used with rounding numbers\todo{Claim? Source? Or 'known'?}. One might want to use the ``DOWN'' rounding mode because a bank might want to prevent losing money because of this issue. It can be changed in the \textit{Rebel} specification when needed.\\
+We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations and this mode is perhaps the most commonly used rounding mode when rounding financial numbers, this mode is also described as a ``requirement for many financial calculations''~\cite{cowlishaw2003decimal}. One might want to use the ``DOWN'' rounding mode because a bank would prevent losing money because of this rounding issue. When this is the case, it can always be changed in the \textit{Rebel} specification when needed, we stay with ``HALF\_UP'' as rounding mode.\\
 \\
 % - Adding properties didn't require a change in the value generator anymore
 For this experiment, additional property definitions have been added to test the generator. The value generator now determines the values based on the preconditions of the properties. Thus the additional properties used in this experiment did not require more effort than defining these in the \textit{Rebel} specification. Compared to the second experiment (\autoref{cpt:experiment2}) this is a huge improvement, as it does not require the developer to modify the value generator in case implicative properties are being added.
