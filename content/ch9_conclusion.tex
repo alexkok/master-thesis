@@ -59,8 +59,8 @@ property definitions can be tested on different kind of generated systems. This
 can be used to detect inequalities among the generated system.
 
 \subsection*{Mutation testing}
-Another approach to test the properties on the generator would be to use
-mutation testing. The mutation coverage could then be used to measure how
+A way to evaluate the effectiveness of the test framework would be to use
+mutation testing. The mutation coverage could be used to measure how
 effective the test framework would be (the number of mutants created and the
 number of killed mutants). Unfortunately, there is currently a limited support
 for mutation testing for \textit{Scala} systems, as it cannot meaningfully
@@ -101,12 +101,11 @@ other components of the system. Such as the sync block definitions, defining
 actions that should happen synchronously. Or performance measures when
 interacting with the data in the system, which uses a database implementation.
 Currently, such components are not being tested, while these components are also
-important for a bank. This is left as future work.\\
+important for the bank. This is left as future work.\\
 \\
 Although the test framework can be extended to also test other components of
 the generated system, it might not be possible to check all the components by
-using this approach. A generated system, for example, exposes its actions via a
-Rest API, which should be used to interact with the system. The tests that are
-done by using this approach do not check the implementation of this interface.
-Also, it is not able to check how, multiple generated systems would integrate
-with each other and if this is done correctly
+using this approach. For example, it is probably not able to check how multiple
+generated systems would integrate with each other and if this is done correctly.
+The generated system should be configured to support multiple distributions of
+the system. But this is not tested yet.
