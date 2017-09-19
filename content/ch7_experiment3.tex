@@ -3,28 +3,28 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 3: Improving the value generation}
 \label{cpt:experiment3}
-In the second experiment (\autoref{cpt:experiment2}) we found that the property
-definition for using division with the \textit{Monye} type wasn't clear enough
+In the second experiment (\autoref{cpt:experiment2}), we found that the property
+definition for using division with the \textit{Money} type wasn't clear enough
 in that it couldn't be satisfied the way how it was specified. In this
 experiment we aim to improve this, by updating the existing definition such that
 the property can now be checked.\\
 \\
 Another result from the second experiment was that the value generation was not
 very dynamic when new property definitions were being added. It should be possible to add
-additional properties to the specification, which are then being tested
+additional properties to the specification, such that these properties are being tested
 automatically by the test framework. To do this, the value generator should be
 updated too, such that it uses the preconditions in the event definitions to
 determine the input values. Additional properties can then be added to test
 the generator.\\
 \\
 In this experiment we will use an updated version of the generator. In this
-version the precision errors that were found in the first experiment are fixed,
+version, the precision errors that were found in the first experiment are fixed,
 such that we can focus on possible additional errors that might occur.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
-The property definition of division is being updated for this experiment, because
+The property definition of division is being updated for this experiment because
 the first definition did not take the division problem into account. There was
 also no definition for rounding the value, as the value was expected to hold the
 exact value. We will update the definition by implementing a rounding function, such that these properties can be tested by the test
@@ -42,11 +42,11 @@ modifications to the values generator.
 % Subsection: Updating property definitions
 \subsection{Updating property definitions}
 \pinfo{Round method}
-Initially there were only 2 property definitions that were using division, which both are being updated. In order to check for the values such that the property definition can be used, we implement a \code{round()} method in the \textit{Rebel} specification. This \textit{round} method is intended to return a value which can be used to define the expected behaviour when using division with the \textit{Money} type.\\
+Initially, there were only 2 property definitions that were using division, which both are being updated. In order to check for the values such that the property definition can be used, we implement a \code{round()} method in the \textit{Rebel} specification. This \textit{round} method is intended to return a value which can be used to define the expected behaviour when using division with the \textit{Money} type.\\
 \\
 \pinfo{Defining, updating and adding more}
 In addition to updating the existing properties that are using division, more properties can be added which were not defined earlier. Additional properties might also lead to additional bugs that the test framework can detect. For example, properties of inequality when using division, as the ones that were defined for
-division only used equality. Also other properties like the subtraction property can
+division only used equality. Also, other properties like the subtraction property can
 be added and more definitions for multiplication and additivity
 can be added to the existing list of property definitions that we defined for \textit{Rebel}. The
 additional property definitions for division, multiplication, additivity and
@@ -58,7 +58,7 @@ use division. To sum up, the updated and added property definitions are: \textit
 \pinfo{Round method implementation + why}
 The properties using division are now using the \code{round()} method in its
 definition. \textit{Rebel} does not provide a way to round a value, which is why
-we need to define the function in the specification. In \textit{Rebel} a
+we need to define the function in the specification. In \textit{Rebel}, a
 function is defined as an expression that is being executed whenever the
 function is being called. Unfortunately, there is currently no way in \textit{Rebel} to
 define the \textit{Scala} implementation of this \textit{round} function. As a
@@ -91,11 +91,11 @@ function round(money: Money): Money =
 % Subsection: Improving dynamicallity
 \subsection{Improving dynamicallity}
 \pinfo{Using preconditions}
-The additional properties that are being added also use implication in their definitions. In the second experiment (\autoref{cpt:experiment2}), the value generator was not dynamic enough in that it requires modifications for each implicative property that is being added. In this experiment we aim to improve this, by using the defined preconditions to determine the input values.\\
+The additional properties that are being added also use implication in their definitions. In the second experiment (\autoref{cpt:experiment2}), the value generator was not dynamic enough in that it requires modifications to the implementation for each implicative property that is being added. In this experiment, we aim to improve this, by using the defined preconditions to determine the input values.\\
 \\
 A custom generator is being created that uses the preconditions to determine the input values. Note that this can be seen as an update to the generator that was created in \autoref{cpt:experiment2}. This value generator parses the preconditions and intends to generate values based on these conditions. Since the expressions inside the preconditions might become quite complex, we focus on a limited version of it, while still satisfying the requirements that are needed for the properties that have been defined in \autoref{cpt:properties}.\\
 \\
-Most properties are using single variables in its precondition statements. Some are using expressions on the left-hand or right-hand side of a statement, but not on both sides. The value generator that we implement will not support using expressions on both the left-hand and right-hand side, as generating values matching the condition can become complex. With expressions we mean a combination of operators with literals and variables. Instead, the resulting value generator requires to have at least a variable on one side of the expression.\\
+Most properties are using single variables in its precondition statements. Some are using expressions on the left-hand or right-hand side of a statement, but not on both sides. The value generator that we implement will not support using expressions on both the left-hand and right-hand side, as generating values matching the condition can become complex. With expressions, we mean a combination of operators with literals and variables. Instead, the resulting value generator requires having at least a variable on one side of the expression.\\
 \\
 The code to generate the tuples of input values is shown in \autoref{lst:experiment3_value_generation_code}. We can separate this process into the following steps:
 \def \valueGeneratorStepOne{Initialize value generation data}
@@ -146,7 +146,7 @@ In the following sections we describe each step in detail.
 
 % Initialize value generation data for each variable
 \subsubsection{1. \valueGeneratorStepOne}
-To generate a single value, some data is being hold to keep track of the conditions to which a certain value should when it is being generated. These conditions are minimum value, maximum value and whether the zero value is allowed. Additionally the result type of the variable is stored, used when generating the final value. This data is stored in a tuple and called \textit{RandomValueProps} by using an \textit{alias} in \textit{Rascal}. This definition is shown in \autoref{lst:experiment3_alias_definition_randomvalueprops}.
+To generate a single value, some data is being held to keep track of the conditions to which a certain value should when it is being generated. These conditions are the minimum value, the maximum value and whether the zero value is allowed. Additionally, the result type of the variable is stored, used when generating the final value. This data is stored in a tuple and called \textit{RandomValueProps} by using an \textit{alias} in \textit{Rascal}. This definition is shown in \autoref{lst:experiment3_alias_definition_randomvalueprops}.
 % Listing
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rascal]
@@ -177,13 +177,13 @@ When handling each expression, some variables already get an assigned value. How
 
 % Add values to resulting list
 \subsubsection{4. \valueGeneratorStepFour}
-The values that have been determined are being added to the list of generated input values (\autoref{lst:experiment3_value_generation_code},~Line~21). In the end the list is being returned, containing all the generated input values that match the preconditions of the event.
+The values that have been determined are being added to the list of generated input values (\autoref{lst:experiment3_value_generation_code},~Line~21). In the end, the list is being returned, containing all the generated input values that match the preconditions of the event.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
 \section{Results}
 % - Run, tests succeed (hopefully)
-Running the test framework with the addition of the properties defined in (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).\\
+Running the test framework with the addition of the properties defined in (\autoref{ssct:properties_definitions_additionalproperties}) results in no additional failing tests compared to the first experiment. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).\\
 \\
 There are still 3 failing tests in total, which are not fixed in the generator yet. These bugs have already been reported in the first experiment and thus are not new in this experiment.
 
@@ -195,7 +195,7 @@ There are still 3 failing tests in total, which are not fixed in the generator y
 % - > Thus probably division does this too usually. FLooring causes difference
 The tests are succeeding due to the implementation of the \textit{round()} method. It rounds the value of \textit{Money} to 4 decimals using the ``HALF\_UP'' rounding mode. The number 4 is chosen here to ensure that the property definitions should hold up to a precision of 4 decimals when using the round method. However, this can be modified in case a bigger precision is preferred. Changing the precision number to 6 or 8 decimals does not change the results when looking at the number of failing tests. Also, changing the rounding mode to ``DOWN'' does not affect our results. But using a bigger precision in combination with another rounding mode, such as ``FLOOR'' or ``TOP'', can result in some failing tests. This is being caused by an edge case in which the difference would be slightly off between the two values.\\
 \\
-We stay with he implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations and this mode is perhaps the most commonly used rounding mode when rounding financial numbers. This rounding mode is also described as a ``requirement for many financial calculations''~\cite{cowlishaw2003decimal}. One might want to use the ``DOWN'' rounding mode because a bank would prevent losing money because of this rounding issue. When this is the case, it can always be changed in the \textit{Rebel} specification when needed, we stay with ``HALF\_UP'' as rounding mode.\\
+We stay with the implementation of ``HALF\_UP'' as rounding mode, as this is more in line with our expectations and this mode is perhaps the most commonly used rounding mode when rounding financial numbers. This rounding mode is also described as a ``requirement for many financial calculations''~\cite{cowlishaw2003decimal}. One might want to use the ``DOWN'' rounding mode because a bank would prevent losing money because of this rounding issue. When this is the case, it can always be changed in the \textit{Rebel} specification when needed, we stay with ``HALF\_UP'' as rounding mode.\\
 \\
 % - Adding properties didn't require a change in the value generator anymore
 For this experiment, additional property definitions have been added to test the generator. The value generator now determines the values based on the preconditions of the properties. Thus the additional properties used in this experiment did not require more effort than defining these in the \textit{Rebel} specification. Compared to the second experiment (\autoref{cpt:experiment2}) this is a huge improvement, as it does not require the developer to modify the value generator when implicative properties are being added.
@@ -204,7 +204,7 @@ For this experiment, additional property definitions have been added to test the
 % Section: Evaluation criteria
 \section{Evaluation criteria}
 \pinfo{Not huge diff in coverage. But added props}
-The coverage in this experiment is almost the same as in the second experiment. The implicative properties are being checked in the same way. In this experiment additional properties were added. The total test coverage is 88,28\% (which is 0,42\% lower than the second experiment), shown in \autoref{fig:experiment3_eval_e3}. This shows that adding additional properties do not increase or decrease the test coverage in big amounts. The small percentage loss can be related to the fact that we do not check the \textit{else} clauses of the implicative properties, which is also not intended to be done.
+The coverage in this experiment is almost the same as in the second experiment. The implicative properties are being checked in the same way. In this experiment, additional properties were added. The total test coverage is 88,28\% (which is 0,42\% lower than the second experiment), shown in \autoref{fig:experiment3_eval_e3}. This shows that adding additional properties do not increase or decrease the test coverage in big amounts. The small percentage loss can be related to the fact that we do not check the \textit{else} clauses of the implicative properties, which is also not intended to be done.
 % Figure
 \begin{figure}[!ht]
 %\frame{
@@ -217,14 +217,14 @@ The coverage in this experiment is almost the same as in the second experiment. 
 \FloatBarrier
 % End figure
 \pinfo{Branch coverage still 50\%}
-The branch coverage is still reported to be 50\%, while the amount of branches has been increased. This is correct, as the additional properties are using the implication symbol, which is being translated to if-else statements. This introduces these extra branches. As described before, we do not intend to check the else-clause, but are more interested in checking the if-clause.\\
+The branch coverage is still reported to be 50\%, while the number of branches has been increased. This is correct, as the additional properties are using the implication symbol, which is being translated to if-else statements. This introduces these extra branches. As described before, we do not intend to check the else-clause but are more interested in checking the if-clause.\\
 \\
 % - No extra bugs found
 \pinfo{No 'extra' bugs found}
 Unfortunately, no additional bugs have been found in this experiment. Additional properties were being used in this experiment compared to the other experiments, but these did not reveal additional bugs. The implicative properties are checked in the same way as in the second experiment, but the values are now generated based on the preconditions of the event definitions in the \textit{Rebel} specification.\\
 \\
 %   > but increased dynamicallity. We have shown that additional properties can now be added to check, without needing to update the test framework
-The properties that have been added did not require changes in the value generator anymore. Instead, these had to be defined in the \textit{Rebel} specification and the test framework automatically determines the values for it. This is an improvement compared to the second experiment, as there it would be required to update the value generator whenever an implicative property is being added. There are still some limitations on the value generator, for example, it does not support complex expressions as preconditions. This is also not needed for current set of property definitions and might or might not be needed in the future. Because of this, we leave the implementation for supporting complex expressions in the value generation as future work.
+The properties that have been added did not require changes in the value generator anymore. Instead, these had to be defined in the \textit{Rebel} specification and the test framework automatically determines the values for it. This is an improvement compared to the second experiment, as there it would be required to update the value generator whenever an implicative property is being added. There are still some limitations on the value generator, for example, it does not support complex expressions as preconditions. This is also not needed for the current set of property definitions and might or might not be needed in the future. Because of this, we leave the implementation for supporting complex expressions in the value generation as future work.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
@@ -253,13 +253,13 @@ translate an expression and retrieve values for which the condition holds.\\
 We have looked into this, by using the \textit{Z3} solver. However, the solver
 always returns the same number when executing it multiple times. Which means
 that the 100 values that we would ask from the generator, will be exactly the
-same. A workaround would be to then add the number that was received earlier as
+same. A workaround would be to then add the number that was received earlier as an
 additional constraint, such that 100 unique values are being retrieved. But the
 problem still remains, as executing the same script multiple times will result in
 the same values. Another possibility would be to change the seed of the random generator that is being
 used to generate the values, resulting in different values, however, then a random seed should be used each time the solver is being run to make the generated values unique. In order to integrate the solver with the test framework, the value generator has to be changed.\\
 \\
-An update to the value generator is required anyway to determine the input values based on the preconditions. In addition, some existing examples to check a \textit{Rebel} specification already take up some time. Which are probably related to the translations that have to be done and actually running the solver. We have not measured the exact duration of each step in this case, but we expect that generating 100 random input values by using this approach requires some time. Resulting in a huge run time increase for the test framework.\\
+An update to the value generator is required anyway to determine the input values based on the preconditions. In addition, some existing examples to check a \textit{Rebel} specification already take up some time. Which is probably related to the translations that have to be done and actually running the solver. We have not measured the exact duration of each step in this case, but we expect that generating 100 random input values by using this approach requires some time. Resulting in a huge run time increase for the test framework.\\
 \\
 Other solvers might work better for this approach, but these still require an update to the values generation part of the test framework to integrate with such solvers.
 
