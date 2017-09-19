@@ -3,18 +3,18 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \chapter{Experiment 3: Improving the value generation}
 \label{cpt:experiment3}
-In the second experiment (\autoref{cpt:experiment2}) it was found that the
-property definition for using division with the \textit{Monye} type wasn't clear
-enough in that it couldn't be satisfied the way how it was specified. In this
-experiment we aim to improve this. We update the existing definition such that
-it can now be correctly.\\
+In the second experiment (\autoref{cpt:experiment2}) we found that the property
+definition for using division with the \textit{Monye} type wasn't clear enough
+in that it couldn't be satisfied the way how it was specified. In this
+experiment we aim to improve this, by updating the existing definition such that
+the property can now be checked.\\
 \\
 Another result from the second experiment was that the value generation was not
-very dynamic when new properties were being added. It should be possible to add
+very dynamic when new property definitions were being added. It should be possible to add
 additional properties to the specification, which are then being tested
-automatically by the test framework. To do this, the value generator will be
+automatically by the test framework. To do this, the value generator should be
 updated too, such that it uses the preconditions in the event definitions to
-determine the parameter values. Additional properties can then be added to test
+determine the input values. Additional properties can then be added to test
 the generator.\\
 \\
 In this experiment we will use an updated version of the generator. In this
@@ -24,13 +24,11 @@ such that we can focus on possible additional errors that might occur.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
-The property definition of division will be updated for this experiment, because
+The property definition of division is being updated for this experiment, because
 the first definition did not take the division problem into account. There was
 also no definition for rounding the value, as the value was expected to hold the
-exact value. We will update the definition by using a round function. By using
-this, the fixed properties can be defined which can then be tested by the test
-framework. These are fixed because these property definitions turned out to be
-incomplete or incorrect in the second experiment (\autoref{cpt:experiment2}).\\
+exact value. We will update the definition by implementing a rounding function, such that these properties can be tested by the test
+framework.\\
 \\
 Besides updating the property definitions that were using division, additional
 property definitions are being added to test more of the generator. However, as
@@ -47,7 +45,7 @@ modifications to the values generator.
 Initially there were only 2 property definitions that were using division, which both are being updated. In order to check for the values such that the property definition can be used, we implement a \code{round()} method in the \textit{Rebel} specification. This \textit{round} method is intended to return a value which can be used to define the expected behaviour when using division with the \textit{Money} type.\\
 \\
 \pinfo{Defining, updating and adding more}
-In addition to updating the existing properties that are using division, more properties can be added. For example, properties of inequality when using division, as the ones that were defined for
+In addition to updating the existing properties that are using division, more properties can be added which were not defined earlier. Additional properties might also lead to additional bugs that the test framework can detect. For example, properties of inequality when using division, as the ones that were defined for
 division only used equality. Also other properties like the subtraction property can
 be added and more definitions for multiplication and additivity
 can be added to the existing list of property definitions that we defined for \textit{Rebel}. The
@@ -55,23 +53,23 @@ additional property definitions for division, multiplication, additivity and
 subtraction fall under the ``Properties of equality and inequality'' category
 and are defined in \autoref{ssct:properties_definitions_additionalproperties},
 along with the updated definitions for the existing property definitions that
-use division. To sum up, these property definitions are: \textit{divisionEquality}, \textit{divisionInequality}, \textit{additiveEquality}, \textit{additiveInequality}, \textit{subtractiveEquality}, \textit{subtractiveInequality}, \textit{multiplicativeEquality} and \textit{multiplicativeInequality}.\\
+use division. To sum up, the updated and added property definitions are: \textit{divisionEquality}, \textit{divisionInequality}, \textit{additiveEquality}, \textit{additiveInequality}, \textit{subtractiveEquality}, \textit{subtractiveInequality}, \textit{multiplicativeEquality} and \textit{multiplicativeInequality}.\\
 \\
 \pinfo{Round method implementation + why}
-The properties using division are now using the \code{round()} method in its d
-efinition. \textit{Rebel} does not provide a way to round a value, which is why
+The properties using division are now using the \code{round()} method in its
+definition. \textit{Rebel} does not provide a way to round a value, which is why
 we need to define the function in the specification. In \textit{Rebel} a
 function is defined as an expression that is being executed whenever the
-function is being called. Unfortunately, there is no way in \textit{Rebel} to
+function is being called. Unfortunately, there is currently no way in \textit{Rebel} to
 define the \textit{Scala} implementation of this \textit{round} function. As a
 workaround, we define the implementation as a \textit{String} and modify the
-generator such that the function's implementation is the content of the
-\textit{String} (removing the quotes). The \textit{round} method rounds the
+generator such that the content of the
+\textit{String} (removing the quotes) will be the implementation of the function. The \textit{round} method rounds the
 \textit{Money} value to a maximum of 4 decimals.\\
 \\
 In \textit{Java} (and thus in \textit{Scala}), there are different rounding
 methods available. These consist of the rounding modes described in the IEEE 854
-standard and the additional rounding modes as described
+standard and additional rounding modes as described
 in~\cite{cowlishaw2003decimal}. The fifth decimal in our \textit{round()} method
 is being rounded by using the ``HALF\_UP'' rounding mode
 (described in~\cite{cowlishaw2003decimal}). The function implementation in the
@@ -93,11 +91,11 @@ function round(money: Money): Money =
 % Subsection: Improving dynamicallity
 \subsection{Improving dynamicallity}
 \pinfo{Using preconditions}
-The additional properties that are being added also using implication in their definitions. In the second experiment (\autoref{cpt:experiment2}), the value generator was not dynamic enough in that it requires modifications for each implicative property that is being added. In this experiment we aim to improve this, by using the defined preconditions to determine the input values.\\
+The additional properties that are being added also use implication in their definitions. In the second experiment (\autoref{cpt:experiment2}), the value generator was not dynamic enough in that it requires modifications for each implicative property that is being added. In this experiment we aim to improve this, by using the defined preconditions to determine the input values.\\
 \\
 A custom generator is being created that uses the preconditions to determine the input values. Note that this can be seen as an update to the generator that was created in \autoref{cpt:experiment2}. This value generator parses the preconditions and intends to generate values based on these conditions. Since the expressions inside the preconditions might become quite complex, we focus on a limited version of it, while still satisfying the requirements that are needed for the properties that have been defined in \autoref{cpt:properties}.\\
 \\
-Most properties are using single variables in its precondition statements. Some are using expressions on the left-hand or right-hand side of a statement, but not on both sides. The value generator that we implement will not support using expressions on both the left-hand and right-hand side, as generating values matching the condition can become complex. Instead, it requires to only have a variable on one side and either an expression or a variable on the other side.\\
+Most properties are using single variables in its precondition statements. Some are using expressions on the left-hand or right-hand side of a statement, but not on both sides. The value generator that we implement will not support using expressions on both the left-hand and right-hand side, as generating values matching the condition can become complex. With expressions we mean a combination of operators with literals and variables. Instead, the resulting value generator requires to have at least a variable on one side of the expression.\\
 \\
 The code to generate the tuples of input values is shown in \autoref{lst:experiment3_value_generation_code}. We can separate this process into the following steps:
 \def \valueGeneratorStepOne{Initialize value generation data}
@@ -167,15 +165,15 @@ The value generator initializes the \textit{RandomValueProps} for each input var
 \subsubsection{2. \valueGeneratorStepTwo}
 Each statement in the preconditions block is being checked (\autoref{lst:experiment3_value_generation_code},~Line~9 -13). The \textit{handleStatement()} method handles each statement. The actions done by this method depend on the operators used in the statement that is being handled.\\
 \\
-In case of an expression that only contains variables and uses equality (for example, \textit{x == y}), the value generator assigns a random value to \textit{x} and assigns the same value to \textit{y}. In case of inequality (\textit{x $>$ y}), the value generator also assigns a random value to \textit{x}, but adjusts the minimum or maximum bounds of the \textit{y} value such that it satisfies the condition.\\
+In case of an expression that only contains variables and uses equality (for example, \textit{x == y}), the value generator assigns a random value to \textit{x} and assigns the same value to \textit{y}. In case of inequality (\textit{x $>$ y}), the value generator also assigns a random value to \textit{x} and adjusts the minimum or maximum bounds of the \textit{y} value such that it satisfies the condition.\\
 \\
 In case there is an expression on one side (for example, \textit{x * y == z}), the expression will be evaluated first. In this case, random values will be assigned to \textit{x} and \textit{y}. Next, the expression can be evaluated and the result of that is being assigned to \textit{z}. The same is done with inequality relations, but then the minimum or maximum bounds are being set based on the operator.\\
 \\
-Having expressions on both the left-hand and the right-hand side of the expression is unsupported. The \textit{handleStatement()} method will throw an error in case this happens.
+As mentioned earlier, having expressions on both the left-hand and the right-hand side of the expression is unsupported. The \textit{handleStatement()} method will throw an error in case this happens.
 
 % Generate values for yet unassigned variables
 \subsubsection{3. \valueGeneratorStepThree}
-When handling each expression, some variables already get an assigned value. However, some variables might only have their \textit{RandomValueProps} updated but do not have an assigned value yet. In this step these variables, that do not have a value yet, are being assigned a value based on their \textit{RandomValueProps} (\autoref{lst:experiment3_value_generation_code},~Line~15-18).
+When handling each expression, some variables already get an assigned value. However, some variables might only have their \textit{RandomValueProps} updated but do not have an assigned value yet. In this step, the variables that do not have an assigned value, are being assigned a value based on their \textit{RandomValueProps} (\autoref{lst:experiment3_value_generation_code},~Line~15-18).
 
 % Add values to resulting list
 \subsubsection{4. \valueGeneratorStepFour}
@@ -185,9 +183,9 @@ The values that have been determined are being added to the list of generated in
 % Section: Results
 \section{Results}
 % - Run, tests succeed (hopefully)
-Running the test framework with the addition of the additional properties (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).\\
+Running the test framework with the addition of the properties defined in (\autoref{ssct:properties_definitions_additionalproperties}), results in no additional failing tests compared to the first experiment. Remember that the test framework is run with the generator in which the precision problems related to the \textit{Money} type are fixed (otherwise there would be failing tests, due to the precision problems).\\
 \\
-There are still 3 failing tests, these are not fixed in the generator yet. These bugs have already been reported in the first experiment and thus are not new in this experiment.
+There are still 3 failing tests in total, which are not fixed in the generator yet. These bugs have already been reported in the first experiment and thus are not new in this experiment.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Analysis
