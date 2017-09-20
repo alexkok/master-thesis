@@ -179,9 +179,15 @@ kind of bugs we can detect in a generator by using this approach.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Related work
 \section{Related work}
-% // Doesn't this have to be at the end?
-% - Testing of (extended) finite state machines
-\todo{Add more related work}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Subsection: Axiom-Based Testing
+\subsection{Axiom-Based Testing}
+In axiom-based testing (also known as property-based testing) axioms are defined which describe what the expected behaviour is of the system under test. It was introduced already in the early eighties, with \textit{DAISTS}~\cite{gannon1981data}. The axioms, which they write themselves, are being used as a basis for unit testing. The set of axioms describe the expected behaviour and are used to determine whether the implementation agrees with the defined axioms. Testing is automated, the user only defines the axioms and writes the implementation for this.\\
+\\
+\textit{DAISTS} focused on algebraic axioms, using the equality operator in the definitions. Axioms can also be specified in object-oriented style. An example of this is \textit{ASTOOT}~\cite{doong1994astoot} which applies the ideas of axiom-based testing. Axioms are defined in an object-oriented style, describing the methods used and the expected outcome. Whereas in algebraic style, the axioms are written more in a functional notation (as is done in \textit{DAISTS}). In this thesis, we use the algebraic style and use the equality as well as the inequality operators. Furthermore, we also have to define the expected behaviour of \textit{Rebel} expression.\\
+\\
+In~\cite{bagge2010axioms} axioms are used to automatically generate tests from these. They use the Concepts in C++ which contain the definitions of the axioms. Based on these Concepts they automatically generate tests for each defined axiom and run these tests to check whether the system under test satisfies these axioms. In this thesis, we define the properties (axioms) that are expected to hold in \textit{Rebel} and then generate tests based on these definitions by using the generator. The generated tests will then be run against the generated system that can be generated from a \textit{Rebel} specification. Our approach can be compared to the approach in~\cite{bagge2010axioms}, but we define the axioms in a \textit{Rebel} specification and then run the generated tests against the system that was generated based on the \textit{Rebel} specification that we created.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Subsection: Random testing
