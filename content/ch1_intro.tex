@@ -239,6 +239,14 @@ generating the tests. Another reason why we can't use a method like
 properties, which are not in line with the \textit{Rebel} language.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Subsection: Testing generated systems
+\subsection{Testing generated systems}
+Using domain-specific languages leads to the creation of code generators to automatically generate executable code~\cite{boussaa2016automatic}. This is also the case for \textit{Rebel}, the toolchain provides some generators which use a \textit{Rebel} specification as input. These generators and the resulting generated systems can be automatically tested too. In~\cite{boussaa2016automatic} they focus on testing non-functional properties, namely testing the performance of the generated code. In~\cite{makki2016automated} the authors present a regression testing automation framework for a domain-specific language. They detect regressions in the generated systems by generating and executing test cases.\\
+\\
+In this thesis, we also focus on automatically testing the generator (by using the generated system) but we check more basic functionalities that are specific to \textit{Rebel} and its supported types.
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Outline
 \section{Outline}
 \todo[inline]{Write later, when outline is more final.}
