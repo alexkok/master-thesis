@@ -245,6 +245,12 @@ Using domain-specific languages leads to the creation of code generators to auto
 \\
 In this thesis, we also focus on automatically testing the generator (by using the generated system) but we check more basic functionalities that are specific to \textit{Rebel} and its supported types.
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Subsection: Product-line testing
+\subsection{Product-line testing}
+In~\cite{al2016incling} the authors describe a way to efficiently test a software product line. A software product line consists of a set of software systems that share a common set of features. However, many different products can be created from such a software product line, adding a challenge to test each combination of those products. In~\cite{al2016incling} the authors introduce \textit{IncLing}, which efficiently tests combinations of these products and take already executed combinations into account when selecting a new combination. To determine the possible combinations they use the \textit{IPCL} algorithm introduced in~\cite{johansen2012algorithm}, an algorithm that can be applied to determine the combinations of software product lines at the size and complexity found in projects in the industry.\\
+\\
+\textit{IncLing} executes its tests sequentially by selecting a combination of features that were not covered in the previous test. This is a different way of testing each possible combination and ensuring unique test cases. In this thesis, we basically define the possible combinations by defining the properties (axioms) that we expect to hold in \textit{Rebel}. Additionally, the input values are determined random, allowing different combinations as in values. However, we do not test combinations of the properties combined, but test each individually. In our approach there could be some overlap over the various defined properties.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Outline
