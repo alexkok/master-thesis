@@ -49,7 +49,7 @@ The first run results into a termination of the run due to a compile error in th
 [error]   (x: Byte)Int
 [error]  cannot be applied to (squants.market.Money)
 [error]           Initialised(Data(result = Some(((((x * y)) * z) == (x * ((y * z)))))))
-[error]                                                                 ^
+[error]                                                                       ^
 [error] MoneySpec.scala:441: overloaded method value * with alternatives:
 [error]   (x: Double)Double <and>
 [error]   (x: Float)Float <and>
@@ -60,17 +60,19 @@ The first run results into a termination of the run due to a compile error in th
 [error]   (x: Byte)Int
 [error]  cannot be applied to (squants.market.Money)
 [error]             checkPostCondition((nextData.get.result.get == (((((x * y)) * z) == (x * ((y * z)))))), "new this.result == ( (x*y)*z == x*(y*z) )")
-[error]                                                                                    ^
+[error]                                                                                            ^
 [error] two errors found
 [error] (compile:compileIncremental) Compilation failed
 [error] Total time: 79 s, completed 4-aug-2017 13:03:45
 > Done testing
 > ** Some tests failed! **
 \end{lstlisting}
+%"Real positions:"
+%[error]                                                                 ^
+%[error]                                                                                    ^
 \caption{Log output first test run resulting in a termination.}
 \label{lst:ch5_firstrun_termination_log}
 \end{sourcecode}
-\todo{Up arrow is incorrectly aligned in the listing due to layout}
 \FloatBarrier
 % End listing
 \pinfo{Investigation, found property and var types}
