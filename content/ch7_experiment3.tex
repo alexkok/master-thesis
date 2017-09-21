@@ -70,7 +70,7 @@ sum up, the updated and added property definitions are:
 \textit{multiplicativeEquality} and \textit{multiplicativeInequality}.\\
 \\
 \pinfo{Round method implementation + why}
-The properties using division are now using the \code{round()} method in its
+Some properties using division are now using the \code{round()} method in its
 definition. \textit{Rebel} does not provide a way to round a value, which is why
 we need to define the function in the specification. In \textit{Rebel}, a
 function is defined as an expression that is being executed whenever the
@@ -113,8 +113,8 @@ implementation for each implicative property that is being added. In this
 experiment, we aim to improve this, by using the defined preconditions to
 determine the input values.\\
 \\
-A custom generator is being created that uses the preconditions to determine the
-input values. Note that this can be seen as an update to the generator that was
+A custom value generator is being created that uses the preconditions to determine the
+input values. Note that this can be seen as an update to the earlier value generator that was
 created in \autoref{cpt:experiment2}. This value generator parses the
 preconditions and intends to generate values based on these conditions. Since
 the expressions inside the preconditions might become quite complex, we focus on
@@ -125,18 +125,17 @@ Most properties are using single variables in its precondition statements. Some
 are using expressions on the left-hand or right-hand side of a statement, but
 not on both sides. The value generator that we implement will not support using
 expressions on both the left-hand and right-hand side, as generating values
-matching the condition can become complex. With expressions, we mean a
-combination of operators with literals and variables. Instead, the resulting
-value generator requires having at least a variable on one side of the
+matching the condition can result in complex formulas. With expressions, we mean a
+combination of operators with literals and variables. Instead, the value generator requires having at least a variable on one side of the
 expression.\\
 \\
 The code to generate the tuples of input values is shown in
 \autoref{lst:experiment3_value_generation_code}. We can separate this process
 into the following steps:
-\def \valueGeneratorStepOne{Initialize value generation data}
-\def \valueGeneratorStepTwo{Traverse and handle statements}
-\def \valueGeneratorStepThree{Generate values for yet unassigned variables}
-\def \valueGeneratorStepFour{Add values to resulting list}
+\def \valueGeneratorStepOne{Initialize value generation data (\hyperref[lst:experiment3_value_generation_code]{Line 7})}
+\def \valueGeneratorStepTwo{Traverse and handle statements (\hyperref[lst:experiment3_value_generation_code]{Line 9-13})}
+\def \valueGeneratorStepThree{Generate values for yet unassigned variables (\hyperref[lst:experiment3_value_generation_code]{Line 15-18})}
+\def \valueGeneratorStepFour{Add values to resulting list (\hyperref[lst:experiment3_value_generation_code]{Line 21})}
 \begin{enumerate}
   \item \valueGeneratorStepOne
   \item \valueGeneratorStepTwo
@@ -202,13 +201,12 @@ alias RandomValueProps = tuple[Type tipe, real min, real max, bool allowZero];
 \FloatBarrier
 % End listing
 The value generator initializes the \textit{RandomValueProps} for each input
-variable (\autoref{lst:experiment3_value_generation_code},~Line~7). Setting the
-minimum and maximum value to a default value and allowing zero by default.
+variable. Setting the minimum and maximum value to a default value and allowing
+zero by default.
 
 % Traverse statements in the precondition block and handle these based on the expression
 \subsubsection{2. \valueGeneratorStepTwo}
-Each statement in the preconditions block is being checked
-(\autoref{lst:experiment3_value_generation_code},~Line~9 -13). The
+Each statement in the preconditions block is being checked. The
 \textit{handleStatement()} method handles each statement. The actions done by
 this method depend on the operators used in the statement that is being
 handled.\\
@@ -237,15 +235,13 @@ When handling each expression, some variables already get an assigned value.
 However, some variables might only have their \textit{RandomValueProps} updated
 but do not have an assigned value yet. In this step, the variables that do not
 have an assigned value, are being assigned a value based on their
-\textit{RandomValueProps}
-(\autoref{lst:experiment3_value_generation_code},~Line~15-18).
+\textit{RandomValueProps}.
 
 % Add values to resulting list
 \subsubsection{4. \valueGeneratorStepFour}
 The values that have been determined are being added to the list of generated
-input values (\autoref{lst:experiment3_value_generation_code},~Line~21). In the
-end, the list is being returned, containing all the generated input values that
-match the preconditions of the event.
+input values. In the end, the list is being returned, containing all the
+generated input values that match the preconditions of the event.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Results
