@@ -56,7 +56,9 @@ The overall test coverage for each experiment was roughly the same (87.80\%, 88.
 \begin{itemize}
   \item The first experiment used random input values for each property. The else-clause of the implicative properties were defined as \code{true}, resulting that each implicative property was considered correct.
   \item In the second experiment the else-clause of the implicative properties were set to \code{false}. The input values are generated such that these satisfy the condition of the if-clause. These values are also being mutated when running the test, to keep the actual values random.
+  \item During the second experiment a fixed version of the generator was being used. This version contains fixes for the issues that were related to the \textit{Money} type. The coverage has been determined with the use of the fixed version of the generator.
   \item In the third experiment some incorrectly defined properties were updated and additional properties have been added.
+  \item Note that the test framework has been updated throughout the experiments. Meaning that the third experiment contains the changes of the second experiment. 
 \end{itemize}
 The test coverage of the first experiment would be considerably lower in case the else-clause of the implicative properties would be \code{false}. This would result in that every test concerning an implicative property would fail. Although the result of this would then be that there are many false-positives, because it just returns \textit{false} in its definition.\\
 \\
