@@ -115,11 +115,11 @@ event reflexiveEquality(x: Money) {
 \pinfo{Further explanation, parameters, result field}
 The event name and the parameters are used to generate a test case from this
 event definition. To check whether the property was fulfilled given a certain
-set of parameters, we store the result in a data field called \textit{result}.
-The test suite uses the value of this field, to determine the result. In case
-the result value is \textit{false} during testing, a bug has been found. (The
-\textit{new} keyword is used to state how the field changes when the transition
-is taking place.)\\
+set of parameters, we store the result in a data field called
+\textit{result}\footnote{The \textit{new} keyword is used to state how the field
+changes when the transition is taking place.}. The test suite uses the value of
+this field, to determine the result. In case the result value is \textit{false}
+during testing, a bug has been found.\\
 \\
 \pinfo{Also need to define the specification itself}
 Besides the event definition, we need to write the actual \textit{Rebel}
@@ -197,7 +197,7 @@ cases.\\
 \\
 \pinfo{Adding test configuration, but not relevant for the project}
 Although this generator is the most mature and often used in experiments within
-\textit{ING}, it is still used as a prototype. The resulting system is thus not
+\textit{ING}, it is still used as a prototype. The resulting system is not
 production ready, as this requires some more actions. One of these is that the
 resulting system should have tests which test the generated system. The
 generated system doesn't contain anything that's related to testing yet. So to
@@ -212,7 +212,7 @@ can be found in the source of the test framework.\\
 \pinfo{Test suite initialization}
 The test framework is build up such that it first starts the generated system,
 followed by running the test suite against it. Thus when running the test suite
-(next phase), the generated system will automatically be started.
+(next phase), the generated system will automatically be started.\\
 \\
 \pinfo{Test case generation based on event}
 The test framework can traverse the CST and generate a test case for each
@@ -371,9 +371,8 @@ integrate the tool with \textit{SBT}.\\
 \pinfo{Which data exactly from reports}
 The coverage report shows how many statements exist in the generated system and
 how many of those were covered. Additionally, it does the same for branches,
-which is the number of different execution paths that could be taken. Since we
-are not sure how these paths are determined, we will not use this criterion for
-evaluation. Instead, we will use the statement coverage and the total percentage
+which is the number of different execution paths that could be taken. We will
+use the statement coverage and the total percentage
 of coverage. The coverage report also shows which parts of each statement have
 been executed, it shows green highlighting for covered parts and red
 highlighting for uncovered parts. The coverage highlighting for the
@@ -404,9 +403,10 @@ it communicates with other instances when it is deployed, which is not something
 that is covered by the properties we defined in \autoref{cpt:properties}. As a
 result, we will not be able to bring the test coverage to 100\%. However, all
 files in the generated system will be used to determine the overall coverage
-percentage. Since we use the same generated system to determine the coverage,
-the higher the coverage, the more complete it tests the defined properties in
-the generated system.
+percentage\footnote{Library files are not included when determining the coverage}.
+Since we use the same generated system to determine the coverage, the higher the
+coverage, the more complete it tests the defined properties in the generated
+system.
 
 % Number of bugs
 \subsubsection{Number of bugs}
@@ -435,7 +435,7 @@ The research question for this chapter lead as follows:
 Existing approaches often require the system under test to be written in the
 same language. This was not possible when testing the generator in our case. In
 our case, the generator is being used to generate a system, against which the
-test suite will run. Our approach similar to \textit{QuickCheck} in that we use
+test suite will run. Our approach is similar to \textit{QuickCheck} in that we use
 random input values and test each property multiple times. But we use a
 \textit{Rebel} specification and the generated system to check whether the
 properties hold when using the generator.\\
@@ -483,7 +483,7 @@ threat to this approach.
 \pinfo{Possibly incorrect results, due to Scoverage}
 To evaluate the test framework we use coverage as a metric. \textit{Scoverage}
 is being used to determine the coverage and to generate a report from it. The
-report could report the test coverage incorrectly, causing it to be a threat for
+tool could report the test coverage incorrectly, causing it to be a threat for
 our evaluation.\\
 \\
 We are using random data as input. Because of this, the results of the test
@@ -491,11 +491,11 @@ coverage could fluctuate by small amounts in each run. However, multiple runs of
 found as another metric. This metric depends on which system the test suite is
 being run and if the system already fixed the bugs that the test suite would
 find. It is also the case that after fixing the bugs that were found earlier,
-this metric can be seen as unnecessary, as it would result in 0 then.
+this metric can then be seen as unnecessary, as it would result in 0 then.
 
 \subsection*{One system}
 \pinfo{Only one generator}
-Only one generator is being used throughout this thesis. However, it could be
+Only one generator is being used throughout this thesis. However, it would be
 useful to make the test framework compatible with the other generators and
 generated systems too. This enables reasoning about the different
 implementations and its generators. Some changes are required to make the test
@@ -532,6 +532,6 @@ generated system. However, if we would follow this approach, we wouldn't use the
 generator to translate the \textit{Rebel} expressions to \textit{Scala}. This
 results in that the generator itself is still not being tested. With our
 approach, we test the generator and are able to find errors in the generator.
-Although we cannot conclude that the generator is implemented correctly if the
-generated test suite runs successful, rather we can conclude that the properties
-it checks for are satisfied.
+Although we cannot conclude that the generator is implemented correctly when the
+generated test suite runs successfully, rather we can conclude that the
+properties it checks for are satisfied.
