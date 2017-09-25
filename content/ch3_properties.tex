@@ -35,7 +35,7 @@ properties. Followed by the property definitions that will be used throughout
 this thesis, with a motivation why these properties are expected to hold. The
 properties that are defined in this chapter will be used in our experiments
 (\autoref{cpt:experiment1}, \autoref{cpt:experiment2} and
-\autoref{cpt:experiment2}).
+\autoref{cpt:experiment3}).
 
 %\todo[inline]{Percentage? Not yet, defining those requires properties again. And running the test suite again, evaluate again, etc.\\
 %Describe what exactly is Percentage if we define it in a specification, which rules does it inherit?\\
@@ -46,9 +46,9 @@ properties that are defined in this chapter will be used in our experiments
 % Section: Determining the properties
 \section{Determining the properties}
 \pinfo{Properties not defined for Rebel. We must define these}
-Currently, there are no definitions available of what the properties are of
-each type and operation in \textit{Rebel}. Due to the missing definitions of
-these types, it means that we first have to define what the expected properties
+Currently, there are no definitions available of which properties are expected
+in \textit{Rebel}. Due to the missing definitions of these types, it means that
+we first have to define what the expected properties
 on these types are and substantiate these. Only then we can determine whether
 the generator is working as expected with these properties. There are many
 operations available among the available types in \textit{Rebel}. Thus we are
@@ -104,11 +104,13 @@ division~(/) operation. This is due to the division problem, requiring a number
 to be rounded off at a certain time. For example, when splitting 1 EUR with 3
 people, everyone would receive 33 cents, but what is done with the last cent
 that is left? This is the problem that is being solved by the allocate method,
-representing the ratio in which the rest amount should be allocated (the last
+representing the ratio in which the rest amount should be allocated (where the last
 cent would go to in this case)~\cite{fowler2002patterns}. The \textit{allocate}
 method is a thing that \textit{Rebel} does not have, instead, it just allows the
 use of the division operator. Because of this, we expect the division problem to
-occur while running the test framework. The amount of a \textit{Money} value is
+occur while running the test framework.\\
+\\
+The amount of a \textit{Money} value is
 often rounded when it is being represented to the user, as it could have many
 decimals. The representation of the \textit{Money} value is up to the business
 on how this is done, as there are multiple factors influencing this. Instead, we
@@ -129,10 +131,9 @@ not considered equal, even if the amount would be equal.\\
 \\
 \pinfo{Thus: precise value, rounding only for division}
 We say that the amount of a \textit{Money} value in \textit{Rebel} should hold
-the exact value as if we would calculate the same expression by ourselves.
-Meaning that the precision or rounding errors would have to be prevented on the
-calculated value. The representation of the \textit{Money} value to the customer
-is up to the business.
+the exact value as if we would calculate the same expression by ourselves. The
+representation of the \textit{Money} value to the customer is up to the
+business.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Property definitions
@@ -163,8 +164,8 @@ We can separate the properties into two categories: ``Field properties'' and
 ``Properties of equality and inequality''. In the following sections we describe
 these categories in detail along with the properties in the category. These
 property definitions will be used throughout the thesis. Additionally we will
-describe some property definitions that were added to this list of properties,
-which were added at the third experiment (\autoref{cpt:experiment3}).
+describe some property definitions that were added to this list of properties in
+the third experiment (\autoref{cpt:experiment3}).
 
 % % % % % % % % % % % % %
 % Subsection: Field properties
@@ -861,7 +862,7 @@ missed certain properties that can trigger even more bugs.
 \subsection*{Invalid definitions}
 We provided properties that should hold on \textit{Rebel} types, specifically
 when using the \textit{Money} type. We already discussed the lack of properties,
-but it could be the case that our definitions are invalid. We also assume that
+but it could be the case that some of our definitions are invalid. We also assume that
 these properties do hold on \textit{Rebel} types. Some might disagree with
 certain properties that we have defined, which leaves this as a threat. However,
 when this is the case, the properties can be updated when needed.
