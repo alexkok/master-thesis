@@ -8,20 +8,39 @@ In this chapter we discuss the research questions.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 1: Which properties
 \section{RQ 1: \rqOne{}}
-\textit{Rebel} did not have any definitions of which properties are expected to
-hold on a specification. Since we are using property-based testing to check the
-generator, it was required to define the expected properties first. The
-definitions of each property can be found in \autoref{cpt:properties}.\\
+There were no existing properties defined for \textit{Rebel} that were expected
+to hold. We have defined many properties for \textit{Rebel}. With the focus on
+the \textit{Money} type, which is considered the most important type for a
+bank.\\
 \\
-Many properties were defined during this thesis, but these are certainly not
-all the properties that exist for \textit{Rebel}. We focused on the
-\textit{Money} type, which is considered the most important type for a bank.
-Additional properties can always be added to the test framework.
+Many properties have been defined, but are these all the properties? Is each
+definition correct? Some properties might be considered incorrect or overlapping
+with others. We have seen this with the defintion of \textit{division} that was
+incorrect initially, which was encountered in the second experiment. In the
+third experiment the property definitions for \textit{division} have been
+updated. Additionally, extra properties were added to the list for the third
+experiment, \textit{additivity}, \textit{subtraction} and
+\textit{multiplication}. This showed how additional properties could be added to
+the test framework to test the generator. In case of incorrect, missing or
+overlapping property definitions, the current set of property definitions could
+be updated as we have done with the third experiment. There can be many
+combinations among the different types of \textit{Rebel} and the supported
+operators. Therefore, the set of properties that we have defined in
+\autoref{cpt:properties} is not the complete set of expected properties in
+\textit{Rebel}.\\
+\\
+Each property definition is defined as an expression, the test framework is
+currently limited to checking the generator on these kind of properties. We can also
+think of other properties that should hold in \textit{Rebel}. For example, the
+behaviour of sync block: what are the properties of the sync block in
+\textit{Rebel}? Can these be described in a \textit{Rebel} specification? If so,
+the current test framework would not support that definition because it can
+currently only cope with expression-based properties.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% RQ 2: How to test
+% RQ 2: How we test
 \section{RQ 2: \rqTwo{}}
-We have described a way how the generator could be tested by using
+We have described a way how the generator can be tested by using
 property-based testing. In order to check the generator, a \textit{Rebel}
 specification was required. The generated system was used to determine the
 results, allowing to reason about the generator. The test setup could be divided
