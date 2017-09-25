@@ -12,13 +12,13 @@ final product~\cite{stoelcase}. Checking is done based on bounded model checking
 by using the \textit{Z3} solver.\\
 \\
 \pinfo{Aim of project}
-Generators are being used to generates a system from the \textit{Rebel}
+Generators are being used to generate a system from the \textit{Rebel}
 specifications. The generated system provides an API in order to work with the
 specified product and handles the database connectivity. However, the
-implementation of the generated program is not checked against the
-specifications, meaning that the generated program is perhaps not doing what it
+implementation of the generated system is not checked against the
+specifications, meaning that the generated system is perhaps not doing what it
 is supposed to do according to its specifications. The aim of this project is to
-improve this, by automatically testing the generated program against
+improve this, by automatically testing the generated system against
 \textit{Rebel} specifications.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -105,7 +105,7 @@ mature generator.\\
 In order to run the test suite, we assume that the generated system can be
 compiled and that it can be run. Furthermore, the specification which was used
 to generate the system should be syntactically and semantically correct. Which
-means that the \textit{Rebel} type checker should not report any error about the
+means that the \textit{Rebel} type checker should not report any errors about the
 specification.\\
 \\
 \pinfo{Not detecting everything, but checking properties}
@@ -135,12 +135,12 @@ run the tests suite against the generated system and check if this method
 actually works to detect bugs.\\
 \\
 \pinfo{Generate, run, evaluate results and improve again}
-Next, we generate tests for each of these properties and run these against the
-generated system. After running the test suite, the result is being evaluated.
-When one or more tests are failing, a bug is found. However, we need to
-investigate the failing case such that we discover what the actual bug is. After
-evaluating we improve our test framework and continue to run and evaluate the
-results again.
+Next, we generate tests for each of the defined properties and run these against
+the generated system. After running the test suite, the result is being
+evaluated. When one or more tests are failing, a bug is found. However, we need
+to investigate the failing case such that we discover what the actual bug is.
+After evaluating we improve our test framework and continue to run and evaluate
+the results again.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Contribution
