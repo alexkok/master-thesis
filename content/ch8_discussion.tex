@@ -15,8 +15,8 @@ bank.\\
 \\
 Many properties have been defined, but are these all the properties? Is each
 definition correct? Some properties might be considered incorrect or overlapping
-with others. We have seen this with the defintion of \textit{division} that was
-incorrect initially, which was encountered in the second experiment. In the
+with others. We have seen this with the definition of \textit{division} that was
+incorrect, which was encountered in the second experiment. In the
 third experiment the property definitions for \textit{division} have been
 updated. Additionally, extra properties were added to the list for the third
 experiment, \textit{additivity}, \textit{subtraction} and
@@ -34,7 +34,7 @@ currently limited to checking the generator on these kind of properties. We can 
 think of other properties that should hold in \textit{Rebel}. For example, the
 behaviour of sync block: what are the properties of the sync block in
 \textit{Rebel}? Can these be described in a \textit{Rebel} specification? If so,
-the current test framework would not support that definition because it can
+the current test framework would not support that definition yet because it can
 currently only cope with expression-based properties.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -42,17 +42,17 @@ currently only cope with expression-based properties.
 \section{RQ 2: \rqTwo{}}
 We have described a way how the generator can be tested by using property-based
 testing. In order to check the generator, a \textit{Rebel} specification is
-created containing the property definitions. This specification is then used by
+created containing the property definitions. This specification is used by
 the test framework to generate tests and run these tests against the generated
 system.\\
 \\
-The initial version of the test framework used random values to test each property. The first experiment showed that this doesn't work for the implicative properties. The if-clause of these implicative properties were not being triggered when using random values. In the second experiment the test framework was improved. The input values where determined such that the condition of the implicative property was being satisfied. Additionally, these values were being mutated by a random operation, to keep the randomness of the input values. This improvement to the test framework revealed some incorrect property definitions. The implementation of how the input values were determined was not very dynamic. Because every time an implicative property was being added to the specification, an update was required to the test framework.\\
+The initial version of the test framework used random values to test each property. The first experiment showed that this doesn't work for the implicative properties. The if-clause of these implicative properties were not being triggered when using random values. In the second experiment the test framework was improved. The input values where determined such that the condition of the implicative property was being satisfied. Additionally, these values were being mutated by a random operation, to keep the randomness of the input values. This improvement to the test framework revealed some incorrect property definitions. Also, the implementation of how the input values were determined was not very dynamic. Because every time an implicative property was being added to the specification, an update was required to the test framework.\\
 \\
 In the third experiment the input values were determined in a more dynamic way, by using the preconditions to determine the input values. This requires a property definition to define its preconditions. As a result, it was not required to update the test framework when implicative properties were being added. This is shown in the third experiment.\\
 \\
 We evaluated the test framework in each experiment by looking at the test coverage and the number of bugs that have been detected. The coverage details showed that in the first experiment the if-clause of the implicative properties was not being triggered. Which lead to an improved version in the second and third experiment. Furthermore the branch coverage reported a consistent 50\% over the second and third experiment, which is caused by the implicative properties. The else-clause is not being tested, but that is also not the intention of that property.\\
 \\
-The overall test coverage for each experiment was roughly the same (87.80\%, 88.87\% and 88.28\%). This shows that despite of the improvements made to the test framework, the test coverage did not change. This is caused by the fact that each experiment is different:
+The overall test coverage for each experiment was roughly the same (87.80\%, 88.87\% and 88.28\%). This shows that despite of the improvements made to the test framework, the test coverage did not change. However, each experiment is different, some of the differences have an impact on the coverage results:
 \begin{itemize}
   \item The first experiment used random input values for each property. The else-clause of the implicative properties were defined as \code{true}, resulting that each implicative property was considered correct.
   \item In the second experiment the else-clause of the implicative properties were set to \code{false}. The input values are generated such that these satisfy the condition of the if-clause. These values are also being mutated when running the test, to keep the actual values random.
@@ -60,9 +60,9 @@ The overall test coverage for each experiment was roughly the same (87.80\%, 88.
   \item In the third experiment some incorrectly defined properties were updated and additional properties have been added.
   \item Note that the test framework has been updated throughout the experiments. Meaning that the third experiment contains the changes of the second experiment.
 \end{itemize}
-The test coverage of the first experiment would be considerably lower in case the else-clause of the implicative properties would be \code{false}. This would result in that every test concerning an implicative property would fail. Although the result of this would then be that there are many false-positives, because it just returns \textit{false} in its definition.\\
+The test coverage of the first experiment would be considerably lower in case the else-clause of the implicative properties would be \code{false}. This would result in that every test concerning an implicative property would fail. Although the result of this would find many false-positives, because it just returns \textit{false} in its definition.\\
 \\
-The test coverage over the second and third experiment are roughly the same (only 0.59\% difference). But the third experiment tested 17 more properties than the second experiment. This shows that adding additional properties does not have much impact on the test coverage. The additional properties are being checked automatically by the test framework because these properties are defined in the \textit{Rebel} specification.
+The test coverage over the second and third experiment are roughly the same (only 0.59\% difference). The third experiment tested 17 more properties than the second experiment. This shows that adding additional properties does not have much impact on the test coverage. The additional properties are being checked automatically by the test framework because these properties are defined in the \textit{Rebel} specification.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % RQ 3: Number and kind of bugs
