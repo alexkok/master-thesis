@@ -34,10 +34,10 @@ future work.
 
 \subsubsection{Values generation by using solvers}
 \pinfo{Current value generation limitations}
-The current value generation works for the properties that we defined throughout this thesis. When additional properties are being added, the value generator might or might not have to be updated. This depends on what preconditions have to be parsed for that property and whether the current implementation supports these operations. As described, the current implementation has some limitations. It does not support expressions that are using different operators or that use expressions on both the left-hand and right-hand side (expressions here means non-literals or variables, but a combination of operators and literals/variables).\\
+The current value generation works for the properties that we defined throughout this thesis. When additional properties are being added, the value generator might or might not have to be updated. This depends on what preconditions have to be parsed for that property and whether the current implementation supports these operations.\\% As described, the current implementation has some limitations. It does not support expressions that are using different operators or that use expressions on both the left-hand and right-hand side (expressions here means non-literals or variables, but a combination of operators and literals/variables).\\
 \\
 \pinfo{Other tools possible}
-Another way how the value generator could work is to use some tools to determine the random values. As we have discussed in \autoref{cpt:experiment3}, the SMT solver would theoratically be an option. But in our attempts, this resulted in having the same input values every time the test framework is run, meaning that the randomness of the values is lost in the first part. To counter this problem, other solvers might be more useful to implement this behaviour, such as \textit{SageMath}~\cite{siteSageMath2017}. \textit{SageMath} can parse expressions and determine the conditions to which each variable in the expression should hold. When using this, it would mean that the value generator has to be modified such that it integrates with this tool. Another approach could be used for this too, such as concolic testing~\cite{sen2006cute} to determine the input values randomly. % Maybe there are some QuickCheck ports that do this already for some languages?
+Another way how the value generator could work is to use some tools to determine the random values. As we have discussed in \autoref{cpt:experiment3}, the SMT solver would theoratically be an option. But in our attempts this resulted in having the same input values every time the test framework is run. To counter this problem, other solvers might be more useful to implement this behaviour, such as \textit{SageMath}~\cite{siteSageMath2017}. \textit{SageMath} can parse expressions and determine the conditions to which each variable in the expression should hold. When using this, it would mean that the value generator has to be modified such that it integrates with this tool. Another approach could be used for this too, such as concolic testing~\cite{sen2006cute} to determine the input values. % Maybe there are some QuickCheck ports that do this already for some languages?
 
 \subsubsection{Multiple generators}
 \pinfo{Only one, support for more could be added}
@@ -50,19 +50,18 @@ property definitions can be tested on different kind of generated systems. This
 can be used to detect inequalities among the generated system.
 
 \subsubsection{Mutation testing}
-A way to evaluate the effectiveness of the test framework would be to use
+Another metric to evaluate the effectiveness of the test framework would be to use
 mutation testing. The mutation coverage could be used to measure how
 effective the test framework would be (the number of mutants created and the
 number of killed mutants). Unfortunately, there is currently a limited support
-for mutation testing for \textit{Scala} systems, as it cannot meaningfully
+for mutation testing for \textit{Scala} systems. \textit{PIT} for example, cannot meaningfully
 mutate \textit{Scala} code~\cite{siteSbtPit2017}. Because of this, we did not
 use this as metric to evaluate the test framework.\\
 \\
 \textit{Scala} compiles to \textit{Java} bytecode, mutating on bytecode level
-could be used to solve the problem of limited support. However, this could lead
-to false-positives, meaning that some mutants might not be relevant in that the
-modifications would not affect the implementation. This should then be taken
-into account.
+could be used too. However, some mutants might not be relevant in that the
+modifications would not affect the implementation, which can lead to
+false-positives.
 
 \subsubsection{Other components}
 Besides completing the set of property definitions, the test framework could also be extended such that it
@@ -79,24 +78,23 @@ correctly. The generated system is configured to work with multiple
 distributions of the system, but is not being tested thoroughly yet.
 
 % Ultimately, as last
-\subsubsection{Properties based on type checker}
-\pinfo{Generating properties based on type checker}
-\textit{Rebel} contains a type checker, which is able to determine exactly
-which operations are supported by using certain combinations of operators and
-types. This could be used to automatically generate the property specifications
-in \textit{Rebel} based on whether a type supports certain operations that are
-required for the property. For example, if \textit{Percentage} supports
-addition, the properties for \textit{additivity}, \textit{associativeAddition}
-and \textit{commutativeAddition} can be generated based on this rule.\\
-\\
-Considering that a map
-of all operations can be created and a map of all existing types, each
-combination can be tested against the type checker. If the type checker an
-expression as correct, the event definition for the property can
-be generated. Although this might result in many definitions that are being
-tested, with a possible overlap between them, it could be a way to automatically
-generate the properties that should be tested. This would assume that the type
-checker does the right thing, which would be a threat for this approach. This
-might also cause more compilation errors in the generated system. Nevertheless,
-it can make it more dynamic when a new type is being added to the \textit{Rebel}
-language.
+%\subsubsection{Properties based on type checker}
+%\pinfo{Generating properties based on type checker}
+%\textit{Rebel} contains a type checker, which is able to determine exactly
+%which operations are supported by using certain combinations of operators and
+%types. This could be used to automatically generate the property specifications
+%in \textit{Rebel} based on whether a type supports certain operations that are
+%required for the property. For example, if \textit{Percentage} supports
+%addition, the properties for \textit{additivity}, \textit{associativeAddition}
+%and \textit{commutativeAddition} can be generated based on this rule.\\
+%\\
+%A map of all operations and all existing types could be created. Next, each
+%combination can be tested against the type checker. If the type checker an
+%expression as correct, the event definition for some properties could be
+%be generated. Although this might result in many event definitions,
+%with a possible overlap between them, it could be a way to automatically
+%generate the specification containing the definitions. This assumes that the type
+%checker does the right thing, which is a threat to this approach. This
+%can also lead to more compilation errors in the generated system. Nevertheless,
+%it can make it more dynamic when a new type is being added to the \textit{Rebel}
+%language.
