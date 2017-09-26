@@ -94,7 +94,7 @@ the intention of the \textit{Money} type is to avoid this:
     -- Martin Fowler~\cite{fowler2002patterns}
 		%[p. 462] % Of pdf, ebook thing doesn't have page numbers
 \end{quote}
-
+%
 \pinfo{Money operations, expecting division problem}
 In~\cite{fowler2002patterns} the operations that can be done with the
 \textit{Money} type are described, which are: \textit{+}, \textit{-},
@@ -214,7 +214,7 @@ in \textit{Rebel} when it comes to using these operations. This is because \text
 \caption{Associativity when using \textit{Money}}
 \label{tbl:ch4_money_associativity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The law of associativity is known on addition and
@@ -242,7 +242,7 @@ property, which are accepted by the type checker of \textit{Rebel}.
 \caption{Non-associativity when using \textit{Money}}
 \label{tbl:ch4_money_nonassociativity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 % in tegenstelling tot steen is geen steen stoep
@@ -276,7 +276,7 @@ property holds. An exception to this would be when each argument is zero.
 \caption{Commutativity when using \textit{Money}}
 \label{tbl:ch4_money_commutativity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 These properties are based on the commutative law~\cite{baumgart1961axioms}.
@@ -305,7 +305,7 @@ parameter to multiplication or the other way around.
 \caption{Anticommutativity when using \textit{Money}}
 \label{tbl:ch4_money_anticommutativity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 \nameref{ssct:properties_commutativity} described the commutative properties.
@@ -333,7 +333,7 @@ intending to result in the actual value again, as shown in
 \caption{Identity when using \textit{Money}}
 \label{tbl:ch4_money_identity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The identity relation describes a function that returns the same value as the
@@ -362,7 +362,7 @@ Thus it must have the same currency as the parameter, with the amount of 0. The
 \caption{Inverse when using \textit{Money}}
 \label{tbl:ch4_money_inverse}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The inverse relation describes (for additivity) that using addition with the
@@ -400,7 +400,7 @@ type, which is why we only define the inverse relation using addition.
 \caption{Distributivity when using \textit{Money}}
 \label{tbl:ch4_money_distributivity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The law of distributivity is another well-known law~\cite{baumgart1961axioms}.
@@ -439,7 +439,7 @@ property definitions belong to this category:
 \caption{Property of Zero when using \textit{Money}}
 \label{tbl:ch4_money_propertyzero}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The property of zero on multiplication states that if something is multiplied
@@ -468,10 +468,10 @@ than zero.
 \caption{Reflexivity when using \textit{Money}}
 \label{tbl:ch4_money_reflexivity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
-\pinfo{Equality, currency and amount}
+%\pinfo{Equality, currency and amount}
 The reflexive property is defined as a relation of a type with
 itself~\cite{raftery2011perspective}. An instance of type \textit{Money} should
 be equal to itself. The inequality relations \textit{smaller or equal to} and
@@ -494,10 +494,10 @@ variables.
 \caption{Symmetry when using \textit{Money}}
 \label{tbl:ch4_money_symmetry}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
-\pinfo{Equality, currency and amount}
+%\pinfo{Equality, currency and amount}
 \nameref{ssct:properties_reflexivity} described relations on the same variable
 of the \textit{Money} type. When two different variables are used, the order
 should not matter and thus it should work in both ways. Which is known as the
@@ -521,7 +521,7 @@ symmetric property~\cite{raftery2011perspective}.
 \caption{Antisymmetry when using \textit{Money}}
 \label{tbl:ch4_money_antisymmetry}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The antisymmetric relation describes that whenever there is a relation from
@@ -561,7 +561,7 @@ expected to hold, as the \textit{Money} type supports these operations.
 \caption{Transitivity when using \textit{Money}}
 \label{tbl:ch4_money_transitivity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 Operations can be done on the \textit{Money} types. The transitive
@@ -590,7 +590,7 @@ values.
 \caption{Additivity when using \textit{Money}}
 \label{tbl:ch4_money_additivity}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 Addition was earlier mentioned for the \nameref{ssct:properties_commutativity}
@@ -620,7 +620,7 @@ not break the equality property on the resulting values.
 \caption{Division when using \textit{Money}}
 \label{tbl:ch4_money_division}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 When using division with the \textit{Money} type, it is not possible to use a
@@ -645,7 +645,7 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 \caption{Trichotomy when using \textit{Money}}
 \label{tbl:ch4_money_trichotomy}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The law of trichotomy defines that for every pair of arbitrary real numbers,
@@ -697,7 +697,7 @@ definitions.
 \caption{Updated definition of Division when using \textit{Money}}
 \label{tbl:properties_money_division_updated}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The initial property definitions for \textit{Division} did not take the division
@@ -736,7 +736,7 @@ definitions have been added for division, as shown in
 \caption{Additivity when using \textit{Money}}
 \label{tbl:properties_money_additivity_updated}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 For additivity, additional property definitions are added that use inequality,
@@ -766,7 +766,7 @@ as shown in \autoref{tbl:properties_money_additivity_updated}. The existing ones
 \caption{Subtraction when using \textit{Money}}
 \label{tbl:properties_money_subtraction_updated}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The property definitions concerning subtraction are kind of similar to those of
@@ -804,7 +804,7 @@ for subtraction we defined these properties as shown in
 \caption{Multiplication when using \textit{Money}}
 \label{tbl:properties_money_multiplication_updated}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 % Reasoning
 The property definitions for multiplication are looking similar to those of

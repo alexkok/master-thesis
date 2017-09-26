@@ -11,7 +11,7 @@ question:
 \begin{description}
   \item [RQ 2:] \rqTwo
 \end{description}
-
+%
 We use property-based testing as testing technique. The aim of this project is
 to test the implementation of the generator and trying to find, yet unknown,
 bugs in it. Unfortunately, we cannot test the properties right away on the
@@ -41,7 +41,7 @@ phases and the test framework is shown in \autoref{fig:testmechanics_overview}.
 \label{fig:testmechanics_overview}
 \centering
 \end{figure}
-\FloatBarrier
+\FloatBarrier\noindent
 % End figure
 The phases are defined as follows:
 \def \tfPhaseOne{Create specification}
@@ -75,7 +75,7 @@ x == x & x & Money \\ \hline
 \caption{Property definition of \textit{ReflexiveEquality}}
 \label{tbl:ch3_small_property_definition}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % % % % % % % % % % % %
@@ -110,9 +110,9 @@ event reflexiveEquality(x: Money) {
 \caption{The event definition for the \textit{ReflexiveEquality} property.}
 \label{lst:ch3_rebel_event_of_property}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
-\pinfo{Further explanation, parameters, result field}
+%\pinfo{Further explanation, parameters, result field}
 The event name and the parameters are used to generate a test case from this
 event definition. To check whether the property was fulfilled given a certain
 set of parameters, we store the result in a data field called
@@ -158,7 +158,7 @@ specification MoneyExample {
 \caption{The event definition for the \textit{ReflexiveEquality} property.}
 \label{lst:ch3_rebel_specification_oneprop}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
 
 % % % % % % % % % % % % %
@@ -244,7 +244,7 @@ public str snippetTestCase(str eventName, list[str] params, int tries) {
 \caption{Test case snippet}
 \label{lst:ch3_rascal_testcase_template}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
 
 % Listing
@@ -261,9 +261,9 @@ public str snippetTestCase(str eventName, list[str] params, int tries) {
 \caption{An example of a generated test}
 \label{lst:ch3_generated_test_example}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
-\pinfo{Explanation of a complete test file}
+%\pinfo{Explanation of a complete test file}
 The functions \code{generateParamList()} and \code{checkAction()} are utility
 functions that are defined in the template that is used for a test file. The
 \code{generateRandomParamList()} method generates tuples of random values that
@@ -298,9 +298,9 @@ successfully, as shown in \autoref{lst:ch3_log_testrun_success}.
 \caption{Log output of the test suite concerning \textit{ReflexiveEquality}.}
 \label{lst:ch3_log_testrun_success}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
-\pinfo{Notable start up time explanation}
+%\pinfo{Notable start up time explanation}
 Looking at the run time of this specific run, it shows us that the
 \textit{ReflexiveEquality} test case was executed within 4 seconds. While
 running the whole test suite took almost 37 seconds. This difference is due to
@@ -346,7 +346,7 @@ generator.
 \caption{Log output after modifying the generator}
 \label{lst:ch3_log_testrun_failed}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
 
 % % % % % % % % % % % % %
@@ -388,9 +388,9 @@ everything green, meaning that the whole statement was executed, as shown in
 \label{fig:ch3_eval_e0_highlighting_reflexive-equality}
 \centering
 \end{figure}
-\FloatBarrier
+\FloatBarrier\noindent
 % End figure
-\pinfo{Property coverage}
+%\pinfo{Property coverage}
 The logic of a specification is defined in one \textit{Class} in the generated
 system, which is called \textit{Logic} and prefixed by the \textit{Rebel}
 specification name. We will only look at these classes to check to which extent

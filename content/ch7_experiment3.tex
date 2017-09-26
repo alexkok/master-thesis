@@ -99,7 +99,7 @@ function round(money: Money): Money =
 \caption{The updated event definition of the \textit{Symmetric} property}
 \label{lst:experiment3_rebel_round_implementation}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
 
 % % % % % % % % % % % % %
@@ -173,9 +173,9 @@ public list[list[Expr]] genValues(str eventName, Preconditions? preconditions, l
 \caption{The updated event definition of the \textit{Symmetric} property}
 \label{lst:experiment3_value_generation_code}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
-
+%
 In the following sections we describe each step in detail.
 
 % Initialize value generation data for each variable
@@ -198,7 +198,7 @@ alias RandomValueProps = tuple[Type tipe, real min, real max, bool allowZero];
 \caption{The updated event definition of the \textit{Symmetric} property}
 \label{lst:experiment3_alias_definition_randomvalueprops}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
 The value generator initializes the \textit{RandomValueProps} for each input
 variable. Setting the minimum and maximum value to a default value and allowing
@@ -317,9 +317,9 @@ to be done.
 \label{fig:experiment3_eval_e3}
 \centering
 \end{figure}
-\FloatBarrier
+\FloatBarrier\noindent
 % End figure
-\pinfo{Branch coverage still 50\%}
+%\pinfo{Branch coverage still 50\%}
 The branch coverage is still reported to be 50\%, while the number of branches
 has been increased. This is correct, as the additional properties are using the
 implication symbol, which is being translated to if-else statements. This

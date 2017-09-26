@@ -73,9 +73,9 @@ The first run results into a termination of the run due to a compile error in th
 \caption{Log output first test run resulting in a termination.}
 \label{lst:ch5_firstrun_termination_log}
 \end{sourcecode}
-\FloatBarrier
+\FloatBarrier\noindent
 % End listing
-\pinfo{Investigation, found property and var types}
+%\pinfo{Investigation, found property and var types}
 The error log does not clearly indicate what exactly went wrong. It doesn't
 show clearly which property is causing this error. Also, it does not describe
 what the types of the variables were. Investigating the generated system reveals
@@ -114,7 +114,7 @@ AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27          
 \caption{Overview of failing tests along with its input values}
 \label{tbl:experiment1_overview_second_run}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 
@@ -168,7 +168,7 @@ z*x                    & -360668978.6427 EUR              & -360668978.6427 EUR 
 \caption{DistributivePercentage1: Precision error when multiplying a \textit{Percentage} with \textit{Money}}
 \label{ch4_init_check_DistributivePercentage1}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -202,7 +202,7 @@ y+z                    & 773001771.26 EUR                 & 773001771.26 EUR    
 \caption{DistributivePercentage1: Precision error when multiplying a \textit{Money} with \textit{Percentage}}
 \label{ch4_init_check_DistributivePercentage2}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -242,7 +242,7 @@ y+z                & 417290806.03 EUR                 & 417290806.03 EUR        
 \caption{DistributiveInt2: Precision error when multiplying \textit{Money} with an \textit{Integer}}
 \label{ch4_init_check_DistributiveInt2}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -279,7 +279,7 @@ y*z                & 939108976.688 EUR                & 939108976.688 EUR       
 \caption{AssociativeMultiplicationPercentage2: Precision error causing bigger differences}
 \label{ch4_init_check_AssociativeMultiplicationPercentage2}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -318,7 +318,7 @@ x*z                    & -2594683539688709024.27 EUR & -2594683539688709024.27 E
 \caption{DistributiveInteger1: \textit{Integer} overflows when using addition}
 \label{ch4_init_check_DistributiveInteger1}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -360,7 +360,7 @@ y*z                & -2092906591                         & -2462092362461952095 
 \caption{AssociativeMultiplicationInteger2: \textit{Integer} underflows when using multiply}
 \label{ch4_init_check_AssociativeMultiplicationInteger2}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 
 % % %
@@ -399,7 +399,7 @@ x*y                & -95278497.3234 EUR         & -95278497.3234 EUR          \\
 \caption{AssociativeMultiplicationPercentage1: A precision error when using \textit{Percentage}}
 \label{ch4_init_check_AssociativeMultiplicationPercentage1}
 \end{table}
-\FloatBarrier
+\FloatBarrier\noindent
 % End table
 Additionally, we can see a difference in the results on the left-hand and
 right-hand side of the expression evaluation in \textit{Scala}. Whereas the
@@ -442,7 +442,7 @@ were not checked at all.
 \label{fig:experiment1_coverage_implicative_property}
 \centering
 \end{figure}
-\FloatBarrier
+\FloatBarrier\noindent
 % End figure
 
 % Total coverage
@@ -460,7 +460,7 @@ ending with ``Logic'' contain the implementation of the properties. The other 12
 \label{fig:experiment1_evaluation_result}
 \centering
 \end{figure}
-\FloatBarrier
+\FloatBarrier\noindent
 % End figure
 The branch coverage is reported to be 66,67\%. This is caused by the implicative properties that are being translated to \textit{if-else} statements, where the \textit{else} branch is translated to \textit{true}. Furthermore the coverage could be increased as not every part of the condition of implicative properties are being checked, as we have seen in \autoref{fig:experiment1_coverage_implicative_property}.\\
 \\
