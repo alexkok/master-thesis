@@ -23,25 +23,23 @@ We conclude that, by using this approach, the generator can be checked on whethe
 \section{Future work}
 % Multi VM testing, specify sync properties, can test with multi JVM testing etc. Sources > future work
 
-\subsection*{Complete property definitions}
+\subsubsection{Complete property definitions}
 \pinfo{Full definitions for Rebel}
 In this thesis, we defined some properties on the \textit{Rebel} language,
 which we consider to hold when using \textit{Rebel}. This list of property
 definitions on \textit{Rebel} is not complete, there can be many more properties
 and there are other types available in \textit{Rebel} which we did not cover.
-These should be added to have a complete set of property definitions for the
-\textit{Rebel} language. This is left as future work. When additional properties
-are known, these properties can be added to the test framework such that these
-will also be tested on the generator.
+Defining these and adding them to the set of property definitions is left as
+future work.
 
-\subsection*{Values generation by using solvers}
+\subsubsection{Values generation by using solvers}
 \pinfo{Current value generation limitations}
 The current value generation works for the properties that we defined throughout this thesis. When additional properties are being added, the value generator might or might not have to be updated. This depends on what preconditions have to be parsed for that property and whether the current implementation supports these operations. As described, the current implementation has some limitations. It does not support expressions that are using different operators or that use expressions on both the left-hand and right-hand side (expressions here means non-literals or variables, but a combination of operators and literals/variables).\\
 \\
 \pinfo{Other tools possible}
 Another way how the value generator could work is to use some tools to determine the random values. As we have discussed in \autoref{cpt:experiment3}, the SMT solver would theoratically be an option. But in our attempts, this resulted in having the same input values every time the test framework is run, meaning that the randomness of the values is lost in the first part. To counter this problem, other solvers might be more useful to implement this behaviour, such as \textit{SageMath}~\cite{siteSageMath2017}. \textit{SageMath} can parse expressions and determine the conditions to which each variable in the expression should hold. When using this, it would mean that the value generator has to be modified such that it integrates with this tool. Another approach could be used for this too, such as concolic testing~\cite{sen2006cute} to determine the input values randomly. % Maybe there are some QuickCheck ports that do this already for some languages?
 
-\subsection*{Multiple generators}
+\subsubsection{Multiple generators}
 \pinfo{Only one, support for more could be added}
 Throughout this thesis, we have only tested the Scala/Akka generator which is
 developed by \textit{ING}. Since there are more generators available, the test
@@ -51,13 +49,14 @@ other generators that are available within \textit{ING}. By doing this, the same
 property definitions can be tested on different kind of generated systems. This
 can be used to detect inequalities among the generated system.
 
-\subsection*{Mutation testing}
+\subsubsection{Mutation testing}
 A way to evaluate the effectiveness of the test framework would be to use
 mutation testing. The mutation coverage could be used to measure how
 effective the test framework would be (the number of mutants created and the
 number of killed mutants). Unfortunately, there is currently a limited support
 for mutation testing for \textit{Scala} systems, as it cannot meaningfully
-mutate \textit{Scala} code~\cite{siteSbtPit2017}.\\
+mutate \textit{Scala} code~\cite{siteSbtPit2017}. Because of this, we did not
+use this as metric to evaluate the test framework.\\
 \\
 \textit{Scala} compiles to \textit{Java} bytecode, mutating on bytecode level
 could be used to solve the problem of limited support. However, this could lead
@@ -65,26 +64,22 @@ to false-positives, meaning that some mutants might not be relevant in that the
 modifications would not affect the implementation. This should then be taken
 into account.
 
-\subsection*{Other components}
-The current setup of the test framework is intended to be used to test a certain
-component of the generated system. Namely, the \textit{Rebel} types and the
-operations among these. More properties can be added to check every type that
-\textit{Rebel} supports. The test framework could also be extended such that it
-can also test other components of the system. Such as the sync block
-definitions, defining actions that should happen synchronously. Or performance
-measures when interacting with the data in the system, which uses a database
-implementation. Currently, such components are not being tested, while these
+\subsubsection{Other components}
+Besides completing the set of property definitions, the test framework could also be extended such that it
+can also support property definitions concerning other components of the system. Such as the sync block
+definitions, which defines actions that should happen synchronously. Or performance
+measures when interacting with data in the system. Currently, such components
+are not being tested and are unsupported, while these
 components are also important for the bank. This is left as future work.\\
 \\
-Although the test framework can be extended to also test other components of
-the generated system, it might not be possible to check each and every component
-by using this approach. For example, it is probably not able to check how
+It might not be possible to check each and every component
+by using this approach. For example, it might be unable to check how
 multiple generated systems would integrate with each other and if this is done
 correctly. The generated system is configured to work with multiple
-distributions of the system, but this is not being tested yet.
+distributions of the system, but is not being tested thoroughly yet.
 
 % Ultimately, as last
-\subsection*{Properties based on type checker}
+\subsubsection{Properties based on type checker}
 \pinfo{Generating properties based on type checker}
 \textit{Rebel} contains a type checker, which is able to determine exactly
 which operations are supported by using certain combinations of operators and
@@ -99,8 +94,9 @@ of all operations can be created and a map of all existing types, each
 combination can be tested against the type checker. If the type checker an
 expression as correct, the event definition for the property can
 be generated. Although this might result in many definitions that are being
-tested, with a possible overlap between them, it would be a way to automatically
+tested, with a possible overlap between them, it could be a way to automatically
 generate the properties that should be tested. This would assume that the type
 checker does the right thing, which would be a threat for this approach. This
 might also cause more compilation errors in the generated system. Nevertheless,
-it can make it more dynamic when a new type could be added to \textit{Rebel}.
+it can make it more dynamic when a new type is being added to the \textit{Rebel}
+language.
