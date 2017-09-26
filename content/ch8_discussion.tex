@@ -87,15 +87,26 @@ Also, we perhaps have missed some property definitions that would trigger more b
 \pinfo{Precision errors, Squants issue}
 As we have seen, the \textit{Money} precision errors both occurred when using
 \textit{Percentage} values as well as when using \textit{Integer} values to
-operate with the \textit{Money} type. Since we were able to reproduce the issue
-in a clean \textit{REPL} environment, the problem existed in the open-source
-library, called \textit{Squants}, that was used for the \textit{Money} type. In
+operate with the \textit{Money} type. We were able to reproduce the issue
+in a clean \textit{REPL} environment and concluded that the problem existed in the open-source
+library, called \textit{Squants}~\cite{siteSquants2017}. This library is being used for the \textit{Money} type. In
 order to solve this problem, we created an issue on
 \textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}
 related to the precision problems on the \textit{Money} type. A contributor
 responded and fixed the issue within a day, the change will be included in the
-next version of the library (1.4). So it is required to update this library in
-order to let these tests in our test suite pass.
+next version of the library (1.4).\\
+\\
+The generator should be updated to use this version of the library in order to
+fix these precision errors. This is what has been done in the second experiment,
+where we use the fixed version of the generator. So would updating the library
+fix all the precision errors that have been found? No, in the first experiment
+one of the precision errors found was being caused by multiplying a
+\textit{Percentage} with an \textit{Integer}. This precision error is not
+related to the precision errors when using the \textit{Money} type and still
+remains to exist in the generator. There might be more precision errors when
+using the generator, but then we did not define properties for these cases and
+thus did not trigger those. Thus, adding more property definitions might lead to
+more bugs, including precision errors.
 
 \subsubsection{Overflow/underflow errors}
 \pinfo{Overflow/underflow errors, discussion and unclear definition}
