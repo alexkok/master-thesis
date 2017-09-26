@@ -69,31 +69,29 @@ The test coverage over the second and third experiment are roughly the same (onl
 \section{RQ 3: \rqThree{}}
 Multiple bugs were found using property-based testing to check the generator.
 The generator failed to satisfy a total of 9 properties that we have defined.
-Some properties triggered different kind of bugs. The bugs that were found can
-be separated into the following categories:
+Some properties triggered different kind of bugs. We can categorize the bugs found as follows:
 \begin{description}
+  \item[~~~~Precision errors:] Errors causing an unexpected outcome value when using calculations.
+  \item[~~~~Overflow/underflow errors:] Errors happening because of a value limit that has been reached on specific types.
   \item[~~~~Compilation errors:] Errors that make the generated system unable to compile, resulting that the generated system cannot be used.
-  \item[~~~~Overflow/underflow errors:] Errors happening because of a limit that has been reached on specific types.
-  \item[~~~~Precision errors:] Errors causing an unexpected outcome value when being calculated.
 \end{description}
+Despite of the bugs that we have found in the experiments, the test framework should be able to find other kind of bugs which did not exist in the generator that we have used. We can think of certain operations that are not correctly implemented. For example, when addition would act like subtraction. This would cause each the test case that use addition to fail. Also, we might have missed some property definitions that would trigger more bugs in the generator. The use of other types and operators that exist in \textit{Rebel} can lead to more bugs. \textit{Rebel} also supports data structures like \textit{map} and \textit{set} which we also do not cover. Therefore we cannot conclude that the test framework would only find the kind of bugs that we found. But we can conclude that these kind of bugs can at least be found, which we have shown in the experiments.\\
+\\
+\subsubsection{Precision errors}
+\pinfo{Precision errors, Squants issue}
+As we have seen, the \textit{Money} precision errors both occurred when using
+\textit{Percentage} values as well as when using \textit{Integer} values to
+operate with the \textit{Money} type. Since we were able to reproduce the issue
+in a clean \textit{REPL} environment, the problem existed in the open-source
+library, called \textit{Squants}, that was used for the \textit{Money} type. In
+order to solve this problem, we created an issue on
+\textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}
+related to the precision problems on the \textit{Money} type. A contributor
+responded and fixed the issue within a day, the change will be included in the
+next version of the library (1.4). So it is required to update this library in
+order to let these tests in our test suite pass.
 
-\subsection*{Compilation errors}
-\pinfo{Compilation error, Squants issue}
-In the second experiment, the test framework was initially being terminated because of a
-compilation error. Although one assumption was that the generated system should
-be able to compile, another assumption was that the specification was
-consistent. The specification containing all the properties is consistent,
-as \textit{Rebel} did not report any syntactic or semantic errors with the type
-checker. The test framework is thus able to find such compilation errors. However,
-there can be many more compilation errors for which we do not check, which is
-also out of the scope of this thesis. The cause of this error was actually
-caused by an implementation error in an open-source library that the generated
-system used, called \textit{Squants}~\cite{siteSquants2017}. To fix this, we
-created a \textit{Github}
-issue\footnote{https://github.com/typelevel/squants/issues/281} describing the
-problem. So that this can be fixed in the next release of the library.
-
-\subsection*{Overflow/underflow errors}
+\subsubsection{Overflow/underflow errors}
 \pinfo{Overflow/underflow errors, discussion and unclear definition}
 The overflow/underflow errors are caused because of the use of the
 \textit{Integer} type. On one hand, this could be prevented by checking the
@@ -118,19 +116,21 @@ would be the maximum integer in that case? Would it be the value of a 32 bit
 integer or a 64 bit integer. In case our conclusion is incorrect, the property
 definition can be updated to describe the actual bounds of the input values.
 
-\subsection*{Precision errors}
-\pinfo{Precision errors, Squants issue}
-As we have seen, the \textit{Money} precision errors both occurred when using
-\textit{Percentage} values as well as when using \textit{Integer} values to
-operate with the \textit{Money} type. Since we were able to reproduce the issue
-in a clean \textit{REPL} environment, the problem existed in the open-source
-library, called \textit{Squants}, that was used for the \textit{Money} type. In
-order to solve this problem, we created an issue on
-\textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}
-related to the precision problems on the \textit{Money} type. A contributor
-responded and fixed the issue within a day, the change will be included in the
-next version of the library (1.4). So it is required to update this library in
-order to let these tests in our test suite pass.
+\subsubsection{Compilation errors}
+\pinfo{Compilation error, Squants issue}
+In the second experiment, the test framework was initially being terminated because of a
+compilation error. Although one assumption was that the generated system should
+be able to compile, another assumption was that the specification was
+consistent. The specification containing all the properties is consistent,
+as \textit{Rebel} did not report any syntactic or semantic errors with the type
+checker. The test framework is thus able to find such compilation errors. However,
+there can be many more compilation errors for which we do not check, which is
+also out of the scope of this thesis. The cause of this error was actually
+caused by an implementation error in an open-source library that the generated
+system used, called \textit{Squants}~\cite{siteSquants2017}. To fix this, we
+created a \textit{Github}
+issue\footnote{https://github.com/typelevel/squants/issues/281} describing the
+problem. So that this can be fixed in the next release of the library.
 
 % Advice?
 % To think of: Where there some things encountered during the project, which might require attention, but haven't or won't be thoroughly tested with this approach. Or do some additions cover these?
