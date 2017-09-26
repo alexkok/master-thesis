@@ -68,15 +68,21 @@ The test coverage over the second and third experiment are roughly the same (onl
 % RQ 3: Number and kind of bugs
 \section{RQ 3: \rqThree{}}
 Multiple bugs were found using property-based testing to check the generator.
-The generator failed to satisfy a total of 9 properties that we have defined.
+The generator failed to satisfy a total of 8 properties that we have defined.
 Some properties triggered different kind of bugs. We can categorize the bugs found as follows:
 \begin{description}
   \item[~~~~Precision errors:] Errors causing an unexpected outcome value when using calculations.
   \item[~~~~Overflow/underflow errors:] Errors happening because of a value limit that has been reached on specific types.
   \item[~~~~Compilation errors:] Errors that make the generated system unable to compile, resulting that the generated system cannot be used.
 \end{description}
-Despite of the bugs that we have found in the experiments, the test framework should be able to find other kind of bugs which did not exist in the generator that we have used. We can think of certain operations that are not correctly implemented. For example, when addition would act like subtraction. This would cause each the test case that use addition to fail. Also, we might have missed some property definitions that would trigger more bugs in the generator. The use of other types and operators that exist in \textit{Rebel} can lead to more bugs. \textit{Rebel} also supports data structures like \textit{map} and \textit{set} which we also do not cover. Therefore we cannot conclude that the test framework would only find the kind of bugs that we found. But we can conclude that these kind of bugs can at least be found, which we have shown in the experiments.\\
+Despite of the bugs that were found, we also found that two of the initial property definitions were incorrect. This was not found in the first experiment because of the random values. In the second experiment, this finding was the result of using a fixed version of the generator in which the precision errors related to the \textit{Money} type were fixed. This shows that some errors can hide other bugs, this is also known as finding false-negatives. We do not consider the invalid property definitions as bugs. This was not due to an error in the generator, but an error in the property definitions.\\
 \\
+The test framework should also be able to find other kind of bugs which did not exist in the generator that we have used. We can think of certain operations that are not correctly implemented. For example, when addition would act like subtraction. This would cause each the test case that use addition to fail.\\
+\\
+Also, we perhaps have missed some property definitions that would trigger more bugs in the generator. The use of other types and operators that exist in \textit{Rebel} can lead to more bugs. \textit{Rebel} also supports data structures like \textit{map} and \textit{set} which we did not cover during this thesis. Therefore we cannot conclude that the test framework would only find the kind of bugs that we found. But we can conclude that these kind of bugs can at least be found, which we have shown in the experiments.\\
+\\
+
+
 \subsubsection{Precision errors}
 \pinfo{Precision errors, Squants issue}
 As we have seen, the \textit{Money} precision errors both occurred when using
