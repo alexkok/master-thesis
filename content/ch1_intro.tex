@@ -18,13 +18,8 @@ specified product and handles the database connectivity. However, the
 implementation of the generated system is not checked against the
 specifications, meaning that the generated system is perhaps not doing what it
 is supposed to do according to its specifications. The aim of this project is to
-improve this, by automatically testing the generated system against
-\textit{Rebel} specifications.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Initial study
-% // Don't think it's needed? Rebel papers?
-% // It's in background too, about Rebel and what Rebel does.
+improve this, by automatically testing the generated system against a
+\textit{Rebel} specification.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Problem statement
@@ -57,8 +52,8 @@ system.\\
 % - Property-based testing is a possible path, which we will do.
 \pinfo{Possibility: PBT + short explanation}
 Property-based testing is an approach to validate whether an implementation
-satisfies its specification~\cite{fink1997property}. It describes what the
-program should or should not do. As~\cite{fink1997property} describes:
+satisfies its specification~\cite{fink1997property,fink1994property}. It describes what the
+program should or should not do. As described in~\cite{fink1997property}:
 ``Property-based testing validates that the final product is free of specific
 flaws.''. With property-based testing, a property is being defined which should
 hold on the system. Next, the property is being tested for a certain number of
