@@ -116,8 +116,8 @@ event reflexiveEquality(x: Money) {
 The event name and the parameters are used to generate a test case from this
 event definition. To check whether the property was fulfilled given a certain
 set of parameters, we store the result in a data field called
-\textit{result}\footnote{The \textit{new} keyword is used to state how the field
-changes when the transition is taking place.}. The test suite uses the value of
+\textit{result}\footnote{The \textit{new} keyword is used to indicate that the field
+should be updated when the transition takes place.}. The test suite uses the value of
 this field, to determine the result. In case the result value is \textit{false}
 during testing, a bug has been found.\\
 \\
