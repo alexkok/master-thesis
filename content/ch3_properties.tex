@@ -148,12 +148,12 @@ not every property is relevant or even correct for \textit{Rebel}.\\
 \\
 For example, it isn't possible to multiply two
 \textit{Money} types with each other in order to support the multiplicative
-property. This is because the type checker of \textit{Rebel} would not allow
-multiplication between \textit{Money} types, additionally we should think of
-what the result would be when two Money values are being multiplied. We consider
-this as an unknown result type, thus it is reasonable that we cannot use
-multiplication when using only \textit{Money} types. Division has a similar
-case, as something cannot be divided a \textit{Money} type.\\
+property. It is unknown to which dimension ``\textit{Money} squared'' belongs,
+this does not occur in the financial domain. Because of this, detecting this
+prevents such mistakes. When this is accidentally defined in the \textit{Rebel}
+specification, the type checker would detect and report this as an error.
+Division has a similar case, as something cannot be divided a \textit{Money}
+type.\\
 \\
 Instead we can use these operations with \textit{Money} in combination with
 other types, such as \textit{Integer} and \textit{Percentage}. The type checker
