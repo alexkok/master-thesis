@@ -884,10 +884,17 @@ implementers of \textit{Rebel} might disagree with the fact that it's a bug
 approach, which does not mark this as a major threat.
 
 % Substituting properties
-\subsection*{Alternative properties}
-We defined many properties in this chapter. Some of the defined properties
-might be overlapping each other, it might be possible to lower the number of
-properties that have to be defined. However, the purpose of each property on
-what it tests is different. So one should be careful when determining some
-property unnecessary such that it can be substituted. For this thesis, we used
-some well-known properties and defined those for the \textit{Rebel} types.
+% Change 1: Alternative
+% Change 2: Minimum number of
+\subsection*{Minimum number properties}
+We defined many properties in this chapter. This might lead to questions like:
+is this the minimal (or optimal) number of property definitions in order to
+detect the bugs found in the experiments? The answer is no, this is out of scope
+for this thesis. This leads to a threat to answering our third research
+question:\rqThree\\
+\\
+Some of the defined properties might be overlapping each other. It might be possible to
+lower the number of properties that have to be defined. However, the purpose of
+each property on what it tests is different. So one should be careful when
+determining some property unnecessary. For this thesis, we used known
+axioms of algebra as inspiration and defined some properties for \textit{Rebel}.
