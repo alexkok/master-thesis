@@ -84,20 +84,22 @@ x == x & x & Money \\ \hline
 \label{sct:3_prop_to_rebel}
 \pinfo{Generator requires spec}
 The generator requires a consistent \textit{Rebel} specification in order to
-generate a system. This means that we have to translate the properties (which
-are defined in \autoref{cpt:properties}) to a \textit{Rebel} specification. A
-\textit{Rebel} specification consist of a life cycle definition together with
-its event definitions.\\
+generate a system. Coincidentally, the \textit{Rebel} syntax is strong enough to
+write down the defined properties in \textit{Rebel}. This opens the possibility
+to create a \textit{Rebel} specification containing the property definitions and
+to reuse the generator when generating the tests. This way, we can be sure that
+we check exactly the same code as which would be used when using a real
+\textit{Rebel} specification. A real specification means, for example, a
+specific bank account specification written in \textit{Rebel}. This is a
+convenient choice, because the generator is being checked this way and it opens
+the  ability to use the same approach with different generators.\\
 \\
-\pinfo{Property to event translation}
-A test case should be able to pass values as parameters to test a specific
-property for a certain number of tries. We can use the events for this in the
-\textit{Rebel} definition. An event describes a transition from one state to
-another and accepts parameters. Additionally, it can have pre- and
-post conditions, where the post conditions state what happens when the transaction
-is being executed. In \autoref{lst:ch3_rebel_event_of_property} the event
-definition for the \textit{ReflexiveEquality} property written in \textit{Rebel}
-is shown.
+We can use the event blocks in \textit{Rebel} to write down the properties. An
+event describes a transition from one state to another and accepts parameters.
+Additionally, it can have pre- and post conditions, where the post conditions
+state what happens when the transaction is being executed. In
+\autoref{lst:ch3_rebel_event_of_property} the event definition for the
+\textit{ReflexiveEquality} property written in \textit{Rebel} is shown.
 % Listing
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
