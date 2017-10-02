@@ -157,14 +157,19 @@ block describe that the value of the field should be updated when the event
 transition takes place.
 
 % % % % % % % % % % % % %
-% Subsection: Rebel checker versus our approach
-\subsection{Rebel checker versus our approach}
-Although the specification is being
-checked by using bounded model checking, the generated system is not being
-checked against the specification. Unfortunately, it is not possible to also use
-the bounded model checker to test the generator or the generated system. As the
-generated system is written in \textit{Scala}, while the existing checker only
-supports checking the \textit{Rebel} specification itself.
+% Subsection: Rebel checkers versus our approach
+\subsection{Rebel checkers versus our approach}
+A \textit{Rebel} specification can be checked by the \textit{Rebel} tool chain,
+while we are checking properties when using the generator. Additionally, the
+\textit{Rebel} tool chain also has a type checker. In this section we aim to
+solve this confusion by describing both in more detail.\\
+\\
+The \textit{Rebel} tool chain contains a checker which checks a \textit{Rebel} specification using bounded model checking. It is limited in that it only checks a \textit{Rebel} specification, by trying to find cases in which the invariant doesn't hold. Thus, it only checks a \textit{Rebel} specification and is not able to check or test the implementation of the generator or the generated system. The input is a set of \textit{Rebel} specifications, only these \textit{Rebel} specifications are being checked, nothing more. It only supports checking a \textit{Rebel} specification. Due to this it cannot be used on the generated system, as this is written in \textit{Scala}.\\
+\\
+\\
+In our property-based testing approach we check whether certain properties hold when using the generator. These properties describe the expected working of the \textit{Rebel} language. Due to the syntax of \textit{Rebel}, we can define a \textit{Rebel} specification containing these properties. The type checker will prevent type-related errors in the property definitions. Our test framework uses this \textit{Rebel} specification to check whether these properties hold when using the generator. Thus, all defined properties are being checked by only running the test framework once.\\
+\\
+This means that, in our approach, we test whether the generated code works as expected for every \textit{Rebel} specification that can be created. While the existing checker in the \textit{Rebel} tool chain, that uses bounded model checking, only checks whether a \textit{Rebel} specification is consistent. This existing checker is not able to check whether the generated system is working as expected. In our approach we check the generated system, but we only check parts of the whole implementation. Namely, the parts which are covered by the defined properties.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: The Scala/Akka generator
@@ -204,8 +209,7 @@ successfully complete a transition.\\
 \\
 \pinfo{Diff types: known/expected problems. We have to specify expected properties}
 \textit{Rebel} introduces custom types, such as \textit{IBAN},
-\textit{Percentage} and \textit{Money}, these types are not supported natively
-in \textit{Scala}. For these cases, a library or own implementation is used. An
+A library or own implementation is used for the custom types available in \textit{Rebel}. An
 example is the \textit{Money} type, which is available in the
 \textit{Squants}~\cite{siteSquants2017} library. The generated system uses this
 library to deal with the \textit{Money} type and its operations. Another example
