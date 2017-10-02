@@ -58,8 +58,8 @@ not trigger errors by the type checker.
 \subsection{A Rebel example}
 \label{ssct:2_rebel_example}
 In \autoref{lst:ch2_rebel_example_specification} an example of a simple bank
-account specification is shown in \textit{Rebel}. In this specification, one can
-deposit money and receive an interest in the account.
+account specification is shown in \textit{Rebel}. In this specification, an
+account can be opened and money can be deposited to an opened account.
 % Listing
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
@@ -71,20 +71,18 @@ specification Account {
 		accountNumber: IBAN @key
 		balance: Money
 	}
-
 	events {
+	  openAccount[]
 		deposit[]
-		interest[]
 	}
-
 	lifeCycle {
-		initial init -> opened: deposit
-		opened -> opened: deposit, interest
+		initial init -> opened: openAccount
+		opened -> opened: deposit
 		final opened
 	}
 }
 \end{lstlisting}
-\caption{The event definition for the \textit{ReflexiveEquality} property.}
+\caption{A simple account specification in \textit{Rebel}.}
 \label{lst:ch2_rebel_example_specification}
 \end{sourcecode}
 \FloatBarrier\noindent
@@ -92,8 +90,8 @@ specification Account {
 The \textit{module} keyword describes the module of this specification. The
 \textit{import} statement is used to import logic from another file, which we
 will cover when describing the \textit{events} block. The specification of the
-account itself is defined in the
-\textit{specification} block, which consists of the following three blocks:
+account itself is defined in the \textit{specification} block, which consists
+of the following three blocks:
 
 % FIELDS
 \subsubsection{Fields}
@@ -116,35 +114,32 @@ events that have been defined in the specification.
 In the \textit{events} block the events for this specification are described.
 The optional parameters of the event definition can be overloaded inside the
 brackets. Note that the implementation of the events are not described here.
-This is defined in another file called \textit{Library}, shown in \autoref{lst:ch2_rebel_example_library}.
+This is defined in another file called \textit{Library}, shown in
+\autoref{lst:ch2_rebel_example_library}.
 % Listing
 \begin{sourcecode}[!ht]
 \begin{lstlisting}[language=Rebel]
 module simple_account.Library
 import simple_account.Account
 
-event deposit(amount: Money) {
-	preconditions {
-		amount > EUR 0.00;
-	}
-	postconditions {
-		new this.balance == this.balance + amount;
-	}
+event openAccount[minimalDeposit: Money = EUR 0.00](initialDeposit: Money) {
+    preconditions {
+        initialDeposit >= minimalDeposit;
+    }
+    postconditions {
+        new this.balance == initialDeposit;
+    }
 }
-
-function singleInterest(balance: Money, interest: Percentage): Money =  balance * interest;
-
-event interest[maxInterest: Percentage = 10%](currentInterest: Percentage) {
-  preconditions {
-    currentInterest <= maxInterest;
-    currentInterest > 0%;
-  }
-  postconditions {
-    new this.balance == this.balance + singleInterest(this.balance, currentInterest);
-  }
+event deposit(amount: Money) {
+    preconditions {
+        amount > EUR 0.00;
+    }
+    postconditions {
+        new this.balance == this.balance + amount;
+    }
 }
 \end{lstlisting}
-\caption{The event definition for the \textit{ReflexiveEquality} property.}
+\caption{The library for the simple account example in \textit{Rebel}.}
 \label{lst:ch2_rebel_example_library}
 \end{sourcecode}
 \FloatBarrier\noindent
@@ -153,13 +148,13 @@ An event definition can consist of \textit{preconditions},
 \textit{postconditions} and a \textit{sync} block. The \textit{sync} block
 defines that each operation inside that block should execute synchronously,
 without the interaction of other events in the meanwhile. However, in this
-simple specification the \textit{sync} block is not being used.\\
+simple specification the \textit{sync} block is not used.\\
 \\
 The \textit{preconditions} and \textit{postconditions} blocks contain
-expressions and can use functions. \textit{singleInterest} is a function that
-applies the interest rate to a balance. The \textit{new} keyword in the
-\textit{postconditions} block describe that the value of the field should be
-updated when the event transition takes place.
+expressions and can use functions. These functions can be defined in
+\textit{Rebel} too. The \textit{new} keyword in the \textit{postconditions}
+block describe that the value of the field should be updated when the event
+transition takes place.
 
 % % % % % % % % % % % % %
 % Subsection: Rebel checker versus our approach
