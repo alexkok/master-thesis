@@ -135,36 +135,43 @@ evaluated. When one or more tests are failing, a bug is found. However, we need
 to investigate the failing case such that we discover what the actual bug is.
 After evaluating we improve our test framework and continue to run and evaluate
 the results again.
+% NOTE
+%The test framework combines the required steps to detect bugs as
+%automatically as possible.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Contribution
-\section{Contribution}
+\section{Contribution \& outline}
+In \autoref{cpt:background} we describe the background (\textit{Rebel}, the
+generator and property-based testing).
 % - Definitions (properties)
 % Before, in conclusion:
 % We provided a definition of some types in \textit{Rebel} and described properties that should hold when using operations with these types. Since there were no clear definitions available yet of what these types exactly do, a contribution has been made to the \textit{Rebel} project, such that there are now some definitions and properties available. This also helps when reasoning about the implementation, as there is now a definition of what is expected. Although these definitions might change over time, it allows to reason back to an earlier starting point.\\
-We provide definitions of the properties that are expected to hold when using
-the \textit{Rebel} language and its toolchain. Allowing to reason about the
-generator and whether the implementation satisfies these properties. There are
-no property definitions of \textit{Rebel} yet, so we provide a starting point
-for this with the focus on important properties of \textit{Rebel}.\\
+In \autoref{cpt:properties} we provide definitions of the properties that are
+expected to hold when using the \textit{Rebel} language and its toolchain.
+Allowing to reason about whether the properties are satisfied when using the
+generator and answering the first research question:\rqOne There were
+no existing property definitions of \textit{Rebel}, so we provide a starting
+point for this with the focus on important properties of \textit{Rebel}.\\
 \\
 % - A way to automatically test the generator and generated system using Rebel, defining properties as events
 % Before, in conclusion:
 % We have shown a way to automatically test the generator using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that are expected to hold in the first case. Which can be translated to a \textit{Rebel} specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
-The defined properties are being used to check the generator. We come with a
-solution that uses the input that is required for the generator and the output
-of the generator in order to check the generator. This process should be as
-automatic as possible, such that it doesn't require much time to make use of it.
-Our test framework will combine the required steps to detect bugs as
-automatically as possible.\\
+The defined properties are being used to check the generator. In
+\autoref{cpt:testmechanics} we describe this process in detail, which gives an
+answer to the second research question:\rqTwo\\
 \\
 % - Found number of bugs in generated system
 % Before, in conclusion:
 %A number of bugs have been found in the generated system, precision errors, overflow/underflow errors and even a compile error. These bugs are now known issues in this project, while these were unknown before. This shows us that this approach already worked in such a way that it is able to detect bugs in the generated system. It can be extended to detect even more bugs. With some modifications, it is also possible to use this approach with other generated systems, such that it can detect inequalities among these.\\
-The generator that is being used is expected to contain bugs. Therefore, we
-expect to detect bugs in the generator that aren't known yet. These bugs are
-then known bugs and can be fixed. The kind of bugs that we can find with this
-approach are bugs that invalidate some of the defined properties.
+In the experiments (\autoref{cpt:experiment1}, \autoref{cpt:experiment2} and
+\autoref{cpt:experiment3}), the test framework is run with the set of defined
+properties. For each experiment we evaluate the results, investigate the failing
+tests and evaluate the test framework. The experiments give an answer to our
+third research question:\rqThree\\
+\\
+As last, we provide a discussion about our findings in \autoref{cpt:discussion},
+which is followed by the conclusion in \autoref{cpt:conclusion}.
 
 % - Squants issues
 % Before, in conclusion:
@@ -245,16 +252,3 @@ In this thesis, we also focus on automatically testing the generator (by using t
 In~\cite{al2016incling} the authors describe a way to efficiently test a software product line. A software product line consists of a set of software systems that share a common set of features. However, many different products can be created from such a software product line, adding a challenge to test each combination of those products. In~\cite{al2016incling} the authors introduce \textit{IncLing}, which efficiently tests combinations of these products and take already executed combinations into account when selecting a new combination. To determine the possible combinations they use the \textit{IPCL} algorithm introduced in~\cite{johansen2012algorithm}, an algorithm that can be applied to determine the combinations of software product lines at the size and complexity found in projects in the industry.\\
 \\
 \textit{IncLing} executes its tests sequentially by selecting a combination of features that were not covered in the previous test. This is a different way of testing each possible combination and ensuring unique test cases. In this thesis, we basically define the possible combinations by defining the properties (axioms) that we expect to hold in \textit{Rebel}. Additionally, the input values are determined random, allowing different combinations as in values. However, we do not test combinations of the properties combined, but test each individually. In our approach there could be some overlap over the various defined properties.
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Section: Outline
-\section{Outline}
-\todo[inline]{Write later, when outline is more final.}
-% 1. Describing background
-% 2. Defining properties
-% 3. Test mechanics
-% 4. Experiment 1
-% 5. Experiment 2
-% 6. Conclusion
-% 7. Threats of validity
-% 8. Future work?
