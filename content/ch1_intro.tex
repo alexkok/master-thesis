@@ -87,16 +87,7 @@ The third research question is influenced by the first research question. When t
 \\
 % - Shortly describe how this is done, and how it would find bugs, test mechanics explain it in more detail, image in test mechanics.
 \pinfo{In short: how. Details are in CH3}
-The generator takes a \textit{Rebel} specification as input. Which contains the
-properties that are expected to hold in the generated system. Next,
-\textit{Scala} tests are being generated based on the properties, using the
-existing generator to translate the expressions used in the properties. These
-tests will be run against the generated system, to check whether each property
-holds. In case a test of a failing test, a bug has been found. There are
-multiple generators available within \textit{ING}. Throughout this thesis, we
-will use only one generator, which is the Scala/Akka generator. This generator
-is often used for other experiments too and is currently considered the most
-mature generator.\\
+The properties that are being used will first be defined, which is the result of the first research question. The generator in the \textit{Rebel} tool chain requires a \textit{Rebel} specification as input to generate a system that is written in \textit{Scala} (called ``generated system'' throughout this thesis). Due to the semantics of \textit{Rebel}, the defined properties can be translated into a \textit{Rebel} specification. Thus, we create a \textit{Rebel} specification in which the properties are written down as ``events'' in the \textit{Rebel} specification. Each property is implemented as one \textit{event}. Next, a test is being generated from each \textit{event} in this \textit{Rebel} specification. These tests will then be run against the generated system to check each property on the generated code. In case a test of a failing test, a bug has been found.\\
 \\
 \pinfo{Assumptions}
 In order to run the test suite, we assume that the generated system can be
