@@ -180,20 +180,16 @@ This means that, in our approach, we test whether the generated code works as ex
 There are multiple generators developed within \textit{ING}. The generators are
 different in that the resulting product is written in a different language or
 uses a different implementation, like database or messaging layer. Each
-generator is written in \textit{Rascal}. \textit{Rebel} defines the states and
-the transitions between the states in the \textit{lifeCycle} block, which can be
-seen as the Finite State Machine definition of the specified product. The
-Scala/Akka generator is one of these generators. It generates a system that is
+generator is written in \textit{Rascal}.\\
+\\
+The Scala/Akka generator is one of these generators. It generates a system that is
 written in \textit{Scala}, uses \textit{Akka}~\cite{siteAkka2017} as actor
-system and uses \textit{Cassandra}~\cite{siteCassandra2016} as database. A resulting
-system of this generator is also tested thoroughly with performance tests, to
-reason about how well this system performs with its architecture. However, this
-does not check the implementation of the generated system against the
-\textit{Rebel} specification. This generator is often used within experiments
+system and uses \textit{Cassandra}~\cite{siteCassandra2016} as database.
+This generator is often used within experiments
 inside \textit{ING} and is considered the most mature generator among the
 currently developed generators. Because of this, it's interesting if we
 encounter yet unknown problems in the generator itself or the resulting system.
-Throughout this thesis, we will only make use of this generator.\\
+We will only make use of this generator throughout this thesis.\\
 \\
 \pinfo{Short explanation on implementation generated system + why}
 A specification can be defined in terms of a Labeled Transition
