@@ -362,13 +362,14 @@ following criteria to evaluate the test framework after each improvement:
 % Coverage
 \subsubsection{Coverage}
 \pinfo{Tool used for determining the coverage}
-The test coverage of the generated system that is being tested by the test
-suite. To determine the coverage, we use an open-source library called
-\textit{Scoverage}~\cite{siteScoverage2017}, which can create a report of the
-test coverage after running the tests. Since the generated system uses
+An open-source library called \textit{Scoverage}~\cite{siteScoverage2017} is used to determine the test coverage. It creates a detailed report about the coverage. Since the generated system uses
 \textit{SBT} as build tool, we use the open-source plug-in
 \textit{sbt-scoverage}\footnote{https://github.com/scoverage/sbt-scoverage} to
-integrate the tool with \textit{SBT}.\\
+integrate the tool with \textit{SBT}. The tool could report the test coverage incorrectly, causing it to be a threat for our evaluation. We also tried to use another tool, \textit{JaCoCo}~\cite{siteJacoco2017} but this tool didn't determine the coverage as expected, resulting in reporting 0\% coverage every time.\\
+\\
+Mutation coverage could also be a way to evaluate the test framework. \textit{PIT} is a known tool for mutation testing, but it currently cannot meaningfully mutate \textit{Scala}~\cite{siteSbtPit2017}. We stick with using test coverage.\\
+\\
+We are using random input data in our experiments, which can affect the results of the coverage reports. However, multiple runs often report the same coverage. In our experiments, we will run the test framework multiple times and take the coverage report that is equal in most of these runs. This report is then used for the evaluation.\\
 \\
 \pinfo{Which data exactly from reports}
 The coverage report shows how many statements exist in the generated system and
@@ -482,18 +483,7 @@ However, when running the test framework this might still occur, which is a
 threat to this approach.
 
 \subsection*{Accuracy}
-\pinfo{Possibly incorrect results, due to Scoverage}
-To evaluate the test framework we use coverage as a metric. \textit{Scoverage}
-is being used to determine the coverage and to generate a report from it. The
-tool could report the test coverage incorrectly, causing it to be a threat for
-our evaluation.\\
-\\
-We are using random data as input. Because of this, the results of the test
-coverage could fluctuate by small amounts in each run. However, multiple runs often report the same coverage. Because of this, we run the test framework multiple times in each experiment and take the results that are equal over multiple runs for our evaluation. Additional to the coverage we used the number of bugs that were
-found as another metric. This metric depends on which system the test suite is
-being run and if the system already fixed the bugs that the test suite would
-find. It is also the case that after fixing the bugs that were found earlier,
-this metric can then be seen as unnecessary, as it would result in 0 then.
+...
 
 \subsection*{One system}
 \pinfo{Only one generator}
