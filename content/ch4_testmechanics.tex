@@ -482,8 +482,8 @@ compilation error would be a bug or something else, as it can have many causes.
 However, when running the test framework this might still occur, which is a
 threat to this approach.
 
-\subsection*{Accuracy}
-...
+\subsection*{Random input}
+A threat to our approach is that we are probably not generating enough random input to detect all bugs. This affects the amount of bugs we find in each experiment as well as the kind of bugs that we might find. Also, in case we do not find any bugs, it could be that there are no bugs in the system anymore. Or that we do not generate enough random input to detect additional bugs. Or that our set of properties are not complete, as described in \autoref{cpt:properties}. Since we do only check for the properties we have defined, this approach does not find all the bugs in the system.
 
 \subsection*{One system}
 \pinfo{Only one generator}
