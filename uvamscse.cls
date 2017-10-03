@@ -49,7 +49,7 @@
 % Todo notes configuration
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 \usepackage[pdftex,dvipsnames,table,xcdraw]{xcolor}  % Coloured text etc.
-% 
+%
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
@@ -57,7 +57,7 @@
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\improve}[2][1=]{\todo[linecolor=Cyan,backgroundcolor=Cyan!25,bordercolor=Cyan,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
-% 
+%
 % % % %
 % Add xcolor for tables (Defined in todo notes)
 %\usepackage[table,xcdraw]{xcolor}
@@ -139,7 +139,7 @@
   \end{center}
   \vfill
   \begin{tabular}{ll}
-  	\textbf{Supervisor:} 		& \uvasuper\\
+  	\textbf{Research supervisor:} 		& \uvasuper\\
   	\textbf{Host supervisor:} 		& \hostsuper\\
   	\textbf{Host organisation:} & \uvahost
   \end{tabular}
