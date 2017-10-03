@@ -524,7 +524,9 @@ however, this has checked by running it the test runs multiple times, also with
 using numbers like 300 or 50 for the amount. Also \textit{QuickCheck} uses this
 amount to check a property. During this thesis, we stick with 100 as the number
 of tries. Finding the optimal number of tries is left as future work, thus
-remaining as a threat to validity in this approach.
+remaining as a threat to validity in this approach.\\
+\\
+The optimal amount of tries would be a useful addition when answering our second research question:\rqTwo Although we focus on automatically testing the properties, not mentioning the efficiency. But increasing the efficiency of the test framework would result in less time required to run it. Also, adding more properties would increase the time required to run the test suit. It might also be the case that increasing the number of tries would result in finding additional bugs. Thus leading to a threat to answering the third research question:\rqThree
 
 \subsection*{Amount of test runs}
 \pinfo{Multiple tries, each time 7 failed, assumed same causes}
@@ -532,20 +534,15 @@ The test framework has been executed several times for this experiment. With
 each run, 7 tests were failing, which consistently were the same tests on every
 run. Because of this, we assumed that the causes of these failures were the
 same, as the same tests failed on each run. However, the causes might not have
-been the same for these runs, thus remaining as a threat to validity.
+been the same for these runs, thus remaining as a threat to validity to
+answering our third research question. Because the causes of the failing tests
+could be different and might reveal additional bugs.
 
 \subsection*{Unfixed issue}
 \pinfo{Compile error not fixed}
 Unfortunately, the compilation error has not been fixed throughout this project
 however, it is an open issue on
-\textit{Github}\footnote{https://github.com/typelevel/squants/issues/281}. Some
-precision errors originated from a library used in the generated system, called
-\textit{Squants}~\cite{siteSquants2017}. An issue was created covering these precision
-errors, which were fixed in the next release of that library. As for the
-overflow and underflow errors, these occurred when using the \textit{Integer}
-type in \textit{Rebel}. When using the \textit{Integer} type, this might have
-been expected behaviour which causes this to happen. However, the generated
-system does not check whether this happens, nor does it prevent this. We
-consider the overflow and underflow errors as unexpected, as the \textit{Rebel}
-language does not support other numeric types to hold a bigger value than an
-\textit{Integer} supports.
+\textit{Github}\footnote{https://github.com/typelevel/squants/issues/281}. The
+property causing this issue is disabled in order to continue running the test
+framework. This prevents the test framework from detecting bugs that could be
+found by this property.

@@ -423,8 +423,15 @@ happen in case such a division error occurs. Due to this error, it might be the
 case that existing bugs in the generator are not being detected with this
 approach.\\
 \\
+\pinfo{Uneffective? Checking more though}
+In this experiment we found false positives and haven't found additional bugs when testing the implicative properties.
+The use of implicative properties might not be as effective as using properties
+that do not. Although more functionalities from the generator are
+being used, and thus being tested, by this approach. Which wouldn't be the case
+when the implicative properties are being removed. The if-statements and
+preconditions were not being used in the first experiment \autoref{cpt:experiment1}.
 The property definitions should be updated such that it is known what should
-happen in this case. In the next experiment we will focus on improving this.
+happen in this case of division. In the next experiment we will focus on improving this.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
@@ -433,11 +440,10 @@ happen in this case. In the next experiment we will focus on improving this.
 % Incorrect value generation
 \subsection*{Incorrect value generation}
 We have implemented a custom value generator to generate values for each test
-case. Furthermore, a random operation is being done on these values to make
+case. A random operation is being done on these values to make
 these random again. There could be an error in the implementation that incorrect
-values are being created, which are expected to be correct values. When this is
-the case, the traceability of how the values were created is hard. This might
-affect the results or make some errors hard to trace back.\\
+values are being created. In \autoref{cpt:testmechanics} we described a similar threat concerning incorrect value generation.
+In this case, the traceability of how the values were created is hard because of the random operation.\\
 \\
 We have seen such an error when running this experiment multiple times. It sometimes happened that there were additional tests failing. Although these do not trigger in every run, leaving it as a threat to this approach. The error that caused these test to fail was that the preconditions are not met. This was only the case for some properties that are using ``smaller than'' ($<$) and ``greater than'' ($>$) in its definitions. The input values are set to all zeros, which results in the condition $0 > 0$, which results in \textit{false}. There is a high probability that this is caused by the random operation that is being done to mutate the input values. As mentioned earlier, the traceability for this is hard and since it does not happen regularly, fixing this issue is left as future work. Leaving it as a threat to our results.
 
@@ -456,15 +462,5 @@ We have seen such an error when running this experiment multiple times. It somet
 %for this approach.
 % Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
 
-% Implicative properties
-\subsection*{Implicative properties effectiveness}
-\pinfo{Uneffective? Checking more though}
-The use of implicative properties might not be as effective as using properties
-that do not. If the properties could be rewritten such that random values could
-be used to check the same thing, the implicative properties might be
-unnecessary. On the other hand, more functionalities from the generator are
-being used, and thus being tested, by this approach. Which wouldn't be the case
-when the implicative properties are being removed. If-statements and
-preconditions were not being used in the first experiment.
 
 % Not extra coverage maybe? If we evaluate that different than earlier.

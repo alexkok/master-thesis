@@ -293,7 +293,37 @@ preconditions of the properties. Thus the additional properties used in this
 experiment did not require more effort than defining these in the \textit{Rebel}
 specification. Compared to the second experiment (\autoref{cpt:experiment2})
 this is a huge improvement, as it does not require the developer to modify the
-value generator when implicative properties are being added.
+value generator when implicative properties are being added.\\
+\\
+\pinfo{BMC possibility, tested. But not working}
+Another way how the values could be generated is by using existing solvers.
+Since the \textit{Rebel} toolchain already makes
+use of a bounded model checker to check a specification, this could be used to
+translate an expression and retrieve values for which the condition holds.\\
+\\
+\pinfo{Checked using Z3, but returns same values all the time}
+We have looked into this, by using the \textit{Z3} solver. However, the solver
+always returns the same number when executing it multiple times. Which means
+that the 100 values that we would ask from the generator, will be exactly the
+same. A workaround would be to then add the number that was received earlier as
+an additional constraint, such that 100 unique values are being retrieved. But
+the problem still remains, as executing the same script multiple times will
+result in the same values. Another possibility would be to change the seed of
+the random generator that is being used to generate the values, resulting in
+different values, however, then a random seed should be used each time the
+solver is being run to make the generated values unique. In order to integrate
+the solver with the test framework, the value generator has to be changed.\\
+\\
+Checking a \textit{Rebel} specification by using the existing tool chain can already take up some time. Which is probably
+related to the translations that have to be done and actually running the
+solver. We have not measured the exact duration of each step in this case, but
+we expect that generating 100 random input values by using this existing implementation in the tool chain
+requires some time. Resulting in a overall run time increase for the test
+framework.\\
+\\
+Other solvers might work better for this approach, but these still require an
+update to the values generation part of the test framework to integrate with
+such solvers. We stick with our own implementation. The properties that are defined until now can be tested by the test framework automatically with this implementation, as well as additional property definitions in case these are supported by this implementation.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Evaluation criteria
@@ -370,44 +400,18 @@ unsupported.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Threats to validity
 \section{Threats to validity}
+In \autoref{cpt:testmechanics} and \autoref{cpt:experiment2} we described the threat concerning generating incorrect input values. In this experiment we brought changes to the way how these input values are being determined. However, the threat still remains as the current implementation could contain some errors too. When running the test framework, we haven't encountered issues with this, other than the one described in \autoref{cpt:experiment2}.
+
+
+
 % - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
 % > Running multiple times might give a fault-positive. High probability this is caused by the random operation that is done on the input values. This is a threat that came forth from experiment 2, and still exists here. - (Using > or < with 0 0 0 can happen because of this)
 
 % - Existing approaches are available too, we only checked the Z3. But SageMath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
 
 % More reliable solving. Checked but not working as expected. Which is why we did our own generator
-\subsubsection{Using existing solvers}
-\pinfo{BMC possibility, tested. But not working}
-Existing solvers could be used to determine a certain number of input values
-that satisfy the preconditions. Since the \textit{Rebel} toolchain already makes
-use of a bounded model checker to check a specification, this could be used to
-translate an expression and retrieve values for which the condition holds.\\
-\\
-\pinfo{Checked using Z3, but returns same values all the time}
-We have looked into this, by using the \textit{Z3} solver. However, the solver
-always returns the same number when executing it multiple times. Which means
-that the 100 values that we would ask from the generator, will be exactly the
-same. A workaround would be to then add the number that was received earlier as
-an additional constraint, such that 100 unique values are being retrieved. But
-the problem still remains, as executing the same script multiple times will
-result in the same values. Another possibility would be to change the seed of
-the random generator that is being used to generate the values, resulting in
-different values, however, then a random seed should be used each time the
-solver is being run to make the generated values unique. In order to integrate
-the solver with the test framework, the value generator has to be changed.\\
-\\
-An update to the value generator is required anyway to determine the input
-values based on the preconditions. In addition, some existing examples to check
-a \textit{Rebel} specification already take up some time. Which is probably
-related to the translations that have to be done and actually running the
-solver. We have not measured the exact duration of each step in this case, but
-we expect that generating 100 random input values by using this approach
-requires some time. Resulting in a huge run time increase for the test
-framework.\\
-\\
-Other solvers might work better for this approach, but these still require an
-update to the values generation part of the test framework to integrate with
-such solvers.
+% \subsubsection{Using existing solvers}
+
 
 
 %
