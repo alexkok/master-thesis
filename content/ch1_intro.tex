@@ -110,29 +110,65 @@ might extend the number of bugs that it can find.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Research method
 \section{Research method}
+To check each property automatically on the generated code, we divide this
+process in different phases. Most of the phases are executed by the test
+framework such that a minimal of manual steps are needed to test the defined
+properties. An overview of our approach is shown in
+\autoref{fig:intro_tf_overview}, each step is explained in detail in
+\autoref{cpt:testmechanics}.
+% Figure
+\begin{figure}[!ht]
+%\frame{
+	\includegraphics[width=\linewidth]{figures/testmechanics_overview}
+%}
+\caption{Overview of the test framework and the phases}
+\label{fig:intro_tf_overview}
+\centering
+\end{figure}
+\FloatBarrier\noindent
+% End figure
+%
 % In short, describe steps:
 % // (Steps also interesting for mechanics chapter)
 % 1 Defining properties, define what is unknown yet and what it actually means.
 % 2 Describe how tests can be generated out of this. From these properties to Scala tests. (Properties > Rebel events > Scala tests per event, with random values)
 % 3 Describe how we measure our experiments
 % 4 Evaluate the results. Can we reason about it? What have we covered and also what have we not covered?
-\pinfo{First defining properties, then small example}
-We will start off with defining the properties that are expected to hold on the
-generator. Then we describe how these properties can be tested on the generator,
-using one property to demonstrate the working of the test framework. We can then
-run the tests suite against the generated system and check if this method
-actually works to detect bugs.\\
+%\pinfo{First defining properties, then small example}
+We start off with defining the properties that are expected to hold on the
+semantics of the generated code. With these properties, a \textit{Rebel}
+specification can be created in which the properties are written down as
+\textit{events} (\autoref{fig:intro_tf_overview}, phase 1). This phase is done
+manually, the next phases are executed by the test framework.\\
 \\
-\pinfo{Generate, run, evaluate results and improve again}
-Next, we generate tests for each of the defined properties and run these against
-the generated system. After running the test suite, the result is being
-evaluated. When one or more tests are failing, a bug is found. However, we need
-to investigate the failing case such that we discover what the actual bug is.
-After evaluating we improve our test framework and continue to run and evaluate
-the results again.
-% NOTE
-%The test framework combines the required steps to detect bugs as
-%automatically as possible.
+This \textit{Rebel} specification is checked by the type checker and then being
+built, resulting in a CST (\autoref{fig:intro_tf_overview}, phase 2). The
+\textit{Rebel} tool chain provides a generator to generate a Scala/Akka system
+by using the CST of the specification (\autoref{fig:intro_tf_overview}, phase 3).
+The same CST is used to generate the test suite
+(\autoref{fig:intro_tf_overview}, phase 4). The test suite consists of multiple
+tests based on the \textit{events} in the CST. Note that, as described earlier in phase 1,
+the defined properties are written down as \textit{events} in the
+\textit{Rebel} specification.\\
+\\
+As last, we run the test suite against the generated system (\autoref{fig:intro_tf_overview}, phase 5). After running the test suite, we analyse the results of the experiment. When one or more tests are failing, a bug is found. An
+investigation of the failing case is needed to discover the actual bug is because the cause of the failing case is not clearly visible in the log.\\
+\\
+We evaluate the test framework in each experiment using test coverage and the number of bugs found as metrics. Based on the results of an experiment, we improve the test framework and continue to the next experiment. In the next experiment we run the test framework again with the improvements, analyse the results and evaluate the test framework again.
+
+% Real short version
+%Then we describe how these properties can be tested on the generator,
+%using one property to demonstrate the working of the test framework. We can then
+%run the tests suite against the generated system and check if this method
+%actually works to detect bugs.\\
+%\\
+%\pinfo{Generate, run, evaluate results and improve again}
+%Next, we generate tests for each of the defined properties and run these against
+%the generated system. After running the test suite, the result is being
+%evaluated. When one or more tests are failing, a bug is found. However, we need
+%to investigate the failing case such that we discover what the actual bug is.
+%After evaluating we improve our test framework and continue to run and evaluate
+%the results again.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Contribution
