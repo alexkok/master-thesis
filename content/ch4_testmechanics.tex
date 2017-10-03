@@ -361,6 +361,9 @@ following criteria to evaluate the test framework after each improvement:
 
 % Coverage
 \subsubsection{Coverage}
+\pinfo{WHY coverage?}
+The coverage metric is used to check whether the properties are actually being tested. In case something in the system is not covered by the tests, it could be that the properties were not being tested. For example, this could happen if our test framework generates an incorrect test suite in the fourth phase (\autoref{sct:3_tf_phase_four}). Checking the coverage shows that the properties are being tested by the test suite.\\
+\\
 \pinfo{Tool used for determining the coverage}
 An open-source library called \textit{Scoverage}~\cite{siteScoverage2017} is used to determine the test coverage. It creates a detailed report about the coverage. Since the generated system uses
 \textit{SBT} as build tool, we use the open-source plug-in
