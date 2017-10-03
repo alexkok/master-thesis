@@ -478,12 +478,13 @@ When the generated system is unable to compile, the test framework cannot
 proceed. Because it cannot run the generated test suite against the generated
 system in that case. Although such errors could be detected by the test
 framework, it is out of scope for this thesis. It is hard to argue whether the
-compilation error would be a bug or something else, as it can have many causes.
-However, when running the test framework this might still occur, which is a
-threat to this approach.
+compilation error would be a bug or something else, as it can have many causes.\\
+\\
+When running the test framework, it can still occur that the generated system is unable to compile. We will
+see this back in \autoref{cpt:experiment1}. The test framework terminates when the generated system cannot compile. Affecting the bugs that we could find to answer the third research question:\rqThree
 
 \subsection*{Random input}
-A threat to our approach is that we are probably not generating enough random input to detect all bugs. This affects the amount of bugs we find in each experiment as well as the kind of bugs that we might find. Also, in case we do not find any bugs, it could be that there are no bugs in the system anymore. Or that we do not generate enough random input to detect additional bugs. Or that our set of properties are not complete, as described in \autoref{cpt:properties}. Since we do only check for the properties we have defined, this approach does not find all the bugs in the system.
+A threat to our approach is that we are probably not generating enough random input to detect all bugs. This affects the amount of bugs we find in each experiment as well as the kind of bugs that we might find to answer the third research question:\rqThree Also, in case we do not find any bugs, it could be that there are no bugs in the system anymore. Or that we do not generate enough random input to detect additional bugs. Or that our set of properties are not complete, as described in \autoref{cpt:properties}. Since we do only check for the properties we have defined, the first option is not the case. This approach does not find all the bugs in the system, but only checks the system with the properties that we have defined.
 
 \subsection*{One system}
 \pinfo{Only one generator}
@@ -495,7 +496,7 @@ framework compatible with these systems. But by doing so, every generated system
 for which a generator is built by \textit{ING} can be checked based on the same
 properties, resulting in that the defined properties are checked thoroughly on
 every system and that inequalities can be detected between the different
-generators.\\
+generators. Testing multiple generators can result in finding more bugs, which can affect our results to the third research question:\rqThree\\
 \\
 \pinfo{Probably causing compile errors}
 A threat in doing so is that one of the other generators might not support some
@@ -514,7 +515,7 @@ still be used to detect those to a certain extent.
 We use property-based testing as testing technique and implemented the required
 functionality ourselves, resulting in a white-box implementation. This means
 that we expect that our values generation is working correctly too. In case this
-isn't working correctly, a fix is required.\\
+isn't working correctly, a fix is required. This is a threat to our second research question:\rqTwo Because this would mean that a property cannot be tested automatically and that this can be improved (by fixing it). In turn, it can also affect the bugs that we could find to answer the third research question.\\
 \\
 Another way how this could be done was to check how the custom types were
 generated to \textit{Scala}. And then generate a \textit{Scala} test project
