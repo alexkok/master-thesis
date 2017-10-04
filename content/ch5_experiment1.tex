@@ -101,14 +101,14 @@ are shown.
 \centering
 \begin{tabular}{llll}
 \hline
-\textbf{Property name}               & \textbf{x}               & \textbf{y}        & \textbf{z}         \\ \hline
-DistributivePercentage1              & 0.51                     & -311254801.77 EUR & -707194075.77 EUR  \\
-DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
-DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
-AssociativeMultiplicationPercentage2 & 840296462                & 1771903729.60 EUR & 0.53               \\
-DistributiveInt1                     & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
-AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
-AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
+\textbf{Property name}                                       & \textbf{x}               & \textbf{y}        & \textbf{z}         \\ \hline
+\rowcolor[HTML]{EFEFEF} DistributivePercentage1              & 0.51                     & -311254801.77 EUR & -707194075.77 EUR  \\
+                        DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
+\rowcolor[HTML]{EFEFEF} DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
+                        AssociativeMultiplicationPercentage2 & 840296462                & 1771903729.60 EUR & 0.53               \\
+\rowcolor[HTML]{EFEFEF} DistributiveInt1                     & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
+                        AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
+\rowcolor[HTML]{EFEFEF} AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
 \end{tabular}
 \caption{Overview of failing tests along with its input values}
 \label{tbl:experiment1_overview_second_run}
@@ -350,7 +350,8 @@ y                  & -1309504561                         & Integer              
 z                  & 1880170895                          & Integer                                      \\ \hline
 \textbf{Formula}   & \textbf{Scala result}               & \textbf{Expected result}                     \\ \hline
 (x*y)*z == x*(y*z) & false                               & true                                         \\
-(x*y)*z            & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR          \\
+%(x*y)*z            & 4561767263499657218201769467.30 EUR & 4561767263499657218201769467.30 EUR          \\
+(x*y)*z            & 4561767263499657218201... EUR\footnotemark  & 4561767263499657218201... EUR          \\
 \textbf{x*(y*z)}   & \textbf{3877739486117270379.94 EUR} & \textbf{4561767263499657218201769467.30 EUR} \\
                    &                                     &                                              \\
 x*y                & 2426251398546224819.74 EUR          & 2426251398546224819.74 EUR                   \\
@@ -359,6 +360,7 @@ y*z                & -2092906591                         & -2462092362461952095 
 \caption{AssociativeMultiplicationInteger2: \textit{Integer} underflows when using multiply}
 \label{ch4_init_check_AssociativeMultiplicationInteger2}
 \end{table}
+\footnotetext{This value has been truncated for readability. The exact value is ``4561767263499657218201769467.30 EUR''. The same counts for the ``Expected result'' column.}
 \FloatBarrier\noindent
 % End table
 
