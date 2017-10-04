@@ -82,8 +82,7 @@ what the types of the variables were. Investigating the generated system reveals
 that both errors were happening when dealing with the
 \textit{AssociativeMultiplicationInteger1} property. This means that the
 variables \textit{x}, \textit{y} and \textit{z} are of type \textit{Integer},
-\textit{Integer}, \textit{Money} respectively, as described in
-\autoref{ssct:properties_associativity}. Temporarily disabling this property allows the
+\textit{Integer}, \textit{Money} respectively. Temporarily disabling this property allows the
 test framework to proceed further.
 
 % % % % % % % % % % % % %
@@ -325,7 +324,7 @@ x*z                    & -2594683539688709024.27 EUR & -2594683539688709024.27 E
 % AssociativeMultiplicationInt2
 \subsubsection{AssociativeMultiplicationInteger2}
 % - Integer overflows, causing negative values etc.
-For this case thrFor this case three variables are used: \textit{x}, \textit{y} and \textit{z},
+For this case three variables are used: \textit{x}, \textit{y} and \textit{z},
 which are of type \textit{Money}, \textit{Integer} and \textit{Integer}
 respectively. In \autoref{ch4_init_check_AssociativeMultiplicationInteger2} the
 values of a failing test case are shown, along with the intermediate formula
@@ -472,7 +471,7 @@ compilation error (1x), overflow/underflow errors (2x) and precision errors (5x)
 precision errors originated from the library that is used for the \textit{Money}
 type, for which we created an issue on
 \textit{Github}\footnote{https://github.com/typelevel/squants/issues/265}. An
-improvement of the test framework to also cover the implicative properties might
+improvement to the test framework, such that the implicative properties are also covered, might
 result in more bugs that can be found.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -502,7 +501,7 @@ These bugs are fixed in the next version of the generator.\\
 Although many properties were tested successfully, the test framework also
 indicates that the implicative properties were satisfied. However, when looking
 at the statement coverage of the implicative properties, we saw that the
-if-clause is often not being. Meaning that it would call the else-clause which
+if-clause is often not being triggered. Meaning that it would call the else-clause which
 simply returns true. When relying on random data, there is a seldom chance that
 the if-clause is being triggered. Thus we could optimize the generated input
 values such that these satisfy the condition for the if-clause.

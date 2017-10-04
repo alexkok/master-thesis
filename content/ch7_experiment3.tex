@@ -9,7 +9,7 @@ in that it couldn't be satisfied the way how it was specified. In this
 experiment we aim to improve this, by updating the existing definition such that
 the property can now be checked.\\
 \\
-Another result from the second experiment was that the value generation was not
+A limitation in the second experiment was that the value generation was not
 very dynamic when new property definitions were being added. It should be possible to add
 additional properties to the specification, such that these properties are being tested
 automatically by the test framework. To do this, the value generator should be
@@ -17,21 +17,21 @@ updated too, such that it uses the preconditions in the event definitions to
 determine the input values. Additional properties can then be added to test
 the generator.\\
 \\
-In this experiment we will use an updated version of the generator. In this
-version, the precision errors that were found in the first experiment are fixed,
-such that we can focus on possible additional errors that might occur.
+In this experiment we will use the updated version of the generator, in which
+the precision errors that were found in the first experiment are fixed.
+This is done, such that we can focus on possible additional errors that might occur.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Method
 \section{Method}
-The property definition of division is being updated for this experiment because
+The property definitions of \textit{Division} is being updated for this experiment because
 the first definition did not take the division problem into account. There was
 also no definition for rounding the value, as the value was expected to hold the
 exact value. We will update the definition by implementing a rounding function,
 such that these properties can be tested by the test
 framework.\\
 \\
-Besides updating the property definitions that were using division, additional
+Besides updating the property definitions for \textit{Division}, additional
 property definitions are being added to test more of the generator. However, as
 we have seen in the second experiment, the values generator was not very
 dynamic. Which resulted in that it had to be modified in case an implicative
@@ -55,15 +55,14 @@ In addition to updating the existing properties that are using division, more
 properties can be added which were not defined earlier. Additional properties
 might also lead to additional bugs that the test framework can detect. For
 example, properties of inequality when using division, as the ones that were
-defined for division only used equality. Also, other properties like the
-subtraction property can be added and more definitions for multiplication and
-additivity can be added to the existing list of property definitions that we
-defined for \textit{Rebel}. The additional property definitions for division,
+defined for division only used equality. We add more properties to the existing set of property definitions that we
+defined for \textit{Rebel}: Properties for division, multiplication, additivity and subtraction.\\
+\\
+The additional property definitions for division,
 multiplication, additivity and subtraction fall under the
 ``Properties of equality and inequality'' category and are defined in
 \autoref{ssct:properties_definitions_additionalproperties}, along with the
-updated definitions for the existing property definitions that use division. To
-sum up, the updated and added property definitions are:
+updated definitions. To sum up, the updated and added property definitions are:
 \textit{divisionEquality}, \textit{divisionInequality},
 \textit{additiveEquality}, \textit{additiveInequality},
 \textit{subtractiveEquality}, \textit{subtractiveInequality},
@@ -75,7 +74,7 @@ definition. \textit{Rebel} does not provide a way to round a value, which is why
 we need to define the function in the specification. In \textit{Rebel}, a
 function is defined as an expression that is being executed whenever the
 function is being called. Unfortunately, there is currently no way in
-\textit{Rebel} to define the \textit{Scala} implementation of this
+\textit{Rebel} to write down the \textit{Scala} implementation of this
 \textit{round} function. As a workaround, we define the implementation as a
 \textit{String} and modify the generator such that the content of the
 \textit{String} (removing the quotes) will be the implementation of the
@@ -96,7 +95,7 @@ is being rounded by using the ``HALF\_UP'' rounding mode
 function round(money: Money): Money =
     "money.currency(money.amount.setScale(4, RoundingMode.HALF_UP))";
 \end{lstlisting}
-\caption{The updated event definition of the \textit{Symmetric} property}
+\caption{The \textit{round()} function in the \textit{Rebel} specification.}
 \label{lst:experiment3_rebel_round_implementation}
 \end{sourcecode}
 \FloatBarrier\noindent
@@ -117,9 +116,9 @@ A custom value generator is being created that uses the preconditions to determi
 input values. Note that this can be seen as an update to the earlier value generator that was
 created in \autoref{cpt:experiment2}. This value generator parses the
 preconditions and intends to generate values based on these conditions. Since
-the expressions inside the preconditions might become quite complex, we focus on
+the expressions inside the preconditions can become complex, we focus on
 a limited version of it, while still satisfying the requirements that are needed
-for the properties that have been defined in \autoref{cpt:properties}.\\
+for all of the properties that we defined in \autoref{cpt:properties}.\\
 \\
 Most properties are using single variables in its precondition statements. Some
 are using expressions on the left-hand or right-hand side of a statement, but
@@ -134,7 +133,7 @@ The code to generate the tuples of input values is shown in
 into the following steps:
 \def \valueGeneratorStepOne{Initialize value generation data (\hyperref[lst:experiment3_value_generation_code]{Line 7})}
 \def \valueGeneratorStepTwo{Traverse and handle statements (\hyperref[lst:experiment3_value_generation_code]{Line 9-13})}
-\def \valueGeneratorStepThree{Generate values for yet unassigned variables (\hyperref[lst:experiment3_value_generation_code]{Line 15-18})}
+\def \valueGeneratorStepThree{Generate values for remaining, unassigned, variables (\hyperref[lst:experiment3_value_generation_code]{Line 15-18})}
 \def \valueGeneratorStepFour{Add values to resulting list (\hyperref[lst:experiment3_value_generation_code]{Line 21})}
 \begin{enumerate}
   \item \valueGeneratorStepOne
@@ -170,7 +169,7 @@ public list[list[Expr]] genValues(str eventName, Preconditions? preconditions, l
     return valueList;
 }
 \end{lstlisting}
-\caption{The updated event definition of the \textit{Symmetric} property}
+\caption{Code to generate the list of input values for an event.}
 \label{lst:experiment3_value_generation_code}
 \end{sourcecode}
 \FloatBarrier\noindent
@@ -181,7 +180,7 @@ In the following sections we describe each step in detail.
 % Initialize value generation data for each variable
 \subsubsection{1. \valueGeneratorStepOne}
 To generate a single value, some data is being held to keep track of the
-conditions to which a certain value should when it is being generated. These
+conditions which the generated value should fulfil. These
 conditions are the minimum value, the maximum value and whether the zero value
 is allowed. Additionally, the result type of the variable is stored, used when
 generating the final value. This data is stored in a tuple and called
@@ -193,9 +192,9 @@ definition is shown in
 \begin{lstlisting}[language=Rascal]
 // Minimum: including. So: if 0, then 0 can be a result value when determining it random.
 // Maximum: including. So: if 10, then 10.00 is max result value when determining random.
-alias RandomValueProps = tuple[Type tipe, real min, real max, bool allowZero];
+alias RandomValueProps = tuple[Type valueType, real min, real max, bool allowZero];
 \end{lstlisting}
-\caption{The updated event definition of the \textit{Symmetric} property}
+\caption{The definition of \textit{RandomValueProps} in \textit{Rascal}.}
 \label{lst:experiment3_alias_definition_randomvalueprops}
 \end{sourcecode}
 \FloatBarrier\noindent
@@ -214,7 +213,7 @@ handled.\\
 In case of an expression that only contains variables and uses equality
 (for example, \textit{x == y}), the value generator assigns a random value to
 \textit{x} and assigns the same value to \textit{y}. In case of inequality
-(\textit{x $>$ y}), the value generator also assigns a random value to
+(for example, \textit{x $<$ y} or \textit{x $>$ y}), the value generator also assigns a random value to
 \textit{x} and adjusts the minimum or maximum bounds of the \textit{y} value
 such that it satisfies the condition.\\
 \\
@@ -251,7 +250,7 @@ Running the test framework with the addition of the properties defined in
 (\autoref{ssct:properties_definitions_additionalproperties}) results in no
 additional failing tests compared to the first experiment. Remember that the
 test framework is run with the generator in which the precision problems related
-to the \textit{Money} type are fixed (otherwise there would be failing tests,
+to the \textit{Money} type are fixed (otherwise there would be additional failing tests,
 due to the precision problems).\\
 \\
 There are still 3 failing tests in total, which are not fixed in the generator
@@ -283,14 +282,14 @@ described as a
 ``requirement for many financial calculations''~\cite{cowlishaw2003decimal}. One
 might want to use the ``DOWN'' rounding mode because a bank would prevent losing
 money because of this rounding issue. When this is the case, it can always be
-changed in the \textit{Rebel} specification when needed, we stay with
+changed in the \textit{Rebel} specification when needed, we stick with
 ``HALF\_UP'' as rounding mode.\\
 \\
 % - Adding properties didn't require a change in the value generator anymore
 For this experiment, additional property definitions have been added to test the
 generator. The value generator now determines the values based on the
 preconditions of the properties. Thus the additional properties used in this
-experiment did not require more effort than defining these in the \textit{Rebel}
+experiment did not require more effort than writing these down in the \textit{Rebel}
 specification. Compared to the second experiment (\autoref{cpt:experiment2})
 this is a huge improvement, as it does not require the developer to modify the
 value generator when implicative properties are being added.\\
@@ -335,9 +334,8 @@ experiment, additional properties were added. The total test coverage is 88,28\%
 (which is 0,42\% lower than the second experiment), shown in
 \autoref{fig:experiment3_eval_e3}. This shows that adding additional properties
 do not increase or decrease the test coverage in big amounts. The small
-percentage loss can be related to the fact that we do not check the
-\textit{else} clauses of the implicative properties, which is also not intended
-to be done.
+percentage loss could be related to the fact that we do not check the
+\textit{else} clauses of the implicative properties.
 % Figure
 \begin{figure}[!ht]
 %\frame{
@@ -360,17 +358,17 @@ the else-clause but are more interested in checking the if-clause.\\
 \pinfo{No 'extra' bugs found}
 Unfortunately, no additional bugs have been found in this experiment. Additional
 properties were being used in this experiment compared to the other experiments,
-but these did not reveal additional bugs. The implicative properties are checked
+but these did not reveal more bugs. The implicative properties are checked
 in the same way as in the second experiment, but the values are now generated
 based on the preconditions of the event definitions in the \textit{Rebel}
 specification.\\
 \\
 %   > but increased dynamicallity. We have shown that additional properties can now be added to check, without needing to update the test framework
 The properties that have been added did not require changes in the value
-generator anymore. Instead, these had to be defined in the \textit{Rebel}
-specification and the test framework automatically determines the values for it.
+generator anymore. Instead, these only had to be written down in the \textit{Rebel}
+specification. The test framework automatically determines the input values for it.
 This is an improvement compared to the second experiment, as there it would be
-required to update the value generator whenever an implicative property is being
+required to update the value generator whenever an implicative property is
 added. There are still some limitations on the value generator, for example, it
 does not support complex expressions as preconditions. This is also not needed
 for the current set of property definitions and might or might not be needed in
@@ -380,13 +378,13 @@ expressions in the value generation as future work.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Conclusion
 \section{Conclusion}
-This experiment focused on improving the value generation such that it is not
+This experiment focused on improving the value generation, such that it is not
 required to update the test framework whenever an implicative property is being
 added to the \textit{Rebel} specification. The value generator now uses the
 statements in the precondition block to determine the input values, which hereby
 satisfy the preconditions. We have shown that this increased the dynamicallity
-by adding additional property definitions. Adding these properties to the test
-framework was only a matter of translating those property definitions into the
+by adding additional properties. Adding these properties to the test
+framework was only a matter of translating those property definitions to \textit{events} in the
 \textit{Rebel} specification.\\
 \\
 This experiment did not reveal extra bugs in the generator, but we have shown
