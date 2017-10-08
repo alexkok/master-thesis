@@ -6,13 +6,13 @@
 \pinfo{Short about Rebel}
 Large systems often suffer from domain knowledge that is implicit, incomplete,
 out of date or contains ambiguous definitions. This is what \textit{Rebel} aims
-to solve~\cite{stoel2016solving}. The toolchain of \textit{Rebel} can be used to
+to solve for the financial domain~\cite{stoel2016solving}. The toolchain of \textit{Rebel} can be used to
 check, simulate and visualize the specifications, allowing to reason about the
 final product~\cite{stoel2015case}. Checking is done based on bounded model checking
 by using the \textit{Z3} solver.\\
 \\
 \pinfo{Aim of project}
-Generators are being used to generate a system from the \textit{Rebel}
+Generators are being used to generate a software system from the \textit{Rebel}
 specifications. The generated system provides an \textit{API} in order to work with the
 specified product and handles the database connectivity. However, the
 implementation of the generated system is not checked against the
@@ -87,7 +87,7 @@ The third research question is influenced by the first research question. When t
 \\
 % - Shortly describe how this is done, and how it would find bugs, test mechanics explain it in more detail, image in test mechanics.
 \pinfo{In short: how. Details are in CH3}
-The properties that are being used will first be defined, which is the result of the first research question. The generator in the \textit{Rebel} tool chain requires a \textit{Rebel} specification as input to generate a system that is written in \textit{Scala} (called ``generated system'' throughout this thesis). Due to the semantics of \textit{Rebel}, the defined properties can be translated into a \textit{Rebel} specification. Thus, we create a \textit{Rebel} specification in which the properties are written down as ``events'' in the \textit{Rebel} specification. Each property is implemented as one \textit{event}. Next, a test is being generated from each \textit{event} in this \textit{Rebel} specification. These tests will then be run against the generated system to check each property on the generated code. In case a test of a failing test, a bug has been found.\\
+The properties that are being used will first be defined, which is the result of the first research question. The generator in the \textit{Rebel} tool chain requires a \textit{Rebel} specification as input to generate a system that is written in \textit{Scala} (called ``generated system'' throughout this thesis). Due to the semantics of \textit{Rebel}, the defined properties can be translated into a \textit{Rebel} specification. Thus, we create a \textit{Rebel} specification in which the properties are written down as ``events'' in the \textit{Rebel} specification. Each property is implemented as one \textit{event}. Next, a test is being generated from each \textit{event} in this \textit{Rebel} specification. These tests will then be run against the generated system to check each property on the generated code. When a test fails, a bug has been found.\\
 \\
 \pinfo{Assumptions}
 In order to run the test suite, we assume that the generated system can be
@@ -100,7 +100,7 @@ specification.\\
 \pinfo{Not detecting everything, but checking properties}
 The test framework generates a test suite that can be run against the generated
 system. In case the test suite finishes without errors, it means that it did not
-found any bugs and that the generator satisfies the properties that were tested.
+find any bugs and that the generator satisfies the properties that were tested.
 This doesn't mean that there are no bugs in the generated system, instead, it
 means that our test suite was not able to find errors in the properties that it
 checks for. The generated system will probably still contain bugs which are not
@@ -151,7 +151,7 @@ tests based on the \textit{events} in the CST. Note that, as described earlier i
 the defined properties are written down as \textit{events} in the
 \textit{Rebel} specification.\\
 \\
-As last, we run the test suite against the generated system (\autoref{fig:intro_tf_overview}, phase 5). After running the test suite, we analyse the results of the experiment. When one or more tests are failing, a bug is found. An
+The test suite is then being run against the generated system (\autoref{fig:intro_tf_overview}, phase 5). After running the test suite, we analyse the results of the experiment. When one or more tests are failing, a bug is found. An
 investigation of the failing case is needed to discover the actual bug is because the cause of the failing case is not clearly visible in the log.\\
 \\
 We evaluate the test framework in each experiment using test coverage and the number of bugs found as metrics. Based on the results of an experiment, we improve the test framework and continue to the next experiment. In the next experiment we run the test framework again with the improvements, analyse the results and evaluate the test framework again.
@@ -190,7 +190,7 @@ point for this with the focus on important properties of \textit{Rebel}.\\
 % We have shown a way to automatically test the generator using the \textit{Rebel} language and its toolchain, with the addition of our test framework. This is done by defining the properties that are expected to hold in the first case. Which can be translated to a \textit{Rebel} specification such that a system can be generated from it. Additionally using the generator when generating the test cases, so that the translation of expressions in the generator will be checked too. The different kind of properties should be able to detect unexpected behaviour.\\
 The defined properties are being used to check the generator. In
 \autoref{cpt:testmechanics} we describe this process in detail, which
-contributes to answering the second research question:\rqTwo Throughout the experiments the test framework is improved too.\\
+contributes to answering the second research question:\rqTwo\\
 \\
 % - Found number of bugs in generated system
 % Before, in conclusion:
