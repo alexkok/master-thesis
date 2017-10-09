@@ -104,9 +104,9 @@ that satisfy the if-clause. These tuples will be used as input for the test case
 that will be generated.\\
 \\
 \pinfo{Mutating values with random operation}
-However, the values that are generated now are fixed when we use them directly
-in a test case, which completely removes the randomness of the values when
-running the tests. It would be better to keep the randomness, such that the
+However, the input values that are generated now are fixed when we use them directly
+in a test case, which completely removes the randomness of the input values when
+running the test suite multiple times. It would be better to keep the randomness, such that the input
 values are different on each run. To solve this problem, we mutate the values in
 the list with a random operation, such that the values are sort of random again. The tuples still have to
 satisfy the condition to trigger the if-clause, as this was the actual
@@ -418,7 +418,7 @@ property definitions what should happen in this case.\\
 \\
 When defining the properties in \autoref{cpt:properties}, we said that a value
 should be precise. However, it is not possible to do this for all division
-cases. Because of this, we consider the bugs that were found as false positives.
+cases. This depends on the input values when testing the property. Because of this, we consider the bugs that were found as false positives.
 The definition of the property has to be updated in order to specify what should
 happen in case such a division error occurs. Due to this error, it might be the
 case that existing bugs in the generator are not being detected with this

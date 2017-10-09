@@ -173,8 +173,7 @@ is available for \textit{Rebel}.\\
 \\
 \pinfo{Building to CST}
 Building the specification means that the specification is being checked and
-returns a CST of the specification when the specification is consistent. This is
-required in order to generate a system from it by using the generator. The CST
+returns a CST of the specification when the specification is consistent. Building also does more, like flattening the specifications, but this is not relevant for this thesis. The CST required in order to generate a system from it by using the generator. The CST
 is also used by the test framework to generate the test suite.
 
 % % % % % % % % % % % % %
@@ -359,7 +358,7 @@ framework, we evaluate the results and check what can be improved. The
 evaluation is done to be sure that the properties that we have defined are being
 tested (automatically) by the test framework and that we are able to find bugs
 with this approach. We define the following criteria to evaluate the test
-framework after each improvement:
+framework after each iteration:
 
 % Coverage
 \subsubsection{Coverage}
@@ -426,7 +425,7 @@ that this test suite would have found are already solved. This would mean that
 the number of bugs found would remain 0, thus wouldn't have any effect as
 criteria. It is still an interesting part, as the number of bugs found proofs
 that the test framework is able to find bugs. Because of this, we will report on
-this criteria and take it into account.
+this criterion and take it into account.
 
 %\todo[inline]{Efficiency? Not yet.\\
 %Can be done like getting coverage of libraries too, then substitute amount of properties and show that the same coverage can be received with less property tests. Thus less test cases, faster speed, same coverage. However, this would entail that the amount of bugs could go lower, as certain specific properties wont be tested if we require only coverage.}
@@ -446,7 +445,7 @@ our case, the generator is being used to generate a system, against which the
 test suite will run. Our approach is similar to \textit{QuickCheck} in that we use
 random input values and test each property multiple times. But we use a
 \textit{Rebel} specification and the generated system to check whether the
-properties hold when using the generator.\\
+properties hold when using the generator. Unlike \textit{QuickCheck}, we do not use mitigation techniques to pinpoint the edge cases.\\
 \\
 \pinfo{Combining all steps}
 We demonstrated a full cycle based on one property, which indicated that this

@@ -86,7 +86,9 @@ methods available. These consist of the rounding modes described in the IEEE 854
 standard and additional rounding modes as described
 in~\cite{cowlishaw2003decimal}. The fifth decimal in our \textit{round()} method
 is being rounded by using the ``HALF\_UP'' rounding mode
-(described in~\cite{cowlishaw2003decimal}). The function implementation in the
+(described in~\cite{cowlishaw2003decimal}). We chose for the ``HALF\_UP'' as this is more in line with
+our expectations and this mode is perhaps the most commonly used rounding mode when rounding
+financial numbers. However, we also analyse the effects of using some of the other available rounding modes. The implementation of the \textit{round()} method in the
 \textit{Rebel} specification is shown in
 \autoref{lst:experiment3_rebel_round_implementation}.
 % Listing
@@ -117,8 +119,7 @@ input values. Note that this can be seen as an update to the earlier value gener
 created in \autoref{cpt:experiment2}. This value generator parses the
 preconditions and intends to generate values based on these conditions. Since
 the expressions inside the preconditions can become complex, we focus on
-a limited version of it, while still satisfying the requirements that are needed
-for all of the properties that we defined in \autoref{cpt:properties}.\\
+a limited version of it. Limited in the sense that we support all of the properties that we defined in \autoref{cpt:properties}, but other expressions that were not used in our definitions might be unsupported.\\
 \\
 Most properties are using single variables in its precondition statements. Some
 are using expressions on the left-hand or right-hand side of a statement, but
