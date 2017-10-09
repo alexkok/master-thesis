@@ -271,7 +271,7 @@ property definitions should hold up to a precision of 4 decimals when using the
 round method. However, this can be modified in case a bigger precision is
 preferred. Changing the precision number to 6 or 8 decimals does not change the
 results when looking at the number of failing tests. Also, changing the rounding
-mode to ``DOWN'' does not affect our results. But using a bigger precision in
+mode to ``DOWN'' does not affect our results. Although, when using a bigger precision in
 combination with another rounding mode, such as ``FLOOR'' or ``TOP'', can result
 in some failing tests. This is being caused by an edge case in which the
 difference would be slightly off between the two values.\\

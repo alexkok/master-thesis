@@ -16,7 +16,7 @@ We use property-based testing as testing technique. The aim of this project is
 to test the implementation of the generator and trying to find, yet unknown,
 bugs in it. Unfortunately, we cannot test the properties right away on the
 generator, but we aim to test the properties as automatic as possible. To check
-the generator, we use the system that it generates. But in order to do that, a
+the generator, we use the system that it generates. In order to do that, a
 valid \textit{Rebel} specification is required. In this chapter, we describe how
 the test framework is setup such that it can automatically check whether the
 defined properties hold when using the generator.
@@ -443,7 +443,7 @@ Existing approaches often require the system under test to be written in the
 same language. This was not possible when testing the generator in our case. In
 our case, the generator is being used to generate a system, against which the
 test suite will run. Our approach is similar to \textit{QuickCheck} in that we use
-random input values and test each property multiple times. But we use a
+random input values and test each property multiple times. It differs in that we use a
 \textit{Rebel} specification and the generated system to check whether the
 properties hold when using the generator. Unlike \textit{QuickCheck}, we do not use mitigation techniques to pinpoint the edge cases.\\
 \\
@@ -496,7 +496,7 @@ Only one generator is being used throughout this thesis. However, it would be
 useful to make the test framework compatible with the other generators and
 generated systems too. This enables reasoning about the different
 implementations and its generators. Some changes are required to make the test
-framework compatible with these systems. But by doing so, every generated system
+framework compatible with these systems. By doing so, every generated system
 for which a generator is built by \textit{ING} can be checked based on the same
 properties, resulting in that the defined properties are checked thoroughly on
 every system and that inequalities can be detected between the different
