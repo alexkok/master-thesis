@@ -160,7 +160,9 @@ the defined properties are written down as \textit{events} in the
 The test suite is then being run against the generated system (\autoref{fig:intro_tf_overview}, phase 5). After running the test suite, we analyse the results of the experiment. When one or more tests are failing, a bug is found. An
 investigation of the failing case is needed to discover the actual bug is because the cause of the failing case is not clearly visible in the log.\\
 \\
-We evaluate the test framework in each experiment using test coverage and the number of bugs found as metrics. Based on the results of an experiment, we improve the test framework and continue to the next experiment. In the next experiment we run the test framework again with the improvements, analyse the results and evaluate the test framework again.
+We evaluate the test framework in each experiment using test coverage and the number of bugs found as metrics. Based on the results of an experiment, we improve the test framework and continue to the next experiment. In the next experiment we run the test framework again with the improvements, analyse the results and evaluate the test framework again.\\
+\\
+The full source of our test framework is available on \textit{Github}\footnote{\todo{ADD URL}}. However, note that the test framework makes use of the Scala/Akka generator that is written by \textit{ING} and is closed-source. Thus in order to run the test framework, access to the code of the generator is also required as the test framework depends on this generator.
 
 % Real short version
 %Then we describe how these properties can be tested on the generator,
