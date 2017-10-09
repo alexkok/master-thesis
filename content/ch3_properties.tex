@@ -62,8 +62,8 @@ most important type for a bank and has the highest priority to be implemented
 correctly.\\
 \\
 \pinfo{Types and axioms}
-For types like \textit{Integer}, the axioms of algebra can be used to determine whether
-the implementation is correct. These are most likely translated to \textit{Integer} in
+For types like \textit{Integer}, the axioms of algebra can be used as inspiration to determine whether
+the implementation is correct. An \textit{Integer} in \textit{Rebel} is most likely translated to an \textit{Integer} in
 the generated system too, with perhaps the expectation that these have the same
 properties in \textit{Scala}. However, it is not possible to rely on the
 \textit{Integer} definition of a specific language. Because another generator
@@ -81,14 +81,14 @@ provide an explanation of why a certain property is expected in
 The \textit{Money} type can be seen as a currency with an amount value. The
 amount of a \textit{Money} value can have multiple decimals depending on the
 currency. Thus, the amount can be seen as a floating number. Does this mean that
-it inherits the computation properties of Floating-Point Arithmetic, as defined
+it inherits the computational properties of Floating-Point Arithmetic, as defined
 in the IEEE standards 754 or 854? Since the \textit{Rebel} is intended to be a
 formal specification language for banking products, we don't expect that the
 described problems with this arithmetic are intended to exist on the
-\textit{Money} type. Considering that a high volume flows within a bank in terms
+\textit{Money} type. Considering high volume flows within a bank in terms
 of \textit{Money}, using the Floating-Point Arithmetic properties can result in
 the known precision, overflow and underflow errors as described
-in~\cite{goldberg1991every}. Such errors should be avoided when using the
+in~\cite{goldberg1991every}. Such errors could be avoided by using the
 \textit{Money} type. The author of~\cite{fowler2002patterns} also describes that
 the intention of the \textit{Money} type is to avoid this:
 \begin{quote}
@@ -104,8 +104,8 @@ In~\cite{fowler2002patterns} the operations that can be done with the
 \textit{*}, \textit{allocate}, \textit{$<$}, \textit{$>$}, \textit{$\leq$},
 \textit{$\geq$} and \textit{=}. Where the allocate method is used instead of the
 division~(/) operation. This is due to the division problem, requiring a number
-to be rounded off at a certain time. For example, when splitting 1 EUR with 3
-people, everyone would receive 33 cents, but what is done with the last cent
+to be rounded off at a certain time. For example, when splitting 1 EUR by 3,
+each part would be 33 cents with the consensus of two decimals. However, what is done with the last cent
 that is left? This is the problem that is being solved by the allocate method,
 representing the ratio in which the rest amount should be allocated (where the last
 cent would go to in this case)~\cite{fowler2002patterns}. The \textit{allocate}
@@ -144,7 +144,8 @@ business.
 \label{sct:properties_property_definitions}
 \pinfo{Properties based on known axioms, but has restrictions}
 The properties that we define are based on the known axioms in algebra, although
-not every property is relevant or even correct for \textit{Rebel}.\\
+not every property is relevant or holds for each type in \textit{Rebel}.\\
+$\land\lor$
 \\
 For example, it isn't possible to multiply two
 \textit{Money} types with each other in order to support the multiplicative
@@ -236,7 +237,7 @@ property, which are accepted by the type checker of \textit{Rebel}.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}           & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} (x - y) - z != x - (y - z) & nonassociativity       & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} (x - y) - z $\neq$ x - (y - z) & nonassociativity       & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                            &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                            &                        & z: Money                 \\ \hline
 \end{tabular}
@@ -512,11 +513,11 @@ symmetric property~\cite{raftery2011perspective}.
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x $\leq$ y \&\& y $\leq$ x $\implies$ x == y & antisymmetryLET        & x: Money                 \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & y: Money                 \\
-                        x $\geq$ y \&\& y $\geq$ x $\implies$ x == y & antisymmetryGET        & x: Money                 \\
-                                                                     &                        & y: Money                 \\ \hline
+                        \textbf{Formula}                                & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} x $\leq$ y $\land$ y $\leq$ x $\implies$ x == y & antisymmetryLET        & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}                                                 &                        & y: Money                 \\
+                        x $\geq$ y $\land$ y $\geq$ x $\implies$ x == y & antisymmetryGET        & x: Money                 \\
+                                                                        &                        & y: Money                 \\ \hline
 \end{tabular}
 \caption{Antisymmetry when using \textit{Money}}
 \label{tbl:ch4_money_antisymmetry}
@@ -542,19 +543,19 @@ expected to hold, as the \textit{Money} type supports these operations.
 \begin{tabular}{lll}
 \hline
                          \textbf{Formula}                                 & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF}  x == y \&\& y == z $\implies$ x == z             & transitiveEquality      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}  x == y $\land$ y == z $\implies$ x == z             & transitiveEquality      & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\
-                         x $<$ y \&\& y $<$ z $\implies$ x $<$ z          & transitiveInequalityLT  & x: Money                 \\
+                         x $<$ y $\land$ y $<$ z $\implies$ x $<$ z          & transitiveInequalityLT  & x: Money                 \\
                                                                           &                         & y: Money                 \\
                                                                           &                         & z: Money                 \\
-\rowcolor[HTML]{EFEFEF}  x $>$ y \&\& y $>$ z $\implies$ x $>$ z          & transitiveInequalityGT  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}  x $>$ y $\land$ y $>$ z $\implies$ x $>$ z          & transitiveInequalityGT  & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\
-                         x $\leq$ y \&\& y $\leq$ z $\implies$ x $\leq$ z & transitiveInequalityLET & x: Money                 \\
+                         x $\leq$ y $\land$ y $\leq$ z $\implies$ x $\leq$ z & transitiveInequalityLET & x: Money                 \\
                                                                           &                         & y: Money                 \\
                                                                           &                         & z: Money                 \\
-\rowcolor[HTML]{EFEFEF}  x $\geq$ y \&\& y $\geq$ z $\implies$ x $\geq$ z & transitiveInequalityGET & x: Money                 \\
+\rowcolor[HTML]{EFEFEF}  x $\geq$ y $\land$ y $\geq$ z $\implies$ x $\geq$ z & transitiveInequalityGET & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                   &                         & z: Money                 \\ \hline
 \end{tabular}
@@ -582,7 +583,7 @@ values.
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additiveEquality        & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                              &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                              &                         & z: Money                 \\
-                        x == y \&\& z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
+                        x == y $\land$ z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
                                                                      &                         & y: Money                 \\
                                                                      &                         & z: Money                 \\
                                                                      &                         & a: Money                 \\ \hline
@@ -639,7 +640,7 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} x $<$ y $||$ x == y $||$ x $>$ y & trichotomy             & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $<$ y $\lor$ x == y $\lor$ x $>$ y & trichotomy             & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                  &                        & y: Money                 \\ \hline
 \end{tabular}
 \caption{Trichotomy when using \textit{Money}}
@@ -664,7 +665,7 @@ definitions.
 
 % % % % % % % % % % % % %
 % Subsection: Division (Updated)
-\subsection*{Division (Updated)}
+\subsection*{Division}
 \label{ssct:properties_division_updated}
 % Table
 \begin{table}[!ht]
@@ -678,19 +679,19 @@ definitions.
                         round(x) == round(z * y) $\implies$ round(x / y) == round(z) & divisionEquality2      & x: Money                 \\
                                                                                      &                        & y: Integer               \\
                                                                                      &                        & z: Money                 \\
-\rowcolor[HTML]{EFEFEF} x == y \&\& z != 0 $\implies$ x / z == y / z                 & divisionEquality3      & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x == y $\land$ z != 0 $\implies$ x / z == y / z                 & divisionEquality3      & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
-												x $<$ y \&\& z $>$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityLT1  & x: Money                 \\
+												x $<$ y $\land$ z $>$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityLT1  & x: Money                 \\
 																																										 &                        & y: Money                 \\
 																																										 &                        & z: Integer               \\
-\rowcolor[HTML]{EFEFEF} x $<$ y \&\& z $<$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityLT2  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $<$ y $\land$ z $<$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityLT2  & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\
-												x $>$ y \&\& z $>$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityGT1  & x: Money                 \\
+												x $>$ y $\land$ z $>$ 0 $\implies$ x / z $>$ y / z              & divisionInequalityGT1  & x: Money                 \\
                                                                                      &                        & y: Money                 \\
                                                                                      &                        & z: Integer               \\
-\rowcolor[HTML]{EFEFEF} x $>$ y \&\& z $<$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityGT2  & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $>$ y $\land$ z $<$ 0 $\implies$ x / z $<$ y / z              & divisionInequalityGT2  & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                              &                        & z: Integer               \\ \hline
 \end{tabular}
@@ -704,13 +705,14 @@ The initial property definitions for \textit{Division} did not take the division
 problem into account and thus had to be updated. The updated definitions are
 using the \textit{round()} method to prevent the occurrence of the division
 problem. The \textit{round()} method rounds the value to 4 decimals and uses the
-``HALF\_UP'' rounding technique. In addition to this modification, more property
+``HALF\_UP'' rounding technique, this is described in more detail in \autoref{cpt:experiment3}.
+In addition to this modification, more property
 definitions have been added for division, as shown in
 \autoref{tbl:properties_money_division_updated}.
 
 % % % % % % % % % % % % %
 % Subsection: Additivity (Updated)
-\subsection*{Additivity (Updated)}
+\subsection*{Additivity}
 \label{ssct:properties_additivity_updated}
 % Table
 \begin{table}[!ht]
@@ -721,7 +723,7 @@ definitions have been added for division, as shown in
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ x + z == y + z             & additiveEquality        & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                              &                         & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                              &                         & z: Money                 \\
-                        x == y \&\& z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
+                        x == y $\land$ z == a $\implies$ x + z == y + a & additiveEquality4params & x: Money                 \\
                                                                      &                         & y: Money                 \\
                                                                      &                         & z: Money                 \\
                                                                      &                         & a: Money                 \\
@@ -788,16 +790,16 @@ for subtraction we defined these properties as shown in
 \rowcolor[HTML]{EFEFEF} x == y $\implies$ x * z == y * z                & multiplicativeEquality      & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & z: Integer               \\
-                        x $<$ y \&\& z $>$ 0 $\implies$ x * z $<$ y * z & multiplicativeInequalityLT1 & x: Money                 \\
+                        x $<$ y $\land$ z $>$ 0 $\implies$ x * z $<$ y * z & multiplicativeInequalityLT1 & x: Money                 \\
                                                                         &                             & y: Money                 \\
                                                                         &                             & z: Integer               \\
-\rowcolor[HTML]{EFEFEF} x $<$ y \&\& z $<$ 0 $\implies$ x * z $>$ y * z & multiplicativeInequalityLT2 & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $<$ y $\land$ z $<$ 0 $\implies$ x * z $>$ y * z & multiplicativeInequalityLT2 & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & z: Integer               \\
-                        x $>$ y \&\& z $>$ 0 $\implies$ x * z $>$ y * z & multiplicativeInequalityGT1 & x: Money                 \\
+                        x $>$ y $\land$ z $>$ 0 $\implies$ x * z $>$ y * z & multiplicativeInequalityGT1 & x: Money                 \\
                                                                         &                             & y: Money                 \\
                                                                         &                             & z: Integer               \\
-\rowcolor[HTML]{EFEFEF} x $>$ y \&\& z $<$ 0 $\implies$ x * z $<$ y * z & multiplicativeInequalityGT2 & x: Money                 \\
+\rowcolor[HTML]{EFEFEF} x $>$ y $\land$ z $<$ 0 $\implies$ x * z $<$ y * z & multiplicativeInequalityGT2 & x: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & y: Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                 &                             & z: Integer               \\ \hline
 \end{tabular}
