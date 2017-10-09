@@ -83,11 +83,19 @@ research questions:
 \item[~~~~RQ 3:] \rqThree
 \end{description}
 \pinfo{RQ3: whole approach, depended on properties}
-The third research question is influenced by the first research question. When the expected properties are known, we can indicate what kind of bugs can be found by using this approach. Namely, bugs that invalidate these properties. These properties should be meaningful for \textit{Rebel}, we focus on properties of \textit{Rebel} when using the available operators and types in the \textit{Rebel} language.\\
-\\
+The third research question is influenced by the first research question. When the expected properties are known, we can indicate what kind of bugs can be found by using this approach. Namely, bugs that invalidate these properties. These properties should be meaningful for \textit{Rebel}, we focus on properties of \textit{Rebel} when using the available operators and types in the \textit{Rebel} language.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Section: Solution direction
+\section{Solution direction}
 % - Shortly describe how this is done, and how it would find bugs, test mechanics explain it in more detail, image in test mechanics.
 \pinfo{In short: how. Details are in CH3}
-The properties that are being used will first be defined, which is the result of the first research question. The generator in the \textit{Rebel} tool chain requires a \textit{Rebel} specification as input to generate a system that is written in \textit{Scala} (called ``generated system'' throughout this thesis). Due to the semantics of \textit{Rebel}, the defined properties can be translated into a \textit{Rebel} specification. Thus, we create a \textit{Rebel} specification in which the properties are written down as ``events'' in the \textit{Rebel} specification. Each property is implemented as one \textit{event}. Next, a test is being generated from each \textit{event} in this \textit{Rebel} specification. These tests will then be run against the generated system to check each property on the generated code. When a test fails, a bug has been found.\\
+The expected properties which we would like to test on the generated code
+first have to be defined. This is the result of the first research question.
+The generator in the \textit{Rebel} tool chain requires a \textit{Rebel}
+specification as input to generate a \textit{Scala} system (called ``generated system'' throughout this thesis). A \textit{Rebel} specification contains the states, the data fields and the transitions between the states along with the pre- and post conditions of the transitions. The transitions in a \textit{Rebel} specification are called ``events''. These levels of abstraction can be confusing. In \autoref{sct:background_terminology} we describe the confusing terminologies and abstractions in detail to avoid this confusion throughout this thesis. \textit{Rebel} is described in more detail in \autoref{sct:background_rebel}.\\
+\\
+When the properties are defined, a \textit{Rebel} specification can be created in which the properties are written down as ``events'' in the \textit{Rebel} specification. Each property can be implemented as one ``event'' in the \textit{Rebel} specification. Next, a test can be generated from each ``event'' in this \textit{Rebel} specification. These tests can then be run against the generated system to check each property on the generated code. When a test fails, a bug has been found. In the next section we will describe this in more detail.\\
 \\
 \pinfo{Assumptions}
 In order to run the test suite, we assume that the generated system can be
@@ -110,9 +118,9 @@ might extend the number of bugs that it can find.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Research method
 \section{Research method}
-To check each property automatically on the generated code, we divide this
+To check each property on the generated code, we divide this
 process in different phases. Most of the phases are executed by the test
-framework such that a minimal of manual steps are needed to test the defined
+framework such that minimal manual steps are needed to test the defined
 properties. An overview of our approach is shown in
 \autoref{fig:intro_tf_overview}, each step is explained in detail in
 \autoref{cpt:testmechanics}.
@@ -136,9 +144,7 @@ properties. An overview of our approach is shown in
 % 4 Evaluate the results. Can we reason about it? What have we covered and also what have we not covered?
 %\pinfo{First defining properties, then small example}
 We start off with defining the properties that are expected to hold on the
-semantics of the generated code. With these properties, a \textit{Rebel}
-specification can be created in which the properties are written down as
-\textit{events} (\autoref{fig:intro_tf_overview}, phase 1). This phase is done
+semantics of the generated code. Coincidentally, the \textit{Rebel} syntax is strong enough such that the defined properties can be written down in the \textit{Rebel} syntax. This means that a specification can be created from these properties, in which each property is defined as an ``event'' in the \textit{Rebel} specification (\autoref{fig:intro_tf_overview}, phase 1). Only this phase is done
 manually, the next phases are executed by the test framework.\\
 \\
 This \textit{Rebel} specification is checked by the type checker and then being
@@ -284,3 +290,7 @@ In this thesis, we also focus on automatically testing the generator (by using t
 In~\cite{al2016incling} the authors describe a way to efficiently test a software product line. A software product line consists of a set of software systems that share a common set of features. However, many different products can be created from such a software product line, adding a challenge to test each combination of those products. In~\cite{al2016incling} the authors introduce \textit{IncLing}, which efficiently tests combinations of these products and take already executed combinations into account when selecting a new combination. To determine the possible combinations they use the \textit{IPCL} algorithm introduced in~\cite{johansen2012algorithm}, an algorithm that can be applied to determine the combinations of software product lines at the size and complexity found in projects in the industry.\\
 \\
 \textit{IncLing} executes its tests sequentially by selecting a combination of features that were not covered in the previous test. This is a different way of testing each possible combination and ensuring unique test cases. In this thesis, we basically define the possible combinations by defining the properties (axioms) that we expect to hold in \textit{Rebel}. Additionally, the input values are determined random, allowing different combinations as in values. However, we do not test combinations of the properties combined, but test each individually. In our approach there could be some overlap over the various defined properties.
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Subsection: Model-based testing
+\subsection{Model-based testing}
