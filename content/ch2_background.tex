@@ -37,7 +37,7 @@ translated to SMT constraints, next, the \textit{Z3} solver is being used to
 check whether the specification is consistent. An inconsistent specification
 means that a counter example has been found (meaning that a trace is found for which an
 invariant doesn't hold). It is bounded since it only checks if a counter example
-can be found within a certain number of steps. Besides checking the
+can be found within a predefined number of steps. Besides checking the
 specification, the specification can also be simulated. For simulation, the SMT
 solver is also being used to determine whether a transition can happen. After
 successfully checking the specification, meaning that no counter examples could
@@ -145,7 +145,7 @@ event deposit(amount: Money) {
 \FloatBarrier\noindent
 % End listing
 An event definition can consist of \textit{preconditions},
-\textit{postconditions} and a \textit{sync} block. The \textit{sync} block
+\textit{postconditions} and a \textit{sync} block. Each of those can only occur once in an event definition. The \textit{sync} block
 defines that each operation inside that block should execute synchronously,
 without the interaction of other events in the meanwhile. However, in this
 simple specification the \textit{sync} block is not used.\\
@@ -164,9 +164,9 @@ while we are checking properties when using the generator. Additionally, the
 \textit{Rebel} tool chain also has a type checker. In this section we aim to
 solve this confusion by describing both in more detail.\\
 \\
-The \textit{Rebel} tool chain contains a checker which checks a \textit{Rebel} specification using bounded model checking. It is limited in that it only checks a \textit{Rebel} specification, by trying to find cases in which the invariant doesn't hold. Thus, it only checks a \textit{Rebel} specification and is not able to check or test the implementation of the generator or the generated system. The input is a set of \textit{Rebel} specifications, only these \textit{Rebel} specifications are being checked, nothing more. It only supports checking a \textit{Rebel} specification. Due to this it cannot be used on the generated system, as this is written in \textit{Scala}.\\
+The \textit{Rebel} tool chain contains a checker which checks a \textit{Rebel} specification using bounded model checking. It is limited in that it only checks a \textit{Rebel} specification, by trying to find cases in which the invariant doesn't hold. It does not do anything with \textit{Rebel} specifications without an invariant. Thus, it only checks a \textit{Rebel} specification and is not able to check or test the implementation of the generator or the generated system. The input is a set of \textit{Rebel} specifications, only these \textit{Rebel} specifications are being checked, nothing more. It only supports checking a \textit{Rebel} specification. Due to this it cannot be used on the generated system, as this is written in \textit{Scala}.\\
 \\
-The type checker in the \textit{Rebel} tool chain is used to determine whether certain expressions are allowed in \textit{Rebel}. Operations like \textit{$+$}, \textit{$-$}, \textit{$*$} and \textit{$/$} can be used in \textit{Rebel}, but these are not compatible with each and every type. For example, a \textit{Money} value cannot be multiplied by another \textit{Money} value. Such errors will be prevented by the type checker. The type checker will also be taken into account when defining the properties in \autoref{cpt:properties}.\\
+The type checker in the \textit{Rebel} tool chain is used to determine whether certain expressions are allowed in \textit{Rebel}. Operations like \textit{$+$}, \textit{$-$}, \textit{$*$} and \textit{$/$} can be used in \textit{Rebel}, but these are not compatible with each and every type. For example, a \textit{Money} value cannot be multiplied by another \textit{Money} value. Such errors should be prevented by the type checker. The type checker will also be taken into account when defining the properties in \autoref{cpt:properties}.\\
 \\
 In our property-based testing approach we check whether certain properties hold when using the generator. These properties describe the expected working of the \textit{Rebel} language. Due to the syntax of \textit{Rebel}, we can define a \textit{Rebel} specification containing these properties. The type checker will prevent type-related errors in the property definitions. Our test framework uses this \textit{Rebel} specification to check whether these properties hold when using the generator. Thus, all defined properties are being checked by only running the test framework once.\\
 \\
@@ -252,18 +252,17 @@ and \textit{ScalaCheck} (for \textit{Scala})~\cite{siteScalaCheck2015}.
 \textit{FortressCheck} supports polymorphic types and, unlike
 \textit{QuickCheck}, heavily uses reflection for its value generation to solve
 certain problems with polymorphic constructs. Although \textit{Scala} supports
-polymorphism, \textit{ScalaCheck} does not use reflection to test
-this~\cite{kang2011fortresscheck}.\\
+polymorphism, \textit{ScalaCheck} does not test this~\cite{kang2011fortresscheck}.\\
 \\
 \pinfo{No QuickCheck for Rebel, not using ScalaCheck}
-There is no \textit{QuickCheck} implementation for \textit{Rebel}. As the
+There is no \textit{QuickCheck} implementation for \textit{Rebel}. This is not interesting for \textit{Rebel} because it is a declarative language, it does not execute. However, when testing the generated code it is interesting, which is what we do in this thesis. Since the
 generated system is written in \textit{Scala}, \textit{ScalaCheck} might be
 applicable for us. However, this would result in using \textit{ScalaCheck} as a
 black box, implementing the random functionality ourselves makes sure we know
 what is going on. Thus resulting in a white box implementation for our test
-framework.\\
-\\
-\pinfo{Custom modifications}
+framework.%\\
+%\\
+%\pinfo{Custom modifications}
 We can also modify it to our needs when we want to improve our test suite. One
 of the things that we want to improve is to generate values under certain
 conditions. For example, if a property only holds under a certain condition, the
