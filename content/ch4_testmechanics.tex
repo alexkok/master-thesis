@@ -477,7 +477,7 @@ additional properties that were added in the third experiment
 % Section: Threats to validity
 \section{Threats to validity}
 
-\subsection*{Uncompilable system}
+\subsubsection{Uncompilable system}
 When the generated system is unable to compile, the test framework cannot
 proceed. Because it cannot run the generated test suite against the generated
 system in that case. Although such errors could be detected by the test
@@ -487,10 +487,10 @@ compilation error would be a bug or something else, as it can have many causes.\
 When running the test framework, it can still occur that the generated system is unable to compile. We will
 see this back in \autoref{cpt:experiment1}. The test framework terminates when the generated system cannot compile. Affecting the bugs that we could find to answer the third research question:\rqThree
 
-\subsection*{Random input}
+\subsubsection{Random input}
 A threat to our approach is that we are probably not generating enough random input to detect all bugs. This affects the amount of bugs we find in each experiment as well as the kind of bugs that we might find to answer the third research question:\rqThree Also, in case we do not find any bugs, it could be that there are no bugs in the system anymore. Or that we do not generate enough random input to detect additional bugs. Or that our set of properties are not complete, as described in \autoref{cpt:properties}. Since we do only check for the properties we have defined, the first option is not the case. This approach does not find all the bugs in the system, but only checks the system with the properties that we have defined.
 
-\subsection*{One system}
+\subsubsection{One system}
 \pinfo{Only one generator}
 Only one generator is being used throughout this thesis. However, it would be
 useful to make the test framework compatible with the other generators and
@@ -514,7 +514,7 @@ way to check the generators too. Although compilation errors were not the aim of
 the project, as compilation errors can have many causes, the test framework can
 still be used to detect those to a certain extent.
 
-\subsection*{Whitebox implementation}
+\subsubsection{Whitebox implementation}
 \pinfo{ScalaCheck, not testing generator then}
 We use property-based testing as testing technique and implemented the required
 functionality ourselves, resulting in a white-box implementation. This means
