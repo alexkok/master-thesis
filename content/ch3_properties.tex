@@ -145,7 +145,6 @@ business.
 \pinfo{Properties based on known axioms, but has restrictions}
 The properties that we define are based on the known axioms in algebra, although
 not every property is relevant or holds for each type in \textit{Rebel}.\\
-$\land\lor$
 \\
 For example, it isn't possible to multiply two
 \textit{Money} types with each other in order to support the multiplicative
@@ -371,7 +370,7 @@ input parameter and the negative of the input parameter, results in the value
 zero. Note that the operation is used on the \textit{Money} type, so the
 expected value is 0 with the same currency as the currency of the input
 parameter. Although the inverse relation could also be used with multiplication
-and division (defined as \code{x*(1/x) == 0}), it is not possible to use this
+and division (defined as \code{$x \cdot (1 / x) \equiv 0$}), it is not possible to use this
 definition in our case. As we cannot divide something by a \textit{Money}
 type, which is why we only define the inverse relation using addition.
 \clearpage % FORCE PAGE BREAK
@@ -418,7 +417,7 @@ this property.
 % Subsection: Properties of equality and inequality
 \subsection{Properties of equality and inequality}
 \label{ssct:properties_definitions_equalityproperties}
-The properties in this category are mainly using the equality (==, !=) and
+The properties in this category are mainly using the equality ($\equiv$, $\neq$) and
 inequality ($<$, $>$, $\leq$, $\geq$) operators in their definitions. For the
 property names we abbreviate these operations with the naming \textit{LT},
 \textit{GT}, \textit{LET} and \textit{GET} respectively. The following
@@ -650,7 +649,7 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 % End table
 % Reasoning
 The law of trichotomy defines that for every pair of arbitrary real numbers,
-exactly one of the relations \textit{$<$}, \textit{==}, \textit{$>$} holds. We
+exactly one of the relations \textit{$<$}, \textit{$\equiv$}, \textit{$>$} holds. We
 can define a property for this when using \textit{Money}, as shown in
 \autoref{tbl:ch4_money_trichotomy}.
 \clearpage % FORCE PAGE BREAK
@@ -678,7 +677,7 @@ definitions.
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Integer            \\
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Money              \\
                         round($x$) $\equiv$ round($z \cdot y$) $\implies$
-												                     round($x / y$) == round($z$)       & divisionEquality2      & $x$ : Money              \\
+												               round($x / y$) $\equiv$ round($z$)       & divisionEquality2      & $x$ : Money              \\
                                                                                 &                        & $y$ : Integer            \\
                                                                                 &                        & $z$ : Money              \\
 \rowcolor[HTML]{EFEFEF} $x \equiv y \land z \neq 0 \implies x / z \equiv y / z$ & divisionEquality3      & $x$ : Money              \\
