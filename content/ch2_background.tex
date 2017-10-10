@@ -269,7 +269,7 @@ of the things that we want to improve is to generate values under certain
 conditions. For example, if a property only holds under a certain condition, the
 chance that random values satisfy the condition can be very low. Resulting in a
 test case that wouldn't do anything most of the time. An example of such a
-property is \textit{Symmetry} (\code{$x \equiv y \implies y \equiv x$}). %, which defines that y should be equal to x iff x is equal to y.
+property is \textit{Symmetry} (\code{$x = y \implies y = x$}). %, which defines that y should be equal to x iff x is equal to y.
 Additionally, we might also need to slightly interact with other components,
 such as the messaging layer, that the generated system uses. This could make the
 implementation more complicated when using \textit{ScalaCheck} due to the format

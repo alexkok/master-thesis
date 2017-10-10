@@ -198,19 +198,19 @@ in \textit{Rebel} when it comes to using these operations. This is because \text
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                 & \textbf{Property name}               & \textbf{Variable (Type)}    \\ \hline
-\rowcolor[HTML]{EFEFEF} $(x + y) + z \equiv x + (y + z)$                 & associativeAddition                  & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $(x + y) + z = x + (y + z)$                 & associativeAddition                  & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $y$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $z$ : Money                 \\
-                        $(x \cdot y) \cdot z \equiv x \cdot (y \cdot z)$ & associativeMultiplicationInteger1    & $x$ : Integer               \\
+                        $(x \cdot y) \cdot z = x \cdot (y \cdot z)$ & associativeMultiplicationInteger1    & $x$ : Integer               \\
                                                                          &                                      & $y$ : Integer               \\
                                                                          &                                      & $z$ : Money                 \\
-\rowcolor[HTML]{EFEFEF} $(x \cdot y) \cdot z \equiv x \cdot (y \cdot z)$ & associativeMultiplicationInteger2    & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $(x \cdot y) \cdot z = x \cdot (y \cdot z)$ & associativeMultiplicationInteger2    & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $y$ : Integer               \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $z$ : Integer               \\
-                        $(x \cdot y) \cdot z \equiv x \cdot (y \cdot z)$ & associativeMultiplicationPercentage1 & $x$ : Money                 \\
+                        $(x \cdot y) \cdot z = x \cdot (y \cdot z)$ & associativeMultiplicationPercentage1 & $x$ : Money                 \\
                                                                          &                                      & $y$ : Percentage            \\
                                                                          &                                      & $z$ : Integer               \\
-\rowcolor[HTML]{EFEFEF} $(x \cdot y) \cdot z \equiv x \cdot (y \cdot z)$ & associativeMultiplicationpercentage2 & $x$ : Integer               \\
+\rowcolor[HTML]{EFEFEF} $(x \cdot y) \cdot z = x \cdot (y \cdot z)$ & associativeMultiplicationpercentage2 & $x$ : Integer               \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $y$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                                                  &                                      & $z$ : Percentage            \\ \hline
 \end{tabular}
@@ -263,15 +263,15 @@ property holds. An exception to this would be when each argument is zero.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name}               & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x + y \equiv y + x$   & commutativeAddition                  & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $x + y = y + x$   & commutativeAddition                  & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                  &                                      & $y$ : Money                 \\
-                        $x \cdot y \equiv y \cdot x$   & commutativeMultiplicationInteger1    & $x$ : Integer               \\
+                        $x \cdot y = y \cdot x$   & commutativeMultiplicationInteger1    & $x$ : Integer               \\
                                          &                                      & $y$ : Money                 \\
-\rowcolor[HTML]{EFEFEF} $x \cdot y \equiv y \cdot x$   & commutativeMultiplicationInteger2    & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $x \cdot y = y \cdot x$   & commutativeMultiplicationInteger2    & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                  &                                      & $y$ : Integer               \\
-                        $x \cdot y \equiv y \cdot x$   & commutativeMultiplicationPercentage1 & $x$ : Percentage            \\
+                        $x \cdot y = y \cdot x$   & commutativeMultiplicationPercentage1 & $x$ : Percentage            \\
                                          &                                      & $y$ : Money                 \\
-\rowcolor[HTML]{EFEFEF} $x \cdot y \equiv y \cdot x$   & commutativeMultiplicationpercentage2 & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $x \cdot y = y \cdot x$   & commutativeMultiplicationpercentage2 & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                  &                                      & $y$ : Percentage            \\ \hline
 \end{tabular}
 \caption{Commutativity when using \textit{Money}}
@@ -299,7 +299,7 @@ parameter to multiplication or the other way around.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}        & \textbf{Property name} & \textbf{Variable (Type)}    \\ \hline
-\rowcolor[HTML]{EFEFEF} $x - y \equiv -(y - x)$ & anticommutativity      & $x$ : Money                 \\
+\rowcolor[HTML]{EFEFEF} $x - y = -(y - x)$ & anticommutativity      & $x$ : Money                 \\
 \rowcolor[HTML]{EFEFEF}                         &                        & $y$ : Money                 \\ \hline
 \end{tabular}
 \caption{Anticommutativity when using \textit{Money}}
@@ -325,10 +325,10 @@ intending to result in the actual value again, as shown in
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}     & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x + 0 \equiv x$     & additiveIdentity1       & $x$ : Money              \\
-						            $0 + x \equiv x$     & additiveIdentity2       & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF} $x \cdot 1 \equiv x$ & multiplicativeIdentity1 & $x$ : Money              \\
-                        $1 \cdot x \equiv x$ & multiplicativeIdentity2 & $x$ : Money              \\ \hline
+\rowcolor[HTML]{EFEFEF} $x + 0 = x$     & additiveIdentity1       & $x$ : Money              \\
+						            $0 + x = x$     & additiveIdentity2       & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x \cdot 1 = x$ & multiplicativeIdentity1 & $x$ : Money              \\
+                        $1 \cdot x = x$ & multiplicativeIdentity2 & $x$ : Money              \\ \hline
 \end{tabular}
 \caption{Identity when using \textit{Money}}
 \label{tbl:ch4_money_identity}
@@ -356,8 +356,8 @@ Thus it must have the same currency as the parameter, with the amount of 0. The
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}    & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x + (-x) \equiv 0$ & additiveInverse1       & $x$ : Money              \\
-                        $(-x) + x \equiv 0$ & additiveInverse2       & $x$ : Money              \\ \hline
+\rowcolor[HTML]{EFEFEF} $x + (-x) = 0$ & additiveInverse1       & $x$ : Money              \\
+                        $(-x) + x = 0$ & additiveInverse2       & $x$ : Money              \\ \hline
 \end{tabular}
 \caption{Inverse when using \textit{Money}}
 \label{tbl:ch4_money_inverse}
@@ -370,7 +370,7 @@ input parameter and the negative of the input parameter, results in the value
 zero. Note that the operation is used on the \textit{Money} type, so the
 expected value is 0 with the same currency as the currency of the input
 parameter. Although the inverse relation could also be used with multiplication
-and division (defined as \code{$x \cdot (1 / x) \equiv 0$}), it is not possible to use this
+and division (defined as \code{$x \cdot (1 / x) = 0$}), it is not possible to use this
 definition in our case. As we cannot divide something by a \textit{Money}
 type, which is why we only define the inverse relation using addition.
 \clearpage % FORCE PAGE BREAK
@@ -384,16 +384,16 @@ type, which is why we only define the inverse relation using addition.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                               & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \cdot (y + z) \equiv x \cdot y + x \cdot z$ & distributiveInteger1    & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x \cdot (y + z) = x \cdot y + x \cdot z$ & distributiveInteger1    & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                &                         & $y$ : Integer            \\
 \rowcolor[HTML]{EFEFEF}                                                &                         & $z$ : Integer            \\
-                        $(y + z) \cdot x \equiv y \cdot x + z \cdot x$ & distributiveInteger2    & $x$ : Integer            \\
+                        $(y + z) \cdot x = y \cdot x + z \cdot x$ & distributiveInteger2    & $x$ : Integer            \\
                                                                        &                         & $y$ : Money              \\
                                                                        &                         & $z$ : Money              \\
-\rowcolor[HTML]{EFEFEF} $x \cdot (y + z) \equiv x \cdot y + x \cdot z$ & distributivePercentage1 & $x$ : Percentage         \\
+\rowcolor[HTML]{EFEFEF} $x \cdot (y + z) = x \cdot y + x \cdot z$ & distributivePercentage1 & $x$ : Percentage         \\
 \rowcolor[HTML]{EFEFEF}                                                &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                &                         & $z$ : Money              \\
-                        $(y + z) \cdot x \equiv y \cdot x + z \cdot x$ & distributivePercentage2 & $x$ : Percentage         \\
+                        $(y + z) \cdot x = y \cdot x + z \cdot x$ & distributivePercentage2 & $x$ : Percentage         \\
                                                                        &                         & $y$ : Money              \\
                                                                        &                         & $z$ : Money              \\ \hline
 \end{tabular}
@@ -417,7 +417,7 @@ this property.
 % Subsection: Properties of equality and inequality
 \subsection{Properties of equality and inequality}
 \label{ssct:properties_definitions_equalityproperties}
-The properties in this category are mainly using the equality ($\equiv$, $\neq$) and
+The properties in this category are mainly using the equality ($=$, $\neq$) and
 inequality ($<$, $>$, $\leq$, $\geq$) operators in their definitions. For the
 property names we abbreviate these operations with the naming \textit{LT},
 \textit{GT}, \textit{LET} and \textit{GET} respectively. The following
@@ -433,8 +433,8 @@ property definitions belong to this category:
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}     & \textbf{Property name}      & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \cdot 0 \equiv 0$ & multiplicativeZeroProperty1 & $x$ : Money              \\
-                        $0 \cdot x \equiv 0$ & multiplicativeZeroProperty2 & $x$ : Money              \\ \hline
+\rowcolor[HTML]{EFEFEF} $x \cdot 0 = 0$ & multiplicativeZeroProperty1 & $x$ : Money              \\
+                        $0 \cdot x = 0$ & multiplicativeZeroProperty2 & $x$ : Money              \\ \hline
 \end{tabular}
 \caption{Property of Zero when using \textit{Money}}
 \label{tbl:ch4_money_propertyzero}
@@ -461,7 +461,7 @@ than zero.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula} & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv x$     & reflexiveEquality      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = x$     & reflexiveEquality      & $x$ : Money              \\
                         $x \leq x$       & reflexiveInequalityLET & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF} $x \geq x$       & reflexiveInequalityGET & $x$ : Money              \\ \hline
 \end{tabular}
@@ -488,7 +488,7 @@ variables.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                 & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv y \implies y \equiv x$ & symmetric              & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies y = x$ & symmetric              & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                  &                        & $y$ : Money              \\ \hline
 \end{tabular}
 \caption{Symmetry when using \textit{Money}}
@@ -513,9 +513,9 @@ symmetric property~\cite{raftery2011perspective}.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                              & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \leq y \land y \leq x \implies x \equiv y$ & antisymmetryLET        & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x \leq y \land y \leq x \implies x = y$ & antisymmetryLET        & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                               &                        & $y$ : Money              \\
-                        $x \geq y \land y \geq x \implies x \equiv y$ & antisymmetryGET        & $x$ : Money              \\
+                        $x \geq y \land y \geq x \implies x = y$ & antisymmetryGET        & $x$ : Money              \\
                                                                       &                        & $y$ : Money              \\ \hline
 \end{tabular}
 \caption{Antisymmetry when using \textit{Money}}
@@ -542,7 +542,7 @@ expected to hold, as the \textit{Money} type supports these operations.
 \begin{tabular}{lll}
 \hline
                          \textbf{Formula}                                  & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF}  $x \equiv y \land y \equiv z \implies x \equiv z$ & transitiveEquality      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}  $x = y \land y = z \implies x = z$ & transitiveEquality      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                         & $z$ : Money              \\
                          $x < y \land y < z \implies x < z$                & transitiveInequalityLT  & $x$ : Money              \\
@@ -579,10 +579,10 @@ values.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                          & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv y \implies x + z \equiv y + z$                  & additiveEquality        & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$                  & additiveEquality        & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                           &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                           &                         & $z$ : Money              \\
-                        $x \equiv y \land z \equiv a \implies x + z \equiv y + a$ & additiveEquality4params & $x$ : Money              \\
+                        $x = y \land z = a \implies x + z = y + a$ & additiveEquality4params & $x$ : Money              \\
                                                                                   &                         & $y$ : Money              \\
                                                                                   &                         & $z$ : Money              \\
                                                                                   &                         & $a$ : Money              \\ \hline
@@ -610,10 +610,10 @@ not break the equality property on the resulting values.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \cdot y \equiv z \implies x \equiv z / y$ & division1              & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x \cdot y = z \implies x = z / y$ & division1              & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                              &                        & $y$ : Integer            \\
 \rowcolor[HTML]{EFEFEF}                                              &                        & $z$ : Money              \\
-                        $x \equiv z \cdot y \implies x / y \equiv z$ & division2              & $x$ : Money              \\
+                        $x = z \cdot y \implies x / y = z$ & division2              & $x$ : Money              \\
                                                                      &                        & $y$ : Integer            \\
                                                                      &                        & $z$ : Money              \\ \hline
 \end{tabular}
@@ -639,7 +639,7 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                   & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x < y \lor x \equiv y \lor x > y$ & trichotomy             & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x < y \lor x = y \lor x > y$ & trichotomy             & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                    &                        & $y$ : Money              \\ \hline
 \end{tabular}
 \caption{Trichotomy when using \textit{Money}}
@@ -649,7 +649,7 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 % End table
 % Reasoning
 The law of trichotomy defines that for every pair of arbitrary real numbers,
-exactly one of the relations \textit{$<$}, \textit{$\equiv$}, \textit{$>$} holds. We
+exactly one of the relations \textit{$<$}, \textit{$=$}, \textit{$>$} holds. We
 can define a property for this when using \textit{Money}, as shown in
 \autoref{tbl:ch4_money_trichotomy}.
 \clearpage % FORCE PAGE BREAK
@@ -672,15 +672,15 @@ definitions.
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                        & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} round($x \cdot y$) $\equiv$ round($z$) $\implies$
-                                       round($x$) $\equiv$ round($z / y$)       & divisionEquality1      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} round($x \cdot y$) $=$ round($z$) $\implies$
+                                       round($x$) $=$ round($z / y$)       & divisionEquality1      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Integer            \\
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Money              \\
-                        round($x$) $\equiv$ round($z \cdot y$) $\implies$
-												               round($x / y$) $\equiv$ round($z$)       & divisionEquality2      & $x$ : Money              \\
+                        round($x$) $=$ round($z \cdot y$) $\implies$
+												               round($x / y$) $=$ round($z$)       & divisionEquality2      & $x$ : Money              \\
                                                                                 &                        & $y$ : Integer            \\
                                                                                 &                        & $z$ : Money              \\
-\rowcolor[HTML]{EFEFEF} $x \equiv y \land z \neq 0 \implies x / z \equiv y / z$ & divisionEquality3      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \land z \neq 0 \implies x / z = y / z$ & divisionEquality3      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Integer            \\
 												$x < y \land z > 0 \implies x / z < y / z$              & divisionInequalityLT1  & $x$ : Money              \\
@@ -721,10 +721,10 @@ definitions have been added for division, as shown in
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                          & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv y \implies x + z \equiv y + z$                  & additiveEquality        & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$                  & additiveEquality        & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                           &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                           &                         & $z$ : Money              \\
-                        $x \equiv y \land z \equiv a \implies x + z \equiv y + a$ & additiveEquality4params & $x$ : Money              \\
+                        $x = y \land z = a \implies x + z = y + a$ & additiveEquality4params & $x$ : Money              \\
                                                                                   &                         & $y$ : Money              \\
                                                                                   &                         & $z$ : Money              \\
                                                                                   &                         & $a$ : Money              \\
@@ -755,7 +755,7 @@ as shown in \autoref{tbl:properties_money_additivity_updated}. The existing ones
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                         & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv y \implies x - z \equiv y - z$ & subtractiveEquality     & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies x - z = y - z$ & subtractiveEquality     & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                          &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                          &                         & $z$ : Money              \\
                         $x < y \implies x - z < y - z$           & subtractiveInequalityLT & $x$ : Money              \\
@@ -787,7 +787,7 @@ for subtraction we defined these properties as shown in
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                   & \textbf{Property name}      & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x \equiv y \implies x \cdot z \equiv y \cdot z$   & multiplicativeEquality      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies x \cdot z = y \cdot z$   & multiplicativeEquality      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                             & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                             & $z$ : Integer            \\
                         $x < y \land z > 0 \implies x \cdot z < y \cdot z$ & multiplicativeInequalityLT1 & $x$ : Money              \\

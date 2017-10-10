@@ -426,7 +426,7 @@ triggered. Resulting in that it always returns \textit{true}, as this is how it
 was specified in the specification (the else-clause of an implicative property).
 This is caused by the random values that are being used as input. An example of
 this is the \textit{TransitiveEquality} property
-(\code{$x \equiv y \land y \equiv z \implies x \equiv z$}). When relying on random data,
+(\code{$x = y \land y = z \implies x = z$}). When relying on random data,
 there is a seldom chance that 3 values are equal to each other. Thus we could
 optimize the random values such that the condition holds, such that we also test
 these properties such that the if-clause is triggered. In
