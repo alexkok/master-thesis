@@ -226,7 +226,7 @@ multiplication~\cite{baumgart1961axioms}. It defines that the order in which
 certain operations are done does not affect the result of the whole expression.
 In \autoref{tbl:ch4_money_associativity} we define possible combinations for this
 property, which are accepted by the type checker of \textit{Rebel}.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Non-associativity
 \subsection*{Non-associativity}
@@ -374,7 +374,7 @@ parameter. Although the inverse relation could also be used with multiplication
 and division (defined as \code{x*(1/x) == 0}), it is not possible to use this
 definition in our case. As we cannot divide something by a \textit{Money}
 type, which is why we only define the inverse relation using addition.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Distributivity
 \subsection*{Distributivity}
@@ -451,7 +451,7 @@ The order in which this happens shouldn't matter. Since the value of a
 the value will be exactly 0 (or 0.00 in the representation of a \textit{Money}
 value). It should not contain any decimals that would make the amount bigger
 than zero.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Reflexivity
 \subsection*{Reflexivity}
@@ -532,7 +532,7 @@ The antisymmetric relation describes that whenever there is a relation from
 \textit{greater or equal than ($\geq$)} relations fit in this category, as shown
 in \autoref{tbl:ch4_money_antisymmetry}. This antisymmetric relation is also
 expected to hold, as the \textit{Money} type supports these operations.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Transitivity
 \subsection*{Transitivity}
@@ -600,7 +600,7 @@ here extend these by defining properties that are true when the input values are
 equal. When using the addition operator such that the resulting values on both
 sides remain the same, as shown in \autoref{tbl:ch4_money_symmetry}, it should
 not break the equality property on the resulting values.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Division
 \subsection*{Division}
@@ -653,7 +653,7 @@ The law of trichotomy defines that for every pair of arbitrary real numbers,
 exactly one of the relations \textit{$<$}, \textit{==}, \textit{$>$} holds. We
 can define a property for this when using \textit{Money}, as shown in
 \autoref{tbl:ch4_money_trichotomy}.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Additional properties of equality and inequality
 \subsection{Additional properties of equality and inequality}
@@ -711,7 +711,7 @@ problem. The \textit{round()} method rounds the value to 4 decimals and uses the
 In addition to this modification, more property
 definitions have been added for division, as shown in
 \autoref{tbl:properties_money_division_updated}.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Additivity (Updated)
 \subsection*{Additivity}
@@ -777,7 +777,7 @@ The property definitions concerning subtraction are kind of similar to those of
 addition in its definition. Nevertheless, to check whether the properties holds
 for subtraction we defined these properties as shown in
 \autoref{tbl:properties_money_subtraction_updated}.
-
+\clearpage % FORCE PAGE BREAK
 % % % % % % % % % % % % %
 % Subsection: Multiplication
 \subsection*{Multiplication}
