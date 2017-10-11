@@ -104,9 +104,9 @@ are shown.
 \textbf{Property name}                                       & \textbf{x}               & \textbf{y}        & \textbf{z}         \\ \hline
 \rowcolor[HTML]{EFEFEF} DistributivePercentage1              & 0.51                     & -311254801.77 EUR & -707194075.77 EUR  \\
                         DistributivePercentage2              & 0.93                     & 2089630160.75 EUR & -1316628389.49 EUR \\
-\rowcolor[HTML]{EFEFEF} DistributiveInt2                     & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
+\rowcolor[HTML]{EFEFEF} DistributiveInteger2                 & -883022216               & -298435082.93 EUR & 715725888.96 EUR   \\
                         AssociativeMultiplicationPercentage2 & 840296462                & 1771903729.60 EUR & 0.53               \\
-\rowcolor[HTML]{EFEFEF} DistributiveInt1                     & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
+\rowcolor[HTML]{EFEFEF} DistributiveInteger1                 & -1790274467.41 EUR       & 1691684272        & 1449321647         \\
                         AssociativeMultiplicationInteger2    & -1852801029.34 EUR       & -1309504561       & 1880170895         \\
 \rowcolor[HTML]{EFEFEF} AssociativeMultiplicationPercentage1 & -352883323.42 EUR        & 0.27              & 294211708          \\ \hline
 \end{tabular}
@@ -206,7 +206,7 @@ y+z                    & 773001771.26 EUR                 & 773001771.26 EUR    
 
 % % %
 % DistributiveInt2
-\subsubsection{DistributiveInt2}
+\subsubsection{DistributiveInteger2}
 \label{ssct:ch5_distributiveInt2}
 This case uses \textit{Integer} in conjunction with the \textit{Money} type.
 Earlier cases showed that there was a precision error when using the
@@ -225,20 +225,20 @@ that a precision error occurs when \textit{Money} is multiplied by an
 \centering
 \begin{tabular}{rll}
 \hline
-\textbf{Variable}  & \textbf{Value}                   & \textbf{Type}                       \\ \hline
-x                  & -883022216                       & Integer                             \\
-y                  & -298435082.93 EUR                & Money                               \\
-z                  & 715725888.96 EUR                 & Money                               \\ \hline
-\textbf{Formula}   & \textbf{Scala result}            & \textbf{Expected result}            \\ \hline
-(x*y)*z == x*(y*z) & false                            & true                                \\
-(x*y)*z            & -368477052257036740 EUR          & -368477052257036762.48 EUR          \\
-x*(y*z)            & -368477052257036796 EUR          & -368477052257036762.48 EUR          \\
-                   &                                  &                                     \\
-y+z                & 417290806.03 EUR                 & 417290806.03 EUR                    \\
-\textbf{y*x}       & \textbf{263524808260992384 EUR}  & \textbf{263524808260992372.88 EUR}  \\
-\textbf{z*x}       & \textbf{-632001860518029180 EUR} & \textbf{-632001860518029135.36 EUR} \\ \hline
+\textbf{Variable}    & \textbf{Value}                   & \textbf{Type}                       \\ \hline
+x                    & -883022216                       & Integer                             \\
+y                    & -298435082.93 EUR                & Money                               \\
+z                    & 715725888.96 EUR                 & Money                               \\ \hline
+\textbf{Formula}     & \textbf{Scala result}            & \textbf{Expected result}            \\ \hline
+(y+z)*x == y*x + z*x & false                            & true                                \\
+(y+z)*x              & -368477052257036740 EUR          & -368477052257036762.48 EUR          \\
+y*x + z*x            & -368477052257036796 EUR          & -368477052257036762.48 EUR          \\
+                     &                                  &                                     \\
+y+z                  & 417290806.03 EUR                 & 417290806.03 EUR                    \\
+\textbf{y*x}         & \textbf{263524808260992384 EUR}  & \textbf{263524808260992372.88 EUR}  \\
+\textbf{z*x}         & \textbf{-632001860518029180 EUR} & \textbf{-632001860518029135.36 EUR} \\ \hline
 \end{tabular}
-\caption{DistributiveInt2: Precision error when multiplying \textit{Money} with an \textit{Integer}}
+\caption{DistributiveInteger2: Precision error when multiplying \textit{Money} with an \textit{Integer}}
 \label{ch4_init_check_DistributiveInt2}
 \end{table}
 \FloatBarrier\noindent
@@ -282,8 +282,8 @@ y*z                & 939108976.688 EUR                & 939108976.688 EUR       
 % End table
 
 % % %
-% DistributiveInt1
-\subsubsection{DistributiveInt1}
+% DistributiveInteger1
+\subsubsection{DistributiveInteger1}
 This case also uses three variables: \textit{x}, \textit{y} and \textit{z}.
 Which are of type \textit{Money}, \textit{Integer} and \textit{Integer}
 respectively. In \autoref{ch4_init_check_DistributiveInteger1} the different
