@@ -1,0 +1,341 @@
+module gen.specs_money.MoneySpecificationLibrary
+
+import gen.specs_money.MoneySpecification
+
+// *** Money Spec ***
+// - Money doesn't allow multiplication
+// Some relations use <, <=, > and >=. Using abbreviations in its names as follows:
+// SET == Smaller(Or)EqualThan
+// SE  == SmallerThan
+// GET == Greater(Or)EqualThan
+// GE  == GreaterThan
+
+// Properties
+// https://en.wikipedia.org/wiki/Order_of_operations
+// https://en.wikipedia.org/wiki/Binary_relation
+// https://www.universalclass.com/articles/math/algebra/closure-identities-axioms-properties.htm
+// https://www.math.ucdavis.edu/~osserman/classes/115A-F14/notes/A-axioms.pdf
+//
+// https://en.wikipedia.org/wiki/Peano_axioms
+// http://www.aaamath.com/alg.htm
+
+// Basic axioms of algebra
+// http://www.aaamath.com/ac22.htm
+event reflexiveEquality(x: Money) {
+    postconditions {
+       new this.result == ( x == x );
+    }
+}
+
+event reflexiveInequalityLET(x: Money) {
+    postconditions {
+       new this.result == ( x <= x );
+    }
+}
+
+event reflexiveInequalityGET(x: Money) {
+    postconditions {
+       new this.result == ( x >= x );
+    }
+}
+
+event symmetric(x: Money, y:Money) {
+    postconditions {
+       new this.result == ( (x == y) ? y == x : True );
+    }
+}
+
+
+event transitiveEquality(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x == y && y == z) ? x == z : True );
+    }
+}
+
+event transitiveInequalityLT(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x < y && y < z) ? x < z : True );
+    }
+}
+
+event transitiveInequalityGT(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x > y && y > z) ? x > z : True );
+    }
+}
+
+event transitiveInequalityLET(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x <= y && y <= z) ? x <= z : True );
+    }
+}
+
+event transitiveInequalityGET(x: Money, y: Money, z: Money) {
+    postconditions {
+       new this.result == ( (x >= y && y >= z) ? x >= z : True );
+    }
+}
+
+event additive(x: Money, y: Money, z: Money) {
+    postconditions {
+         new this.result == ( (x==y) ? x+z == y+z : True );
+    }
+}
+
+event additive4params(x: Money, y: Money, z: Money, a: Money) {
+    postconditions {
+        new this.result == ( (x == y && z == a) ? x+z == y+a : True );
+    }
+}
+
+// * Note: We cannot multiply with Money, so we cannot check this here
+//event multiplicative(x: Money, y: Money, z: Money, a: Money) {
+//  postconditions {
+//      new this.result == True; // Always True for money for now.
+//      //new this.result == ( (x == y && z == a) ? (x*z == y*a) : True ); // Note the (should be) 'unnecessary' braces.
+//  }
+//}
+
+// Commutative and Associative Axioms and Rearrangement Properties
+// http://www.aaamath.com/ac22.htm
+event commutativeAddition(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x+y == y+x );
+    }
+}
+
+// * Note: If x or y would be an Integer, it would be correct for Money
+//event commutativeMultiplication(x: Money, y: Money) {
+//  postconditions {
+//      new this.result == True; // Always True for money for now.
+//      //new this.result == ( x*y == y*x );
+//  }
+//}
+event commutativeMultiplicationInteger1(x: Integer, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+event commutativeMultiplicationInteger2(x: Money, y: Integer) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+event commutativeMultiplicationPercentage1(x: Percentage, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+event commutativeMultiplicationPercentage2(x: Money, y: Percentage) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event associativeAddition(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x+y)+z == x+(y+z) );
+    }
+}
+
+// * Note: If x and y would be an Integer OR y and z would be an Integer, it would be correct for Money
+//event associativeMultiplication(x: Money, y: Money, z: Money) {
+//  postconditions {
+//      new this.result == True; // Always True for money for now.
+//      //new this.result == ( (x*y)*z == x*(y*z) );
+//  }
+//}
+event associativeMultiplicationInteger1(x: Integer, y: Integer, z: Money) {
+    postconditions {
+        new this.result == True; // True for now, as this doesnt seem to compile correctly? - https://github.com/typelevel/squants/issues/281
+        // new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationInteger2(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage1(x: Money, y: Percentage, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage2(x: Integer, y: Money, z: Percentage) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+// Distributive, Identity and Inverse Properties
+// http://www.aaamath.com/ac41.htm
+// * Note: (1) if y and z would be an Integer OR (2) x would be an Integer, it would be correct for Money
+//event distributive(x: Money, y: Money, z: Money) {
+//  postconditions {
+//      new this.result == True; // Always True for money for now.
+//      //new this.result == ( x*(y+z) == x*y + x*z ); // (1)
+//      //new this.result == ( (y+z)*x == y*x + z*x ); // (2)
+//  }
+//}
+event distributiveInteger1(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributiveInteger2(x: Integer, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+event distributivePercentage1(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributivePercentage2(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+// According to algebra:
+//new this.result == ( x + 0 == x );
+//new this.result == ( 0 + x == x );
+event additiveIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x + EUR 0.00 == x );
+    }
+}
+
+event additiveIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( EUR 0.00 + x == x );
+    }
+}
+
+event multiplicativeIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x*1 == x );
+    }
+}
+event multiplicativeIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( 1*x == x );
+    }
+}
+
+// According to algebra:
+//new this.result == ( x+(-x) == 0 ); // We might not need the brackets around "-x"
+//new this.result == ( (-x)+x == 0 ); // We might not need the brackets around "-x"
+event additiveInverse1(x: Money) {
+    postconditions {
+        new this.result == ( x+(-x) == EUR 0.00 ); // We might not need the brackets around "-x"
+    }
+}
+
+event additiveInverse2(x: Money) {
+    postconditions {
+        new this.result == ( (-x)+x == EUR 0.00 ); // We might not need the brackets around "-x"
+    }
+}
+
+//* Note: We cannot divide by Money
+//event multiplicativeInverse(x: Money) {
+    //postconditions {
+        //new this.result == True; // Always True for money for now.
+        //new this.result == ( x*(1/x) == 1 );
+    //}
+//}
+
+// 
+// Other properties from relations
+// * Uses different operators in one definition
+event antisymmetryLET(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( (x <= y && y <= x) ? x == y : True );
+    }
+}
+event antisymmetryGET(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( (x >= y && y >= x) ? x == y : True );
+    }
+}
+
+// Division
+// Division is the inverse of multiplication; if a × b = c, then a = c ÷ b, as long as b is not zero.
+// https://en.wikipedia.org/wiki/Division_(mathematics)
+// * Note: if y would be an Integer, it would be correct for Money
+//event division(x: Money, y: Money, z: Money) {
+//  postconditions {
+//      new this.result == True; // Always True for money for now.
+//      //new this.result == ( (x*y == z) ? (x == z/y) : True ); // Check if braces are necessary
+//      //new this.result == ( (x == z*y) ? (x/y == z) : True ); // Check if braces are necessary
+//  }
+//}
+event division1(x: Money, y: Integer, z: Money) {
+    postconditions {
+        new this.result == ( (x*y == z) ? (x == z/y) : True ); // Check if braces are necessary
+    }
+}
+event division2(x: Money, y: Integer, z: Money) {
+    postconditions {
+        new this.result == ( (x == z*y) ? (x/y == z) : True ); // Check if braces are necessary
+    }
+}
+
+// Multiplicative Property of Zero
+// https://en.wikipedia.org/wiki/Multiplication
+// According to algebra:
+//new this.result == ( x*0 == 0 );
+//new this.result == ( 0*x == 0 );
+event multiplicativeZeroProperty1(x: Money) {
+    postconditions {
+        new this.result == ( x*0 == EUR 0.00 );
+    }
+}
+
+event multiplicativeZeroProperty2(x: Money) {
+    postconditions {
+        new this.result == ( 0*x == EUR 0.00 );
+    }
+}
+
+// Subtract properties
+// https://en.wikipedia.org/wiki/Subtraction
+// Anticommutativity
+event anticommutativity(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x-y == -(y-x) );
+    }
+}
+// Non-associativity
+event nonassociativity(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x-y)-z != x-(y-z) );
+    }
+}
+
+// Trichotomy
+// https://en.wikipedia.org/wiki/Trichotomy_(mathematics)
+event trichotomy(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x < y || x == y || x > y );
+    }
+}
+
+// Inequality
+// https://en.wikipedia.org/wiki/Inequality_(mathematics)
+//new this.result == ( (x <= y) ? (x+z <= y && x-z <= y-z) );
+//new this.result == ( (x >= y) ? (x+z >= y && x-z >= y-z) );
+//event converse(x: Money, y: Money) {
+//  postconditions {
+//      new this.result == ( (x<=y) ? y>=x : True);
+//      //new this.result == ( (x>=y) ? y<=x : True);
+//  }
+//}

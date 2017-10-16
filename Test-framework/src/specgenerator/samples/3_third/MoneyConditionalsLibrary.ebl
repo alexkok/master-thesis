@@ -1,0 +1,265 @@
+module gen.specs_money.MoneyConditionalsLibrary
+
+import gen.specs_money.MoneyConditionals
+
+event symmetric(x: Money, y:Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+       new this.result == ( (x == y) ? y == x : False );
+    }
+}
+
+event transitiveEquality(x: Money, y: Money, z: Money) {
+    preconditions {
+        x == y;
+        y == z;
+    }
+    postconditions {
+       new this.result == ( (x == y && y == z) ? x == z : False );
+    }
+}
+
+event transitiveInequalityLT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x < y;
+        y < z;
+    }
+    postconditions {
+       new this.result == ( (x < y && y < z) ? x < z : False );
+    }
+}
+
+event transitiveInequalityGT(x: Money, y: Money, z: Money) {
+    preconditions {
+       x > y;
+       y > z;
+    }
+    postconditions {
+       new this.result == ( (x > y && y > z) ? x > z : False );
+    }
+}
+
+event transitiveInequalityLET(x: Money, y: Money, z: Money) {
+    preconditions {
+        x <= y;
+        y <= z;
+    }
+    postconditions {
+       new this.result == ( (x <= y && y <= z) ? x <= z : False );
+    }
+}
+
+event transitiveInequalityGET(x: Money, y: Money, z: Money) {
+    preconditions {
+        x >= y;
+        y >= z;
+    }
+    postconditions {
+       new this.result == ( (x >= y && y >= z) ? x >= z : False );
+    }
+}
+
+event additiveEquality(x: Money, y: Money, z: Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+         new this.result == ( (x==y) ? x+z == y+z : False );
+    }
+}
+
+event additiveEquality4params(x: Money, y: Money, z: Money, a: Money) {
+    preconditions {
+        x == y;
+        z == a;
+    }
+    postconditions {
+        new this.result == ( (x == y && z == a) ? x+z == y+a : False );
+    }
+}
+
+event additiveInequalityLT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x < y;
+    }
+    postconditions {
+         new this.result == ( (x<y) ? x+z < y+z : False );
+    }
+}
+
+event additiveInequalityGT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x > y;
+    }
+    postconditions {
+         new this.result == ( (x>y) ? x+z > y+z : False );
+    }
+}
+
+event antisymmetryLET(x: Money, y: Money) {
+    preconditions {
+        x <= y;
+        y <= x;
+    }
+    postconditions {
+        new this.result == ( (x <= y && y <= x) ? x == y : False );
+    }
+}
+event antisymmetryGET(x: Money, y: Money) {
+    preconditions {
+        x >= y;
+        y >= x;
+    }
+    postconditions {
+        new this.result == ( (x >= y && y >= x) ? x == y : False );
+    }
+}
+
+function round(money: Money): Money =  
+    "money.currency(money.amount.setScale(4, RoundingMode.HALF_UP))";
+
+event divisionEquality1(x: Money, y: Integer, z: Money) {
+    preconditions {
+        round((x*y)) == round((z));
+    }
+    postconditions {
+        new this.result == ( (round(x*y) == round(z)) ? (round(x) == round(z/y)) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionEquality2(x: Money, y: Integer, z: Money) {
+    preconditions {
+        round((x)) == round((z*y));
+    }
+    postconditions {
+        new this.result == ( (round(x) == round(z*y)) ? (round(x/y) == round(z)) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionEquality3(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x == y;
+        z != 0;
+    }
+    postconditions {
+        new this.result == ( (x == y && z != 0) ? (x/z == y/z) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionInequalityLT1(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x < y;
+        z > 0;
+    }
+    postconditions {
+        new this.result == ( (x < y && z > 0) ? (x/z < y/z) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionInequalityLT2(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x < y;
+        z < 0;
+    }
+    postconditions {
+        new this.result == ( (x < y && z < 0) ? (x/z > y/z) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionInequalityLGT1(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x > y;
+        z > 0;
+    }
+    postconditions {
+        new this.result == ( (x > y && z > 0) ? (x/z > y/z) : False ); // Check if braces are necessary
+    }
+}
+
+event divisionInequalityLGT2(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x > y;
+        z < 0;
+    }
+    postconditions {
+        new this.result == ( (x > y && z < 0) ? (x/z < y/z) : False ); // Check if braces are necessary
+    }
+}
+
+event subtractiveEquality(x: Money, y: Money, z: Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+        new this.result == ( (x==y) ? (x-z == y-z) : False ); // Check if braces are necessary
+    }
+}
+
+event subtractiveInequalityLT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x < y;
+    }
+    postconditions {
+        new this.result == ( (x<y) ? (x-z < y-z) : False ); // Check if braces are necessary
+    }
+}
+
+event subtractiveInequalityGT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x > y;
+    }
+    postconditions {
+        new this.result == ( (x>y) ? (x-z > y-z) : False ); // Check if braces are necessary
+    }
+}
+
+event multiplicativeEquality(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+        new this.result == ( (x==y) ? (x*z == y*z) : False ); // Check if braces are necessary
+    }
+}
+
+event multiplicativeInequalityLT1(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x < y;
+        z > 0;
+    }
+    postconditions {
+        new this.result == ( (x<y && z > 0) ? (x*z < y*z) : False ); // Check if braces are necessary
+    }
+}
+
+event multiplicativeInequalityLT2(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x < y;
+        z < 0;
+    }
+    postconditions {
+        new this.result == ( (x<y && z < 0) ? (x*z > y*z) : False ); // Check if braces are necessary
+    }
+}
+
+event multiplicativeInequalityGT1(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x > y;
+        z > 0;
+    }
+    postconditions {
+        new this.result == ( (x>y && z > 0) ? (x*z > y*z) : False ); // Check if braces are necessary
+    }
+}
+
+event multiplicativeInequalityGT2(x: Money, y: Money, z: Integer) {
+    preconditions {
+        x > y;
+        z < 0;
+    }
+    postconditions {
+        new this.result == ( (x>y && z < 0) ? (x*z < y*z) : False ); // Check if braces are necessary
+    }
+}

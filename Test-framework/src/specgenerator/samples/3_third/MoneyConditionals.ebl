@@ -1,0 +1,64 @@
+module gen.specs_money.MoneyConditionals
+
+import gen.specs_money.MoneyConditionalsLibrary
+
+specification MoneyConditionals {
+	fields {
+		id: Integer @key
+		result: Boolean
+	}
+	
+	events {
+		symmetric[]
+        transitiveEquality[]
+        transitiveInequalityLT[]
+        transitiveInequalityGT[]
+        transitiveInequalityLET[]
+        transitiveInequalityGET[]
+		additiveEquality[]
+		additiveEquality4params[]
+		
+        antisymmetryLET[]
+        antisymmetryGET[]
+		divisionEquality1[]
+        divisionEquality2[]
+        divisionEquality3[]
+        
+        subtractiveEquality[]
+        subtractiveInequalityLT[]
+        subtractiveInequalityGT[]
+        multiplicativeEquality[]
+        multiplicativeInequalityLT1[]
+        multiplicativeInequalityLT2[]
+        multiplicativeInequalityGT1[]
+        multiplicativeInequalityGT2[]
+	}
+
+	lifeCycle {
+		initial init -> result:	
+							 	symmetric
+                            ,   transitiveEquality
+                            ,   transitiveInequalityLT
+                            ,   transitiveInequalityGT
+                            ,   transitiveInequalityLET
+                            ,   transitiveInequalityGET
+							,	additiveEquality
+							,	additiveEquality4params
+							
+                            ,   antisymmetryLET
+                            ,   antisymmetryGET
+                            ,   divisionEquality1
+                            ,   divisionEquality2
+                            ,   divisionEquality3
+							
+							,   subtractiveEquality
+                            ,   subtractiveInequalityLT
+                            ,   subtractiveInequalityGT
+                            ,   multiplicativeEquality
+                            ,   multiplicativeInequalityLT1
+                            ,   multiplicativeInequalityLT2
+                            ,   multiplicativeInequalityGT1
+                            ,   multiplicativeInequalityGT2
+		final result
+	}
+}

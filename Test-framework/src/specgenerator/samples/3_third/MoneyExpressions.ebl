@@ -1,0 +1,80 @@
+module gen.specs_money.MoneyExpressions
+
+import gen.specs_money.MoneyExpressionsLibrary
+
+specification MoneyExpressions {
+	fields {
+		id: Integer @key
+		result: Boolean
+	}
+	
+	events {
+        reflexiveEquality[]
+        reflexiveInequalityLET[]
+        reflexiveInequalityGET[]
+		
+        commutativeAddition[]
+        commutativeMultiplicationInteger1[]
+        commutativeMultiplicationInteger2[]
+        commutativeMultiplicationPercentage1[]
+        commutativeMultiplicationPercentage2[]
+        associativeAddition[]
+        associativeMultiplicationInteger1[]
+        associativeMultiplicationInteger2[]
+        associativeMultiplicationPercentage1[]
+        associativeMultiplicationPercentage2[]
+		
+        distributiveInteger1[]
+        distributiveInteger2[]
+        distributivePercentage1[]
+        distributivePercentage2[]
+        additiveIdentity1[]
+        additiveIdentity2[]
+        multiplicativeIdentity1[]
+        multiplicativeIdentity2[]
+        additiveInverse1[]
+        additiveInverse2[]
+
+        multiplicativeZeroProperty1[]
+        multiplicativeZeroProperty2[]
+        anticommutativity[]
+        nonassociativity[]
+        trichotomy[]
+	}
+
+	lifeCycle {
+		initial init -> result:	
+                                reflexiveEquality
+                            ,   reflexiveInequalityLET
+                            ,   reflexiveInequalityGET
+                            
+                            ,   commutativeAddition
+                            ,   commutativeMultiplicationInteger1
+                            ,   commutativeMultiplicationInteger2
+                            ,   commutativeMultiplicationPercentage1
+                            ,   commutativeMultiplicationPercentage2
+                            ,   associativeAddition
+                            ,   associativeMultiplicationInteger1
+                            ,   associativeMultiplicationInteger2
+                            ,   associativeMultiplicationPercentage1
+                            ,   associativeMultiplicationPercentage2
+							
+                            ,   distributiveInteger1
+                            ,   distributiveInteger2
+                            ,   distributivePercentage1
+                            ,   distributivePercentage2
+                            ,   additiveIdentity1
+                            ,   additiveIdentity2
+                            ,   multiplicativeIdentity1
+                            ,   multiplicativeIdentity2
+                            ,   additiveInverse1
+                            ,   additiveInverse2
+
+                            ,   multiplicativeZeroProperty1
+                            ,   multiplicativeZeroProperty2
+                            ,   anticommutativity
+                            ,   nonassociativity
+                            ,   trichotomy
+		final result
+	}
+}

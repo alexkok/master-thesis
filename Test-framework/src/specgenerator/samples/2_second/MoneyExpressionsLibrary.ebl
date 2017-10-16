@@ -1,0 +1,172 @@
+module gen.specs_money.MoneyExpressionsLibrary
+
+import gen.specs_money.MoneyExpressions
+
+event reflexiveEquality(x: Money) {
+    postconditions {
+       new this.result == ( x == x );
+    }
+}
+
+event reflexiveInequalityLET(x: Money) {
+    postconditions {
+       new this.result == ( x <= x );
+    }
+}
+
+event reflexiveInequalityGET(x: Money) {
+    postconditions {
+       new this.result == ( x >= x );
+    }
+}
+
+event commutativeAddition(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x+y == y+x );
+    }
+}
+
+event commutativeMultiplicationInteger1(x: Integer, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationInteger2(x: Money, y: Integer) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationPercentage1(x: Percentage, y: Money) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event commutativeMultiplicationPercentage2(x: Money, y: Percentage) {
+    postconditions {
+        new this.result == ( x*y == y*x );
+    }
+}
+
+event associativeAddition(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x+y)+z == x+(y+z) );
+    }
+}
+
+event associativeMultiplicationInteger1(x: Integer, y: Integer, z: Money) {
+    postconditions {
+        new this.result == True; // True for now, as this doesnt seem to compile correctly? - https://github.com/typelevel/squants/issues/281
+        // new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationInteger2(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage1(x: Money, y: Percentage, z: Integer) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event associativeMultiplicationPercentage2(x: Integer, y: Money, z: Percentage) {
+    postconditions {
+        new this.result == ( (x*y)*z == x*(y*z) );
+    }
+}
+
+event distributiveInteger1(x: Money, y: Integer, z: Integer) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributiveInteger2(x: Integer, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+event distributivePercentage1(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( x*(y+z) == x*y + x*z );
+    }
+}
+
+event distributivePercentage2(x: Percentage, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (y+z)*x == y*x + z*x );
+    }
+}
+
+event additiveIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x + EUR 0.00 == x );
+    }
+}
+
+event additiveIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( EUR 0.00 + x == x );
+    }
+}
+
+event multiplicativeIdentity1(x: Money) {
+    postconditions {
+        new this.result == ( x*1 == x );
+    }
+}
+event multiplicativeIdentity2(x: Money) {
+    postconditions {
+        new this.result == ( 1*x == x );
+    }
+}
+
+event additiveInverse1(x: Money) {
+    postconditions {
+        new this.result == ( x+(-x) == EUR 0.00 ); // We might not need the brackets around "-x"
+    }
+}
+
+event additiveInverse2(x: Money) {
+    postconditions {
+        new this.result == ( (-x)+x == EUR 0.00 ); // We might not need the brackets around "-x"
+    }
+}
+
+event multiplicativeZeroProperty1(x: Money) {
+    postconditions {
+        new this.result == ( x*0 == EUR 0.00 );
+    }
+}
+
+event multiplicativeZeroProperty2(x: Money) {
+    postconditions {
+        new this.result == ( 0*x == EUR 0.00 );
+    }
+}
+
+event anticommutativity(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x-y == -(y-x) );
+    }
+}
+
+event nonassociativity(x: Money, y: Money, z: Money) {
+    postconditions {
+        new this.result == ( (x-y)-z != x-(y-z) );
+    }
+}
+
+event trichotomy(x: Money, y: Money) {
+    postconditions {
+        new this.result == ( x < y || x == y || x > y );
+    }
+}
+

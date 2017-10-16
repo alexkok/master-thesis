@@ -1,0 +1,19 @@
+module gen.specs_money.MoneyExample
+
+import gen.specs_money.MoneyExampleLibrary
+
+specification MoneyExample {
+	fields {
+        id: Integer @key
+		result: Boolean
+	}
+	
+	events {
+		reflexiveEquality[]
+	}
+
+	lifeCycle {
+		initial init -> result:	reflexiveEquality
+		final result
+	}
+}

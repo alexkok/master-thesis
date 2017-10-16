@@ -1,0 +1,118 @@
+module gen.specs_money.MoneyConditionalsLibrary
+
+import gen.specs_money.MoneyConditionals
+
+event symmetric(x: Money, y:Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+       new this.result == ( (x == y) ? y == x : False );
+    }
+}
+
+event transitiveEquality(x: Money, y: Money, z: Money) {
+    preconditions {
+        x == y;
+        y == z;
+    }
+    postconditions {
+       new this.result == ( (x == y && y == z) ? x == z : False );
+    }
+}
+
+event transitiveInequalityLT(x: Money, y: Money, z: Money) {
+    preconditions {
+        x < y;
+        y < z;
+    }
+    postconditions {
+       new this.result == ( (x < y && y < z) ? x < z : False );
+    }
+}
+
+event transitiveInequalityGT(x: Money, y: Money, z: Money) {
+    preconditions {
+       x > y;
+       y > z;
+    }
+    postconditions {
+       new this.result == ( (x > y && y > z) ? x > z : False );
+    }
+}
+
+event transitiveInequalityLET(x: Money, y: Money, z: Money) {
+    preconditions {
+        x <= y;
+        y <= z;
+    }
+    postconditions {
+       new this.result == ( (x <= y && y <= z) ? x <= z : False );
+    }
+}
+
+event transitiveInequalityGET(x: Money, y: Money, z: Money) {
+    preconditions {
+        x >= y;
+        y >= z;
+    }
+    postconditions {
+       new this.result == ( (x >= y && y >= z) ? x >= z : False );
+    }
+}
+
+event additive(x: Money, y: Money, z: Money) {
+    preconditions {
+        x == y;
+    }
+    postconditions {
+         new this.result == ( (x==y) ? x+z == y+z : False );
+    }
+}
+
+event additive4params(x: Money, y: Money, z: Money, a: Money) {
+    preconditions {
+        x == y;
+        z == a;
+    }
+    postconditions {
+        new this.result == ( (x == y && z == a) ? x+z == y+a : False );
+    }
+}
+
+event antisymmetryLET(x: Money, y: Money) {
+    preconditions {
+        x <= y;
+        y <= x;
+    }
+    postconditions {
+        new this.result == ( (x <= y && y <= x) ? x == y : False );
+    }
+}
+event antisymmetryGET(x: Money, y: Money) {
+    preconditions {
+        x >= y;
+        y >= x;
+    }
+    postconditions {
+        new this.result == ( (x >= y && y >= x) ? x == y : False );
+    }
+}
+
+event division1(x: Money, y: Integer, z: Money) {
+    preconditions {
+        x*y == z;
+    }
+    postconditions {
+        new this.result == ( (x*y == z) ? (x == z/y) : False ); // Check if braces are necessary
+    }
+}
+
+event division2(x: Money, y: Integer, z: Money) {
+    preconditions {
+        x == z*y;
+    }
+    postconditions {
+        new this.result == ( (x == z*y) ? (x/y == z) : False ); // Check if braces are necessary
+    }
+}

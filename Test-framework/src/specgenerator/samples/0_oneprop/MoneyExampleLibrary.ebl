@@ -1,0 +1,9 @@
+module gen.specs_money.MoneyExampleLibrary
+
+import gen.specs_money.MoneyExample
+
+event reflexiveEquality(x: Money) {
+    postconditions {
+       new this.result == ( x == x );
+    }
+}
