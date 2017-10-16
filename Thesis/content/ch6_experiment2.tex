@@ -6,7 +6,6 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Section: Smarter values generation
 %\section{Smarter values generation}
-%\label{sec:ch4_smarter_values_generation}
 \pinfo{Context - result of experiment 1, what aim is now}
 Some bugs were found by using random input values in the first experiment.
 However, the implicative properties were not effectively checked in terms of
@@ -447,21 +446,3 @@ values are being created. In \autoref{cpt:testmechanics} we described a similar 
 In this case, the traceability of how the values were created is hard because of the random operation.\\
 \\
 We have seen such an error when running this experiment multiple times. It sometimes happened that there were additional tests failing. Although these do not trigger in every run, leaving it as a threat to this approach. The error that caused these test to fail was that the preconditions are not met. This was only the case for some properties that are using ``smaller than'' ($<$) and ``greater than'' ($>$) in its definitions. The input values are set to all zeros, which results in the condition $0 > 0$, which results in \textit{false}. There is a high probability that this is caused by the random operation that is being done to mutate the input values. As mentioned earlier, the traceability for this is hard and since it does not happen regularly, fixing this issue is left as future work. Leaving it as a threat to our results.
-
-% Detecting precision
-%\subsection*{Detecting precision}
-%\todo{Update definition}
-%In this chapter, we triggered the division problem and found that this can
-%cause problems in the generator. It's important to know what the expected result
-%would be in this case. A possibility is to define this on the \textit{Rebel}
-%language or to make such rounding and precision definitions part of the
-%specification. Currently, it is unclear what should happen in this situation. We
-%concluded that the generator doesn't take the rules on precision and rounding,
-%that we have defined in \autoref{cpt:properties}, are not taken into account.
-%And that it currently uses a lower precision. The precision we defined is
-%perhaps not expected for \textit{Rebel} specifications, leaving it as a threat
-%for this approach.
-% Not testing for X decimals precision currently. We could generate values such that this isnt being triggered. However, maybe we want to do so. Or maybe its better to define the allocation or precision in Rebel, such that it is part of the specification. Currently this is unclear what should happen with division.
-
-
-% Not extra coverage maybe? If we evaluate that different than earlier.

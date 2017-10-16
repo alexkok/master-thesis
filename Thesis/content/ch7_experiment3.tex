@@ -400,21 +400,3 @@ unsupported.
 % Section: Threats to validity
 \section{Threats to validity}
 In \autoref{cpt:testmechanics} and \autoref{cpt:experiment2} we described the threat concerning generating incorrect input values. In this experiment we brought changes to the way how these input values are being determined. However, the threat still remains as the current implementation could contain some errors too. When running the test framework, we haven't encountered issues with this, other than the one described in \autoref{cpt:experiment2}.
-
-
-
-% - Implementation error in our generator. However, we generate random values every run. (unlike Z3)
-% > Running multiple times might give a fault-positive. High probability this is caused by the random operation that is done on the input values. This is a threat that came forth from experiment 2, and still exists here. - (Using > or < with 0 0 0 can happen because of this)
-
-% - Existing approaches are available too, we only checked the Z3. But SageMath or others are possibilities too. However, this requires us to make such a tool compatible with the test framework. Our own implementation has shown to work for the properties we have defined. In case of more complex properties, it might be more useful to use another tool to determine these values.
-
-% More reliable solving. Checked but not working as expected. Which is why we did our own generator
-% \subsubsection{Using existing solvers}
-
-
-
-%
-%\pinfo{Other possibilities, future work}
-%There are other solvers available too, or other methods to generate values that
-%match the condition. It would be useful to make the test framework more dynamic
-%when such properties are being used.

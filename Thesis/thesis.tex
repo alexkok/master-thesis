@@ -8,10 +8,6 @@
 \newcommand{\cmd}[1]{\texttt{$\backslash$#1}}
 \definecolor{codegray}{gray}{0.9}
 \newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
-%\newcommand{\code}[1]{\texttt{\leavevmode\unskip $`$#1$`$}}
-%\PackageWarning{TODO:}{Remove todos on final!!!}
-%\newcommand\todo[1]{{\marginpar{\textcolor{red}{$-$ TODO:\\#1}}}}
-%\renewcommand\todo[1]{} % Turns off all TODO's
 \newcommand\pinfo[1]{{\marginpar{\begin{flushleft}\textcolor{blue}{|\\#1}\end{flushleft}}}} %  Left align in \pinfo's with "flushleft"
 \renewcommand\pinfo[1]{} % Turns off all \pinfo's
 
@@ -37,16 +33,10 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Front matters
-
-%\title{ATUR: Automated Testing Using Rebel}
 \title{Property-based testing Rebel semantics in the generated code}
-% \coverpic[100pt]{figures/terminal.png}
-%\subtitle{Automatically testing a generated system using its input language}
-%\subtitle{Testing a generator using its input language and output system}
-% \date{Spring 2014}
 
 \author{Alex L.E. Kok}
-\authemail{alexkok08@gmail.com}
+\authemail{alex.kok@student.uva.nl}
 \supervisor{Jurgen J. Vinju}
 \hostsupervisor{Jorryt-Jan Dijkstra}
 \host{ING, \url{http://www.ing.nl}}
@@ -54,54 +44,23 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Content
 % Research questions
-
 % RQ Main \ How can we automatically test the implementation of the generated program?
-
-  %\item Which of the existing approaches best fits our situation to determine the test cases? \info{(Which properties of Rebel should be tested and how are these defined?)}
- % RQ 1 \item How can we automatically generate the tests, such that it can test a part of the generated system?
-  % - Properties
-  % - Define in Rebel > Translate to Scala with generator > Scala tests > Run
- % RQ 2 \item What kind of errors can we find using this approach?
-  % - Implementation of operations, such as equality, addition, multiplication, etc.
-  % - Precision errors? (is basically the above?)
-  % RQ 3 \item How can we extend our test suite to find more implementation errors?
-  % - Add sync block
-  % - Even more properties, but should be useful ones
-
-% Old one
-%\def \rqMain{ How can we automatically test the implementation of a component in the generated system against the Rebel specification, to check whether the implementation works as expected? }
-% New
-% Or something like:
-% - Wat zegt het gegenereerde systeem over de kwaliteit van de generator mbt Rebel types?
-% -
 \def \rqMain{
 	How can the generator in the \textit{Rebel} toolchain be tested automatically, by using the generated system, to check whether the implementation works as expected?
 }
-% Old one: Too vague, PBT wasn't mentioned, so 'automatically' was also unclear
-% \def \rqOne{ How can we automatically generate the tests, such that it can test a component the generated system? }
-% New
 \def \rqOne{
 	Which properties are expected to hold on the semantics of the generated code?
 }
-% Old one: zoom in, # of bugs and which type?
-%\def \rqTwo{ What kind of errors can we find using this approach? }
-% New
 \def \rqTwo{
 	How can we test each property as automatically as possible to find bugs in the generator?
 }
-% Old one: future work question...
-%\def \rqThree{ How can we extend the test suite to find more implementation errors in the generated system? }
 \def \rqThree{
 	What kind of bugs can be found using this approach and how many?
 }
 
 \input{content/ch0_front.tex}
-% Start
 \begin{document}
 \maketitle
-% Todo's
-%\listoftodos[Todo's]
-%\listoftables[Tables]
 \input{content/ch1_intro.tex}
 \input{content/ch2_background.tex}
 \input{content/ch3_properties.tex}
@@ -114,7 +73,6 @@
 \input{content/ch10_end.tex}
 
 \end{document}
-
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % Possible further improvements (TODO's):

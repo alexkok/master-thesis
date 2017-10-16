@@ -542,7 +542,7 @@ expected to hold, as the \textit{Money} type supports these operations.
 \begin{tabular}{lll}
 \hline
                          \textbf{Formula}                                  & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF}  $x = y \land y = z \implies x = z$ & transitiveEquality      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}  $x = y \land y = z \implies x = z$                & transitiveEquality      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                         & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                         & $z$ : Money              \\
                          $x < y \land y < z \implies x < z$                & transitiveInequalityLT  & $x$ : Money              \\
@@ -578,14 +578,14 @@ values.
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                                          & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$                  & additiveEquality        & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $z$ : Money              \\
+                        \textbf{Formula}                           & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$             & additiveEquality        & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $z$ : Money              \\
                         $x = y \land z = a \implies x + z = y + a$ & additiveEquality4params & $x$ : Money              \\
-                                                                                  &                         & $y$ : Money              \\
-                                                                                  &                         & $z$ : Money              \\
-                                                                                  &                         & $a$ : Money              \\ \hline
+                                                                   &                         & $y$ : Money              \\
+                                                                   &                         & $z$ : Money              \\
+                                                                   &                         & $a$ : Money              \\ \hline
 \end{tabular}
 \caption{Additivity when using \textit{Money}}
 \label{tbl:ch4_money_additivity}
@@ -609,13 +609,13 @@ not break the equality property on the resulting values.
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                             & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+                        \textbf{Formula}                   & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} $x \cdot y = z \implies x = z / y$ & division1              & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & $y$ : Integer            \\
-\rowcolor[HTML]{EFEFEF}                                              &                        & $z$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                    &                        & $y$ : Integer            \\
+\rowcolor[HTML]{EFEFEF}                                    &                        & $z$ : Money              \\
                         $x = z \cdot y \implies x / y = z$ & division2              & $x$ : Money              \\
-                                                                     &                        & $y$ : Integer            \\
-                                                                     &                        & $z$ : Money              \\ \hline
+                                                           &                        & $y$ : Integer            \\
+                                                           &                        & $z$ : Money              \\ \hline
 \end{tabular}
 \caption{Division when using \textit{Money}}
 \label{tbl:ch4_money_division}
@@ -638,9 +638,9 @@ be zero, as division by zero is not possible. % Maybe theres a source for divisi
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                   & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+                        \textbf{Formula}              & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} $x < y \lor x = y \lor x > y$ & trichotomy             & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                    &                        & $y$ : Money              \\ \hline
+\rowcolor[HTML]{EFEFEF}                               &                        & $y$ : Money              \\ \hline
 \end{tabular}
 \caption{Trichotomy when using \textit{Money}}
 \label{tbl:ch4_money_trichotomy}
@@ -671,30 +671,30 @@ definitions.
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                                        & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
+                        \textbf{Formula}                              & \textbf{Property name} & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} round($x \cdot y$) $=$ round($z$) $\implies$
-                                       round($x$) $=$ round($z / y$)       & divisionEquality1      & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Integer            \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Money              \\
+                                       round($x$) $=$ round($z / y$)  & divisionEquality1      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $y$ : Integer            \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $z$ : Money              \\
                         round($x$) $=$ round($z \cdot y$) $\implies$
-												               round($x / y$) $=$ round($z$)       & divisionEquality2      & $x$ : Money              \\
-                                                                                &                        & $y$ : Integer            \\
-                                                                                &                        & $z$ : Money              \\
+												               round($x / y$) $=$ round($z$)  & divisionEquality2      & $x$ : Money              \\
+                                                                      &                        & $y$ : Integer            \\
+                                                                      &                        & $z$ : Money              \\
 \rowcolor[HTML]{EFEFEF} $x = y \land z \neq 0 \implies x / z = y / z$ & divisionEquality3      & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Integer            \\
-												$x < y \land z > 0 \implies x / z < y / z$              & divisionInequalityLT1  & $x$ : Money              \\
-																																			          &                        & $y$ : Money              \\
-																																			          &                        & $z$ : Integer            \\
-\rowcolor[HTML]{EFEFEF} $x < y \land z < 0 \implies x / z > y / z$              & divisionInequalityLT2  & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Integer            \\
-												$x > y \land z > 0 \implies x / z > y / z$              & divisionInequalityGT1  & $x$ : Money              \\
-                                                                                &                        & $y$ : Money              \\
-                                                                                &                        & $z$ : Integer            \\
-\rowcolor[HTML]{EFEFEF} $x > y \land z < 0 \implies x / z < y / z$              & divisionInequalityGT2  & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                         &                        & $z$ : Integer            \\ \hline
+\rowcolor[HTML]{EFEFEF}                                               &                        & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $z$ : Integer            \\
+												$x < y \land z > 0 \implies x / z < y / z$    & divisionInequalityLT1  & $x$ : Money              \\
+																																	    &                        & $y$ : Money              \\
+																																	    &                        & $z$ : Integer            \\
+\rowcolor[HTML]{EFEFEF} $x < y \land z < 0 \implies x / z > y / z$    & divisionInequalityLT2  & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $z$ : Integer            \\
+												$x > y \land z > 0 \implies x / z > y / z$    & divisionInequalityGT1  & $x$ : Money              \\
+                                                                      &                        & $y$ : Money              \\
+                                                                      &                        & $z$ : Integer            \\
+\rowcolor[HTML]{EFEFEF} $x > y \land z < 0 \implies x / z < y / z$    & divisionInequalityGT2  & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                               &                        & $z$ : Integer            \\ \hline
 \end{tabular}
 \caption{Updated definition of Division when using \textit{Money}}
 \label{tbl:properties_money_division_updated}
@@ -720,20 +720,20 @@ definitions have been added for division, as shown in
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                                          & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$                  & additiveEquality        & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $z$ : Money              \\
+                        \textbf{Formula}                           & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+\rowcolor[HTML]{EFEFEF} $x = y \implies x + z = y + z$             & additiveEquality        & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $z$ : Money              \\
                         $x = y \land z = a \implies x + z = y + a$ & additiveEquality4params & $x$ : Money              \\
-                                                                                  &                         & $y$ : Money              \\
-                                                                                  &                         & $z$ : Money              \\
-                                                                                  &                         & $a$ : Money              \\
-\rowcolor[HTML]{EFEFEF} $x < y \implies x + z < y + z$                            & additiveInequalityLT    & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                                           &                         & $z$ : Money              \\
-                        $x > y \implies x + z > y + z$                            & additiveInequalityGT    & $x$ : Money              \\
-                                                                                  &                         & $y$ : Money              \\
-                                                                                  &                         & $z$ : Money              \\ \hline
+                                                                   &                         & $y$ : Money              \\
+                                                                   &                         & $z$ : Money              \\
+                                                                   &                         & $a$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x < y \implies x + z < y + z$             & additiveInequalityLT    & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                            &                         & $z$ : Money              \\
+                        $x > y \implies x + z > y + z$             & additiveInequalityGT    & $x$ : Money              \\
+                                                                   &                         & $y$ : Money              \\
+                                                                   &                         & $z$ : Money              \\ \hline
 \end{tabular}
 \caption{Additivity when using \textit{Money}}
 \label{tbl:properties_money_additivity_updated}
@@ -754,16 +754,16 @@ as shown in \autoref{tbl:properties_money_additivity_updated}. The existing ones
 \centering
 \begin{tabular}{lll}
 \hline
-                        \textbf{Formula}                         & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
+                        \textbf{Formula}               & \textbf{Property name}  & \textbf{Variable (Type)} \\ \hline
 \rowcolor[HTML]{EFEFEF} $x = y \implies x - z = y - z$ & subtractiveEquality     & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                          &                         & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                          &                         & $z$ : Money              \\
-                        $x < y \implies x - z < y - z$           & subtractiveInequalityLT & $x$ : Money              \\
-                                                                 &                         & $y$ : Money              \\
-                                                                 &                         & $z$ : Money              \\
-\rowcolor[HTML]{EFEFEF} $x > y \implies x - z > y - z$           & subtractiveInequalityGT & $x$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                          &                         & $y$ : Money              \\
-\rowcolor[HTML]{EFEFEF}                                          &                         & $z$ : Money              \\ \hline
+\rowcolor[HTML]{EFEFEF}                                &                         & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                &                         & $z$ : Money              \\
+                        $x < y \implies x - z < y - z$ & subtractiveInequalityLT & $x$ : Money              \\
+                                                       &                         & $y$ : Money              \\
+                                                       &                         & $z$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x > y \implies x - z > y - z$ & subtractiveInequalityGT & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                &                         & $y$ : Money              \\
+\rowcolor[HTML]{EFEFEF}                                &                         & $z$ : Money              \\ \hline
 \end{tabular}
 \caption{Subtraction when using \textit{Money}}
 \label{tbl:properties_money_subtraction_updated}
@@ -787,7 +787,7 @@ for subtraction we defined these properties as shown in
 \begin{tabular}{lll}
 \hline
                         \textbf{Formula}                                   & \textbf{Property name}      & \textbf{Variable (Type)} \\ \hline
-\rowcolor[HTML]{EFEFEF} $x = y \implies x \cdot z = y \cdot z$   & multiplicativeEquality      & $x$ : Money              \\
+\rowcolor[HTML]{EFEFEF} $x = y \implies x \cdot z = y \cdot z$             & multiplicativeEquality      & $x$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                             & $y$ : Money              \\
 \rowcolor[HTML]{EFEFEF}                                                    &                             & $z$ : Integer            \\
                         $x < y \land z > 0 \implies x \cdot z < y \cdot z$ & multiplicativeInequalityLT1 & $x$ : Money              \\
@@ -883,9 +883,7 @@ implementers of \textit{Rebel} might disagree with the fact that it's a bug
 (a false-positive). However, this issue is then getting known by using this
 approach, which does not mark this as a major threat.
 
-% Substituting properties
-% Change 1: Alternative
-% Change 2: Minimum number of
+% Minimum
 \subsubsection{Minimum number properties}
 We defined many properties in this chapter. This might lead to questions like:
 is this the minimal (or optimal) number of property definitions in order to
