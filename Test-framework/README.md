@@ -4,8 +4,6 @@ The source of the test framework.
 * The test framework uses Rebel and the Scala/Akka generator as dependencies. These must be opened in the Eclipse workspace too in order to run the test framework.
 * Furthermore, the test framework requires the Scala Build Tool (SBT) to run the generated system and to run the test framework.
 
-**NOTE:** Please note that the test framework depends on the Scala/Akka generator that is written by ING. This generator is currently closed source, but this might change in the future. As a result, it is not possible to run the test framework without this generator.
-
 We used the test framework with the following versions. Using newer versions might or might not break its functionality.
 
 | Name                 | Version                       | Source                                 | Notes                           |
@@ -13,6 +11,8 @@ We used the test framework with the following versions. Using newer versions mig
 | Rascal               | 0.8.4.201707040848 (Unstable) | https://github.com/usethesource/rascal | Unstable, stable is not updated |
 | Rebel                | 1.0.0                         | https://github.com/cwi-swat/rebel      | Git commit hash: 6dc2ed9        |
 | ing-rebel-generators | 1.0.0                         | _Closed source_                        | Git commit hash: 47121bc        |
+
+**NOTE:** Please note that the test framework depends on the Scala/Akka generator that is written by ING. This generator is currently closed source, but this might change in the future. As a result, it is not possible to run the test framework without this generator.
 
 # Experiments
 To run the experiments, we assume that the project is configured and opened in Eclipse.
