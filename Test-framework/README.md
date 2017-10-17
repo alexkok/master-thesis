@@ -42,7 +42,7 @@ The first experiment consists of using only random input values for each test.
 2. In the method `generateSpecifications(loc targetLocation)`, ensure that the line `return generateForInitialCase(targetLocation);` is enabled. And ensure that the other lines in this method are commented out.
 3. In the console, run `testSpecifications(fixPrecisionIssue=false, run=true)`.
 
-## Experiment 2 
+### Experiment 2 
 In the second experiment, we use the initial version of the value generator.
 1. Open the `src\specgenerator\SpecGenerator.rsc` file.
 2. In the method `generateSpecifications(loc targetLocation)`, ensure that the line `return generateForSecondCase(targetLocation);` is enabled. And ensure that the other lines in this method are commented out.
