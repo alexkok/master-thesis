@@ -4,7 +4,7 @@ The source of the test framework.
 * The test framework uses Rebel and the Scala/Akka generator as dependencies. These must be opened in the Eclipse workspace too in order to run the test framework.
 * Furthermore, the test framework requires the Scala Build Tool (SBT) to run the generated system and to run the test framework.
 
-*NOTE:* Please note that the test framework depends on the Scala/Akka generator that is written by ING. This generator is currently closed source, but this might change in the future. As a result, it is not possible to run the test framework without this generator.
+**NOTE:** Please note that the test framework depends on the Scala/Akka generator that is written by ING. This generator is currently closed source, but this might change in the future. As a result, it is not possible to run the test framework without this generator.
 
 # Experiments
 To run the experiments, we assume that the project is configured and opened in Eclipse.
@@ -16,9 +16,9 @@ In our thesis we ran three experiments. For the latter two experiments a fixed v
 - Import the Main module. -- (Either write `import Main;` in the console OR use right mouse click in the file, then `Import Current Module in Console`)
 - The method that we will use in each experiment is `testSpecifications(bool fixPrecisionIssue = false, bool run = false)`.
 
-*NOTE:* Note that running the test suite is optional and configured by this parameter. The test suite can always be run by `sbt test` in the directory of the generated system. -- The logs of this result are colored and therefore provide more overview. In the Rascal console colors are not supported, thus resulting in that each log statement is shown in black.
+**NOTE:** Note that running the test suite is optional and configured by this parameter. The test suite can always be run by `sbt test` in the directory of the generated system. -- The logs of this result are colored and therefore provide more overview. In the Rascal console colors are not supported, thus resulting in that each log statement is shown in black.
 
-*NOTE:* The 1.4 version of Squants was not released yet. Thus in order to use this fix, the following steps were taken:
+**NOTE:** The 1.4 version of Squants was not released yet. Thus in order to use this fix, the following steps were taken:
 - Checkout the Squants source.
 - Build it locally.
 - Publish the library locally (as 1.4-SNAPSHOT).
